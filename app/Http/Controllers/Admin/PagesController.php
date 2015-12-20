@@ -86,14 +86,15 @@ class PagesController extends Controller
 
             $article->save();
             if( $request -> has('role')) $article -> saveRoles($request -> get('role'));
-            foreach (config('app.locales') as $locale => $value) {
-                foreach($article->translatedAttributes as $attribute) {
-					if( config('app.locale') !=  $locale) $article->translateOrNew($locale)->$attribute = $request->get($attribute.'_'.$locale);
-					else $article->translateOrNew($locale)->$attribute = $request->get($attribute);
-
+			if(isset($article->translatedAttributes ) && count($article->translatedAttributes )>1) {
+				foreach (config('app.locales') as $locale => $value) {
+					foreach($article->translatedAttributes as $attribute) {
+						if( config('app.locale') !=  $locale) $article->translateOrNew($locale)->$attribute = $request->get($attribute.'_'.$locale);
+						else $article->translateOrNew($locale)->$attribute = $request->get($attribute);
+					}
+					$article->save();
 				}
-                $article->save();
-            }
+			}
             $article->save();
 		    return redirect(action('Admin\PagesController@edit', $models.'/'.$article->id))->with('status', 'The article has been updated!');
 	}

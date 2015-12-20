@@ -34,7 +34,7 @@ class AdminForm {
 					$this->html .= $this->containerLanguage($value);
 					$this->html .="<div id=\"language_box_".$locale."\">";
 					foreach($model->translatedAttributes as $attribute) {
-						$value = $model->translate($locale)->$attribute;
+						$value = (isset($model->translate($locale)->$attribute))? $model->translate($locale)->$attribute:'';
 						$this->property = $model->fieldspec[$attribute];
 						$this->formModelHandler( $model,$model->fieldspec[$attribute],$attribute.'_'.$locale,$value);
 					}
