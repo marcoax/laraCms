@@ -41,3 +41,15 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+.apdisk
+.project
+.settings/*
+*.pdf
+*.doc
+public/*.*
+xxx*.*
+*delete*.php
+cache/*.*
+*idea
+*.txt
