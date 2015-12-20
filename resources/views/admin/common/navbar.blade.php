@@ -47,7 +47,7 @@
                                     <a href="{{ URL::to('/users/logout') }}">Logout</a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/users/'.Auth::user()->id.'/edit') }}">Profile</a>
+                                    <a href="{{ URL::to('/admin/edit/users/'.Auth::user()->id) }}">Profile</a>
                                 </li>
                             @else
                                 <li>

@@ -1,5 +1,10 @@
 ## laraCms  simple Laravel CMS Framework
 
+### Install
+
+1) copy file in your  local   directory
+2) edit  env file and set your db  connection data
+3) run Php artisan migrate
 
 
 ### License
