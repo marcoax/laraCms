@@ -1,7 +1,7 @@
-  ## laraCms  simple Laravel CMS Framework
+## laraCms  simple Laravel CMS Framework
   
 
- ### Install
+### Install
  
  - copy files in your local directory
  - edit env file and set your db connection data
@@ -11,5 +11,6 @@
     - email : admin@laraCms.com
    - password: password
   
-  ### License
+### License
+The laraCms framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
   
