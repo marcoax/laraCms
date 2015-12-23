@@ -8,11 +8,11 @@ use Illuminate\Queue\Console\WorkCommand;
 use Illuminate\Queue\Console\ListenCommand;
 use Illuminate\Queue\Console\RestartCommand;
 use Illuminate\Queue\Connectors\SqsConnector;
-use Illuminate\Queue\Console\SubscribeCommand;
 use Illuminate\Queue\Connectors\NullConnector;
 use Illuminate\Queue\Connectors\SyncConnector;
 use Illuminate\Queue\Connectors\IronConnector;
 use Illuminate\Queue\Connectors\RedisConnector;
+use Illuminate\Queue\Failed\NullFailedJobProvider;
 use Illuminate\Queue\Connectors\DatabaseConnector;
 use Illuminate\Queue\Connectors\BeanstalkdConnector;
 use Illuminate\Queue\Failed\DatabaseFailedJobProvider;
@@ -38,8 +38,6 @@ class QueueServiceProvider extends ServiceProvider
         $this->registerWorker();
 
         $this->registerListener();
-
-        $this->registerSubscriber();
 
         $this->registerFailedJobServices();
 
@@ -139,20 +137,6 @@ class QueueServiceProvider extends ServiceProvider
         });
 
         $this->commands('command.queue.restart');
-    }
-
-    /**
-     * Register the push queue subscribe command.
-     *
-     * @return void
-     */
-    protected function registerSubscriber()
-    {
-        $this->app->singleton('command.queue.subscribe', function () {
-            return new SubscribeCommand;
-        });
-
-        $this->commands('command.queue.subscribe');
     }
 
     /**
@@ -259,23 +243,7 @@ class QueueServiceProvider extends ServiceProvider
         $app = $this->app;
 
         $manager->addConnector('iron', function () use ($app) {
-            return new IronConnector($app['encrypter'], $app['request']);
-        });
-
-        $this->registerIronRequestBinder();
-    }
-
-    /**
-     * Register the request rebinding event for the Iron queue.
-     *
-     * @return void
-     */
-    protected function registerIronRequestBinder()
-    {
-        $this->app->rebinding('request', function ($app, $request) {
-            if ($app['queue']->connected('iron')) {
-                $app['queue']->connection('iron')->setRequest($request);
-            }
+            return new IronConnector($app['encrypter']);
         });
     }
 
@@ -289,7 +257,11 @@ class QueueServiceProvider extends ServiceProvider
         $this->app->singleton('queue.failer', function ($app) {
             $config = $app['config']['queue.failed'];
 
-            return new DatabaseFailedJobProvider($app['db'], $config['database'], $config['table']);
+            if (isset($config['table'])) {
+                return new DatabaseFailedJobProvider($app['db'], $config['database'], $config['table']);
+            } else {
+                return new NullFailedJobProvider;
+            }
         });
     }
 
@@ -314,8 +286,8 @@ class QueueServiceProvider extends ServiceProvider
     {
         return [
             'queue', 'queue.worker', 'queue.listener', 'queue.failer',
-            'command.queue.work', 'command.queue.listen', 'command.queue.restart',
-            'command.queue.subscribe', 'queue.connection',
+            'command.queue.work', 'command.queue.listen',
+            'command.queue.restart', 'queue.connection',
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Illuminate\Auth\Passwords;
 
 use Closure;
+use Illuminate\Support\Arr;
 use UnexpectedValueException;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
@@ -88,7 +89,7 @@ class PasswordBroker implements PasswordBrokerContract
         // user with a link to reset their password. We will then redirect back to
         // the current URI having nothing set in the session to indicate errors.
         $token = $this->tokens->create($user);
-       
+
         $this->emailResetLink($user, $token, $callback);
 
         return PasswordBrokerContract::RESET_LINK_SENT;
@@ -163,8 +164,7 @@ class PasswordBroker implements PasswordBrokerContract
         if (! $this->validateNewPassword($credentials)) {
             return PasswordBrokerContract::INVALID_PASSWORD;
         }
-         
-	
+
         if (! $this->tokens->exists($user, $credentials['token'])) {
             return PasswordBrokerContract::INVALID_TOKEN;
         }
@@ -230,7 +230,7 @@ class PasswordBroker implements PasswordBrokerContract
      */
     public function getUser(array $credentials)
     {
-        $credentials = array_except($credentials, ['token']);
+        $credentials = Arr::except($credentials, ['token']);
 
         $user = $this->users->retrieveByCredentials($credentials);
 

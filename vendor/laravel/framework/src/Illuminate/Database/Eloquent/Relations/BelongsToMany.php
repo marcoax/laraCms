@@ -528,7 +528,7 @@ class BelongsToMany extends Relation
     /**
      * Get all of the IDs for the related models.
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     public function getRelatedIds()
     {
@@ -536,7 +536,7 @@ class BelongsToMany extends Relation
 
         $fullKey = $related->getQualifiedKeyName();
 
-        return $this->getQuery()->select($fullKey)->lists($related->getKeyName());
+        return $this->getQuery()->select($fullKey)->pluck($related->getKeyName());
     }
 
     /**
@@ -559,11 +559,11 @@ class BelongsToMany extends Relation
     /**
      * Save an array of new models and attach them to the parent model.
      *
-     * @param  array  $models
+     * @param  \Illuminate\Support\Collection|array  $models
      * @param  array  $joinings
      * @return array
      */
-    public function saveMany(array $models, array $joinings = [])
+    public function saveMany($models, array $joinings = [])
     {
         foreach ($models as $key => $model) {
             $this->save($model, (array) Arr::get($joinings, $key), false);
@@ -731,7 +731,7 @@ class BelongsToMany extends Relation
      *
      * @param  array  $records
      * @param  array  $joinings
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return array
      */
     public function createMany(array $records, array $joinings = [])
     {
@@ -749,7 +749,7 @@ class BelongsToMany extends Relation
     /**
      * Sync the intermediate tables with a list of IDs or collection of models.
      *
-     * @param  array  $ids
+     * @param  \Illuminate\Database\Eloquent\Collection|array  $ids
      * @param  bool   $detaching
      * @return array
      */
@@ -766,7 +766,7 @@ class BelongsToMany extends Relation
         // First we need to attach any of the associated models that are not currently
         // in this joining table. We'll spin through the given IDs, checking to see
         // if they exist in the array of current ones, and if not we will insert.
-        $current = $this->newPivotQuery()->lists($this->otherKey);
+        $current = $this->newPivotQuery()->pluck($this->otherKey);
 
         $records = $this->formatSyncList($ids);
 
@@ -778,7 +778,9 @@ class BelongsToMany extends Relation
         if ($detaching && count($detach) > 0) {
             $this->detach($detach);
 
-            $changes['detached'] = (array) array_map(function ($v) { return (int) $v; }, $detach);
+            $changes['detached'] = (array) array_map(function ($v) {
+                return is_numeric($v) ? (int) $v : (string) $v;
+            }, $detach);
         }
 
         // Now we are finally ready to attach the new records. Note that we'll disable
@@ -835,7 +837,7 @@ class BelongsToMany extends Relation
             if (! in_array($id, $current)) {
                 $this->attach($id, $attributes, $touch);
 
-                $changes['attached'][] = (int) $id;
+                $changes['attached'][] = is_numeric($id) ? (int) $id : (string) $id;
             }
 
             // Now we'll try to update an existing pivot record with the attributes that were
@@ -843,7 +845,7 @@ class BelongsToMany extends Relation
             // list of updated pivot records so we return them back out to the consumer.
             elseif (count($attributes) > 0 &&
                 $this->updateExistingPivot($id, $attributes, $touch)) {
-                $changes['updated'][] = (int) $id;
+                $changes['updated'][] = is_numeric($id) ? (int) $id : (string) $id;
             }
         }
 
@@ -1140,7 +1142,7 @@ class BelongsToMany extends Relation
     /**
      * Set the columns on the pivot table to retrieve.
      *
-     * @param  mixed  $columns
+     * @param  array|mixed  $columns
      * @return $this
      */
     public function withPivot($columns)

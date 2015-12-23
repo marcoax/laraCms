@@ -1,5 +1,7 @@
 # Laravel Localization
 
+[![Join the chat at https://gitter.im/mcamara/laravel-localization](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mcamara/laravel-localization?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Latest Stable Version](https://poser.pugx.org/mcamara/laravel-localization/version.png)](https://packagist.org/packages/mcamara/laravel-localization) [![Total Downloads](https://poser.pugx.org/mcamara/laravel-localization/d/total.png)](https://packagist.org/packages/mcamara/laravel-localization) [![Build Status](https://travis-ci.org/mcamara/laravel-localization.png)](https://travis-ci.org/mcamara/laravel-localization)
 
 Easy i18n localization for Laravel, an useful tool to combine with Laravel localization classes.
@@ -55,7 +57,7 @@ Open `config/app.php` and find the `providers` key. Add `LaravelLocalizationServ
 
 ```php
 	...
-	'Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider'
+	Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class
 	...
 ```
 
@@ -63,7 +65,7 @@ You can also add an alias to the list of class aliases in the same file.
 
 ```php
 	...
-	'LaravelLocalization'	=> 'Mcamara\LaravelLocalization\Facades\LaravelLocalization'
+	'LaravelLocalization'	=> Mcamara\LaravelLocalization\Facades\LaravelLocalization::class
 	...
 ```
 
@@ -126,9 +128,9 @@ To do so, you have to register the middleware in the `app/Http/Kernel.php` file 
 		 */
 		protected $routeMiddleware = [
 			/**** OTHER MIDDLEWARE ****/
-			'localize' => 'Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes',
-			'localizationRedirect' => 'Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter',
-			'localeSessionRedirect' => 'Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect'
+			'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+			'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+			'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class
 			// REDIRECTION MIDDLEWARE
 		];
 

@@ -27,6 +27,13 @@
                     </a>
                 </div>
             </div>
+            <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 pf5">
+                <div class="btn-icon bck-color-2 text-center color-2 transitioned">
+                    <a href="{{ URL::to('/admin/list/socials') }}" class="color-2"><i class="fa fa-hand-o-right fa-4x"></i>
+                        <h3 class="color-2 mv5">Socialize</h3>
+                    </a>
+                </div>
+            </div>
 
             <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 pf5">
                 <div class="btn-icon bck-color-main text-center color-2 transitioned">

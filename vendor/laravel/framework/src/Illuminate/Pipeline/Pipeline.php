@@ -63,7 +63,7 @@ class Pipeline implements PipelineContract
     /**
      * Set the array of pipes.
      *
-     * @param  dynamic|array  $pipes
+     * @param  array|mixed  $pipes
      * @return $this
      */
     public function through($pipes)
@@ -121,7 +121,7 @@ class Pipeline implements PipelineContract
                     list($name, $parameters) = $this->parsePipeString($pipe);
 
                     return call_user_func_array([$this->container->make($name), $this->method],
-                                                array_merge([$passable, $stack], $parameters));
+                            array_merge([$passable, $stack], $parameters));
                 }
             };
         };

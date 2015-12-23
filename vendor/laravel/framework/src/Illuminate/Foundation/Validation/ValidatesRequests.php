@@ -4,8 +4,9 @@ namespace Illuminate\Foundation\Validation;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exception\HttpResponseException;
 
 trait ValidatesRequests
 {
@@ -25,7 +26,7 @@ trait ValidatesRequests
      * @param  array  $customAttributes
      * @return void
      *
-     * @throws \Illuminate\Http\Exception\HttpResponseException
+     * @throws \Illuminate\Foundation\Validation\ValidationException
      */
     public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
     {
@@ -46,7 +47,7 @@ trait ValidatesRequests
      * @param  array  $customAttributes
      * @return void
      *
-     * @throws \Illuminate\Http\Exception\HttpResponseException
+     * @throws \Illuminate\Foundation\Validation\ValidationException
      */
     public function validateWithBag($errorBag, Request $request, array $rules, array $messages = [], array $customAttributes = [])
     {
@@ -62,11 +63,11 @@ trait ValidatesRequests
      * @param  \Illuminate\Contracts\Validation\Validator  $validator
      * @return void
      *
-     * @throws \Illuminate\Http\Exception\HttpResponseException
+     * @throws \Illuminate\Foundation\Validation\ValidationException
      */
     protected function throwValidationException(Request $request, $validator)
     {
-        throw new HttpResponseException($this->buildFailedValidationResponse(
+        throw new ValidationException($validator, $this->buildFailedValidationResponse(
             $request, $this->formatValidationErrors($validator)
         ));
     }
@@ -107,7 +108,7 @@ trait ValidatesRequests
      */
     protected function getRedirectUrl()
     {
-        return app('Illuminate\Routing\UrlGenerator')->previous();
+        return app(UrlGenerator::class)->previous();
     }
 
     /**
@@ -117,7 +118,7 @@ trait ValidatesRequests
      */
     protected function getValidationFactory()
     {
-        return app('Illuminate\Contracts\Validation\Factory');
+        return app(Factory::class);
     }
 
     /**

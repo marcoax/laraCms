@@ -6,11 +6,15 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Routing\UrlRoutable;
+use Illuminate\Routing\Exceptions\UrlGenerationException;
 use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
 
 class UrlGenerator implements UrlGeneratorContract
 {
+    use Macroable;
+
     /**
      * The route collection.
      *
@@ -138,7 +142,7 @@ class UrlGenerator implements UrlGeneratorContract
     }
 
     /**
-     * Generate a absolute URL to the given path.
+     * Generate an absolute URL to the given path.
      *
      * @param  string  $path
      * @param  mixed  $extra
@@ -167,7 +171,14 @@ class UrlGenerator implements UrlGeneratorContract
         // for passing the array of parameters to this URL as a list of segments.
         $root = $this->getRootUrl($scheme);
 
-        return $this->trimUrl($root, $path, $tail);
+        if (($queryPosition = strpos($path, '?')) !== false) {
+            $query = mb_substr($path, $queryPosition);
+            $path = mb_substr($path, 0, $queryPosition);
+        } else {
+            $query = '';
+        }
+
+        return $this->trimUrl($root, $path, $tail).$query;
     }
 
     /**
@@ -199,6 +210,24 @@ class UrlGenerator implements UrlGeneratorContract
         // file in the paths. If it does, we will remove it since it is not needed
         // for asset paths, but only for routes to endpoints in the application.
         $root = $this->getRootUrl($this->getScheme($secure));
+
+        return $this->removeIndex($root).'/'.trim($path, '/');
+    }
+
+    /**
+     * Generate a URL to an asset from a custom root domain such as CDN, etc.
+     *
+     * @param  string  $root
+     * @param  string  $path
+     * @param  bool|null  $secure
+     * @return string
+     */
+    public function assetFrom($root, $path, $secure = null)
+    {
+        // Once we get the root URL, we will check to see if it contains an index.php
+        // file in the paths. If it does, we will remove it since it is not needed
+        // for asset paths, but only for routes to endpoints in the application.
+        $root = $this->getRootUrl($this->getScheme($secure), $root);
 
         return $this->removeIndex($root).'/'.trim($path, '/');
     }
@@ -292,10 +321,16 @@ class UrlGenerator implements UrlGeneratorContract
 
         $domain = $this->getRouteDomain($route, $parameters);
 
-        $uri = strtr(rawurlencode($this->addQueryString($this->trimUrl(
+        $uri = $this->addQueryString($this->trimUrl(
             $root = $this->replaceRoot($route, $domain, $parameters),
             $this->replaceRouteParameters($route->uri(), $parameters)
-        ), $parameters)), $this->dontEncode);
+        ), $parameters);
+
+        if (preg_match('/\{.*?\}/', $uri)) {
+            throw UrlGenerationException::forMissingParameters($route);
+        }
+
+        $uri = strtr(urlencode($uri), $this->dontEncode);
 
         return $absolute ? $uri : '/'.ltrim(str_replace($root, '', $uri), '/');
     }
@@ -310,7 +345,9 @@ class UrlGenerator implements UrlGeneratorContract
      */
     protected function replaceRoot($route, $domain, &$parameters)
     {
-        return $this->replaceRouteParameters($this->getRouteRoot($route, $domain), $parameters);
+        return $this->replaceRouteParameters(
+            $this->getRouteRoot($route, $domain), $parameters
+        );
     }
 
     /**
@@ -322,11 +359,13 @@ class UrlGenerator implements UrlGeneratorContract
      */
     protected function replaceRouteParameters($path, array &$parameters)
     {
-        if (count($parameters)) {
-            $path = preg_replace_sub(
-                '/\{.*?\}/', $parameters, $this->replaceNamedParameters($path, $parameters)
-            );
-        }
+        $path = $this->replaceNamedParameters($path, $parameters);
+
+        $path = preg_replace_callback('/\{.*?\}/', function ($match) use (&$parameters) {
+            return (empty($parameters) && ! Str::endsWith($match[0], '?}'))
+                        ? $match[0]
+                        : array_shift($parameters);
+        }, $path);
 
         return trim(preg_replace('/\{.*?\?\}/', '', $path), '/');
     }
@@ -436,7 +475,9 @@ class UrlGenerator implements UrlGeneratorContract
      */
     protected function getStringParameters(array $parameters)
     {
-        return Arr::where($parameters, function ($k, $v) { return is_string($k); });
+        return Arr::where($parameters, function ($k) {
+            return is_string($k);
+        });
     }
 
     /**
@@ -447,7 +488,9 @@ class UrlGenerator implements UrlGeneratorContract
      */
     protected function getNumericParameters(array $parameters)
     {
-        return Arr::where($parameters, function ($k, $v) { return is_numeric($k); });
+        return Arr::where($parameters, function ($k) {
+            return is_numeric($k);
+        });
     }
 
     /**
@@ -623,7 +666,7 @@ class UrlGenerator implements UrlGeneratorContract
     /**
      * Get the request instance.
      *
-     * @return \Symfony\Component\HttpFoundation\Request
+     * @return \Illuminate\Http\Request
      */
     public function getRequest()
     {
@@ -672,11 +715,13 @@ class UrlGenerator implements UrlGeneratorContract
     /**
      * Get the session implementation from the resolver.
      *
-     * @return \Illuminate\Session\Store
+     * @return \Illuminate\Session\Store|null
      */
     protected function getSession()
     {
-        return call_user_func($this->sessionResolver ?: function () {});
+        if ($this->sessionResolver) {
+            return call_user_func($this->sessionResolver);
+        }
     }
 
     /**

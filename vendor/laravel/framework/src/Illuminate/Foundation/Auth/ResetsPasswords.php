@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 trait ResetsPasswords
 {
+    use RedirectsUsers;
+
     /**
      * Display the form to request a password reset link.
      *
@@ -17,6 +18,20 @@ trait ResetsPasswords
      */
     public function getEmail()
     {
+        return $this->showLinkRequestForm();
+    }
+
+    /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLinkRequestForm()
+    {
+        if (view()->exists('auth.passwords.email')) {
+            return view('auth.passwords.email');
+        }
+
         return view('auth.password');
     }
 
@@ -28,16 +43,26 @@ trait ResetsPasswords
      */
     public function postEmail(Request $request)
     {
+        return $this->sendResetLinkEmail($request);
+    }
+
+    /**
+     * Send a reset link to the given user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sendResetLinkEmail(Request $request)
+    {
         $this->validate($request, ['email' => 'required|email']);
-       
+
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
             $message->subject($this->getEmailSubject());
-			
         });
-        
-	    switch ($response) {
+
+        switch ($response) {
             case Password::RESET_LINK_SENT:
-                return redirect()->back()->with('message', 'An email has  ben sento  to your  email adress');
+                return redirect()->back()->with('status', trans($response));
 
             case Password::INVALID_USER:
                 return redirect()->back()->withErrors(['email' => trans($response)]);
@@ -51,19 +76,38 @@ trait ResetsPasswords
      */
     protected function getEmailSubject()
     {
-        return isset($this->subject) ? $this->subject : 'Your Password Reset Link';
+        return property_exists($this, 'subject') ? $this->subject : 'Your Password Reset Link';
     }
 
     /**
      * Display the password reset view for the given token.
      *
-     * @param  string  $token
+     * If no token is present, display the link request form.
+     *
+     * @param  string|null  $token
      * @return \Illuminate\Http\Response
      */
     public function getReset($token = null)
     {
+        return $this->showResetForm($token);
+    }
+
+    /**
+     * Display the password reset view for the given token.
+     *
+     * If no token is present, display the link request form.
+     *
+     * @param  string|null  $token
+     * @return \Illuminate\Http\Response
+     */
+    public function showResetForm($token = null)
+    {
         if (is_null($token)) {
-            throw new NotFoundHttpException;
+            return $this->getEmail();
+        }
+
+        if (view()->exists('auth.passwords.reset')) {
+            return view('auth.passwords.reset')->with('token', $token);
         }
 
         return view('auth.reset')->with('token', $token);
@@ -76,6 +120,17 @@ trait ResetsPasswords
      * @return \Illuminate\Http\Response
      */
     public function postReset(Request $request)
+    {
+        return $this->reset($request);
+    }
+
+    /**
+     * Reset the given user's password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function reset(Request $request)
     {
         $this->validate($request, [
             'token' => 'required',
@@ -90,13 +145,10 @@ trait ResetsPasswords
         $response = Password::reset($credentials, function ($user, $password) {
             $this->resetPassword($user, $password);
         });
-        
-		
+
         switch ($response) {
-        	
-			
             case Password::PASSWORD_RESET:
-                return redirect($this->redirectPath());
+                return redirect($this->redirectPath())->with('status', trans($response));
 
             default:
                 return redirect()->back()
@@ -119,19 +171,5 @@ trait ResetsPasswords
         $user->save();
 
         Auth::login($user);
-    }
-
-    /**
-     * Get the post register / login redirect path.
-     *
-     * @return string
-     */
-    public function redirectPath()
-    {
-        if (property_exists($this, 'redirectPath')) {
-            return $this->redirectPath;
-        }
-
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
     }
 }

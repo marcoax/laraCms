@@ -3,6 +3,7 @@
 namespace Illuminate\Translation;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\NamespacedItemResolver;
 use Symfony\Component\Translation\MessageSelector;
@@ -52,15 +53,28 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface
     }
 
     /**
+     * Determine if a translation exists for a given locale.
+     *
+     * @param  string  $key
+     * @param  string|null  $locale
+     * @return bool
+     */
+    public function hasForLocale($key, $locale = null)
+    {
+        return $this->has($key, $locale, false);
+    }
+
+    /**
      * Determine if a translation exists.
      *
      * @param  string  $key
-     * @param  string  $locale
+     * @param  string|null  $locale
+     * @param  bool  $fallback
      * @return bool
      */
-    public function has($key, $locale = null)
+    public function has($key, $locale = null, $fallback = true)
     {
-        return $this->get($key, [], $locale) !== $key;
+        return $this->get($key, [], $locale, $fallback) !== $key;
     }
 
     /**
@@ -68,17 +82,20 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface
      *
      * @param  string  $key
      * @param  array   $replace
-     * @param  string  $locale
+     * @param  string|null  $locale
+     * @param  bool  $fallback
      * @return string
      */
-    public function get($key, array $replace = [], $locale = null)
+    public function get($key, array $replace = [], $locale = null, $fallback = true)
     {
         list($namespace, $group, $item) = $this->parseKey($key);
 
         // Here we will get the locale that should be used for the language line. If one
         // was not passed, we will use the default locales which was given to us when
         // the translator was instantiated. Then, we can load the lines and return.
-        foreach ($this->parseLocale($locale) as $locale) {
+        $locales = $fallback ? $this->parseLocale($locale) : [$locale ?: $this->locale];
+
+        foreach ($locales as $locale) {
             $this->load($namespace, $group, $locale);
 
             $line = $this->getLine(
@@ -133,7 +150,11 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface
         $replace = $this->sortReplacements($replace);
 
         foreach ($replace as $key => $value) {
-            $line = str_replace(':'.$key, $value, $line);
+            $line = str_replace(
+                [':'.Str::upper($key), ':'.Str::ucfirst($key), ':'.$key],
+                [Str::upper($value), Str::ucfirst($value), $value],
+                $line
+            );
         }
 
         return $line;

@@ -9,8 +9,8 @@ use Cron\CronExpression;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Contracts\Mail\Mailer;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessUtils;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Foundation\Application;
 
 class Event
 {
@@ -64,18 +64,18 @@ class Event
     public $withoutOverlapping = false;
 
     /**
-     * The filter callback.
+     * The array of filter callbacks.
      *
-     * @var \Closure
+     * @var array
      */
-    protected $filter;
+    protected $filters = [];
 
     /**
-     * The reject callback.
+     * The array of reject callbacks.
      *
-     * @var \Closure
+     * @var array
      */
-    protected $reject;
+    protected $rejects = [];
 
     /**
      * The location that output should be sent to.
@@ -83,6 +83,13 @@ class Event
      * @var string
      */
     public $output = '/dev/null';
+
+    /**
+     * Indicates whether output should be appended.
+     *
+     * @var bool
+     */
+    protected $shouldAppendOutput = false;
 
     /**
      * The array of callbacks to be run before the event is started.
@@ -124,7 +131,7 @@ class Event
      */
     protected function getDefaultOutput()
     {
-        return (strpos(strtoupper(PHP_OS), 'WIN') === 0) ? 'NUL' : '/dev/null';
+        return (DIRECTORY_SEPARATOR == '\\') ? 'NUL' : '/dev/null';
     }
 
     /**
@@ -198,16 +205,18 @@ class Event
     }
 
     /**
-     * Build the comand string.
+     * Build the command string.
      *
      * @return string
      */
     public function buildCommand()
     {
+        $redirect = $this->shouldAppendOutput ? ' >> ' : ' > ';
+
         if ($this->withoutOverlapping) {
-            $command = '(touch '.$this->mutexPath().'; '.$this->command.'; rm '.$this->mutexPath().') > '.$this->output.' 2>&1 &';
+            $command = '(touch '.$this->mutexPath().'; '.$this->command.'; rm '.$this->mutexPath().')'.$redirect.$this->output.' 2>&1 &';
         } else {
-            $command = $this->command.' > '.$this->output.' 2>&1 &';
+            $command = $this->command.$redirect.$this->output.' 2>&1 &';
         }
 
         return $this->user ? 'sudo -u '.$this->user.' '.$command : $command;
@@ -220,7 +229,7 @@ class Event
      */
     protected function mutexPath()
     {
-        return storage_path('framework/schedule-'.md5($this->expression.$this->command));
+        return storage_path('framework/schedule-'.sha1($this->expression.$this->command));
     }
 
     /**
@@ -229,7 +238,7 @@ class Event
      * @param  \Illuminate\Contracts\Foundation\Application  $app
      * @return bool
      */
-    public function isDue(Application $app)
+    public function isDue($app)
     {
         if (! $this->runsInMaintenanceMode() && $app->isDownForMaintenance()) {
             return false;
@@ -262,11 +271,18 @@ class Event
      * @param  \Illuminate\Contracts\Foundation\Application  $app
      * @return bool
      */
-    protected function filtersPass(Application $app)
+    protected function filtersPass($app)
     {
-        if (($this->filter && ! $app->call($this->filter)) ||
-             $this->reject && $app->call($this->reject)) {
-            return false;
+        foreach ($this->filters as $callback) {
+            if (! $app->call($callback)) {
+                return false;
+            }
+        }
+
+        foreach ($this->rejects as $callback) {
+            if ($app->call($callback)) {
+                return false;
+            }
         }
 
         return true;
@@ -533,7 +549,7 @@ class Event
     /**
      * Set the days of the week the command should run on.
      *
-     * @param  array|dynamic  $days
+     * @param  array|mixed  $days
      * @return $this
      */
     public function days($days)
@@ -572,7 +588,7 @@ class Event
     /**
      * Limit the environments the command should run in.
      *
-     * @param  array|dynamic  $environments
+     * @param  array|mixed  $environments
      * @return $this
      */
     public function environments($environments)
@@ -616,7 +632,7 @@ class Event
      */
     public function when(Closure $callback)
     {
-        $this->filter = $callback;
+        $this->filters[] = $callback;
 
         return $this;
     }
@@ -629,7 +645,7 @@ class Event
      */
     public function skip(Closure $callback)
     {
-        $this->reject = $callback;
+        $this->rejects[] = $callback;
 
         return $this;
     }
@@ -638,19 +654,33 @@ class Event
      * Send the output of the command to a given location.
      *
      * @param  string  $location
+     * @param  bool  $append
      * @return $this
      */
-    public function sendOutputTo($location)
+    public function sendOutputTo($location, $append = false)
     {
-        $this->output = $location;
+        $this->output = ProcessUtils::escapeArgument($location);
+
+        $this->shouldAppendOutput = $append;
 
         return $this;
     }
 
     /**
+     * Append the output of the command to a given location.
+     *
+     * @param  string  $location
+     * @return $this
+     */
+    public function appendOutputTo($location)
+    {
+        return $this->sendOutputTo($location, true);
+    }
+
+    /**
      * E-mail the results of the scheduled operation.
      *
-     * @param  array|dynamic  $addresses
+     * @param  array|mixed  $addresses
      * @return $this
      *
      * @throws \LogicException
@@ -708,7 +738,9 @@ class Event
      */
     public function pingBefore($url)
     {
-        return $this->before(function () use ($url) { (new HttpClient)->get($url); });
+        return $this->before(function () use ($url) {
+            (new HttpClient)->get($url);
+        });
     }
 
     /**
@@ -732,7 +764,9 @@ class Event
      */
     public function thenPing($url)
     {
-        return $this->then(function () use ($url) { (new HttpClient)->get($url); });
+        return $this->then(function () use ($url) {
+            (new HttpClient)->get($url);
+        });
     }
 
     /**

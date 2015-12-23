@@ -147,7 +147,9 @@ class Validator implements ValidatorContract
      * @var array
      */
     protected $implicitRules = [
-        'Required', 'RequiredWith', 'RequiredWithAll', 'RequiredWithout', 'RequiredWithoutAll', 'RequiredIf', 'Accepted',
+        'Required', 'RequiredWith', 'RequiredWithAll', 'RequiredWithout', 'RequiredWithoutAll',
+        'RequiredIf', 'RequiredUnless', 'Accepted',
+        // 'Array', 'Boolean', 'Integer', 'Numeric', 'String',
     ];
 
     /**
@@ -165,8 +167,12 @@ class Validator implements ValidatorContract
         $this->translator = $translator;
         $this->customMessages = $messages;
         $this->data = $this->parseData($data);
-        $this->rules = $this->explodeRules($rules);
         $this->customAttributes = $customAttributes;
+
+        // Explode the rules first so that the implicit ->each calls are made...
+        $rules = $this->explodeRules($rules);
+
+        $this->rules = array_merge((array) $this->rules, $rules);
     }
 
     /**
@@ -208,8 +214,14 @@ class Validator implements ValidatorContract
      */
     protected function explodeRules($rules)
     {
-        foreach ($rules as $key => &$rule) {
-            $rule = (is_string($rule)) ? explode('|', $rule) : $rule;
+        foreach ($rules as $key => $rule) {
+            if (Str::contains($key, '*')) {
+                $this->each($key, $rule);
+
+                unset($rules[$key]);
+            } else {
+                $rules[$key] = (is_string($rule)) ? explode('|', $rule) : $rule;
+            }
         }
 
         return $rules;
@@ -260,22 +272,14 @@ class Validator implements ValidatorContract
      */
     public function each($attribute, $rules)
     {
-        $data = Arr::get($this->data, $attribute);
+        $data = Arr::dot($this->data);
 
-        if (! is_array($data)) {
-            if ($this->hasRule($attribute, 'Array')) {
-                return;
-            }
-
-            throw new InvalidArgumentException('Attribute for each() must be an array.');
-        }
-
-        foreach ($data as $dataKey => $dataValue) {
-            foreach ((array) $rules as $ruleKey => $ruleValue) {
-                if (! is_string($ruleKey)) {
-                    $this->mergeRules("$attribute.$dataKey", $ruleValue);
-                } else {
-                    $this->mergeRules("$attribute.$dataKey.$ruleKey", $ruleValue);
+        foreach ($data as $key => $value) {
+            if (Str::startsWith($key, $attribute) || Str::is($attribute, $key)) {
+                foreach ((array) $rules as $ruleKey => $ruleValue) {
+                    if (! is_string($ruleKey) || Str::endsWith($key, $ruleKey)) {
+                        $this->mergeRules($key, $ruleValue);
+                    }
                 }
             }
         }
@@ -686,6 +690,29 @@ class Validator implements ValidatorContract
     }
 
     /**
+     * Validate that an attribute exists when another attribute does not have a given value.
+     *
+     * @param  string  $attribute
+     * @param  mixed  $value
+     * @param  mixed  $parameters
+     * @return bool
+     */
+    protected function validateRequiredUnless($attribute, $value, $parameters)
+    {
+        $this->requireParameterCount(2, $parameters, 'required_unless');
+
+        $data = Arr::get($this->data, $parameters[0]);
+
+        $values = array_slice($parameters, 1);
+
+        if (! in_array($data, $values)) {
+            return $this->validateRequired($attribute, $value);
+        }
+
+        return true;
+    }
+
+    /**
      * Get the number of attributes in a list that are present.
      *
      * @param  array  $attributes
@@ -775,7 +802,11 @@ class Validator implements ValidatorContract
      */
     protected function validateArray($attribute, $value)
     {
-        return is_array($value);
+        if (! Arr::has($this->data, $attribute)) {
+            return true;
+        }
+
+        return is_null($value) || is_array($value);
     }
 
     /**
@@ -787,9 +818,13 @@ class Validator implements ValidatorContract
      */
     protected function validateBoolean($attribute, $value)
     {
+        if (! Arr::has($this->data, $attribute)) {
+            return true;
+        }
+
         $acceptable = [true, false, 0, 1, '0', '1'];
 
-        return in_array($value, $acceptable, true);
+        return is_null($value) || in_array($value, $acceptable, true);
     }
 
     /**
@@ -801,7 +836,11 @@ class Validator implements ValidatorContract
      */
     protected function validateInteger($attribute, $value)
     {
-        return filter_var($value, FILTER_VALIDATE_INT) !== false;
+        if (! Arr::has($this->data, $attribute)) {
+            return true;
+        }
+
+        return is_null($value) || filter_var($value, FILTER_VALIDATE_INT) !== false;
     }
 
     /**
@@ -813,7 +852,11 @@ class Validator implements ValidatorContract
      */
     protected function validateNumeric($attribute, $value)
     {
-        return is_numeric($value);
+        if (! Arr::has($this->data, $attribute)) {
+            return true;
+        }
+
+        return is_null($value) || is_numeric($value);
     }
 
     /**
@@ -825,7 +868,25 @@ class Validator implements ValidatorContract
      */
     protected function validateString($attribute, $value)
     {
-        return is_string($value);
+        if (! Arr::has($this->data, $attribute)) {
+            return true;
+        }
+
+        return is_null($value) || is_string($value);
+    }
+
+    /**
+     * Validate the attribute is a valid JSON string.
+     *
+     * @param  string  $attribute
+     * @param  mixed   $value
+     * @return bool
+     */
+    protected function validateJson($attribute, $value)
+    {
+        json_decode($value);
+
+        return json_last_error() === JSON_ERROR_NONE;
     }
 
     /**
@@ -944,7 +1005,7 @@ class Validator implements ValidatorContract
         // is the size. If it is a file, we take kilobytes, and for a string the
         // entire length of the string will be considered the attribute size.
         if (is_numeric($value) && $hasNumeric) {
-            return Arr::get($this->data, $attribute);
+            return $value;
         } elseif (is_array($value)) {
             return count($value);
         } elseif ($value instanceof File) {
@@ -998,7 +1059,7 @@ class Validator implements ValidatorContract
     {
         $this->requireParameterCount(1, $parameters, 'unique');
 
-        list($connection, $table) = $this->parseUniqueTable($parameters[0]);
+        list($connection, $table) = $this->parseTable($parameters[0]);
 
         // The second parameter position holds the name of the column that needs to
         // be verified as unique. If this parameter isn't specified we will just
@@ -1034,12 +1095,12 @@ class Validator implements ValidatorContract
     }
 
     /**
-     * Parse the connection / table for the unique rule.
+     * Parse the connection / table for the unique / exists rules.
      *
      * @param  string  $table
      * @return array
      */
-    protected function parseUniqueTable($table)
+    protected function parseTable($table)
     {
         return Str::contains($table, '.') ? explode('.', $table, 2) : [null, $table];
     }
@@ -1084,7 +1145,7 @@ class Validator implements ValidatorContract
     {
         $this->requireParameterCount(1, $parameters, 'exists');
 
-        $table = $parameters[0];
+        list($connection, $table) = $this->parseTable($parameters[0]);
 
         // The second parameter position holds the name of the column that should be
         // verified as existing. If this parameter is not specified we will guess
@@ -1093,21 +1154,26 @@ class Validator implements ValidatorContract
 
         $expected = (is_array($value)) ? count($value) : 1;
 
-        return $this->getExistCount($table, $column, $value, $parameters) >= $expected;
+        return $this->getExistCount($connection, $table, $column, $value, $parameters) >= $expected;
     }
 
     /**
      * Get the number of records that exist in storage.
      *
+     * @param  mixed   $connection
      * @param  string  $table
      * @param  string  $column
      * @param  mixed   $value
      * @param  array   $parameters
      * @return int
      */
-    protected function getExistCount($table, $column, $value, $parameters)
+    protected function getExistCount($connection, $table, $column, $value, $parameters)
     {
         $verifier = $this->getPresenceVerifier();
+
+        if (! is_null($connection)) {
+            $verifier->setConnection($connection);
+        }
 
         $extra = $this->getExtraExistConditions($parameters);
 
@@ -1181,7 +1247,27 @@ class Validator implements ValidatorContract
      */
     protected function validateUrl($attribute, $value)
     {
-        return filter_var($value, FILTER_VALIDATE_URL) !== false;
+        /*
+         * This pattern is derived from Symfony\Component\Validator\Constraints\UrlValidator (2.7.4)
+         * (c) Fabien Potencier <fabien@symfony.com> http://symfony.com
+         */
+        $pattern = '~^
+            ((aaa|aaas|about|acap|acct|acr|adiumxtra|afp|afs|aim|apt|attachment|aw|barion|beshare|bitcoin|blob|bolo|callto|cap|chrome|chrome-extension|cid|coap|coaps|com-eventbrite-attendee|content|crid|cvs|data|dav|dict|dlna-playcontainer|dlna-playsingle|dns|dntp|dtn|dvb|ed2k|example|facetime|fax|feed|feedready|file|filesystem|finger|fish|ftp|geo|gg|git|gizmoproject|go|gopher|gtalk|h323|ham|hcp|http|https|iax|icap|icon|im|imap|info|iotdisco|ipn|ipp|ipps|irc|irc6|ircs|iris|iris.beep|iris.lwz|iris.xpc|iris.xpcs|itms|jabber|jar|jms|keyparc|lastfm|ldap|ldaps|magnet|mailserver|mailto|maps|market|message|mid|mms|modem|ms-help|ms-settings|ms-settings-airplanemode|ms-settings-bluetooth|ms-settings-camera|ms-settings-cellular|ms-settings-cloudstorage|ms-settings-emailandaccounts|ms-settings-language|ms-settings-location|ms-settings-lock|ms-settings-nfctransactions|ms-settings-notifications|ms-settings-power|ms-settings-privacy|ms-settings-proximity|ms-settings-screenrotation|ms-settings-wifi|ms-settings-workplace|msnim|msrp|msrps|mtqp|mumble|mupdate|mvn|news|nfs|ni|nih|nntp|notes|oid|opaquelocktoken|pack|palm|paparazzi|pkcs11|platform|pop|pres|prospero|proxy|psyc|query|redis|rediss|reload|res|resource|rmi|rsync|rtmfp|rtmp|rtsp|rtsps|rtspu|secondlife|service|session|sftp|sgn|shttp|sieve|sip|sips|skype|smb|sms|smtp|snews|snmp|soap.beep|soap.beeps|soldat|spotify|ssh|steam|stun|stuns|submit|svn|tag|teamspeak|tel|teliaeid|telnet|tftp|things|thismessage|tip|tn3270|turn|turns|tv|udp|unreal|urn|ut2004|vemmi|ventrilo|videotex|view-source|wais|webcal|ws|wss|wtai|wyciwyg|xcon|xcon-userid|xfire|xmlrpc\.beep|xmlrpc.beeps|xmpp|xri|ymsgr|z39\.50|z39\.50r|z39\.50s))://                                 # protocol
+            (([\pL\pN-]+:)?([\pL\pN-]+)@)?          # basic auth
+            (
+                ([\pL\pN\pS-\.])+(\.?([\pL]|xn\-\-[\pL\pN-]+)+\.?) # a domain name
+                    |                                              # or
+                \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}                 # a IP address
+                    |                                              # or
+                \[
+                    (?:(?:(?:(?:(?:(?:(?:[0-9a-f]{1,4})):){6})(?:(?:(?:(?:(?:[0-9a-f]{1,4})):(?:(?:[0-9a-f]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:::(?:(?:(?:[0-9a-f]{1,4})):){5})(?:(?:(?:(?:(?:[0-9a-f]{1,4})):(?:(?:[0-9a-f]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:[0-9a-f]{1,4})))?::(?:(?:(?:[0-9a-f]{1,4})):){4})(?:(?:(?:(?:(?:[0-9a-f]{1,4})):(?:(?:[0-9a-f]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-f]{1,4})):){0,1}(?:(?:[0-9a-f]{1,4})))?::(?:(?:(?:[0-9a-f]{1,4})):){3})(?:(?:(?:(?:(?:[0-9a-f]{1,4})):(?:(?:[0-9a-f]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-f]{1,4})):){0,2}(?:(?:[0-9a-f]{1,4})))?::(?:(?:(?:[0-9a-f]{1,4})):){2})(?:(?:(?:(?:(?:[0-9a-f]{1,4})):(?:(?:[0-9a-f]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-f]{1,4})):){0,3}(?:(?:[0-9a-f]{1,4})))?::(?:(?:[0-9a-f]{1,4})):)(?:(?:(?:(?:(?:[0-9a-f]{1,4})):(?:(?:[0-9a-f]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-f]{1,4})):){0,4}(?:(?:[0-9a-f]{1,4})))?::)(?:(?:(?:(?:(?:[0-9a-f]{1,4})):(?:(?:[0-9a-f]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-f]{1,4})):){0,5}(?:(?:[0-9a-f]{1,4})))?::)(?:(?:[0-9a-f]{1,4})))|(?:(?:(?:(?:(?:(?:[0-9a-f]{1,4})):){0,6}(?:(?:[0-9a-f]{1,4})))?::))))
+                \]  # a IPv6 address
+            )
+            (:[0-9]+)?                              # a port (optional)
+            (/?|/\S+)                               # a /, nothing or a / with something
+        $~ixu';
+
+        return preg_match($pattern, $value) === 1;
     }
 
     /**
@@ -1250,7 +1336,7 @@ class Validator implements ValidatorContract
      * @param  mixed  $value
      * @return bool
      */
-    protected function isAValidFileInstance($value)
+    public function isAValidFileInstance($value)
     {
         if ($value instanceof UploadedFile && ! $value->isValid()) {
             return false;
@@ -1529,7 +1615,7 @@ class Validator implements ValidatorContract
 
         $customKey = "validation.custom.{$attribute}.{$lowerRule}";
 
-        $customMessage = $this->translator->trans($customKey);
+        $customMessage = $this->getCustomMessageFromTranslator($customKey);
 
         // First we check for a custom defined validation message for the attribute
         // and rule. This allows the developer to specify specific messages for
@@ -1565,7 +1651,7 @@ class Validator implements ValidatorContract
      * @param  string  $attribute
      * @param  string  $lowerRule
      * @param  array   $source
-     * @return string
+     * @return string|null
      */
     protected function getInlineMessage($attribute, $lowerRule, $source = null)
     {
@@ -1577,10 +1663,35 @@ class Validator implements ValidatorContract
         // message for the fields, then we will check for a general custom line
         // that is not attribute specific. If we find either we'll return it.
         foreach ($keys as $key) {
-            if (isset($source[$key])) {
-                return $source[$key];
+            foreach (array_keys($source) as $sourceKey) {
+                if (Str::is($sourceKey, $key)) {
+                    return $source[$sourceKey];
+                }
             }
         }
+    }
+
+    /**
+     * Get the custom error message from translator.
+     *
+     * @param  string  $customKey
+     * @return string
+     */
+    protected function getCustomMessageFromTranslator($customKey)
+    {
+        $shortKey = str_replace('validation.custom.', '', $customKey);
+
+        $customMessages = Arr::dot(
+            (array) $this->translator->trans('validation.custom')
+        );
+
+        foreach ($customMessages as $key => $message) {
+            if ($key === $shortKey || (Str::contains($key, ['*']) && Str::is($key, $shortKey))) {
+                return $message;
+            }
+        }
+
+        return $customKey;
     }
 
     /**
@@ -1637,7 +1748,13 @@ class Validator implements ValidatorContract
      */
     protected function doReplacements($message, $attribute, $rule, $parameters)
     {
-        $message = str_replace(':attribute', $this->getAttribute($attribute), $message);
+        $value = $this->getAttribute($attribute);
+
+        $message = str_replace(
+            [':ATTRIBUTE', ':Attribute', ':attribute'],
+            [Str::upper($value), Str::ucfirst($value), $value],
+            $message
+        );
 
         if (isset($this->replacers[Str::snake($rule)])) {
             $message = $this->callReplacer($message, $attribute, Str::snake($rule), $parameters);
@@ -1927,6 +2044,22 @@ class Validator implements ValidatorContract
     }
 
     /**
+     * Replace all place-holders for the required_unless rule.
+     *
+     * @param  string  $message
+     * @param  string  $attribute
+     * @param  string  $rule
+     * @param  array   $parameters
+     * @return string
+     */
+    protected function replaceRequiredUnless($message, $attribute, $rule, $parameters)
+    {
+        $other = $this->getAttribute(array_shift($parameters));
+
+        return str_replace([':other', ':values'], [$other, implode(', ', $parameters)], $message);
+    }
+
+    /**
      * Replace all place-holders for the same rule.
      *
      * @param  string  $message
@@ -2045,10 +2178,14 @@ class Validator implements ValidatorContract
     protected function parseRule($rules)
     {
         if (is_array($rules)) {
-            return $this->parseArrayRule($rules);
+            $rules = $this->parseArrayRule($rules);
+        } else {
+            $rules = $this->parseStringRule($rules);
         }
 
-        return $this->parseStringRule($rules);
+        $rules[0] = $this->normalizeRule($rules[0]);
+
+        return $rules;
     }
 
     /**
@@ -2098,6 +2235,24 @@ class Validator implements ValidatorContract
         }
 
         return str_getcsv($parameter);
+    }
+
+    /**
+     * Normalizes a rule so that we can accept short types.
+     *
+     * @param  string  $rule
+     * @return string
+     */
+    protected function normalizeRule($rule)
+    {
+        switch ($rule) {
+            case 'Int':
+                return 'Integer';
+            case 'Bool':
+                return 'Boolean';
+            default:
+                return $rule;
+        }
     }
 
     /**
@@ -2496,7 +2651,7 @@ class Validator implements ValidatorContract
      *
      * @param  string  $rule
      * @param  array   $parameters
-     * @return bool
+     * @return bool|null
      */
     protected function callExtension($rule, $parameters)
     {
@@ -2530,7 +2685,7 @@ class Validator implements ValidatorContract
      * @param  string  $attribute
      * @param  string  $rule
      * @param  array   $parameters
-     * @return string
+     * @return string|null
      */
     protected function callReplacer($message, $attribute, $rule, $parameters)
     {

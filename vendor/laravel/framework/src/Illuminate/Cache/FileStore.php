@@ -9,6 +9,8 @@ use Illuminate\Contracts\Cache\Store;
 
 class FileStore implements Store
 {
+    use RetrievesMultipleKeys;
+
     /**
      * The Illuminate Filesystem instance.
      *
@@ -39,7 +41,7 @@ class FileStore implements Store
     /**
      * Retrieve an item from the cache by key.
      *
-     * @param  string  $key
+     * @param  string|array  $key
      * @return mixed
      */
     public function get($key)
@@ -110,10 +112,8 @@ class FileStore implements Store
      */
     protected function createCacheDirectory($path)
     {
-        try {
+        if (! $this->files->exists(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0777, true, true);
-        } catch (Exception $e) {
-            //
         }
     }
 
@@ -198,7 +198,7 @@ class FileStore implements Store
      */
     protected function path($key)
     {
-        $parts = array_slice(str_split($hash = md5($key), 2), 0, 2);
+        $parts = array_slice(str_split($hash = sha1($key), 2), 0, 2);
 
         return $this->directory.'/'.implode('/', $parts).'/'.$hash;
     }
@@ -211,11 +211,13 @@ class FileStore implements Store
      */
     protected function expiration($minutes)
     {
-        if ($minutes === 0) {
+        $time = time() + ($minutes * 60);
+
+        if ($minutes === 0 || $time > 9999999999) {
             return 9999999999;
         }
 
-        return time() + ($minutes * 60);
+        return $time;
     }
 
     /**

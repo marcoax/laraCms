@@ -9,7 +9,7 @@
 				<span class="icon-bar"></span>
 			</button>
 							
-			<a class="navbar-brand" href="{{ LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() , url()) }}">CMS </a>
+			<a class="navbar-brand" href="{{ LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() , url('')) }}">CMS </a>
 
 		</div>
 
@@ -17,7 +17,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-					<a href="{{url()}} " class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Lang <span class="caret"></span></a>
+					<a href="{{url('')}} " class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Lang <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 						<li>
@@ -48,7 +48,7 @@
 						@endif
 					</ul>
 				</li>
-				
+
 			</ul>
 			<ul class="nav navbar-nav navbar">
 				<li class="active">
@@ -62,9 +62,9 @@
 				</li>
 
 			</ul>
-			
 
-		
+
+
 		</div>
 	</div>
 </nav>
