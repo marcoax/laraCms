@@ -57,6 +57,29 @@ return [
             'selectable' =>'1'
             
         ],
+		 'socials' => [
+				 'model'=>'Social',
+				 'icon' =>'users',
+				 'title'=>'Socialize',
+				 'fieldLabel' =>'ID,Social,Icon,Link,Active,Created At,Updated At',
+				 'field'      =>['id',
+						 'title'      => ['type' => 'editable','field' => 'title', 'class' =>'col-sm-2'],
+						 'icon'       => ['type' => 'editable','field' => 'icon', 'class' =>'col-sm-2'],
+						 'link'  	  => ['type' => 'text' ,'field' => 'link', 'class' =>'col-sm-2'],
+						 'is_active'  => ['type' => 'boolean' ,'field' => 'is_active', 'class' =>'col-sm-1 text-center'],
+						 'created_at' => ['type' => 'date', 'field' => 'created_at', 'class' =>'col-sm-1'],
+						 'updated_at' => ['type' => 'date', 'field' => 'created_at', 'class' =>'col-sm-1'],
+				 ],
+				 'edit'       =>'1',
+				 'delete'     =>'1',
+				 'create'     =>'1',
+				 'copy'       =>'1',
+				 'preview'    =>'0',
+				 'view'    	 =>'0',
+				 'selectable' =>'1',
+
+
+		 ],
         'users' => [
             'model'=>'User',
 			'icon' =>'users',
@@ -80,6 +103,7 @@ return [
 			'password'	 =>1
             
         ],
+
     ],
 	
 ];

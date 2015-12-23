@@ -9,6 +9,11 @@
         	'name' => 'required',
         	'display_name' => 'required',
     	  ],
+		 'socials' => [
+				 'title' => 'required',
+				 'link'=> 'required',
+				 'icon'=> 'required',
+		 ],
     	  'users' => [
 	          'name' => 'required',
               'email'=> 'required',

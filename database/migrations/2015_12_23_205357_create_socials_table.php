@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIsActiveToUsersTable extends Migration
+class CreateSocialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,16 @@ class AddIsActiveToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::create('socials', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('domain', 255);
-            $table->integer('id_parent');
-            $table->integer('id_template');
+
             $table->string('title', 255);
             $table->text('description');
-            $table->string('slug')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('image');
+            $table->string('link')->nullable();
             $table->integer('sort');
-            $table->tinyInteger('pub')->default(1)->nullable();
-            $table->tinyInteger('top_menu')->default(1)->nullable();
+            $table->tinyInteger('is_active')->default(1)->nullable();
             $table->integer('created_by');
             $table->timestamps();
         });
@@ -36,8 +34,6 @@ class AddIsActiveToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('socials');
     }
 }

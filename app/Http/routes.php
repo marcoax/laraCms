@@ -79,26 +79,11 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 	 Route::get('/edit/{section}/{id?}', 'PagesController@edit');
 	 Route::post('/edit/{section}/{id?}', 'PagesController@update');
 	 
-	 Route::get('articles', 'ArticlesController@index');
-	 Route::get('articles/create', 'ArticlesController@create');
-	 Route::post('articles/create', 'ArticlesController@store');
-	 Route::get('articles/{id?}/edit', 'ArticlesController@edit');
-	 Route::post('articles/{id?}/edit','ArticlesController@update');
+
 	 Route::get('articles/{id?}/delete','ArticlesController@destroy');
-	 
-	 Route::get('users', 'UsersController@index');
-	 Route::get('users/create', 	 'UsersController@create');
-	 Route::post('users/create', 	 'UsersController@store');
-	 Route::get('users/{id?}/edit', 'UsersController@edit');
-	 Route::post('users/{id?}/edit','UsersController@update');
 	 Route::get('users/{id?}/delete','UsersController@destroy');
-	 
-	
-	 Route::get('roles/create', 	 'RolesController@create');
-     Route::post('roles/create', 	 'RolesController@store');
-	 Route::get('roles/{id?}/edit',  'RolesController@edit');
-	 Route::post('roles/{id?}/edit', 'RolesController@update');
 	 Route::get('roles/{id?}/delete','RolesController@destroy');
+	 Route::get('socials/{id?}/delete','SocialsController@destroy');
 	 
 	 Route::get('api/update/{method}/{model?}/{id?}','AjaxController@update');
 	 Route::get('api/delete/{model?}/{id?}','AjaxController@delete');
