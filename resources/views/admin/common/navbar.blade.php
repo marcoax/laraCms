@@ -76,6 +76,18 @@
                         </ul>
                     </li>
                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hp sliders
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{{ URL::to('/admin/list/hpsliders') }}">Hp sliders</a>
+                            </li>
+                            <li>
+                                <a href="{{ URL::to('/admin/create/hpsliders') }}">Add Hp slider</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Roles
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">

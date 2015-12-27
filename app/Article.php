@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Article extends Model
 {
 
@@ -23,7 +24,18 @@ class Article extends Model
 	public $translatedAttributes = ['title', 'description','abstract','seo_title','seo_keywords','seo_description'];
     protected $fillable = ['title', 'description','slug','sort','pub','top_menu','id_parent'];
 	protected $fieldspec = [];
-	
+
+
+
+
+	public function setSlugAttribute($value)
+	{
+		$slug = ($value=='')? str_slug($this->title) :str_slug($value);
+    	if( $this->id!='') $count =self::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->where('id', '!=', $this->id)->count();
+		else $count =self::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+		$this->attributes['slug'] =$count ? "{$slug}-{$count}" : $slug;
+	}
+
 	
 	 function getFieldSpec ()
     // set the specifications for this database table
@@ -48,20 +60,16 @@ class Article extends Model
 			'model'      => 'article',
 			'foreign_key'=> 'id',
 			'label_key'  => 'title',
-   			'size' => 5,
-			'minvalue' => 0,
-			'maxvalue' => 65535,
-			'pkey' => 'y',
+   			'pkey' => 'y',
 			'required' => 'y',
 			'label'=>'Parent Page',
-			'hidden' => '1',
+			'hidden' => '0',
 			'display'=>'1',
 		];
 		
 		$this->fieldspec['title']    = [	
 			'type' =>'string',
 			'size' =>400,
-			'max' => 255,
 			'pkey' => 'n',
 			'required' => 'y',
 			'hidden' => '0',
@@ -71,11 +79,22 @@ class Article extends Model
 			
 		];
 
+		$this->fieldspec['slug'] = [
+				'type' =>'string',
+				'size' =>600,
+				'pkey' => 'n',
+				'required' => 'y',
+				'hidden' =>0,
+				'label'=>'Slug',
+				'extraMsg'=>'',
+				'display'=>1,
+
+		];
+
 		$this->fieldspec['abstract'] = [
 				'type' =>'text',
 				'size' =>600,
 				'h' =>100,
-				'max' => 255,
 				'pkey' => 'n',
 				'required' => 'y',
 				'hidden' =>0,
@@ -91,13 +110,11 @@ class Article extends Model
 			'type' =>'text',
 			'size' =>600,
 			'h' =>300,
-			'max' => 255,
 			'pkey' => 'n',
 			'required' => 'y',
 			'hidden' =>0,
 			'label'=>'Description',
 			'extraMsg'=>'',
-			'lang'=>0,
 			'cssClass'=>'ckeditor',
 			'display'=>1,
 		
@@ -108,14 +125,10 @@ class Article extends Model
 			'type' =>'string',
 			'size' =>600,
 			'h' =>300,
-			'max' => 255,
-			'pkey' => 'n',
 			'required' => 'y',
 			'hidden' =>0,
 			'label'=>'Externa url',
 			'extraMsg'=>'',
-			'lang'=>1,
-			'cssClass'=>'ckeditor',
 			'display'=>1,
 			
 		];
@@ -125,14 +138,12 @@ class Article extends Model
 			'type' =>'media',
 			'size' =>600,
 			'h' =>300,
-			'max' => 255,
 			'pkey' => 'n',
 			'required' => 'y',
 			'hidden' =>0,
 			'label'=>'Image',
 			'extraMsg'=>'',
 			'extraMsgEnabled'=>'Code',
-			'lang'=>0,
 			'mediaType'=>'Img',
 			'display'=>1,
 			
@@ -141,13 +152,11 @@ class Article extends Model
 			'type' =>'media',
 			'size' =>600,
 			'h' =>300,
-			'max' => 255,
 			'pkey' => 'n',
 			'required' => 'y',
 			'hidden' =>0,
 			'label'=>'Document',
 			'extraMsg'=>'',
-			'extraMsgEnabled'=>'Code',
 			'lang'=>0,
 			'mediaType'=>'Doc',
 			'display'=>1,
@@ -155,9 +164,6 @@ class Article extends Model
 		];
 		$this->fieldspec['sort'] = [
 			'type' => 'integer',
-			'size' => 5,
-			'minvalue' => 0,
-			'maxvalue' => 65535,
 			'pkey' => 'y',
 			'required' => 'y',
 			'label'=>'Order',
@@ -166,8 +172,6 @@ class Article extends Model
 		];
 		$this->fieldspec['pub']   = [
 			'type' =>'boolean',
-			'size' =>1,
-			'max' => 1,
 			'pkey' => 'n',
 			'required' => '',
 			'hidden' => '0',
@@ -176,8 +180,6 @@ class Article extends Model
        ];
 	   $this->fieldspec['top_menu']   = [
 			'type' =>'boolean',
-			'size' =>1,
-			'max' => 1,
 			'pkey' => 'n',
 			'required' => '',
 			'hidden' => '0',
@@ -187,8 +189,6 @@ class Article extends Model
 
 		$this->fieldspec['seo_title']    = [
 				'type' =>'string',
-				'size' =>400,
-				'max' => 255,
 				'pkey' => 'n',
 				'required' => 'y',
 				'hidden' => '0',
@@ -199,15 +199,11 @@ class Article extends Model
 		];
 		$this->fieldspec['seo_keywords'] = [
 				'type' =>'string',
-				'size' =>600,
-				'h' =>300,
-				'max' => 255,
+
 				'pkey' => 'n',
-				'required' => 'y',
 				'hidden' =>0,
 				'label'=>'Seo keywords, (list separated by comma like google,bing,yahoo',
 				'extraMsg'=>'',
-				'lang'=>0,
 				'cssClass'=>'',
 				'display'=>1,
 
@@ -216,13 +212,10 @@ class Article extends Model
 				'type' =>'text',
 				'size' =>600,
 				'h' =>300,
-				'max' => 255,
 				'pkey' => 'n',
-				'required' => 'y',
 				'hidden' =>0,
 				'label'=>'Seo description',
 				'extraMsg'=>'',
-				'lang'=>0,
 				'cssClass'=>'no',
 				'display'=>1,
 		];

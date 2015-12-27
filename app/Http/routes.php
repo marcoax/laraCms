@@ -84,6 +84,7 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 	 Route::get('users/{id?}/delete','UsersController@destroy');
 	 Route::get('roles/{id?}/delete','RolesController@destroy');
 	 Route::get('socials/{id?}/delete','SocialsController@destroy');
+	 Route::get('hpsliders/{id?}/delete','HpSlidersController@destroy');
 	 
 	 Route::get('api/update/{method}/{model?}/{id?}','AjaxController@update');
 	 Route::get('api/delete/{model?}/{id?}','AjaxController@delete');

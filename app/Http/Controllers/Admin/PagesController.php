@@ -120,7 +120,9 @@ class PagesController extends Controller
 		   
 			$article = $model::whereId($id)->firstOrFail();
 	    	foreach($article->getFillable() as $a) {
+
 				$article->$a 	= $request->get( $a );
+
 		  	}
 		    if (Input::hasFile('image') && Input::file('image')->isValid()) {
 		        $destinationPath = 'uploads/images'; // upload path
@@ -153,8 +155,6 @@ class PagesController extends Controller
 					 $article->save();
 				}
 			}
-
-
 		    return redirect(action('Admin\PagesController@edit', $models.'/'.$article->id))->with('status', 'The article has been updated!');
 	}
 }

@@ -202,15 +202,14 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        
+
 	     
 		'LaravelLocalization'   => 'Mcamara\LaravelLocalization\Facades\LaravelLocalization',
     	'BrowserDetect' => 'hisorange\BrowserDetect\Facade\Parser',
     	'Form'    => Collective\Html\FormFacade::class,
     	'Html'    => Collective\Html\HtmlFacade::class,
     	'Entrust' => 'Zizaco\Entrust\EntrustFacade',
-    	'String'  => 'App\Helpers\String',
-    	'AdminForm'  => App\Facades\AdminForm::class
+	   	'AdminForm'  => App\Facades\AdminForm::class
     	
     ],
 

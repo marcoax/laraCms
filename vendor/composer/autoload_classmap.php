@@ -13,6 +13,7 @@ return array(
     'AddSeeds' => $vendorDir . '/dimsav/laravel-translatable/tests/migrations/2014_02_02_181020_add_seeds.php',
     'ArticleTranslations' => $baseDir . '/database/migrations/2015_12_07_161911_article_translations.php',
     'CreateArticlesTable' => $baseDir . '/database/migrations/2015_08_27_133226_create_articles_table.php',
+    'CreateHpsliders' => $baseDir . '/database/migrations/2015_12_26_180448_create_hpsliders.php',
     'CreateObjectTranslationTable' => $baseDir . '/database/migrations/2015_12_06_191101_create_object_translation_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateProductsTable' => $baseDir . '/database/migrations/2015_08_23_104442_create_products_table.php',
