@@ -47,12 +47,11 @@ Temporary Items
 .settings/*
 *.pdf
 *.doc
-public/*.*
 xxx*.*
 *delete*.php
 cache/*.*
 *idea
 *.txt
 *.md
-*.md
 readme.md
+uploads/*
