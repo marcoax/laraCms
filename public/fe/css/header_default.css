@@ -169,14 +169,14 @@
         font-size: 13px;
         font-weight: 400;
         padding: 6px 15px;
-        border-bottom: solid 1px #B7A87D;
+        border-bottom: solid 0px #B7A87D;
         text-align: right;
     }
 
     .header .dropdown-menu .active > a, .header .dropdown-menu li > a:hover {
-        color: #B7A87D;
+        color: #1D1D1B;
         filter: none !important;
-        background: #1D1D1B !important;
+        background: #ffffff !important;
         -webkit-transition: all 0.1s ease-in-out;
         -moz-transition: all 0.1s ease-in-out;
         -o-transition: all 0.1s ease-in-out;

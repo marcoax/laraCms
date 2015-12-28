@@ -1,5 +1,6 @@
 /**
  * Created by Marco Asperti on 24/12/2015.
+ * for laraCms
  */
 
 
@@ -126,7 +127,7 @@ var App = function () {
     function  niceScroll(){
 
         // Nice scroll to DIVs
-        $('.navbar-nav li a').click(function(evt){
+        $('#menu.navbar-nav li a').click(function(evt){
             evt.preventDefault();
             $('.navbar-nav li').removeClass('active')
             var place = $(this).attr('href');

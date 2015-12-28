@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Input;
 use Validator;
 
-class PagesController extends Controller
+class AdminPagesController extends Controller
 {
     public function home()
     {
@@ -42,9 +42,7 @@ class PagesController extends Controller
 	    $config 	  = config('admin.list.section.'.$model);
 	    $modelClass   ='App\\'.$config['model'];
 		$article      = new  $modelClass;
-
-
-		return view('admin.edit',['article' => $article,'pageConfig' => $config]);
+    	return view('admin.edit',['article' => $article,'pageConfig' => $config]);
 	}
 
 
@@ -81,10 +79,7 @@ class PagesController extends Controller
 		       // sending back with message
 		        $article->doc 	        =  $fileNameDoc;
 		    }
-        	if( $request -> has('role')) $article -> saveRoles($request -> get('role'));
-
-
-            $article->save();
+        	$article->save();
             if( $request -> has('role')) $article -> saveRoles($request -> get('role'));
 			if(isset($article->translatedAttributes ) && count($article->translatedAttributes )>1) {
 				foreach (config('app.locales') as $locale => $value) {
@@ -96,7 +91,7 @@ class PagesController extends Controller
 				}
 			}
             $article->save();
-		    return redirect(action('Admin\PagesController@edit', $models.'/'.$article->id))->with('status', 'The article has been updated!');
+		    return redirect(action('Admin\AdminPagesController@edit', $models.'/'.$article->id))->with('status', 'The article has been updated!');
 	}
 	
 	public function edit($model,$id)
@@ -145,8 +140,9 @@ class PagesController extends Controller
 		        $article->doc 	        =  $fileNameDoc;
 		    }
             $article->save();
-			if( $request -> has('role')) $article -> saveRoles($request -> get('role'));
-		    if(isset($article->translatedAttributes ) && count($article->translatedAttributes )>1) {
+			if( $request -> has('role')) $article ->saveRoles($request ->get('role'));
+
+		   if(isset($article->translatedAttributes ) && count($article->translatedAttributes )>1) {
 				foreach (config('app.locales') as $locale => $value) {
 					foreach($article->translatedAttributes as $attribute) {
 						if( config('app.locale') !=  $locale) $article->translateOrNew($locale)->$attribute = $request->get($attribute.'_'.$locale);
@@ -155,6 +151,25 @@ class PagesController extends Controller
 					 $article->save();
 				}
 			}
-		    return redirect(action('Admin\PagesController@edit', $models.'/'.$article->id))->with('status', 'The article has been updated!');
+		    return redirect(action('Admin\AdminPagesController@edit', $models.'/'.$article->id))->with('status', 'The article has been updated!');
+	}
+
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($model,$id)
+	{
+		$config 	 = config('admin.list.section.'.$model);
+		$modelClass  ='App\\'.$config['model'];
+		$models      = strtolower($config['model']).'s';
+		$model       = new  $modelClass;
+
+		$article = $model::whereId($id)->firstOrFail();
+		$article->delete();
+   	    return redirect(action('Admin\AdminPagesController@lista',$models ))->with('status', 'The pages '.$article->title.' has been deleted!');
 	}
 }

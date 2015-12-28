@@ -1,12 +1,14 @@
-<?php namespace App;
-
+<?php
+namespace App;
+use Illuminate\Database\Eloquent\Model;
 use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
 {
 	protected $fillable = ['name', 'display_name', 'description'];
 	protected $fieldspec = [];
-	 function getFieldSpec ()
+
+	function getFieldSpec ()
     // set the specifications for this database table
     {
        

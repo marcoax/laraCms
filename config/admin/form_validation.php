@@ -7,6 +7,7 @@ return [
 		],
 		'hpsliders' => [
 				'title' => 'required',
+			    
 		],
 		'roles' => [
 				'name' => 'required',
@@ -20,6 +21,7 @@ return [
 		'users' => [
 				'name' => 'required',
 				'email' => 'required',
+			    'role' => 'required',
 
 				'password' => 'alpha_num|min:6|confirmed',
 				'password_confirmation' => 'alpha_num|min:6',

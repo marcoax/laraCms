@@ -36,7 +36,7 @@ class AdminForm {
 					foreach($this->model->translatedAttributes as $attribute) {
 						$value = (isset($this->model->translate($locale)->$attribute))? $this->model->translate($locale)->$attribute:'';
 						$this->property = $this->model->fieldspec[$attribute];
-						$this->formModelHandler( $model,$this->model->fieldspec[$attribute],$attribute.'_'.$locale,$value);
+						$this->formModelHandler($this->model->fieldspec[$attribute],$attribute.'_'.$locale,$value);
 					}
 					$this->html .="</div>";
 				}
