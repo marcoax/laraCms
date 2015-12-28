@@ -59,10 +59,10 @@ class HpSlider extends Model
             'size' =>600,
             'pkey' => 'n',
             'required' => 'y',
-            'hidden' =>0,
+            'hidden' =>1,
             'label'=>'Slug',
             'extraMsg'=>'',
-            'display'=>1,
+            'display'=>0,
 
         ];
         $this->fieldspec['link'] = [
