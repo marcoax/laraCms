@@ -6,7 +6,6 @@ class AdminForm {
 
 	protected  $html;
 	protected  $property;
-	protected  $model;
 
 
 	public function get($model)

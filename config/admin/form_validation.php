@@ -7,7 +7,7 @@ return [
 		],
 		'hpsliders' => [
 				'title' => 'required',
-			    
+
 		],
 		'roles' => [
 				'name' => 'required',

@@ -14,24 +14,42 @@ use Validator;
 
 class AdminPagesController extends Controller
 {
-    public function home()
+
+
+	 protected  $model;
+	 protected  $models;
+	 protected  $modelClass;
+	 protected  $curObject;
+	 protected  $request;
+	 protected  $config;
+	 protected  $id;
+
+
+
+	public function init( $model )
+	{
+		$this->model       = $model;
+		$this->config 	   = config('admin.list.section.'.$this->model);
+		$this->models      = strtolower($this->config['model']).'s';
+		$this->modelClass  ='App\\'.$this->config['model'];
+
+	}
+
+     public function home()
     {
         return view('admin.home');
     }
 	
 	public function lista($model,$sub='')
     {
-        	
-		$config 	 = config('admin.list.section.'.$model);
-	    $modelClass  ='App\\'.$config['model'];
-		$model       = new  $modelClass;
-	    $articles    = $model::paginate(config('admin.list.item_per_pages'));
-	    return view('admin.list', ['articles' => $articles,'pageConfig' => $config]);	
+
+        $this->init($model);
+		$model   	= new  $this->modelClass;
+		$articles   = $model::paginate(config('admin.list.item_per_pages'));
+	    return view('admin.list', ['articles' => $articles,'pageConfig' => $this->config]);
         
     }
-	
-	
-	
+
 	/**
      * Show the form for creating a new resource.
      *
@@ -39,119 +57,41 @@ class AdminPagesController extends Controller
      */
     public function create($model)
 	{
-	    $config 	  = config('admin.list.section.'.$model);
-	    $modelClass   ='App\\'.$config['model'];
-		$article      = new  $modelClass;
-    	return view('admin.edit',['article' => $article,'pageConfig' => $config]);
+		$this->init($model);
+		$article      = new $this->modelClass;
+    	return view('admin.edit',['article' => $article,'pageConfig' => $this->config]);
 	}
 
-
+	public function edit($model,$id)
+	{
+		$this->id  = $id;
+		$this->init($model);
+		$model    = new  $this->modelClass;
+		$article 	= $model::whereId($this->id)->firstOrFail();
+		return view('admin.edit',['article' => $article,'pageConfig' => $this->config]);
+	}
 	
 	public function store($model,AdminFormRequest $request)
 	{
-	    	
-		    $config 	 = config('admin.list.section.'.$model);
-		    $modelClass  ='App\\'.$config['model'];
-			$models      = strtolower($config['model']).'s';
-			$model       = new  $modelClass;
-		   
-			$article =   new $model;
-	    	foreach($article->getFillable() as $a) {
-				$article->$a 	= $request->get( $a );
-		  	}
-		    if (Input::hasFile('image') && Input::file('image')->isValid()) {
-		        $destinationPath = 'uploads/images'; // upload path
-		        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-		        $name = Input::file('image')->getClientOriginalName();
-		      	$fileName = rand(11111,99999).'_'.$name; // renameing image
-		        Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
-		        // sending back with message
-		        $article->image 	    =  $fileName;
-		        
-		    }
-			
-			if (Input::hasFile('doc') && Input::file('doc')->isValid()) {
-		        $destinationPath = 'uploads/doc'; // upload path
-		        $extension = Input::file('doc')->getClientOriginalExtension(); // getting image extension
-		        $name = Input::file('doc')->getClientOriginalName();
-		      	$fileNameDoc = rand(11111,99999).'_'.$name; // renameing image
-		        Input::file('doc')->move($destinationPath, $fileNameDoc); // uploading file to given path
-		       // sending back with message
-		        $article->doc 	        =  $fileNameDoc;
-		    }
-        	$article->save();
-            if( $request -> has('role')) $article -> saveRoles($request -> get('role'));
-			if(isset($article->translatedAttributes ) && count($article->translatedAttributes )>1) {
-				foreach (config('app.locales') as $locale => $value) {
-					foreach($article->translatedAttributes as $attribute) {
-						if( config('app.locale') !=  $locale) $article->translateOrNew($locale)->$attribute = $request->get($attribute.'_'.$locale);
-						else $article->translateOrNew($locale)->$attribute = $request->get($attribute);
-					}
-					$article->save();
-				}
-			}
-            $article->save();
-		    return redirect(action('Admin\AdminPagesController@edit', $models.'/'.$article->id))->with('status', 'The article has been updated!');
+		    $this->init( $model );
+		    $this->request = $request;
+		    $config   = config('admin.list.section.'.$model);
+		    $model    = new  $this->modelClass;
+			$article  =  new $model;
+			// input data Handler
+			$this->requestFieldHandler($article);
+		    return redirect(action('Admin\AdminPagesController@edit', $this->models.'/'.$article->id))->with('status', 'The article has been updated!');
 	}
-	
-	public function edit($model,$id)
-    {
-        	
-		$config 	 = config('admin.list.section.'.$model);
-	    $modelClass  ='App\\'.$config['model'];
-		$model       = new  $modelClass;
-		$article = $model::whereId($id)->firstOrFail();
-	    return view('admin.edit',['article' => $article,'pageConfig' => $config]);
-	}
-	
-	
+
 	public function update($model,$id,AdminFormRequest $request)
 	{
-	    	
-		    $config 	 = config('admin.list.section.'.$model);
-		    $modelClass  ='App\\'.$config['model'];
-			$models      = strtolower($config['model']).'s';
-			$model       = new  $modelClass;
-		   
-			$article = $model::whereId($id)->firstOrFail();
-	    	foreach($article->getFillable() as $a) {
-
-				$article->$a 	= $request->get( $a );
-
-		  	}
-		    if (Input::hasFile('image') && Input::file('image')->isValid()) {
-		        $destinationPath = 'uploads/images'; // upload path
-		        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-		        $name = Input::file('image')->getClientOriginalName();
-		      	$fileName = rand(11111,99999).'_'.$name; // renameing image
-		        Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
-		        // sending back with message
-		        $article->image 	    =  $fileName;
-		        
-		    }
-			
-			if (Input::hasFile('doc') && Input::file('doc')->isValid()) {
-		        $destinationPath = 'uploads/doc'; // upload path
-		        $extension = Input::file('doc')->getClientOriginalExtension(); // getting image extension
-		        $name = Input::file('doc')->getClientOriginalName();
-		      	$fileNameDoc = rand(11111,99999).'_'.$name; // renameing image
-		        Input::file('doc')->move($destinationPath, $fileNameDoc); // uploading file to given path
-		       // sending back with message
-		        $article->doc 	        =  $fileNameDoc;
-		    }
-            $article->save();
-			if( $request -> has('role')) $article ->saveRoles($request ->get('role'));
-
-		   if(isset($article->translatedAttributes ) && count($article->translatedAttributes )>1) {
-				foreach (config('app.locales') as $locale => $value) {
-					foreach($article->translatedAttributes as $attribute) {
-						if( config('app.locale') !=  $locale) $article->translateOrNew($locale)->$attribute = $request->get($attribute.'_'.$locale);
-					 	else $article->translateOrNew($locale)->$attribute = $request->get($attribute);
-					}
-					 $article->save();
-				}
-			}
-		    return redirect(action('Admin\AdminPagesController@edit', $models.'/'.$article->id))->with('status', 'The article has been updated!');
+			$this->init( $model );
+			$this->request = $request;
+    	    $model    = new  $this->modelClass;
+		 	$article = $model::whereId($id)->firstOrFail();
+		    // input data Handler
+		    $this->requestFieldHandler($article);
+		    return redirect(action('Admin\AdminPagesController@edit', $this->models.'/'.$article->id))->with('status', 'The article has been updated!');
 	}
 
 
@@ -159,17 +99,54 @@ class AdminPagesController extends Controller
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return Respons
 	 */
 	public function destroy($model,$id)
 	{
-		$config 	 = config('admin.list.section.'.$model);
-		$modelClass  ='App\\'.$config['model'];
-		$models      = strtolower($config['model']).'s';
-		$model       = new  $modelClass;
-
-		$article = $model::whereId($id)->firstOrFail();
+		$this->init($model);
+		$this->id  = $id;
+		$model     = new  $this->modelClass;
+    	$article   = $model::whereId($this->id)->firstOrFail();
 		$article->delete();
-   	    return redirect(action('Admin\AdminPagesController@lista',$models ))->with('status', 'The pages '.$article->title.' has been deleted!');
+   	    return redirect(action('Admin\AdminPagesController@lista',$this->models ))->with('status', 'The items '.$article->title.' has been deleted!');
+	}
+
+
+	public  function requestFieldHandler($article) {
+		foreach($article->getFillable() as $a) {
+			$article->$a 	= $this->request->get( $a );
+		}
+		if (Input::hasFile('image') && Input::file('image')->isValid()) {
+			$destinationPath = 'uploads/images'; // upload path
+			$extension 		 = Input::file('image')->getClientOriginalExtension(); // getting image extension
+			$name 			 = Input::file('image')->getClientOriginalName();
+			$fileName 		 = rand(11111,99999).'_'.$name; // renameing image
+			Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+			// sending back with message
+			$article->image  =  $fileName;
+		}
+
+		if (Input::hasFile('doc') && Input::file('doc')->isValid()) {
+			$destinationPath = 'uploads/doc'; // upload path
+			$extension 		 = Input::file('doc')->getClientOriginalExtension(); // getting image extension
+			$name 			 = Input::file('doc')->getClientOriginalName();
+			$fileNameDoc 	 = rand(11111,99999).'_'.$name; // renameing image
+			Input::file('doc')->move($destinationPath, $fileNameDoc); // uploading file to given path
+			// sending back with message
+			$article->doc 	 =  $fileNameDoc;
+		}
+		$article->save();
+
+		if( $this->request-> has('role')) $article ->saveRoles($this->request ->get('role'));
+
+		if(isset($article->translatedAttributes ) && count($article->translatedAttributes )>1) {
+			foreach (config('app.locales') as $locale => $value) {
+				foreach($article->translatedAttributes as $attribute) {
+					if( config('app.locale') !=  $locale) $article->translateOrNew($locale)->$attribute = $this->request->get($attribute.'_'.$locale);
+					else $article->translateOrNew($locale)->$attribute = $this->request->get($attribute);
+				}
+				$article->save();
+			}
+		}
 	}
 }

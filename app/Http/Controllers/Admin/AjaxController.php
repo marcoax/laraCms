@@ -23,10 +23,10 @@ class AjaxController extends Controller
 		switch ($action) {
 		    case "updateItemField":
 		        
-		        if($request->input('field')) {
+		        if($this->request->input('field')) {
 		        	
-		        	$field  	 =  $request->input('field');
-					$value  	 =  $request->input('value');
+		        	$field  	 =  $this->request->input('field');
+					$value  	 =  $this->request->input('value');
 					$modelClass  =  'App\\'.$model;
 					$object 	 = $modelClass::whereId($id)->firstOrFail();
 					$object->$field = $value;
