@@ -9,8 +9,8 @@
         <div class="container">
             <div class="row mb0">
                 @include('fe.partials.pagetitle')
-                <div class="col-sm-12 mb25 text-center">{!! $article->description !!}</div>
-
+                <div class="col-sm-6 mb25 text-justify">{!! $article->description !!}</div>
+                <div class="col-sm-6  mb25 text-justify">{!! $article->abstract !!}</div>
             </div><!-- /row -->
         </div> <!-- /container -->
     </div>

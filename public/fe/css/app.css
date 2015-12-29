@@ -683,7 +683,7 @@ footer .copyright {
 
 .map {
     width: 100%;
-    height: 400px;
+    height: 600px;
     border-top: solid 1px #eee;
     border-bottom: solid 1px #eee;
 }
@@ -707,7 +707,7 @@ footer .copyright {
     filter: alpha(opacity=80);
     vertical-align: middle;
     display: table-cell;
-    padding: 70px 0px 0px 0px;
+    padding: 10% 0px 0px 0px;
     line-height: 4em;
 }
 

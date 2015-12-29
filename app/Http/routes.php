@@ -40,11 +40,9 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
  Route::group(['prefix' => LaravelLocalization::setLocale()], function()
     {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-        
-		Route::get('/', function () {
-		    return view('fe.home');
-		});
-		Route::get('/{slug}', 'PagesController@pages');
+
+		Route::get('/', 'PagesController@home');
+		Route::get('/{slug?}', 'PagesController@pages');
 		
 
 		

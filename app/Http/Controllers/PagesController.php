@@ -15,15 +15,12 @@ class PagesController extends Controller
     public function home()
     {
 
-        return view('admin.home');
+        $article = Article::where('slug','=','home')->first();
+        return view('fe.home',compact('article'));
     }
 
 
-	public function team() {
-        $article = Article::where('slug','=','team')->first();
 
-		return view('fe.team',compact('article'));
-	}
 
     public function pages($slug) {
         $article = Article::where('slug','=',$slug)->first();

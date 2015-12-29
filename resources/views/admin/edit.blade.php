@@ -5,9 +5,9 @@
 	<div class="container col-md-8">
 		<div class="well well bs-component">
 
-			<form  id="edit_form" class="form-horizontal" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+				{{ Form::model($article,['files' => true,'id'=>'edit_form','class' =>'form-horizontal','accept-charset' => "UTF-8"]) }}
 				@include('admin.common.error')
-				<input type="hidden" name="_token" value="{!! csrf_token() !!}">
+
 				<fieldset>
 					<legend>
 						@if( $article->title!='')
@@ -19,14 +19,16 @@
 						@endif
 
 					</legend>
-					{{  AdminForm::get( $article )}}
+					{{-- Form::input('text', 'title') --}}
+					{{ AdminForm::get( $article ) }}
+
 					@if ( config('admin.list.section.'.strtolower($pageConfig['model']).'s.password')  == 1)
 						@include('admin.helper.password')
 					@endif
 					@include('admin.helper.form_submit_button')
 
 				</fieldset>
-			</form>
+			{{ Form::close() }}
 		</div>
 	</div>
 	<div  class="col-sm-4">

@@ -1,3 +1,4 @@
+@inject('pages','App\Article')
 <html>
 <head>
     <title>LaraCms - @yield('title')</title>
@@ -21,6 +22,9 @@
     <link href="{!! asset('public/fe/css/override.css')!!}" rel="stylesheet">
     <link href="{!! asset('public/fe/css/header_default.css')!!}" rel="stylesheet">
     <link href="{!! asset('public/fe/css/app.css')!!}" rel="stylesheet">
+    <!-- Owl Carousel Assets -->
+    <link href="{!! asset('public/fe/plugins/owl-carousel/owl.carousel.css')!!}" rel="stylesheet">
+    <link href="{!! asset('public/fe/plugins/owl-carousel/owl.theme.default.css')!!}" rel="stylesheet">
 </head>
 <body>
     @include('fe.shared.navbar')
@@ -37,6 +41,7 @@
         </footer>
     @show
 </body>
+{{-- default js to show in all pages --}}
 <!-- Latest compiled and minified JavaScript -->
 <script src="{!! asset('public/js/jquery-2.1.4.min.js')!!}"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -90,5 +95,29 @@
             });
 
     })(jQuery);
+
+    var Serviziowl = $('.servizi-carousel');
+    Serviziowl.owlCarousel({
+        loop : true,
+        margin : 25,
+        nav : false,
+        //navText : [&#x27;<&#x27;,&#x27;>&#x27;]
+        responsive : {
+            0 : { items :1
+            },
+            600 : { items :2
+            },
+            1000 : { items :3
+            }
+        }
+    });
+
+    $('.customNextBtnServizi').click(function() {
+        Serviziowl.trigger('next.owl.carousel');
+    })
+    // Go to the previous item
+    $('.customPrevBtnServizi').click(function() {
+        Serviziowl.trigger('prev.owl.carousel', [300]);
+    })
 </script>
 </html>

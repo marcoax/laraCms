@@ -148,7 +148,7 @@ var App = function () {
             handleToggle();
             handleHeader();
             hideTopBar();
-            niceScroll();
+            //niceScroll();
             iscivitiNewsletter();
         },
 

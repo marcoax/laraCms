@@ -244,4 +244,15 @@ class Article extends Model
     {
         return $this->hasOne('App\Article','id','id_parent');
     }
+
+	public function scopePublished($query)    {
+
+		$query->where('pub', '=',1 );
+	}
+	public function scopeTop($query)    {
+		$query->where('top_menu', '=',1 )->orderBy('sort', 'asc');
+	}
+	public function scopeChildren($query,$id='')    {
+		 $query->where('id_parent', '=',$id )->orderBy('sort', 'asc');
+	}
 }

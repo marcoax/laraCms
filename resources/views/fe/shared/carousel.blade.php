@@ -5,7 +5,7 @@
     <!-- Carousel ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
          <div class="carousel-inner">
-           @foreach (  $hpslider->getActive() as  $index => $slider )
+           @foreach (  $hpslider->active()->get() as  $index => $slider )
                 <div class="item   @if ($index == 1) active"  @endif">
                     <img src="{!!  ma_get_image_from_repository($slider->image) !!}" alt="">
                     <div class="container">

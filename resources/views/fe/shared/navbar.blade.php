@@ -41,7 +41,6 @@
                                                 <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{{ $properties['native'] }}} </a>
                                             @else
                                                 <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{{ $properties['native'] }}} </a>
-
                                             @endif
                                         </li>
                                     @endforeach
@@ -49,12 +48,19 @@
                             </li>
                         </ul>
                         <ul id="menu" class="nav navbar-nav nav navbar-right">
-                            <li class="active" id="home"><a href="#home_section" class="active">Home</a></li>
-                            <li id="creolo"><a href="#creolo_section">About</a></li>
-                            <li id="team"><a href="{{ URL::to('team') }}">Team</a></li>
-                            <li id="prodotti"><a href="#prodotti_section">Work</a></li>
-                            <li id="news"><a href="#news_section">New</a></li>
-                            <li id="contatti"><a href="#contatti_section">CONTACT</a></li>
+                            @foreach (  $pages->top()->get() as  $index => $page )
+
+                                <li class=" @if ($article->id == $page->id) active"  @endif" active" id="{{ $page->slug }}">
+                                    @if ('home' == $page->slug)
+                                        <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '' ) ) }}" class="active">
+                                    @else
+                                        <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( $page->slug )) }}"class="active">
+                                    @endif
+                                            {{ $page->title }}
+                                    </a>
+                                </li>
+                             @endforeach
+
                             <!-- Home -->
                             <!-- Search Block -->
                             <li class="hidden">

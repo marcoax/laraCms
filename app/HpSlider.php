@@ -111,11 +111,9 @@ class HpSlider extends Model
 
 
 
-    public function getActive()    {
+    public function scopeActive($query)    {
 
-        return self::where('is_active',1)
-            ->orderBy('sort', 'asc')
-            ->get();
+        $query->where('is_active', '=',1 );
     }
 
 }
