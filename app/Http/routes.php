@@ -11,7 +11,31 @@
 |
 */
 
+Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'), function () {
 
+	Route::get('/', 'AdminPagesController@home');
+	Route::get('/list/{section?}/{sub?}', 'AdminPagesController@lista');
+	Route::get('/create/{section}', 'AdminPagesController@create');
+	Route::post('/create/{section}', 'AdminPagesController@store');
+	Route::get('/edit/{section}/{id?}', 'AdminPagesController@edit');
+	Route::post('/edit/{section}/{id?}', 'AdminPagesController@update');
+	Route::get('/delete/{section}/{id?}','AdminPagesController@destroy');
+
+
+	/*
+
+    Route::get('articles/{id?}/delete','ArticlesController@destroy');
+    Route::get('users/{id?}/delete','UsersController@destroy');
+    Route::get('roles/{id?}/delete','RolesController@destroy');
+    Route::get('socials/{id?}/delete','SocialsController@destroy');
+    Route::get('hpsliders/{id?}/delete','HpSlidersController@destroy');
+    */
+
+
+	Route::get('api/update/{method}/{model?}/{id?}','AjaxController@update');
+	Route::get('api/delete/{model?}/{id?}','AjaxController@delete');
+
+});
 
  Route::group(['prefix' => LaravelLocalization::setLocale()], function()
     {
@@ -20,7 +44,7 @@
 		Route::get('/', function () {
 		    return view('fe.home');
 		});
-		Route::get('/team', 'PagesController@team');
+		Route::get('/{slug}', 'PagesController@pages');
 		
 
 		
@@ -64,28 +88,3 @@
 			Route::post('password/reset', 'Auth\PasswordController@postReset');
 });
 
-Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'), function () {
-	 	
-	 Route::get('/', 'AdminPagesController@home');
-	 Route::get('/list/{section?}/{sub?}', 'AdminPagesController@lista');
-	 Route::get('/create/{section}', 'AdminPagesController@create');
-	 Route::post('/create/{section}', 'AdminPagesController@store');
-	 Route::get('/edit/{section}/{id?}', 'AdminPagesController@edit');
-	 Route::post('/edit/{section}/{id?}', 'AdminPagesController@update');
-	 Route::get('/delete/{section}/{id?}','AdminPagesController@destroy');
-
-
-	 /*
-
-	 Route::get('articles/{id?}/delete','ArticlesController@destroy');
-	 Route::get('users/{id?}/delete','UsersController@destroy');
-	 Route::get('roles/{id?}/delete','RolesController@destroy');
-	 Route::get('socials/{id?}/delete','SocialsController@destroy');
-	 Route::get('hpsliders/{id?}/delete','HpSlidersController@destroy');
-	 */
-
-	 
-	 Route::get('api/update/{method}/{model?}/{id?}','AjaxController@update');
-	 Route::get('api/delete/{model?}/{id?}','AjaxController@delete');
-
-});

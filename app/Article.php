@@ -21,8 +21,8 @@ class Article extends Model
      *
      * @var array
      */
-	public $translatedAttributes = ['title', 'description','abstract','seo_title','seo_keywords','seo_description'];
-    protected $fillable = ['title', 'description','slug','sort','pub','top_menu','id_parent'];
+	public $translatedAttributes = ['title','subtitle','intro','description','abstract','seo_title','seo_keywords','seo_description'];
+    protected $fillable = ['title','subtitle','intro','description','abstract', 'slug','sort','pub','top_menu','id_parent'];
 	protected $fieldspec = [];
 
 
@@ -69,43 +69,34 @@ class Article extends Model
 		
 		$this->fieldspec['title']    = [	
 			'type' =>'string',
-			'size' =>400,
 			'pkey' => 'n',
 			'required' => 'y',
 			'hidden' => '0',
 			'label'=>'Title',
 			'extraMsg'=>'',
 			'display'=>'1',
-			
 		];
 
 		$this->fieldspec['slug'] = [
 				'type' =>'string',
-				'size' =>600,
 				'pkey' => 'n',
 				'required' => 'y',
 				'hidden' =>0,
 				'label'=>'Slug',
 				'extraMsg'=>'',
 				'display'=>1,
-
 		];
 
-		$this->fieldspec['abstract'] = [
-				'type' =>'text',
-				'size' =>600,
-				'h' =>100,
-				'pkey' => 'n',
-				'required' => 'y',
-				'hidden' =>0,
-				'label'=>'Abstract',
-				'extraMsg'=>'',
-				'lang'=>0,
-				'cssClass'=>'',
-				'display'=>0,
-
-
+		$this->fieldspec['subtitle']  = [
+			'type' =>'string',
+			'pkey' => 'n',
+			'required' => 'y',
+			'hidden' => '0',
+			'label'=>'Subtitle',
+			'extraMsg'=>'',
+			'display'=>'1',
 		];
+
 		$this->fieldspec['description'] = [	
 			'type' =>'text',
 			'size' =>600,
@@ -117,8 +108,30 @@ class Article extends Model
 			'extraMsg'=>'',
 			'cssClass'=>'ckeditor',
 			'display'=>1,
-		
-			
+		];
+		$this->fieldspec['abstract'] = [
+			'type' =>'text',
+			'size' =>600,
+			'h' =>100,
+			'pkey' => 'n',
+			'required' => 'y',
+			'hidden' =>0,
+			'label'=>'Abstract or  text  right column',
+			'extraMsg'=>'',
+			'cssClass'=>'ckeditor',
+			'display'=>1,
+		];
+		$this->fieldspec['intro'] = [
+			'type' =>'text',
+			'size' =>600,
+			'h' =>100,
+			'pkey' => 'n',
+			'required' => 'y',
+			'hidden' =>0,
+			'label'=>'Abstract or  right side  column',
+			'extraMsg'=>'',
+			'cssClass'=>'',
+			'display'=>0,
 		];
 		
 		$this->fieldspec['link'] = [	

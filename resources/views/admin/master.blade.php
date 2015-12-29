@@ -13,8 +13,9 @@
 		<link href="{!! asset('public/cms/css/bootstrap-theme.css')!!}" rel="stylesheet">
     	<link href="{!! asset('public/cms/css/admin.css')!!}" rel="stylesheet">
     	<script>
-		var    _SERVER_PATH  ="{!! url('') !!}";
-		var    _LOCALE  ="{!! LaravelLocalization::getCurrentLocale() !!}";
+			var    _SERVER_PATH  ="{!! url('') !!}";
+			var    _LOCALE  ="{!! LaravelLocalization::getCurrentLocale() !!}";
+
 
 		</script>
     </head>
@@ -40,16 +41,7 @@
 	        Cms.init();
 	    });
 	</script>
-	<script type="text/javascript">
-		tinymce.init({
-		    selector: "textarea.ckeditor",
-		    plugins: [
-		        "advlist autolink lists link image charmap print preview anchor",
-		        "searchreplace visualblocks code fullscreen",
-		        "insertdatetime media table contextmenu paste"
-		    ],
-		    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-		});
-</script>
+
+	@yield('footerjs')
 
 </html>

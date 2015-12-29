@@ -246,30 +246,6 @@ var App = function () {
 
 }();
 
-/************************************** GESTIONE  DONAZIONI ************************/
-
-function popolaPP(obj) {
-
-    var  item_name  = $(obj).val()
-    var  item_code  = $(obj).data('code');
-    var  item_price = $(obj).data('price')
-    $("input[name=item_name]").val(item_name)
-    $("input[name=item_number]").val(item_code)
-    $("input[name=amount]").val(item_price)
-
-}
-
-
-function popolaPPDonate(obj) {
-    scrollToAnchor('donation')
-    var  item_name  = $(obj).val()
-    var  item_code  = $(obj).data('code');
-    var  item_price = $(obj).data('price')
-    $("input[name=item_name]").val(item_name)
-    $("input[name=item_number]").val(item_code)
-    $("input[name=amount]").val(item_price)
-
-}
 
 function scrollToAnchor(aid){
 
@@ -279,8 +255,6 @@ function scrollToAnchor(aid){
 
 /******************************** MODAL ************************/
 
-
-if (isNewsletterActived == 1) updateModalAlertMsg(t("NewsletterActived"));
 
 function updateModalAlertMsg($htmlContent) {
     bootbox.alert($htmlContent, function(result) {

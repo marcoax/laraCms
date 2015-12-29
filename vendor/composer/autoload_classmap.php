@@ -11,6 +11,8 @@ return array(
     'AddPaidToProducts' => $baseDir . '/database/migrations/2015_08_23_123427_add_paid_to_products.php',
     'AddPasswordRealToUsersTable' => $baseDir . '/database/migrations/2015_12_20_135234_add_password_real_to_users_table.php',
     'AddSeeds' => $vendorDir . '/dimsav/laravel-translatable/tests/migrations/2014_02_02_181020_add_seeds.php',
+    'AddSubtitleAbstractToArticleTranslationsTable' => $baseDir . '/database/migrations/2015_12_28_174719_add_subtitle_abstract_to_article_translations_table.php',
+    'AddSubtitleIntroAbstractToArticleTable' => $baseDir . '/database/migrations/2015_12_28_173515_add_subtitle_intro_abstract_to_article_table.php',
     'ArticleTranslations' => $baseDir . '/database/migrations/2015_12_07_161911_article_translations.php',
     'CreateArticlesTable' => $baseDir . '/database/migrations/2015_08_27_133226_create_articles_table.php',
     'CreateHpsliders' => $baseDir . '/database/migrations/2015_12_26_180448_create_hpsliders.php',

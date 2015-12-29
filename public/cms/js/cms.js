@@ -168,7 +168,7 @@ var Cms = function () {
        $('#toolbar_deleteButtonHandler').on('click',function(e) {
 			 e.preventDefault();
 			 //  redirect to edit page
-			var role =  $(this).data('role');
+			 var role =  $(this).data('role');
 			 bootbox.setLocale( _LOCALE );
 			 bootbox.confirm("<h4>Are you sure?</h4>", function(confirmed ) {
 				 if( confirmed) { 
@@ -217,3 +217,41 @@ var Cms = function () {
 }();
 
 
+function deleteImages(obj) {
+
+    bootbox.setLocale( _LOCALE );
+    bootbox.confirm("<h4>Are you sure?</h4>", function(confirmed ) {
+        var curItem     = obj;
+        var value 		= "";
+        var itemArray	= curItem.id.split('_');
+        var field		= itemArray[1];
+        var boxObj      = $("#box_"+itemArray[1]+"_"+itemArray[2]);
+
+
+
+        if( confirmed) {
+            $.ajax({
+                    url: urlAjaxHandlerCms+'update/updateItemField/'+_CURMODEL+'/'+itemArray[2],
+                    data:{	model: _CURMODEL,
+                        field: field,
+                        value: value
+                    },
+                    type: "GET",
+                    dataType: 'json',
+                    cache: false,
+                    success: function(response){
+                        //  suppress
+                        $.notify(response.message, "success");
+                        // hide  the   media  preview  container
+                        boxObj.hide();
+                    },
+                    error:function (xhr, ajaxOptions, thrownError){
+                        $.notify("Something went Wrong please"+xhr.responseText+thrownError);
+
+                    }
+                }
+            );
+        }
+    });
+
+}

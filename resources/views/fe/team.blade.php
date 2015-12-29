@@ -8,15 +8,11 @@
         <div class="container">
             <div class="row mb0">
                 <div class="col-sm-12 text-center ">
-                    <h1 class="color-4 mv20 wow bounceInRight smally">Design Studio in Milan</h1>
-                    <h2 class=" mt5 mb25 text-uppercase color-main wow bounceInLeft">Creolo</h2>
+                    <h1 class="color-4 mv20 wow bounceInRight smally">{{ $article->title }}</h1>
+                    <h2 class=" mt5 mb25 text-uppercase color-main wow bounceInLeft">{{ $article->title }}</h2>
                 </div>
                 <div class="col-sm-6 mb25 text-justify">
-                    <p>We are a design studio based in Milan devoted to create impact and value. Since 2001 we take care of all the creative aspects for a client list of individuals, brands, institutions and NGOs.<br />
-                        We design everything from businesses to brands to products, from books to bowls to boxes. And a lot more beyond. Our multi-disciplinary experience and expertise covers both brand and product design disciplines so we can help you from initial concept to ultimate expression.&nbsp;<br />
-                        As designers we always build from the roots up. Our process is clear and simple: understand and define a clear vision for the project; explore the visual and conceptual roots of the idea; translate these roots into an authentic social and cultural experience.<br />
-                        We embrace and provoke new ways of thinking and doing in order to help you navigate through rapidly changing competitive environments, applying maximum creativity together with strategy to make each project a success.<br />
-                        Besides studio projects, CREOLO enjoys giving lectures and holding workshops at art &amp; design academies here and there around the globe.</p>
+                    <p>{!! $article->description !!}</p>
 
                     <p>&nbsp;</p>				</div>
                 <div class="col-sm-6  mb25 text-justify">

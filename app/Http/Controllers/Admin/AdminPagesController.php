@@ -58,7 +58,7 @@ class AdminPagesController extends Controller
     public function create($model)
 	{
 		$this->init($model);
-		$article      = new $this->modelClass;
+		$article     = new $this->modelClass;
     	return view('admin.edit',['article' => $article,'pageConfig' => $this->config]);
 	}
 
@@ -114,27 +114,12 @@ class AdminPagesController extends Controller
 
 	public  function requestFieldHandler($article) {
 		foreach($article->getFillable() as $a) {
-			$article->$a 	= $this->request->get( $a );
+			$article->$a = $this->request->get( $a );
 		}
-		if (Input::hasFile('image') && Input::file('image')->isValid()) {
-			$destinationPath = 'uploads/images'; // upload path
-			$extension 		 = Input::file('image')->getClientOriginalExtension(); // getting image extension
-			$name 			 = Input::file('image')->getClientOriginalName();
-			$fileName 		 = rand(11111,99999).'_'.$name; // renameing image
-			Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
-			// sending back with message
-			$article->image  =  $fileName;
-		}
+		$this->functionMediadHandler($article,'image');
+		$this->functionMediadHandler($article,'doc');
 
-		if (Input::hasFile('doc') && Input::file('doc')->isValid()) {
-			$destinationPath = 'uploads/doc'; // upload path
-			$extension 		 = Input::file('doc')->getClientOriginalExtension(); // getting image extension
-			$name 			 = Input::file('doc')->getClientOriginalName();
-			$fileNameDoc 	 = rand(11111,99999).'_'.$name; // renameing image
-			Input::file('doc')->move($destinationPath, $fileNameDoc); // uploading file to given path
-			// sending back with message
-			$article->doc 	 =  $fileNameDoc;
-		}
+
 		$article->save();
 
 		if( $this->request-> has('role')) $article ->saveRoles($this->request ->get('role'));
@@ -148,5 +133,20 @@ class AdminPagesController extends Controller
 				$article->save();
 			}
 		}
+	}
+
+	private function  functionMediadHandler($article,$media) {
+
+
+		if (Input::hasFile($media) && Input::file($media)->isValid()) {
+			$destinationPath = 'uploads/'.$media.'s'; // upload path
+			$extension 		 = Input::file($media)->getClientOriginalExtension(); // getting image extension
+			$name 			 = Input::file($media)->getClientOriginalName();
+			$fileName 		 = rand(11111,99999).'_'.$name; // renameing image
+			Input::file($media)->move($destinationPath, $fileName); // uploading file to given path
+			// sending back with message
+			$article->$media  =  $fileName;
+		}
+
 	}
 }

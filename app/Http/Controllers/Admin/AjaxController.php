@@ -10,16 +10,13 @@ use App\Http\Controllers\Controller;
 class AjaxController extends Controller
 {
     	
-     private $responseContainer = ['status'=>'ko','message'=>'','error'=>'','data'=>''];		
-		
-    public function home()
-    {
-        return view('admin.home');
-    }
+    private 	$responseContainer = ['status'=>'ko','message'=>'','error'=>'','data'=>''];
+	protected   $request;
+
 	
 	public function update($action,$model,$id='',Request $request)
     {
-			
+		$this->request = $request;
 		switch ($action) {
 		    case "updateItemField":
 		        
@@ -39,9 +36,6 @@ class AjaxController extends Controller
 		        break;
 		   
 		}	
-	
-        	
-		
 		return $this->responseHandler();
     }
 	

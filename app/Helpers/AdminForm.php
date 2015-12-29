@@ -130,10 +130,10 @@ class AdminForm {
 		$html.= $formElement;
 
 		if( $this->model->$key!='') {
-			if( $this->property['mediaType']=='Img') $html.="<div class=\"mt10 mr10 mediaBox\">
+			if( $this->property['mediaType']=='Img') $html.="<div class=\"mt10 mr10 mediaBox\"  id=\"box_".$key."_".$this->model->id."\">
 							<img class=\"img-responsive imgEditThumb\" src=\"".ma_get_image_from_repository($this->model->$key)."\">
 							".$this->createMediaDeleteBtn( $key,$this->model->id)."</div>\n";
-			else  $html.="<div class=\"mt10 mr10\">
+			else  $html.="<div class=\"mt10 mr10\" id=\"box_".$key."_".$this->model->id."\">
 						<div class=\"btn-group\" role=\"group\" aria-label=\"...\">
 						  <button type=\"button\" class=\"btn btn-primary\">".$this->model->$key."</button>
 						  ".$this->createMediaDeleteBtn( $key,$this->model->id)."</div>
@@ -178,6 +178,7 @@ class AdminForm {
 	}
 
 	public  function createMediaDeleteBtn( $key,$id) {
+
 		$html="<a href=\"#\" rel=\"tooltip\" class=\"color-3 ph5\"
 				   data-original-title=\"".trans('admin.message.delete_item')."\"
 				   onclick=\"deleteImages(this)\" id=\"delete_".$key."_".$id."\"><i class=\"fa fa-trash big\"></i></a>";
