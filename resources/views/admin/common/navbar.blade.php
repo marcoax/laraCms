@@ -13,7 +13,7 @@
                 <img src="{!! asset('public/cms/image/logo.png')!!}" alt="CMS Login" style="height:50px;">
             </a>
         </div>
-<?php print_r( 'ssssssssssssssssss'. Auth::user()->hasRole('su'))?>
+
         <!-- Navbar Right -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
