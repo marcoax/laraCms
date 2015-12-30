@@ -13,7 +13,7 @@
                 <img src="{!! asset('public/cms/image/logo.png')!!}" alt="CMS Login" style="height:50px;">
             </a>
         </div>
-
+<?php print_r( 'ssssssssssssssssss'. Auth::user()->hasRole('su'))?>
         <!-- Navbar Right -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -68,10 +68,25 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="{{ URL::to('/admin/list/articles') }}">Pages</a>
+                                <a href="{{ URL::to('/admin/list/articles') }}"> <i class="fa fa-newspaper-o"></i> Pages</a>
                             </li>
                             <li>
-                                <a href="{{ URL::to('/admin/create/articles') }}">Add Page</a>
+                                <a href="{{ URL::to('/admin/create/articles') }}"><i class="fa fa-plus"></i>  Add Page</a>
+                            </li>
+                            <li>
+                                <a href="{{ URL::to('') }}" class="color-2" target="_new"><i class="fa fa-globe"></i> View site </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{{ URL::to('/admin/list/news') }}"><i class="fa fa-list"></i> News</a>
+                            </li>
+                            <li>
+                                <a href="{{ URL::to('/admin/create/news') }}"><i class="fa fa-plus"></i> Add News</a>
                             </li>
                         </ul>
                     </li>
@@ -80,38 +95,40 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="{{ URL::to('/admin/list/hpsliders') }}">Hp sliders</a>
+                                <a href="{{ URL::to('/admin/list/hpsliders') }}"><i class="fa fa-list"></i> Hp sliders</a>
                             </li>
                             <li>
-                                <a href="{{ URL::to('/admin/create/hpsliders') }}">Add Hp slider</a>
+                                <a href="{{ URL::to('/admin/create/hpsliders') }}"><i class="fa fa-plus"></i> Add Hp slider</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Roles
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="{{ URL::to('/admin/list/roles') }}">Roles</a>
-                            </li>
-                            <li>
-                                <a href="{{ URL::to('/admin/create/roles') }}">Add Role</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown">
-                                <a href="{{ URL::to('/admin/list/users') }}">User</a>
-                            </li>
-                            <li>
-                                <a href="{{ URL::to('/admin/create/users') }}">Add User</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                    @if (Auth::user()->hasRole('su'))
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Roles
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ URL::to('/admin/list/roles') }}"><i class="fa fa-list"></i> Roles</a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/admin/create/roles') }}"><i class="fa fa-plus"></i> Add Role</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="dropdown">
+                                    <a href="{{ URL::to('/admin/list/users') }}"><i class="fa fa-list"></i> Users</a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/admin/create/users') }}"><i class="fa fa-plus"></i> Add User</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                 </ul>
             @endif
         </div>
     </div>

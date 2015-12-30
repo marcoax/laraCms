@@ -9,6 +9,10 @@ return [
 				'title' => 'required',
 
 		],
+		'news' => [
+			'title' => 'required',
+
+		],
 		'roles' => [
 				'name' => 'required',
 				'display_name' => 'required',

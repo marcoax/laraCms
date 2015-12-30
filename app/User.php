@@ -35,14 +35,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password','remember_token'];
 	protected $fieldspec = [];
-	 public function rules()
-{
-    return [
-        'titledd' => 'required',
-        'description'=> 'required',
-        
-    ];
-}
+
 
 
 	public function setPasswordAttribute($password)

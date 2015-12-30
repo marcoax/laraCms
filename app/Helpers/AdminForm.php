@@ -2,6 +2,7 @@
 namespace App\Helpers;
 Use Form;
 Use App;
+use Carbon\Carbon;
 class AdminForm {
 
 	protected  $html;
@@ -53,6 +54,12 @@ class AdminForm {
 		if( $isLangField  ||  $this->property['display'] != 1 ) { }
 		else if($this->property['type'] =='string' ) {
 			$formElement = Form::text($key, $value , array('class' => ' form-control '.$cssClass));
+
+		}
+		else if($this->property['type'] =='date' ) {
+			$value = ($value) ? Carbon::parse($value)->format('d-m-Y') :date('d-m-Y');
+			$formElement = Form::text($key, $value , array('class' => ' form-control '.$cssClass));
+			$cssClassElement  = (isset($this->property['cssClassElement']))	 ? $this->property['cssClassElement'] : 'col-md-2';
 
 		}
 		else if($this->property['type'] =='integer'  && $this->property['display']== 1) {

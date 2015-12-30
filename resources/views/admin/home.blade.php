@@ -22,6 +22,20 @@
             </div>
             <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 pf5">
                 <div class="btn-icon bck-color-2 text-center color-2 transitioned">
+                    <a href="{{ URL::to('/admin/list/news') }}" class="color-2"><i class="fa fa-comment fa-4x"></i>
+                        <h3 class="color-2 mv5">News</h3>
+                    </a>
+                </div>
+            </div>
+            <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 pf5">
+                <div class="btn-icon bck-color-2 text-center color-2 transitioned">
+                    <a href="{{ URL::to('/admin/list/socials') }}" class="color-2"><i class="fa fa-hand-o-right fa-4x"></i>
+                        <h3 class="color-2 mv5">Socialize</h3>
+                    </a>
+                </div>
+            </div>
+            <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 pf5">
+                <div class="btn-icon bck-color-2 text-center color-2 transitioned">
                     <a href="{{ URL::to('/admin/list/users') }}" class="color-2"><i class="fa fa-users fa-4x"></i>
                         <h3 class="color-2 mv5">Users</h3>
                     </a>
@@ -34,13 +48,7 @@
                     </a>
                 </div>
             </div>
-            <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 pf5">
-                <div class="btn-icon bck-color-2 text-center color-2 transitioned">
-                    <a href="{{ URL::to('/admin/list/socials') }}" class="color-2"><i class="fa fa-hand-o-right fa-4x"></i>
-                        <h3 class="color-2 mv5">Socialize</h3>
-                    </a>
-                </div>
-            </div>
+
             <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 pf5">
                 <div class="btn-icon bck-color-4 text-center color-2 transitioned">
                     <a href="{{ URL::to('') }}" class="color-2" target="_new"><i class="fa fa-globe fa-4x"></i>

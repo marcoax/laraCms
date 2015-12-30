@@ -1,8 +1,7 @@
 @extends('fe.app')
-@section('title', 'Home page')
-
+@section('title', $article->title)
 @section('content')
-@include('fe.shared.carousel')
+@include('fe.partials.page_banner')
         <!--=== Content Part ===-->
 <section data-role="info-block">
     <div id="creolo_section">

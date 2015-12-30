@@ -76,8 +76,8 @@
 							@endif
 						</td>
 						@endforeach
-							<td class="text-center"><a href="{{ URL::to('/admin/edit/'.strtolower($pageConfig['model']).'s/'.$article->id) }}" class="btn btn-primary btn-small "   data-role ="edit-item"> <i class="fa fa-edit"></i> {!! trans('admin.label.edit')!!}</a></td>
-							<td class="text-center"><a href="{{ URL::to('/admin/delete/'.strtolower($pageConfig['model']).'s/'.$article->id) }}"  class="btn btn-danger btn-small" data-role ="delete-item"><i class="fa fa-trash"></i> {!! trans('admin.label.delete')!!}</a></td>
+							<td class="text-center"><a href="{{ URL::to('/admin/edit/'.strtolower(str_plural($pageConfig['model'])).'/'.$article->id) }}" class="btn btn-primary btn-small "   data-role ="edit-item"> <i class="fa fa-edit"></i> {!! trans('admin.label.edit')!!}</a></td>
+							<td class="text-center"><a href="{{ URL::to('/admin/delete/'.strtolower(str_plural($pageConfig['model'])).'/'.$article->id) }}"  class="btn btn-danger btn-small" data-role ="delete-item"><i class="fa fa-trash"></i> {!! trans('admin.label.delete')!!}</a></td>
 					</tr>
 					@endforeach
 				</tbody>

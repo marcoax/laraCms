@@ -1,11 +1,11 @@
 <?php
 
 namespace App;
-
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Article extends Model
+class News extends Model
 {
 
 	use \Dimsav\Translatable\Translatable;
@@ -14,7 +14,7 @@ class Article extends Model
      *
      * @var string
      */
-    protected $table = 'articles';
+    protected $table = 'news';
 
     /**
      * The attributes that are mass assignable.
@@ -22,10 +22,8 @@ class Article extends Model
      * @var array
      */
 	public $translatedAttributes = ['title','subtitle','intro','description','abstract','seo_title','seo_keywords','seo_description'];
-    protected $fillable = ['title','subtitle','intro','description','abstract', 'slug','sort','pub','top_menu','id_parent'];
-	protected $fieldspec = [];
-
-
+    protected $fillable 		 = ['title','subtitle','intro','description','date','abstract','link', 'slug','sort','pub'];
+	protected $fieldspec 		 = [];
 
 
 	public function setSlugAttribute($value)
@@ -36,7 +34,20 @@ class Article extends Model
 		$this->attributes['slug'] =$count ? "{$slug}-{$count}" : $slug;
 	}
 
-	
+	public function setDateAttribute($value)
+	{
+		$this->attributes['date'] = Carbon::parse($value);
+	}
+
+	public function getDateAttribute($value)
+	{
+
+		return Carbon::parse($value)->format('d-m-Y');
+	}
+	public function getFormattedDate()
+	{
+  		return Carbon::parse($this->attributes['date'])->formatLocalized('%d %B %Y');
+	}
 	 function getFieldSpec ()
     // set the specifications for this database table
     {
@@ -55,18 +66,19 @@ class Article extends Model
 		];
 		
 		
-		$this->fieldspec['id_parent'] = [
-			'type'       => 'relation',
-			'model'      => 'article',
-			'foreign_key'=> 'id',
-			'label_key'  => 'title',
-   			'pkey' => 'y',
+
+		$this->fieldspec['date']    = [
+			'type' =>'date',
+			'pkey' => 'n',
 			'required' => 'y',
-			'label'=>'Parent Page',
 			'hidden' => '0',
+			'label'=>'Publish date',
+			'extraMsg'=>'',
 			'display'=>'1',
+			'cssClass'=>'datepicker',
+			'cssClassElement' =>'col-sm-2',
 		];
-		
+
 		$this->fieldspec['title']    = [	
 			'type' =>'string',
 			'pkey' => 'n',
@@ -94,7 +106,7 @@ class Article extends Model
 			'hidden' => '0',
 			'label'=>'Subtitle',
 			'extraMsg'=>'',
-			'display'=>'1',
+			'display'=>'0',
 		];
 
 		$this->fieldspec['description'] = [	
@@ -119,7 +131,7 @@ class Article extends Model
 			'label'=>'Abstract or  text  right column',
 			'extraMsg'=>'',
 			'cssClass'=>'ckeditor',
-			'display'=>1,
+			'display'=>0,
 		];
 		$this->fieldspec['intro'] = [
 			'type' =>'text',
@@ -128,9 +140,9 @@ class Article extends Model
 			'pkey' => 'n',
 			'required' => 'y',
 			'hidden' =>0,
-			'label'=>'Abstract or  right side  column',
+			'label'=>'News Excerpt',
 			'extraMsg'=>'',
-			'cssClass'=>'',
+			'cssClass'=>'ckeditor',
 			'display'=>0,
 		];
 		
@@ -140,7 +152,7 @@ class Article extends Model
 			'h' =>300,
 			'required' => 'y',
 			'hidden' =>0,
-			'label'=>'Externa url',
+			'label'=>'External url',
 			'extraMsg'=>'',
 			'display'=>1,
 			
@@ -191,16 +203,7 @@ class Article extends Model
 			'label'=>trans('admin.label.active'),
 			'display'=>'1'
        ];
-	   $this->fieldspec['top_menu']   = [
-			'type' =>'boolean',
-			'pkey' => 'n',
-			'required' => '',
-			'hidden' => '0',
-			'label'=>trans('admin.label.top_menu'),
-			'display'=>'1'
-       ];
-
-		$this->fieldspec['seo_title']    = [
+	 		$this->fieldspec['seo_title']    = [
 				'type' =>'string',
 				'pkey' => 'n',
 				'required' => 'y',
@@ -238,19 +241,18 @@ class Article extends Model
 	/**
      * Get the phone record associated with the user.
      */
-    public function parentPage()
-    {
-        return $this->hasOne('App\Article','id','id_parent');
-    }
+
 
 	public function scopePublished($query)    {
 
-		$query->where('pub', '=',1 );
+		$query->where('pub', '=',1)->where('date','<=',Carbon::now());
 	}
 	public function scopeTop($query)    {
 		$query->where('top_menu', '=',1 )->orderBy('sort', 'asc');
 	}
-	public function scopeChildren($query,$id='')    {
-		 $query->where('id_parent', '=',$id )->orderBy('sort', 'asc');
+
+	public function scopeLatest($query,$limit = 5)    {
+
+		$query->published()->take($limit)->orderBy('date', 'desc');
 	}
 }

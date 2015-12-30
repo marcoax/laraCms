@@ -11,7 +11,7 @@
                     <i class="fa fa-save  color-main"></i>
                 </a>
                 <a class="btn btn-default btn-lg"
-                    href="{{ URL::to('/admin/create/'.strtolower($pageConfig['model']).'s') }}"
+                    href="{{ URL::to('/admin/create/'.strtolower(str_plural($pageConfig['model'])) ) }}"
                     data-original-title="{!! trans('admin.message.create')!!}"
                     data-placement="bottom" rel="tooltip">
                     <i class="fa fa-plus  color-main lg"></i>

@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddSubtitleAbstractToArticleTranslationsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('article_translations', function (Blueprint $table) {

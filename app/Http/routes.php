@@ -41,10 +41,15 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
     {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
 
-		Route::get('/', 'PagesController@home');
-		Route::get('/{slug?}', 'PagesController@pages');
-		
 
+		Route::get('/', 'PagesController@home');
+		Route::get('/news/', 'PagesController@news');
+		Route::get('/news/{slug}', 'PagesController@news');
+		Route::get('/{slug?}', 'PagesController@pages');
+
+		Route::get('/api/new/{post?}', function(App\Article $post) {
+			return $post;
+		});
 		
 		Route::get('csv', function()
 		{

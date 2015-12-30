@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ArticleTranslations extends Migration
+class CreateNewsTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,25 @@ class ArticleTranslations extends Migration
      */
     public function up()
     {
-        Schema::create('article_translations', function (Blueprint $table) {
+        Schema::create('news_translations', function (Blueprint $table) {
+
             $table->increments('id');
-            $table->integer('article_id')->unsigned();
+            $table->integer('news_id')->unsigned();
             $table->string('locale')->index();
             $table->string('title');
             $table->text('description');
             $table->text('abstract')->nullable();
+            $table->string('subtitle')->nullable();
+            $table->string('intro')->nullable();
             $table->string('seo_title')->nullable();
             $table->string('seo_description')->nullable();
             $table->string('seo_keywords')->nullable();
             $table->integer('created_by');
             $table->integer('update_by');
             $table->timestamps();
-            $table->unique(['article_id','locale']);
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->unique(['news_id','locale']);
+            $table->foreign('news_id')->references('id')->on('news')->onDelete('cascade');
+
         });
     }
 
@@ -37,6 +41,6 @@ class ArticleTranslations extends Migration
      */
     public function down()
     {
-        Schema::drop('article_translations');
+        Schema::drop('news_translations');
     }
 }

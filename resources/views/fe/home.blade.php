@@ -3,7 +3,7 @@
 @section('title', 'Home page')
 
 @section('content')
-@include('fe.shared.carousel')
+@include('fe.partials.carousel')
 <!--=== Content Part infoblock ===-->
 <section data-role="info-block">
     <div id="creolo_section">

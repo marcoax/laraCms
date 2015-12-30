@@ -1,8 +1,8 @@
 @extends('fe.app')
-@section('title', 'Home page')
+@section('title', $article->title)
 
 @section('content')
-@include('fe.shared.carousel')
+@include('fe.partials.page_banner_violet')
 
 <section id="contatti_section" data-role="info-block">
     <div class="relative" style="position:relative">

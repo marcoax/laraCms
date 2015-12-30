@@ -5,9 +5,9 @@
             <div class="row">
                 <div class="col-sm-12 text-center ">
                     <h1 class="color-4 mv20 wow bounceInRight smally">{{ $services->subtitle }}</h1>
-                    <h2 class=" mt5 mb25 text-uppercase color-main wow bounceInLeft">{{ $services->title }}</h2>
+                    <h2 class=" mt5 mb15 text-uppercase color-main wow bounceInLeft">{{ $services->title }}</h2>
                 </div>
-                <div class="col-sm-12 mb25 text-center">
+                <div class="col-sm-12 text-center">
                     {!! $services->description !!}
                 </div>
 

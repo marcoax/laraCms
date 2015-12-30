@@ -30,7 +30,7 @@ class AdminPagesController extends Controller
 	{
 		$this->model       = $model;
 		$this->config 	   = config('admin.list.section.'.$this->model);
-		$this->models      = strtolower($this->config['model']).'s';
+		$this->models      = strtolower(str_plural($this->config['model']));
 		$this->modelClass  ='App\\'.$this->config['model'];
 
 	}
