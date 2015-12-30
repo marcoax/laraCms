@@ -201,7 +201,7 @@ class AdminForm {
 	function containerLanguage ( $label,$cssClass="" ){
 		$html = '';
 		$html = "<div class=\"form-group\">";
-		$html.="<h2 class=\"bck-color-2 color-2 pv5 pl15 mf10\">".$label."<h2>\n";
+		$html.="<h2 class=\"bck-color-2 color-2 pv5 pl15 mf10\"> + ".$label."<h2>\n";
 		$html.="</div>\n";
 		$html.="<div class=\"clearfix\"></div>\n";
 		return $html;

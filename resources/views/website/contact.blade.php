@@ -1,8 +1,8 @@
-@extends('fe.app')
+@extends('website.app')
 @section('title', $article->title)
 
 @section('content')
-@include('fe.partials.page_banner_violet')
+@include('website.partials.page_banner_violet')
 
 <section id="contatti_section" data-role="info-block">
     <div class="relative" style="position:relative">

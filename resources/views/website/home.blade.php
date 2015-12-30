@@ -1,9 +1,9 @@
 @inject('pages','App\Article')
-@extends('fe.app')
+@extends('website.app')
 @section('title', 'Home page')
 
 @section('content')
-@include('fe.partials.carousel')
+@include('website.partials.carousel')
 <!--=== Content Part infoblock ===-->
 <section data-role="info-block">
     <div id="creolo_section">
@@ -13,10 +13,10 @@
                     <h1 class="color-4 mv20 wow bounceInRight smally">Design Studio in Milan</h1>
                     <h2 class=" mt5 mb25 text-uppercase color-main wow bounceInLeft">Creolo</h2>
                 </div>
-                @include('fe.partials.pagecontent',['page' => $pages->where('slug','=','about')->first()])
+                @include('website.partials.pagecontent',['page' => $pages->where('slug','=','about')->first()])
             </div><!-- /row -->
         </div> <!-- /container -->
     </div>
 </section>
-@include('fe.partials.servicecarousel',['services' => $pages->where('slug','=','service')->first()])
+@include('website.partials.servicecarousel',['services' => $pages->where('slug','=','service')->first()])
 @endsection

@@ -1,12 +1,12 @@
-@extends('fe.app')
+@extends('website.app')
 @section('title', $news->title)
 @section('content')
-@include('fe.partials.page_banner')
+@include('website.partials.page_banner')
 <!--=== Content Part ===-->
 <section id="news_section" class="section" data-role="home-news">
     <div class="container content pv25 mt10">
         <div class="row" id="widgets_news_homes">
-            @include('fe.partials.news_sidebar')
+            @include('website.partials.news_sidebar')
             <div class="col-md-9">
                 <div class="row">
                     <div class="col-sm-12 mb25">

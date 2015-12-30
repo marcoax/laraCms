@@ -27,9 +27,9 @@
     <link href="{!! asset('public/fe/plugins/owl-carousel/owl.theme.default.css')!!}" rel="stylesheet">
 </head>
 <body>
-    @include('fe.partials.navbar')
+    @include('website.partials.navbar')
     @yield('content')
-    @include('fe.partials.social')
+    @include('website.partials.social')
     @section('footer')
         <footer class="bck-color-footer pf15">
             <div class="container">
