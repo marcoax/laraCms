@@ -1,5 +1,5 @@
 @extends('website.app')
-@section('title', $article->title)
+@section('title',ucfirst( strtolower( $article->title )) )
 @section('content')
 @include('website.partials.page_banner')
         <!--=== Content Part ===-->

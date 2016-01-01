@@ -39,14 +39,20 @@ class AdminPagesController extends Controller
     {
         return view('admin.home');
     }
-	
+	/**
+	 * Show the index list of a model.
+	 *
+	 * @return Response
+	 */
 	public function lista($model,$sub='')
     {
 
         $this->init($model);
 		$model   	= new  $this->modelClass;
-		$articles   = $model::paginate(config('admin.list.item_per_pages'));
-	    return view('admin.list', ['articles' => $articles,'pageConfig' => $this->config]);
+		$sort 		= (isset($this->config->orderBy))   ? $this->config->orderBy: 'id';
+		$sortType	= (isset($this->config->orderType)) ? $this->config->orderType: 'asc';
+		$articles   = $model::orderby($sort,$sortType)->paginate(config('admin.list.item_per_pages'));
+		return view('admin.list', ['articles' => $articles,'pageConfig' => $this->config]);
         
     }
 
@@ -61,7 +67,12 @@ class AdminPagesController extends Controller
 		$article     = new $this->modelClass;
     	return view('admin.edit',['article' => $article,'pageConfig' => $this->config]);
 	}
-
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public function edit($model,$id)
 	{
 		$this->id  = $id;
@@ -70,6 +81,13 @@ class AdminPagesController extends Controller
 		$article 	= $model::whereId($this->id)->firstOrFail();
 		return view('admin.edit',['article' => $article,'pageConfig' => $this->config]);
 	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  Request  $request
+	 * @return Response
+	 */
 	
 	public function store($model,AdminFormRequest $request)
 	{
@@ -82,7 +100,13 @@ class AdminPagesController extends Controller
 			$this->requestFieldHandler($article);
 		    return redirect(action('Admin\AdminPagesController@edit', $this->models.'/'.$article->id))->with('status', 'The article has been updated!');
 	}
-
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  Request  $request
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public function update($model,$id,AdminFormRequest $request)
 	{
 			$this->init( $model );
@@ -110,6 +134,13 @@ class AdminPagesController extends Controller
 		$article->delete();
    	    return redirect(action('Admin\AdminPagesController@lista',$this->models ))->with('status', 'The items '.$article->title.' has been deleted!');
 	}
+
+
+
+
+
+
+
 
 
 	public  function requestFieldHandler($article) {

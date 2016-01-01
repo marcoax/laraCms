@@ -11,7 +11,7 @@ var App = function () {
     function handleBootstrap() {
         /*Bootstrap Carousel*/
         jQuery('.carousel').carousel({
-            interval: 2000,
+            interval: 5000,
             pause: 'hover'
         });
 
@@ -140,6 +140,8 @@ var App = function () {
 
     }
 
+
+
     return {
         init: function () {
             handleBootstrap();
@@ -152,6 +154,33 @@ var App = function () {
             iscivitiNewsletter();
         },
 
+        iniServiceOwl: function () {
+            var Serviziowl = $('.servizi-carousel');
+            Serviziowl.owlCarousel({
+                loop : true,
+                margin : 25,
+                nav : false,
+                //navText : [&#x27;<&#x27;,&#x27;>&#x27;]
+                responsive : {
+                    0 : { items :1
+                    },
+                    600 : { items :2
+                    },
+                    1000 : { items :3
+                    }
+                }
+            });
+
+
+            $('.customNextBtnServizi').click(function() {
+                Serviziowl.trigger('next.owl.carousel');
+            })
+            // Go to the previous item
+            $('.customPrevBtnServizi').click(function() {
+                Serviziowl.trigger('prev.owl.carousel', [300]);
+            })
+
+        },
         initMapSwitcher: function () {
             // Nice scroll to DIVs
             $('.showMap').click(function(evt){
@@ -203,43 +232,67 @@ var App = function () {
         initParallaxBg: function () {
             jQuery('.parallaxBg').parallax("50%", 0.2);
         },
-        /*
-         initMasorny: function () {
-         $containerM = $('#masonryBox');
-         $containerM.imagesLoaded( function() {
-         $containerM.masonry();
-         });
-         },
-         */
+
         initIsotope: function () {
             var $container = $('.isotope').isotope({
                 itemSelector: '.topa',
                 layoutMode: 'masonry'
             });
-
+            /*
             setTimeout(function(){
                 $container.isotope({
                     filter:  '.product'
                 });
             }, 1000);
-
-
-
+            */
 
             // bind filter button click
             $('#filters').on( 'click', 'li > button', function() {
-                $("[data-filter='.product'").removeClass('active');
+                $("[data-filter='*']").removeClass('active');
                 var filterValue = $( this ).attr('data-filter');
                 $container.isotope({ filter: filterValue });
             });
         },
 
-
-        initWoW: function () {
+         initWoW: function () {
             new WOW().init({
                 mobile:       false,       // default
                 live:         true        // default
             });
+        },
+
+        initTouchBTSlider: function (objectTarget) {
+            //Function to animate slider captions
+            function doAnimations( elems ) {
+                //Cache the animationend event in a variable
+                var animEndEv = 'webkitAnimationEnd animationend';
+                elems.each(function () {
+                    var $this = $(this),
+                        $animationType = $this.data('animation');
+                    $this.addClass($animationType).one(animEndEv, function () {
+                        $this.removeClass($animationType);
+                    });
+                });
+            }
+
+            //Variables on page load
+            var $myCarousel = $(objectTarget),
+                $firstAnimatingElems = $myCarousel.find('.item:first').find("[data-animation ^= 'animated']");
+
+                //Initialize carousel
+                $myCarousel.carousel();
+
+                //Animate captions in first slide on page load
+                doAnimations($firstAnimatingElems);
+
+                //Pause carousel
+                $myCarousel.carousel('pause');
+
+                //Other slides to be animated on carousel slide event
+                $myCarousel.on('slide.bs.carousel', function (e) {
+                    var $animatingElems = $(e.relatedTarget).find("[data-animation ^= 'animated']");
+                    doAnimations($animatingElems);
+                });
         },
 
     };

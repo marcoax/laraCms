@@ -1,6 +1,6 @@
 @inject('pages','App\Article')
 @extends('website.app')
-@section('title', 'Home page')
+@section('title',ucfirst( strtolower( $article->title )) )
 
 @section('content')
 @include('website.partials.carousel')
