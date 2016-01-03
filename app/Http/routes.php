@@ -35,6 +35,7 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 	Route::get('api/update/{method}/{model?}/{id?}','AjaxController@update');
 	Route::get('api/delete/{model?}/{id?}','AjaxController@delete');
 	Route::post('api/uploadifive/','AjaxController@uploadifive');
+	Route::get('api/updateHtml/{mediaType?}/{model?}/{id?}','AjaxController@updeteMediaList');
 
 
 });

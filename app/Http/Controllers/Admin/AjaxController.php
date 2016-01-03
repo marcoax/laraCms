@@ -63,16 +63,20 @@ class AjaxController extends Controller
 
 		if (Input::hasFile($media) && Input::file($media)->isValid()) {
 			$newMedia  = Input::file($media);
-			$mediaType = ( substr( $newMedia->getMimeType(), 0, 5) == 'image') ? 'images':'docs';
-			$destinationPath = 'uploads/media/'.$mediaType; // upload path
+			$mediaType = ( is_image( $newMedia->getMimeType()) == 'image') ? 'images':'docs';
+			$destinationPath =  $mediaType; // upload path folder
 			$extension 		 = $newMedia->getClientOriginalExtension(); // getting image extension
 			$name 			 = $newMedia->getClientOriginalName();
 			$fileName 		 = rand(11111,99999).'_'.$name; // renameing image
-			$newMedia->move($destinationPath, $fileName); // uploading file to given path
-			$model ="Article";
-			$modelClass  =  'App\\'.$model;
-			$list = $modelClass::find($request->Id);
+			//$newMedia->move($destinationPath, $fileName); // uploading file to given path
 
+
+
+			$storage = \Storage::disk('media');
+			$storage->put($destinationPath.'/'.$fileName, file_get_contents($newMedia), 'public');
+
+			$modelClass  =  'App\\'.$request->model;
+			$list = $modelClass::find($request->Id);
 
 			$c = new Media;
 			$c->title      = $fileName;
@@ -80,10 +84,24 @@ class AjaxController extends Controller
 			$c->size 	   = $newMedia->getClientSize();
 			$c->collection_name = $mediaType;
 			$c->disk	   = $destinationPath;
+			$c->media_category_id = $request->myImgType;
 			$list->medias()->save($c);
+			$this->responseContainer['status']  ='ok';
+			$this->responseContainer['data'] =$mediaType;
+			return $this->responseHandler();
 		}
 	}
-	
+
+
+	public function updeteMediaList($mediaType,$model,$id='')
+	{
+
+		$modelClass  =  'App\\'.$model;
+		$object 	 = $modelClass::whereId($id)->firstOrFail();
+		if( $mediaType == 'images' ) return view('admin.helper.images_list_gallery', ['article' => $object]);
+		else return view('admin.helper.docs_list', ['article' => $object]);
+	}
+
 	public function responseHandler()
     {
         	

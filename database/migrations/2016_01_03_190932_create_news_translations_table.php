@@ -13,7 +13,6 @@ class CreateNewsTranslationsTable extends Migration
     public function up()
     {
         Schema::create('news_translations', function (Blueprint $table) {
-
             $table->increments('id');
             $table->integer('news_id')->unsigned();
             $table->string('locale')->index();
@@ -30,7 +29,6 @@ class CreateNewsTranslationsTable extends Migration
             $table->timestamps();
             $table->unique(['news_id','locale']);
             $table->foreign('news_id')->references('id')->on('news')->onDelete('cascade');
-
         });
     }
 

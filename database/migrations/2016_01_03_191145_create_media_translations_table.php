@@ -21,7 +21,7 @@ class CreateMediaTranslationsTable extends Migration
 
             $table->unique(['media_id','locale']);
             $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');
-            $table->timestamps();
+            $table->timestamps();;
         });
     }
 

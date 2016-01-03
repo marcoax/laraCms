@@ -1,11 +1,11 @@
 <?php
    
 return [
-	 'repository'     => 'uploads',
-	 'img_repository' => 'uploads/images/',
-	 'doc_repository' => 'uploads/doc/',
-	 'media_img_repository' => 'uploads/media/images/',
-	 'media_doc_repository' => 'uploads/media/doc/',
+	 'repository'     => 'public/media/',
+	 'img_repository' => 'public/media/images/',
+	 'doc_repository' => 'public/media/docs/',
+	 'media_img_repository' => 'public/media/images/',
+	 'media_doc_repository' => 'public/media/docs/',
 	 
 	 
 	  'cms'            => 'admin/',

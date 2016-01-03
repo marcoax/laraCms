@@ -22,6 +22,18 @@
                             <a href="{!! $news->link !!}" target="_blank" class="big color-3"><i class="fa fa-link fa-1x"></i> {!! trans('website.go_to_site')!!} </a>
                             </div>
                         @endif
+                        @foreach (  $news->medias->where('collection_name','imagess','=')->all() as $media)
+                            <div class="media mb15 pb15 border-bottom-color-5">
+
+                                <div class="media-left">
+                                    <img class="media-object" alt="{{ $media->title }}" src="{!! ma_get_image_on_the_fly_chached($media->file_name,164,148,'jpg') !!}" border="0" width="164" heigth="148">
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading color-4 small">{{ $media->title }}</h4>
+                                </div>
+                            </div>
+
+                        @endforeach
                     </div>
 
                 </div>

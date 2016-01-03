@@ -167,12 +167,13 @@ class AdminPagesController extends Controller
 
 
         if (Input::hasFile($media) && Input::file($media)->isValid()) {
-            $destinationPath = 'uploads/' . $media . 's'; // upload path
-            $extension = Input::file($media)->getClientOriginalExtension(); // getting image extension
-            $name = Input::file($media)->getClientOriginalName();
-            $fileName = rand(11111, 99999) . '_' . $name; // renameing image
-            Input::file($media)->move($destinationPath, $fileName); // uploading file to given path
-            // sending back with message
+            $newMedia  = Input::file($media);
+            $mediaType = ( is_image( $newMedia->getMimeType()) == 'image') ? 'images':'docs';
+            $destinationPath =  config('admin.path.repository').'/'.$mediaType; // upload path
+            $extension 		 = $newMedia->getClientOriginalExtension(); // getting image extension
+            $name 			 = $newMedia->getClientOriginalName();
+            $fileName 		 = rand(11111,99999).'_'.$name; // renameing image
+            $newMedia->move($destinationPath, $fileName); // uploading file to given path
             $article->$media = $fileName;
         }
 

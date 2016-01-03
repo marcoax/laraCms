@@ -28,6 +28,7 @@ return [
         'top_menu'  => 'Show on  main menu',
         'update'  => 'Update',
         'upload_file'  => 'Upload file',
+        'view'    => 'View',
     ],
     'message'   => [
     	'add_new_item'      => 'Add new item',

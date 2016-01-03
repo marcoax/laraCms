@@ -9,8 +9,7 @@
 				{{ Form::model($article,['files' => true,'id'=>'edit_form','class' =>'form-horizontal','accept-charset' => "UTF-8"]) }}
 
 				<fieldset>
-						<div>
-
+					<div>
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" role="tablist">
 							<li role="presentation" class="active x-big">
@@ -40,10 +39,8 @@
 								</li>
 							@endif
 						</ul>
-
 						<!-- Tab panes -->
 						<div class="tab-content">
-
 							<div role="tabpanel" class="tab-pane active well noborder-top bs-component " id="main_tab">
 								{{ AdminForm::get( $article ) }}
 								@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'s.password')  == 1)
@@ -60,16 +57,11 @@
 							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showMedia')  == 1 && $article->id!='')
 								<div role="tabpanel" class="tab-pane  well noborder-top bs-component" id="media_tab">
 									@include('admin.helper.form_uplodifive')
-								@include('admin.helper.form_submit_button')
+									@include('admin.helper.form_submit_button')
 								</div>
 							@endif
-
 						</div>
-
-
-
-
-
+					</div>
 				</fieldset>
 			{{ Form::close() }}
 		</div>

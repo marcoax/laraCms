@@ -30,6 +30,7 @@ class CreateNewsTable extends Migration
             $table->string('banner');
             $table->string('link');
             $table->integer('sort');
+
             $table->tinyInteger('pub')->default(1)->nullable();
             $table->integer('created_by');
             $table->timestamps();

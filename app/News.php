@@ -34,6 +34,11 @@ class News extends Model
 		$this->attributes['slug'] =$count ? "{$slug}-{$count}" : $slug;
 	}
 
+	public function medias()
+	{
+		return $this->morphMany('App\Media', 'model');
+	}
+
 	public function setDateAttribute($value)
 	{
 		$this->attributes['date'] = Carbon::parse($value);
@@ -184,7 +189,7 @@ class News extends Model
 			'extraMsg'=>'',
 			'lang'=>0,
 			'mediaType'=>'Doc',
-			'display'=>1,
+			'display'=>0,
 			
 		];
 		$this->fieldspec['sort'] = [

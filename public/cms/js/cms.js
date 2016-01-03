@@ -202,13 +202,15 @@ var Cms = function () {
                         'timestamp' : '1451682058',
                         'token'     : '4b9fe8f26d865150e4b26b2a839d4f2b',
                         'Id'        :  $('#itemId').val(),
-                        'myImgLang' : '4b9fe8f26d865150e4b26b2a839d4f2b',
                         'myImgType' :  $('#myImgType').val(),
+                        'model'     :  _CURMODEL,
                         "_token" :  $('[name=_token]').val()
                     };
                 },
                 'onUploadComplete' : function(file, data) {
-                    $("#docListBody").load(urlAjaxHandler+"update/getImageList/"+ $('#itemId').val());
+                    var responseObj = jQuery.parseJSON(data);
+                    var mediaType   =  responseObj.data;
+                    $("#" + mediaType + "ListBody").load( urlAjaxHandlerCms + 'updateHtml/' + mediaType + '/' + _CURMODEL + '/'+ $('#itemId').val());
                 }
             });
         },
@@ -251,6 +253,41 @@ function deleteImages(obj) {
                         field: field,
                         value: value
                     },
+                    type: "GET",
+                    dataType: 'json',
+                    cache: false,
+                    success: function (response) {
+                        //  suppress
+                        $.notify(response.message, "success");
+                        // hide  the   media  preview  container
+                        boxObj.hide();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $.notify("Something went Wrong please" + xhr.responseText + thrownError);
+
+                    }
+                }
+            );
+        }
+    });
+
+}
+
+
+function deleteItem(obj) {
+
+    bootbox.setLocale(_LOCALE);
+    bootbox.confirm("<h4>Are you sure?</h4>", function (confirmed) {
+        var curItem = obj;
+        var value = "";
+        var itemArray = curItem.id.split('_');
+        var boxObj = $("#box_" + itemArray[1] + "_" + itemArray[2]);
+
+
+        if (confirmed) {
+            $.ajax({
+                    url: urlAjaxHandlerCms + 'delete/' + itemArray[1] + '/' + itemArray[2],
+
                     type: "GET",
                     dataType: 'json',
                     cache: false,

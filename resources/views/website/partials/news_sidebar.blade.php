@@ -7,6 +7,7 @@
     </div>
     @foreach (  $posts->Latest(3)->get() as  $index => $posta )
         <div class="media mb15 pb15 border-bottom-color-5">
+
             <div class="media-left">
                 <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( $article->slug.'/'.$posta->slug )) }}">
                     <img class="media-object"  src="{!! ma_get_image_on_the_fly_chached($posta->image,64,48,'jpg') !!}" border="0" width="64" heigth="64">
