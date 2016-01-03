@@ -145,17 +145,22 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-	    'Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider',
-		Dimsav\Translatable\TranslatableServiceProvider::class,
+
 
 		/*
-		 *  Custom
+		 *  Vendor
 		 */
+		'Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider',
+		 Dimsav\Translatable\TranslatableServiceProvider::class,
          'hisorange\BrowserDetect\Provider\BrowserDetectService',
          Collective\Html\HtmlServiceProvider::class,
          'Zizaco\Entrust\EntrustServiceProvider',
-         App\Providers\AdminFormServiceProvider::class,
-		'Intervention\Image\ImageServiceProvider'
+
+		 'Intervention\Image\ImageServiceProvider',
+
+
+		  // Ma
+		  App\Providers\AdminFormServiceProvider::class,
 	],
 
     /*
@@ -210,8 +215,10 @@ return [
     	'Form'    => Collective\Html\FormFacade::class,
     	'Html'    => Collective\Html\HtmlFacade::class,
     	'Entrust' => 'Zizaco\Entrust\EntrustFacade',
-	   	'AdminForm'  => App\Facades\AdminForm::class,
-		'Image' => 'Intervention\Image\Facades\Image'
+
+		'Image' => 'Intervention\Image\Facades\Image',
+
+		'AdminForm'  => App\Facades\AdminForm::class,
     	
     ],
 

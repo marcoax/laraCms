@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Media;
+use Input;
 
 class AjaxController extends Controller
 {
@@ -53,7 +55,34 @@ class AjaxController extends Controller
 		else $this->responseContainer['error'] ='data not found';
 		return $this->responseHandler();
     }
-	
+
+	public function uploadifive(Request $request)
+	{
+
+		$media = 'Filedata';
+
+		if (Input::hasFile($media) && Input::file($media)->isValid()) {
+			$newMedia  = Input::file($media);
+			$mediaType = ( substr( $newMedia->getMimeType(), 0, 5) == 'image') ? 'images':'docs';
+			$destinationPath = 'uploads/media/'.$mediaType; // upload path
+			$extension 		 = $newMedia->getClientOriginalExtension(); // getting image extension
+			$name 			 = $newMedia->getClientOriginalName();
+			$fileName 		 = rand(11111,99999).'_'.$name; // renameing image
+			$newMedia->move($destinationPath, $fileName); // uploading file to given path
+			$model ="Article";
+			$modelClass  =  'App\\'.$model;
+			$list = $modelClass::find($request->Id);
+
+
+			$c = new Media;
+			$c->title      = $fileName;
+			$c->file_name  = $fileName;
+			$c->size 	   = $newMedia->getClientSize();
+			$c->collection_name = $mediaType;
+			$c->disk	   = $destinationPath;
+			$list->medias()->save($c);
+		}
+	}
 	
 	public function responseHandler()
     {

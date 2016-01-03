@@ -3,7 +3,7 @@
 		<button type="reset" class="btn btn-danger btn-lg hidden">
 			<i class="fa fa-save"></i> Cancel
 		</button>
-		<button type="submit" class="btn btn-primary btn-lg">
+		<button type="submit" class="btn btn-primary btn-lg pull-right">
 			<i class="fa fa-save"></i>  Save
 		</button>
 	</div>

@@ -26,7 +26,10 @@ class Article extends Model
 	protected $fieldspec = [];
 
 
-
+	public function medias()
+	{
+		return $this->morphMany('App\Media', 'model');
+	}
 
 	public function setSlugAttribute($value)
 	{

@@ -184,6 +184,32 @@ footer a:hover {
     border-bottom: 1px solid #ccc;
 }
 
+.border-bottom-color-4-big {
+    border-bottom: 4px solid #ccc !important;
+}
+/* BOTTOM BARS ================================= */
+.bar 	{ position:relative; display:block; width:100%; border: 0px solid red }
+.bar:before, .bar:after 	{
+    content:'';
+    height:5px;
+    width:0%;
+    bottom:0px;
+    position:absolute;
+    background:#5264AE;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+.bar:before {
+    left:50%;
+}
+.bar:after {
+    right:50%;
+}
+.servizi-gallery:hover .bar:before, .servizi-gallery:hover .bar:after {
+    width:50%;
+    background:#0abaee;
+}
 /*************************************    TYPO   **************************/
 .xx-big {
     font-size: 160%;
@@ -394,6 +420,7 @@ footer .copyright {
 .product-gallery .caption, .servizi-gallery .caption {
     text-align: left;
     padding: 10px 25px 5px 25px;
+    min-height:80px;
 
 }
 

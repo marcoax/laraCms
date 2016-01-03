@@ -34,9 +34,10 @@ return [
             'copy'       =>'1',
             'preview'    =>'0',
             'view'    	 =>'0',
-            'selectable' =>'1'
-            
-        ],
+            'selectable' =>'1',
+		    'showMedia'  =>'1',
+		   	'showSeo'    =>'1'
+         ],
 		 'news' => [
 			 'model'=>'News',
 			 'title'=>'News',
@@ -48,21 +49,21 @@ return [
 				 'title',
 				 'slug',
 				 'pub' 	   => ['type' => 'boolean','field' => 'pub', 'class' =>'col-sm-1 text-center'],
-
 				 'sort'     => ['type' => 'editable','field' => 'sort', 'class' =>'col-sm-1'],
-
 				 'created_at' => ['type' => 'date', 'field' => 'created_at', 'class' =>'col-sm-1'],
 				 'updated_at' => ['type' => 'date', 'field' => 'created_at', 'class' =>'col-sm-1'],
 			 ],
-			 'orderBy'	 =>'date',
-			 'orderType' =>'desc',
+			 'orderBy'	  =>'date',
+			 'orderType'  =>'desc',
 			 'edit'       =>'1',
 			 'delete'     =>'1',
 			 'create'     =>'1',
 			 'copy'       =>'1',
 			 'preview'    =>'0',
-			 'view'    	 =>'0',
-			 'selectable' =>'1'
+			 'view'    	  =>'0',
+			 'selectable' =>'1',
+			 'showMedia'  =>'1',
+			 'showSeo'    =>'1'
 
 		 ],
 		 'hpsliders' => [

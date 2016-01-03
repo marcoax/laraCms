@@ -4,6 +4,8 @@ return [
 	 'repository'     => 'uploads',
 	 'img_repository' => 'uploads/images/',
 	 'doc_repository' => 'uploads/doc/',
+	 'media_img_repository' => 'uploads/media/images/',
+	 'media_doc_repository' => 'uploads/media/doc/',
 	 
 	 
 	  'cms'            => 'admin/',

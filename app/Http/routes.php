@@ -34,13 +34,19 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 
 	Route::get('api/update/{method}/{model?}/{id?}','AjaxController@update');
 	Route::get('api/delete/{model?}/{id?}','AjaxController@delete');
+	Route::post('api/uploadifive/','AjaxController@uploadifive');
+
 
 });
 
  Route::group(['prefix' => LaravelLocalization::setLocale()], function()
     {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-
+		Route::get('/resa', function()
+		{
+			$img = Image::make('http://images.boomsbeat.com/data/images/full/979/justin-bieber-2013-3226-hdwallfan-jpg.jpg')->fit(300,200);
+			return $img->response();
+		});
 
 		Route::get('/', 'PagesController@home');
 		Route::get('/news/', 'PagesController@news');

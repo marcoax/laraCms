@@ -7,10 +7,20 @@ class AdminForm {
 
 	protected  $html;
 	protected  $property;
+	protected  $showSeo;
 
 
 	public function get($model)
 	{
+
+		$this->showSeo  =  false;
+		$this->initForm ( $model );
+		echo $this->render();
+	}
+	public function getSeo($model)
+	{
+
+		$this->showSeo  =  true;
 		$this->initForm ( $model );
 		echo $this->render();
 	}
@@ -22,9 +32,10 @@ class AdminForm {
 
 	protected   function  initForm ($model)
 	{
+		$this->html ="";
 		$this->model = $model;
 		foreach( $this->model->getFieldSpec() as $key => $property ) {
-			$this->formModelHandler($property,$key,$this->model->$key);
+			if( (starts_with($key, 'seo') && $this->showSeo ) or (!starts_with($key, 'seo') && !$this->showSeo) )$this->formModelHandler($property,$key,$this->model->$key);
 		}
 
 		if(isset($this->model->translatedAttributes ) && count($this->model->translatedAttributes )>1) {
@@ -36,7 +47,7 @@ class AdminForm {
 					foreach($this->model->translatedAttributes as $attribute) {
 						$value = (isset($this->model->translate($locale)->$attribute))? $this->model->translate($locale)->$attribute:'';
 						$this->property = $this->model->fieldspec[$attribute];
-						$this->formModelHandler($this->model->fieldspec[$attribute],$attribute.'_'.$locale,$value);
+						if( (starts_with($attribute, 'seo') && $this->showSeo ) or (!starts_with($attribute, 'seo') && !$this->showSeo) )$this->formModelHandler($this->model->fieldspec[$attribute],$attribute.'_'.$locale,$value);
 					}
 					$this->html .="</div>";
 				}
@@ -54,7 +65,6 @@ class AdminForm {
 		if( $isLangField  ||  $this->property['display'] != 1 ) { }
 		else if($this->property['type'] =='string' ) {
 			$formElement = Form::text($key, $value , array('class' => ' form-control '.$cssClass));
-
 		}
 		else if($this->property['type'] =='date' ) {
 			$value = ($value) ? Carbon::parse($value)->format('d-m-Y') :date('d-m-Y');
@@ -201,7 +211,7 @@ class AdminForm {
 	function containerLanguage ( $label,$cssClass="" ){
 		$html = '';
 		$html = "<div class=\"form-group\">";
-		$html.="<h2 class=\"bck-color-2 color-2 pv5 pl15 mf10\"> + ".$label."<h2>\n";
+		$html.="<h2 class=\"bck-color-2 color-2 pv5 pl15 mf10\"> + ".$label."</h2>\n";
 		$html.="</div>\n";
 		$html.="<div class=\"clearfix\"></div>\n";
 		return $html;

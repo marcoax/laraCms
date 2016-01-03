@@ -2,60 +2,92 @@
 @section('title', 'Edit')
 @section('content')
 	@include('admin.helper.toolbar_top')
-	<div class="container col-md-8">
-		<div class="well well bs-component">
+	<div class="container col-md-12 pt15">@include('admin.common.error')</div>
+	<div class="container col-md-8 pt5">
+
 
 				{{ Form::model($article,['files' => true,'id'=>'edit_form','class' =>'form-horizontal','accept-charset' => "UTF-8"]) }}
-				@include('admin.common.error')
 
 				<fieldset>
-					<legend>
-						@if( $article->title!='')
-							Edit {{ $article->title }}
-						@elseif( $article->name!='')
-							Edit {{ $article->name }}
-						@else
-							Create new  {{ $pageConfig['model'] }}
-						@endif
+						<div>
 
-					</legend>
-					{{-- Form::input('text', 'title') --}}
-					{{ AdminForm::get( $article ) }}
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active x-big">
+								<a href="#main_tab" aria-controls="main_tab" role="tab" data-toggle="tab">
+									<i class="fa fa-file-text-o"></i>
+									@if( $article->title!='')
+										Edit {{ $article->title }}
+									@elseif( $article->name!='')
+										Edit {{ $article->name }}
+									@else
+										Create new  {{ $pageConfig['model'] }}
+									@endif
+								</a>
+							</li>
+							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showSeo')  == 1)
+								<li role="presentation" class="x-big">
+									<a href="#seo_tab" aria-controls="seo_tab" role="tab" data-toggle="tab">
+										<i class="fa fa-bolt"></i> Seo
+									</a>
+							</li>
+							@endif
+							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showMedia')  == 1 && $article->id!='')
+								<li role="presentation" class="x-big">
+									<a href="#media_tab" aria-controls="media_tab" role="tab" data-toggle="tab">
+										<i class="fa fa-file-image-o"></i> Media
+									</a>
+								</li>
+							@endif
+						</ul>
 
-					@if ( config('admin.list.section.'.strtolower($pageConfig['model']).'s.password')  == 1)
-						@include('admin.helper.password')
-					@endif
-					@include('admin.helper.form_submit_button')
+						<!-- Tab panes -->
+						<div class="tab-content">
+
+							<div role="tabpanel" class="tab-pane active well noborder-top bs-component " id="main_tab">
+								{{ AdminForm::get( $article ) }}
+								@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'s.password')  == 1)
+									@include('admin.helper.password')
+								@endif
+								@include('admin.helper.form_submit_button')
+							</div>
+							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showSeo')  == 1)
+								<div role="tabpanel" class="tab-pane well noborder-top  bs-component" id="seo_tab">
+									{{ AdminForm::getSeo( $article ) }}
+									@include('admin.helper.form_submit_button')
+								</div>
+							@endif
+							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showMedia')  == 1 && $article->id!='')
+								<div role="tabpanel" class="tab-pane  well noborder-top bs-component" id="media_tab">
+									@include('admin.helper.form_uplodifive')
+								@include('admin.helper.form_submit_button')
+								</div>
+							@endif
+
+						</div>
+
+
+
+
 
 				</fieldset>
 			{{ Form::close() }}
 		</div>
 	</div>
-	<div  class="col-sm-4">
+	<div  class="col-sm-4 mt25 pt25">
 		<div class="well well bs-component" id="naviSx" data-spy="affixd" data-offset-top="0">
 			@include('admin.helper.side_bar_action')
 		</div>
 	</div><!--/span contenuto  box  dx-->
 @endsection
 @section('footerjs')
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	<script src="{!! asset('public/js/vendor/jquery.uploadifive.min.js')!!}" type="text/javascript"></script>
 	<script type="text/javascript">
-		var    _CURMODEL  ="{!!  $pageConfig['model'] !!}";
-		tinymce.init({
-			selector: "textarea.ckeditor",
-			plugins: [
-				"advlist autolink lists link image charmap print preview anchor",
-				"searchreplace visualblocks code fullscreen",
-				"insertdatetime media table contextmenu paste"
-			],
-			toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-		});
-		$(function() {
-			$( ".datepicker" ).datepicker({
-				dateFormat: "dd-mm-yy"
-			});
-		});
+
+     	$(function() {
+			Cms.initTinymce();
+			Cms.initDatePicker();
+			Cms.initUploadifive();
+    	});
 	</script>
 @endsection

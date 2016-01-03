@@ -13,7 +13,9 @@
         "mcamara/laravel-localization": "1.0.*",
         "zizaco/entrust": "dev-laravel-5",
         "twbs/bootstrap": "^3.3",
-        "dimsav/laravel-translatable": "^5.4" 
+        "dimsav/laravel-translatable": "^5.4",
+        "intervention/image": "^2.3",
+        "intervention/imagecache": "^2.3" 
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -18,14 +18,16 @@
                     <div  class="servizi-carousel owl-carousel owl-theme">
                         @foreach (  $services->children($services->id)->get()  as  $index => $service )
                             <div class="item item-badge">
-                                <div class="thumbnail servizi-gallery relative">
+                                <div class="thumbnail servizi-gallery relative sborder-bottom-color-4-big">
                                     <div class="box-badge">
                                         <img src="{!!  ma_get_image_from_repository($service->image) !!}" alt="{{$service->title }}" class="img-responsive center-block" style="width:80px;">
                                     </div>
                                     <div class="caption">
                                         <h2 class="color-main mb10 text-center">{{$service->title }}</h2>
                                     </div>
+                                    <div class="bar"></div>
                                 </div>
+
                             </div>
                         @endforeach
                     </div>
