@@ -1,5 +1,5 @@
-<ul class="thumbnails ui-sortable" id="simpleGallery">
-    @forelse($article->medias->where('collection_name','images','=')->all() as $media)
+<ul class="thumbnails list-unstyled ui-sortable" id="simpleGallery">
+    @forelse($article->media->where('collection_name','images','=')->all() as $media)
         <li id="box_media_{!! $media->id!!}" class="thumbnail mf10 pf10">
             <div id="item_media_{!! $media->id!!}_text" class="caption">{!! $media->title!!}</div>
             <img src="{!!  ma_get_image_from_repository($media->file_name) !!}" alt="{!! $media->title!!}" border="0">

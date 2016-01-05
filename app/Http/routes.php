@@ -17,7 +17,7 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 	Route::get('/list/{section?}/{sub?}', 'AdminPagesController@lista');
 	Route::get('/create/{section}', 'AdminPagesController@create');
 	Route::post('/create/{section}', 'AdminPagesController@store');
-	Route::get('/edit/{section}/{id?}', 'AdminPagesController@edit');
+	Route::get('/edit/{section}/{id?}/{type?}', 'AdminPagesController@edit');
 	Route::post('/edit/{section}/{id?}', 'AdminPagesController@update');
 	Route::get('/delete/{section}/{id?}','AdminPagesController@destroy');
 
@@ -36,6 +36,7 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 	Route::get('api/delete/{model?}/{id?}','AjaxController@delete');
 	Route::post('api/uploadifive/','AjaxController@uploadifive');
 	Route::get('api/updateHtml/{mediaType?}/{model?}/{id?}','AjaxController@updeteMediaList');
+	Route::get('api/updateMediaSortList/','AjaxController@updateMediaSortList');
 
 
 });

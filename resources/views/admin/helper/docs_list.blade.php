@@ -1,5 +1,5 @@
 <ul class="thumbnails ui-sortable mf0" id="simpleDocGallery">
-    @forelse($article->medias->where('collection_name','docs','=')->all() as $media)
+    @forelse($article->media->where('collection_name','docs','=')->all() as $media)
         <li id="box_media_{!! $media->id!!}" class="thumbnail pf10 mb14">
 
             <div class="pull-right">

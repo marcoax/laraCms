@@ -102,6 +102,28 @@ class AjaxController extends Controller
 		else return view('admin.helper.docs_list', ['article' => $object]);
 	}
 
+	public function updateMediaSortList(Request $request)
+	{
+        $i =1;
+
+			$input = Input::all();
+			foreach($input as $key => $items) {
+
+				$dataObject = explode( '_',$key);
+				foreach($items as $id) {
+					print_r($id);
+					$modelClass  =  'App\\'.$dataObject[1];
+					$object 	 = $modelClass::whereId($id)->firstOrFail();
+					$object->sort = $i*10;
+					$object->save();
+					$i++;
+				};
+			};
+
+
+
+	}
+
 	public function responseHandler()
     {
         	

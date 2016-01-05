@@ -53,8 +53,6 @@
 											<i class=" transitioned fa fa-2x fa-check text-success pointer {{ ($article->$label['field']==1) ? '' : 'hidden' }} "></i>
 											<i class="transitioned fa fa-2x fa-close text-error  pointer {{ ($article->$label['field']==1) ? 'hidden' : '' }}"></i>
 									</div>
-
-
 								@elseif ( $label['type'] == 'editable' )
 									<input
 										id="{!! $pageConfig['model'].'_'.$label['field'].'_'.$article->id !!}"
@@ -76,8 +74,8 @@
 							@endif
 						</td>
 						@endforeach
-							<td class="text-center"><a href="{{ URL::to('/admin/edit/'.strtolower(str_plural($pageConfig['model'])).'/'.$article->id) }}" class="btn btn-primary btn-small "   data-role ="edit-item"> <i class="fa fa-edit"></i> {!! trans('admin.label.edit')!!}</a></td>
-							<td class="text-center"><a href="{{ URL::to('/admin/delete/'.strtolower(str_plural($pageConfig['model'])).'/'.$article->id) }}"  class="btn btn-danger btn-small" data-role ="delete-item"><i class="fa fa-trash"></i> {!! trans('admin.label.delete')!!}</a></td>
+							<td class="text-center"><a href="{{  ma_get_admin_edit_url($article) }}" class="btn btn-primary btn-small "   data-role ="edit-item"> <i class="fa fa-edit"></i> {!! trans('admin.label.edit')!!}</a></td>
+							<td class="text-center"><a href="{{  ma_get_admin_delete_url($article) }}"  class="btn btn-danger btn-small" data-role ="delete-item"><i class="fa fa-trash"></i> {!! trans('admin.label.delete')!!}</a></td>
 					</tr>
 					@endforeach
 				</tbody>

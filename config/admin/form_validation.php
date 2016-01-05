@@ -5,6 +5,9 @@ return [
 				'description' => 'required',
 
 		],
+		'media' => [
+			'title' => 'required',
+     	],
 		'hpsliders' => [
 				'title' => 'required',
 

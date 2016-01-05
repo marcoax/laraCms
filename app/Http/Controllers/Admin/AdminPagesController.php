@@ -74,13 +74,13 @@ class AdminPagesController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function edit($model, $id)
+    public function edit($model, $id,$type=null)
     {
         $this->id = $id;
         $this->init($model);
         $model = new  $this->modelClass;
         $article = $model::whereId($this->id)->firstOrFail();
-        return view('admin.edit', ['article' => $article, 'pageConfig' => $this->config]);
+        return view('admin.edit'.$type, ['article' => $article, 'pageConfig' => $this->config]);
     }
 
     /**

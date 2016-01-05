@@ -228,6 +228,20 @@ var Cms = function () {
             });
         },
 
+        initSortableList: function (object) {
+
+            $(object).sortable({
+                revert: true,
+                update: function (ev, ui) {
+                    var order = $(object).sortable('serialize');
+
+                    $("#info").load(urlAjaxHandlerCms + "updateMediaSortList?" + order);
+                }
+            });
+            $("ul#simpleGallery").disableSelection()
+
+        },
+
     }
 
 

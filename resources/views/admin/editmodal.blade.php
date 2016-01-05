@@ -1,9 +1,7 @@
-@extends('admin.master')
-@section('title', 'Edit')
-@section('content')
+
 	@include('admin.helper.toolbar_top')
 	<div class="container col-md-12 pt15">@include('admin.common.error')</div>
-	<div class="container col-md-8 pt5">
+	<div class="container col-md-12 pt5">
 
 
 				{{ Form::model($article,['files' => true,'id'=>'edit_form','class' =>'form-horizontal','accept-charset' => "UTF-8"]) }}
@@ -46,7 +44,6 @@
 								@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'s.password')  == 1)
 									@include('admin.helper.password')
 								@endif
-
 								@include('admin.helper.form_submit_button')
 							</div>
 							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showSeo')  == 1)
@@ -67,24 +64,5 @@
 			{{ Form::close() }}
 		</div>
 	</div>
-	<div  class="col-sm-4 mt25 pt25">
-		<div class="well well bs-component" id="naviSx" data-spy="affixd" data-offset-top="0">
-			@include('admin.helper.side_bar_action')
-		</div>
-	</div><!--/span contenuto  box  dx-->
-	<div id="info" class="hidden"></div>
-@endsection
-@section('footerjs')
-	<script src="{!! asset('public/js/vendor/jquery.uploadifive.min.js')!!}" type="text/javascript"></script>
-	<script type="text/javascript">
 
-     	$(function() {
-			Cms.initTinymce();
-			Cms.initDatePicker();
-			Cms.initUploadifive();
-			Cms.initSortableList("ul#simpleGallery");
-			Cms.initSortableList("ul#simpleDocGallery");
-		});
 
-	</script>
-@endsection

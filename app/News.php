@@ -34,9 +34,9 @@ class News extends Model
 		$this->attributes['slug'] =$count ? "{$slug}-{$count}" : $slug;
 	}
 
-	public function medias()
+	public function media()
 	{
-		return $this->morphMany('App\Media', 'model');
+		return $this->morphMany('App\Media', 'model')->orderBy('sort');
 	}
 
 	public function setDateAttribute($value)

@@ -63,55 +63,43 @@
                     <li class="active">
                         <a href="{{ URL::to('/admin/') }}">DashBoard</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pages
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="{{ URL::to('/admin/list/articles') }}"> <i class="fa fa-newspaper-o"></i> Pages</a>
+                    @foreach(config('admin.list.section') as $section)
+                        @if ( isset($section['menu']['top-bar']['show']) )
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ $section['title'] }}
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ ma_get_admin_list_url($section['model']) }}"><i class="fa fa-list"></i> {{ $section['title'] }}</a>
+                                    </li>
+                                    @if ( isset($section['menu']['top-bar']['action']) )
+                                        @foreach($section['menu']['top-bar']['action'] as $action )
+                                            @if ( $action == "add" )
+                                                <li>
+                                                    <a href="{{  ma_get_admin_create_url($section['model']) }}"><i class="fa fa-plus"></i> Add {{ $section['title'] }}</a>
+                                                </li>
+                                            @elseif ( $action == "website" )
+                                                <li>
+                                                    <a href="{{ URL::to('') }}" class="color-2" target="_new"><i class="fa fa-globe"></i> View site </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                </ul>
                             </li>
-                            <li>
-                                <a href="{{ URL::to('/admin/create/articles') }}"><i class="fa fa-plus"></i>  Add Page</a>
-                            </li>
-                            <li>
-                                <a href="{{ URL::to('') }}" class="color-2" target="_new"><i class="fa fa-globe"></i> View site </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="{{ URL::to('/admin/list/news') }}"><i class="fa fa-list"></i> News</a>
-                            </li>
-                            <li>
-                                <a href="{{ URL::to('/admin/create/news') }}"><i class="fa fa-plus"></i> Add News</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hp sliders
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="{{ URL::to('/admin/list/hpsliders') }}"><i class="fa fa-list"></i> Hp sliders</a>
-                            </li>
-                            <li>
-                                <a href="{{ URL::to('/admin/create/hpsliders') }}"><i class="fa fa-plus"></i> Add Hp slider</a>
-                            </li>
-                        </ul>
-                    </li>
+                        @endif
+                    @endforeach
+
                     @if (Auth::user()->hasRole('su'))
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Roles
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ URL::to('/admin/list/roles') }}"><i class="fa fa-list"></i> Roles</a>
+                                    <a href="{{ ma_get_admin_list_url('roles') }}"><i class="fa fa-list"></i> Roles</a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/create/roles') }}"><i class="fa fa-plus"></i> Add Role</a>
+                                    <a href="{{ ma_get_admin_create_url('roles') }}"><i class="fa fa-plus"></i> Add Role</a>
                                 </li>
                             </ul>
                         </li>
@@ -120,10 +108,10 @@
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li class="dropdown">
-                                    <a href="{{ URL::to('/admin/list/users') }}"><i class="fa fa-list"></i> Users</a>
+                                    <a href="{{ ma_get_admin_list_url('users') }}"><i class="fa fa-list"></i> Users</a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/create/users') }}"><i class="fa fa-plus"></i> Add User</a>
+                                    <a href="{{  ma_get_admin_create_url('users') }}"><i class="fa fa-plus"></i> Add User</a>
                                 </li>
                             </ul>
                         </li>
