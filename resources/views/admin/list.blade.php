@@ -45,10 +45,18 @@
 
 								@if ( $label['type'] == 'date' )
 									{!! $article->$label['field']->format('d-m-Y') !!}
+								@elseif ( $label['type'] == 'media' && $article->$label['field']!='' && $article->collection_name=='images' )
+									<a href=" {!!   ma_get_image_from_repository($article->$label['field']) !!}" class="red" target="_new">
+									<img src="{!! ma_get_image_from_repository($article->$label['field'],120,90,'png') !!}"  class="img-responsive imgEditThumb">
+								@elseif ( $label['type'] == 'media' && $article->$label['field']!='' && $article->collection_name!='images' )
+									<a href=" {!!   ma_get_image_from_repository($article->$label['field']) !!}" class="red" target="_new">
+										{!! $article->$label['field']!!}
+									</a>
 								@elseif ( $label['type'] == 'image' && $article->$label['field']!='' )
-									<img src="{!!  ma_get_image_from_repository($article->$label['field']) !!}"  class="img-responsive imgEditThumb">
+									<a href=" {!!   ma_get_image_from_repository($article->$label['field']) !!}" class="red" target="_new">
+										<img src="{!! ma_get_image_from_repository($article->$label['field'],120,90,'png') !!}"  class="img-responsive imgEditThumb">
+									</a>
 								@elseif ( $label['type'] == 'boolean' )
-
 									<div class="togglebutton"  data-list-boolean ="{!! $pageConfig['model'].'_'.$article->id !!}" data-list-name ="{!! $label['field']!!}" >
 											<i class=" transitioned fa fa-2x fa-check text-success pointer {{ ($article->$label['field']==1) ? '' : 'hidden' }} "></i>
 											<i class="transitioned fa fa-2x fa-close text-error  pointer {{ ($article->$label['field']==1) ? 'hidden' : '' }}"></i>
@@ -65,12 +73,9 @@
 									@if ( $article->$label['relation']) {!! $article->$label['relation']->$label['field'] !!} @endif
 								@else
 									{!! $article->$label['field'] !!}
-
 								@endif
-
 							@else
 								{!! $article->$label !!}
-
 							@endif
 						</td>
 						@endforeach

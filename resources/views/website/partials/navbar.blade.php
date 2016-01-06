@@ -38,9 +38,9 @@
                                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                         <li>
                                             @if (LaravelLocalization::getCurrentLocale() ==  $localeCode)
-                                                <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{{ $properties['native'] }}} </a>
+                                                <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}} </a>
                                             @else
-                                                <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{{ $properties['native'] }}} </a>
+                                                <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}} </a>
                                             @endif
                                         </li>
                                     @endforeach
@@ -50,13 +50,13 @@
                         <ul id="menu" class="nav navbar-nav nav navbar-right">
                             @foreach (  $pages->top()->get() as  $index => $page )
 
-                                <li class=" @if ($article->id == $page->id) active"  @endif" active" id="{{ $page->slug }}">
+                                <li class="{{ ($article->id == $page->id)?'active':''}}" id="{{ $page->slug }}">
                                     @if ('home' == $page->slug)
-                                        <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '' ) ) }}" class="active">
+                                        <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '' ) ) }}">
                                     @else
-                                        <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( $page->slug )) }}"class="active">
+                                        <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( $page->slug )) }}" >
                                     @endif
-                                            {{ $page->title }}
+                                       {{ $page->title }}
                                     </a>
                                 </li>
                              @endforeach

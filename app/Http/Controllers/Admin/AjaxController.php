@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Media;
 use Input;
+use Image;
 
 class AjaxController extends Controller
 {
@@ -45,7 +46,7 @@ class AjaxController extends Controller
 	public function delete($model,$id='')
     {
 			
-		$modelClass  =  'App\\'.$model;
+		$modelClass  =  'App\\'.ucFirst($model);
 		$object 	 = $modelClass::whereId($id)->firstOrFail();
 		if( $object ) {
 			$object->delete();
@@ -66,15 +67,21 @@ class AjaxController extends Controller
 			$mediaType = ( is_image( $newMedia->getMimeType()) == 'image') ? 'images':'docs';
 			$destinationPath =  $mediaType; // upload path folder
 			$extension 		 = $newMedia->getClientOriginalExtension(); // getting image extension
-			$name 			 = $newMedia->getClientOriginalName();
-			$fileName 		 = rand(11111,99999).'_'.$name; // renameing image
+			$name 			 = basename($newMedia->getClientOriginalName(),'.'.$extension);
+			$fileName 		 = str_slug(rand(11111,99999).'_'.$name).".".$extension; // renameing image
 			//$newMedia->move($destinationPath, $fileName); // uploading file to given path
 
 
 
 			$storage = \Storage::disk('media');
 			$storage->put($destinationPath.'/'.$fileName, file_get_contents($newMedia), 'public');
+            if ( is_image( $newMedia->getMimeType()) == 'image') {
 
+				//$img = Image::make($newMedia->getRealPath());
+				$img = Image::make( public_path('media/'.$destinationPath.'/'.$fileName))->widen(1600);
+				// save file as png with medium quality
+				$img->save(public_path('media/'.$destinationPath.'/'.$fileName, 60));
+			}
 			$modelClass  =  'App\\'.$request->model;
 			$list = $modelClass::find($request->Id);
 
@@ -85,7 +92,8 @@ class AjaxController extends Controller
 			$c->collection_name = $mediaType;
 			$c->disk	   = $destinationPath;
 			$c->media_category_id = $request->myImgType;
-			$list->medias()->save($c);
+			$c->file_ext = $extension;
+			$list->media()->save($c);
 			$this->responseContainer['status']  ='ok';
 			$this->responseContainer['data'] =$mediaType;
 			return $this->responseHandler();
@@ -108,10 +116,8 @@ class AjaxController extends Controller
 
 			$input = Input::all();
 			foreach($input as $key => $items) {
-
 				$dataObject = explode( '_',$key);
 				foreach($items as $id) {
-					print_r($id);
 					$modelClass  =  'App\\'.$dataObject[1];
 					$object 	 = $modelClass::whereId($id)->firstOrFail();
 					$object->sort = $i*10;

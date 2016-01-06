@@ -289,6 +289,10 @@ blockquote .inner:before {
     border:1px solid #dddddd;
      padding:3px;
 }
+
+textarea.smallArea {
+    height:100px !important;
+}
 #page-edit form#edit img {
     width: 100px;
 }
@@ -980,6 +984,11 @@ h3.title_seo {
 /*------------------------------------------------------------------
 [*. Bootstrap Overrides]
 */
+.modal-body {
+    overflow-y:auto;
+
+
+}
 
 .modal-content {
     background-clip: padding-box;

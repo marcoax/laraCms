@@ -1,68 +1,72 @@
-
-	@include('admin.helper.toolbar_top')
-	<div class="container col-md-12 pt15">@include('admin.common.error')</div>
-	<div class="container col-md-12 pt5">
-
-
-				{{ Form::model($article,['files' => true,'id'=>'edit_form','class' =>'form-horizontal','accept-charset' => "UTF-8"]) }}
-
-				<fieldset>
-					<div>
-						<!-- Nav tabs -->
-						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="active x-big">
-								<a href="#main_tab" aria-controls="main_tab" role="tab" data-toggle="tab">
-									<i class="fa fa-file-text-o"></i>
-									@if( $article->title!='')
-										Edit {{ $article->title }}
-									@elseif( $article->name!='')
-										Edit {{ $article->name }}
-									@else
-										Create new  {{ $pageConfig['model'] }}
-									@endif
-								</a>
-							</li>
-							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showSeo')  == 1)
-								<li role="presentation" class="x-big">
-									<a href="#seo_tab" aria-controls="seo_tab" role="tab" data-toggle="tab">
-										<i class="fa fa-bolt"></i> Seo
-									</a>
-							</li>
-							@endif
-							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showMedia')  == 1 && $article->id!='')
-								<li role="presentation" class="x-big">
-									<a href="#media_tab" aria-controls="media_tab" role="tab" data-toggle="tab">
-										<i class="fa fa-file-image-o"></i> Media
-									</a>
-								</li>
-							@endif
-						</ul>
-						<!-- Tab panes -->
-						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane active well noborder-top bs-component " id="main_tab">
-								{{ AdminForm::get( $article ) }}
-								@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'s.password')  == 1)
-									@include('admin.helper.password')
-								@endif
-								@include('admin.helper.form_submit_button')
-							</div>
-							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showSeo')  == 1)
-								<div role="tabpanel" class="tab-pane well noborder-top  bs-component" id="seo_tab">
-									{{ AdminForm::getSeo( $article ) }}
-									@include('admin.helper.form_submit_button')
-								</div>
-							@endif
-							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showMedia')  == 1 && $article->id!='')
-								<div role="tabpanel" class="tab-pane  well noborder-top bs-component" id="media_tab">
-									@include('admin.helper.form_uplodifive')
-									@include('admin.helper.form_submit_button')
-								</div>
-							@endif
-						</div>
-					</div>
-				</fieldset>
-			{{ Form::close() }}
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title">
+		<i class="fa fa-file-text-o"></i>
+		@if( $article->title!='')
+			Edit {{ $article->title }}
+		@elseif( $article->name!='')
+			Edit {{ $article->name }}
+		@else
+			Create new  {{ $pageConfig['model'] }}
+		@endif
+	</h4>
+</div>
+<div class="modal-body">
+	<div id="errorBox">@include('admin.common.error')</div>
+	{{ Form::model($article,['id'=>'edit_modal_form','class' =>'form-horizontal']) }}
+	<fieldset>
+		<div>
+			{{ AdminForm::get( $article ) }}
+			@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'s.password')  == 1)
+				@include('admin.helper.password')
+			@endif
+			<div class="form-group">
+				<div class="col-lg-10 col-lg-offset-2">
+					<button type="reset" class="btn btn-danger btn-lg pull-left" data-dismiss="modal">
+						<i class="fa fa-close"></i> Close
+					</button>
+					<button type="submit" class="btn btn-primary btn-lg pull-right pl25">
+						<i class="fa fa-save"></i>  Save
+					</button>
+				</div>
+			</div>
 		</div>
-	</div>
+	</fieldset>
+	{{ Form::close() }}
+</div>
+<script type="text/javascript">
 
+	$(function() {
 
+		$('#edit_modal_form').on('submit', function (ev) {
+			ev.preventDefault();
+			$.ajax({
+				type: 'POST',
+				dataType: 'json',
+				url: $(this).attr('action'),
+				data: $(this).serialize(),
+				success: function (response) {
+					var errorsHtml = '<div class="alert alert-info"><ul>';
+					errorsHtml += '<li>' + response.status + '</li>'; //showing only the first error.
+					errorsHtml += '</ul></div>';
+					$('#errorBox').html(errorsHtml)
+				},
+				error: function (data) {
+					var errors = data.responseJSON;
+					var errorsHtml = '<div class="alert alert-danger"><ul>';
+
+					$.each( errors , function( key, value ) {
+						errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+					});
+					errorsHtml += '</ul></div>';
+					$('#errorBox').html(errorsHtml);
+				}
+			});
+		});
+
+		$('#myModal').on('hidden.bs.modal', function () {
+			$('#edit_form').submit();
+		})
+
+	});
+</script>

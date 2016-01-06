@@ -8,9 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminFormRequest;
 use App\Http\Requests\ArticleEditFormRequest;
-use Illuminate\Support\Str;
 use Input;
 use Validator;
+use App\Helpers\UploadManager;
+Use Illuminate\Support\Facades\Session;
+
 
 class AdminPagesController extends Controller
 {
@@ -74,13 +76,22 @@ class AdminPagesController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function edit($model, $id,$type=null)
+    public function edit($model, $id)
     {
         $this->id = $id;
         $this->init($model);
         $model = new  $this->modelClass;
         $article = $model::whereId($this->id)->firstOrFail();
-        return view('admin.edit'.$type, ['article' => $article, 'pageConfig' => $this->config]);
+        return view('admin.edit', ['article' => $article, 'pageConfig' => $this->config]);
+    }
+
+    public function editmodal($model, $id)
+    {
+        $this->id = $id;
+        $this->init($model);
+        $model = new  $this->modelClass;
+        $article = $model::whereId($this->id)->firstOrFail();
+        return view('admin.editmodal', ['article' => $article, 'pageConfig' => $this->config]);
     }
 
     /**
@@ -99,7 +110,10 @@ class AdminPagesController extends Controller
         $article = new $model;
         // input data Handler
         $this->requestFieldHandler($article);
-        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id))->with('status', 'The article has been updated!');
+
+        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id))->with([
+                'flash_message' => 'The item ' . $article->title . ' has been created!'
+        ]);
     }
 
     /**
@@ -109,7 +123,7 @@ class AdminPagesController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update($model, $id, AdminFormRequest $request)
+        public function update($model, $id, AdminFormRequest $request)
     {
         $this->init($model);
         $this->request = $request;
@@ -117,7 +131,28 @@ class AdminPagesController extends Controller
         $article = $model::whereId($id)->firstOrFail();
         // input data Handler
         $this->requestFieldHandler($article);
-        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id))->with('status', 'The article has been updated!');
+        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id))->with([
+           'flash_message' =>'The article has been updated!'
+        ]);
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request $request
+     * @param  int $id
+     * @return Response
+     */
+    public function updatemodal($model, $id, AdminFormRequest $request)
+    {
+        $this->init($model);
+        $this->request = $request;
+        $model = new  $this->modelClass;
+        $article = $model::whereId($id)->firstOrFail();
+        // input data Handler
+        $this->requestFieldHandler($article);
+        echo json_encode(array('status'=> $this->config['model'].' Has been update'));
     }
 
 
@@ -134,7 +169,11 @@ class AdminPagesController extends Controller
         $model = new  $this->modelClass;
         $article = $model::whereId($this->id)->firstOrFail();
         $article->delete();
-        return redirect(action('Admin\AdminPagesController@lista', $this->models))->with('status', 'The items ' . $article->title . ' has been deleted!');
+        flash('The items ' . $article->title . ' has been deleted!')->important();
+        return redirect(action('Admin\AdminPagesController@lista', $this->models))->with([
+            'flash_message'=>'The items ' . $article->title . ' has been deleted!',
+            'flash_message_important' => true
+        ]);
     }
 
 
@@ -162,19 +201,21 @@ class AdminPagesController extends Controller
         }
     }
 
-    private function functionMediadHandler($article, $media)
+    private function functionMediadHandler($model, $media)
     {
-
-
+        $UM = new UploadManager;
+        $UM->init($media,$model);
+        
         if (Input::hasFile($media) && Input::file($media)->isValid()) {
             $newMedia  = Input::file($media);
             $mediaType = ( is_image( $newMedia->getMimeType()) == 'image') ? 'images':'docs';
             $destinationPath =  config('admin.path.repository').'/'.$mediaType; // upload path
             $extension 		 = $newMedia->getClientOriginalExtension(); // getting image extension
-            $name 			 = $newMedia->getClientOriginalName();
-            $fileName 		 = rand(11111,99999).'_'.$name; // renameing image
+            $name 			 = basename($newMedia->getClientOriginalName(),'.'.$extension);
+            $fileName 		 = str_slug(rand(11111,99999).'_'.$name).".".$extension; // renameing image
             $newMedia->move($destinationPath, $fileName); // uploading file to given path
-            $article->$media = $fileName;
+            $model->$media = $fileName;
+
         }
 
     }

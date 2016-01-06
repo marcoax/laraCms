@@ -82,7 +82,7 @@ return [
             'icon' => 'files-o',
             'fieldLabel' => 'ID,Media,Title,Pub,Sort,Created At,Updated At',
             'field' => ['id',
-                'image' => ['type' => 'image', 'field' => 'file_name', 'class' => 'col-sm-1 list-image'],
+                'image' => ['type' => 'media', 'field' => 'file_name', 'class' => 'col-sm-1 list-image'],
                 'title',
                 'pub' => ['type' => 'boolean', 'field' => 'pub', 'class' => 'col-sm-1 text-center'],
                 'sort' => ['type' => 'editable', 'field' => 'sort', 'class' => 'col-sm-1'],

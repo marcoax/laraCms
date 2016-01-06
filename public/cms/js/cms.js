@@ -40,6 +40,9 @@ var Cms = function () {
             jQuery(this).toggleClass('active');
         });
     }
+    function handleFlashMessage() {
+        jQuery('div.flash').not('.alert-important').delay(1500).slideUp();
+    }
 
     function listHandler() {
 
@@ -152,7 +155,7 @@ var Cms = function () {
                         $('#row_' + $(this).val()).fadeOut('1000');
                         deleteUrl = $('#row_' + $(this).val() + ' [data-role="delete-item"] ')[0].href;
                         // Do delete
-                        curModel = 'Article';
+                        curModel = _CURMODEL;
                         $.ajax({
                                 url: urlAjaxHandlerCms + 'delete/' + curModel + '/' + $(this).val(),
                                 type: "GET",
@@ -181,6 +184,7 @@ var Cms = function () {
             handleBootstrap();
             //handleIEFixes();
             listHandler();
+            handleFlashMessage();
             handleToggle();
         },
 

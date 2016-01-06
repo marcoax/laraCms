@@ -42,6 +42,7 @@
 						<!-- Tab panes -->
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active well noborder-top bs-component " id="main_tab">
+
 								{{ AdminForm::get( $article ) }}
 								@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'s.password')  == 1)
 									@include('admin.helper.password')
@@ -73,6 +74,15 @@
 		</div>
 	</div><!--/span contenuto  box  dx-->
 	<div id="info" class="hidden"></div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			</div><!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 @endsection
 @section('footerjs')
 	<script src="{!! asset('public/js/vendor/jquery.uploadifive.min.js')!!}" type="text/javascript"></script>
@@ -84,7 +94,7 @@
 			Cms.initUploadifive();
 			Cms.initSortableList("ul#simpleGallery");
 			Cms.initSortableList("ul#simpleDocGallery");
-		});
 
+		});
 	</script>
 @endsection

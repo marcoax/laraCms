@@ -33,6 +33,19 @@ class Media extends Model
             'hidden' => '1',
             'display'=>'0',
         ];
+        $this->fieldspec['file_name'] = [
+            'type' =>'readonly',
+            'size' => 600,
+            'h' => 300,
+            'pkey' => 'n',
+            'required' => 'y',
+            'hidden' => 0,
+            'label' => 'File name',
+            'extraMsg' => '',
+            'lang' => 0,
+            'display' => 1,
+
+        ];
 
         $this->fieldspec['title']    = [
             'type' =>'string',
@@ -54,28 +67,17 @@ class Media extends Model
             'hidden' =>0,
             'label'=>'Description',
             'extraMsg'=>'',
-            'cssClass'=>'ckeditor',
+            'cssClass'=>'smallArea',
             'display'=>1,
         ];
-        $this->fieldspec['file_name'] = [
-            'type' =>'readonly',
-            'size' => 600,
-            'h' => 300,
-            'pkey' => 'n',
-            'required' => 'y',
-            'hidden' => 0,
-            'label' => 'File name',
-            'extraMsg' => '',
-            'lang' => 0,
-            'display' => 1,
-        ];
+
 
         $this->fieldspec['sort'] = [
             'type' => 'integer',
             'required' => 'y',
             'label'=>'Order',
             'hidden' => '0',
-            'display'=>'1',
+            'display'=>'0',
             'cssClassElement'=>'col-md-2',
         ];
         $this->fieldspec['pub'] = [

@@ -55,6 +55,11 @@
 		$modelName = (!is_object( $model )) ? strtolower( $model ) : strtolower(str_plural( class_basename($model) ));
 		return URL::to($path.'/'.str_plural($modelName).'/'.$model->id);
 	}
+	function ma_get_admin_editmodal_url( $model ){
+		$path      = '/admin/editmodal';
+		$modelName = (!is_object( $model )) ? strtolower( $model ) : strtolower(str_plural( class_basename($model) ));
+		return URL::to($path.'/'.str_plural($modelName).'/'.$model->id);
+	}
 	function ma_get_admin_delete_url( $model ){
 		$path      = '/admin/delete';
 		$modelName = (!is_object( $model )) ? strtolower( $model ) : strtolower(str_plural( class_basename($model) ));
