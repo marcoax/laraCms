@@ -111,9 +111,8 @@ class AdminPagesController extends Controller
         // input data Handler
         $this->requestFieldHandler($article);
 
-        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id))->with([
-                'flash_message' => 'The item ' . $article->title . ' has been created!'
-        ]);
+        flash()->success('The item <strong>' . $article->title . '</strong> has been created!');
+        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id));
     }
 
     /**
@@ -131,9 +130,8 @@ class AdminPagesController extends Controller
         $article = $model::whereId($id)->firstOrFail();
         // input data Handler
         $this->requestFieldHandler($article);
-        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id))->with([
-           'flash_message' =>'The article has been updated!'
-        ]);
+        flash()->success('The article has been updated!.');
+        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id));
 
     }
 
@@ -169,11 +167,8 @@ class AdminPagesController extends Controller
         $model = new  $this->modelClass;
         $article = $model::whereId($this->id)->firstOrFail();
         $article->delete();
-        flash('The items ' . $article->title . ' has been deleted!')->important();
-        return redirect(action('Admin\AdminPagesController@lista', $this->models))->with([
-            'flash_message'=>'The items ' . $article->title . ' has been deleted!',
-            'flash_message_important' => true
-        ]);
+        flash()->error('The items ' . $article->title . ' has been deleted!')->important();
+        return redirect(action('Admin\AdminPagesController@lista', $this->models));
     }
 
 
@@ -203,8 +198,8 @@ class AdminPagesController extends Controller
 
     private function functionMediadHandler($model, $media)
     {
-        $UM = new UploadManager;
-        $UM->init($media,$model);
+        //$UM = new UploadManager;
+        //$UM->init($media,$model);
         
         if (Input::hasFile($media) && Input::file($media)->isValid()) {
             $newMedia  = Input::file($media);

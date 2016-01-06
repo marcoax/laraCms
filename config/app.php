@@ -145,22 +145,21 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-
-
 		/*
-		 *  Vendor
-		 */
+		*  Vendor
+		*/
 		'Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider',
-		 Dimsav\Translatable\TranslatableServiceProvider::class,
-         'hisorange\BrowserDetect\Provider\BrowserDetectService',
-         Collective\Html\HtmlServiceProvider::class,
-         'Zizaco\Entrust\EntrustServiceProvider',
+		Dimsav\Translatable\TranslatableServiceProvider::class,
+		'hisorange\BrowserDetect\Provider\BrowserDetectService',
+		Collective\Html\HtmlServiceProvider::class,
+		'Zizaco\Entrust\EntrustServiceProvider',
 
-		 'Intervention\Image\ImageServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
 
 
-		  // Ma
-		  App\Providers\AdminFormServiceProvider::class,
+		// Ma
+		App\Providers\AdminFormServiceProvider::class,
+		'App\Helpers\Notifications\FlashServiceProvider',
 	],
 
     /*
@@ -219,6 +218,7 @@ return [
 		'Image' => 'Intervention\Image\Facades\Image',
 
 		'AdminForm'  => App\Facades\AdminForm::class,
+		'Flash' => 'Helpers\Notifications\Flash'
     	
     ],
 

@@ -9,7 +9,7 @@
 		<div class="panel-heading pf5">
 			<h2 class="mf5 pf0"> <i class="fa fa-{!! $pageConfig['icon']!!}"></i> {!! $pageConfig['title']!!}   List </h2>
 		</div>
-		@include('admin.common.error')
+		@include('shared.notification')
 		@if ($articles->isEmpty())
 		<h3 class="pf15">
 			There is no item.

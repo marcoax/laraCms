@@ -12,7 +12,7 @@
 	</div>
 @endif
 @if ($errors->any())
-{<div class='flash alert-danger pf25 mb15'>
+<div class='flash alert-danger pf25 mb15'>
 	@foreach ( $errors->all() as $error )
 	{{ $error }}
 	@endforeach
