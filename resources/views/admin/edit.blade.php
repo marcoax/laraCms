@@ -2,7 +2,7 @@
 @section('title', 'Edit')
 @section('content')
 	@include('admin.helper.toolbar_top')
-	<div class="container col-md-12 pt15">@include('shared.notification')</div>
+	<div class="container col-md-12 pt15">@include('flash::notification')</div>
 	<div class="container col-md-8 pt5">
 
 

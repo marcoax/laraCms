@@ -3,7 +3,6 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
 				<h4 class="modal-title">{{ $title }}</h4>
 			</div>
 
@@ -17,6 +16,10 @@
 		</div>
 	</div>
 </div>
+</div>
 <!-- This is only necessary if you do Flash::overlay('...') -->
+<script>
+	$('#flash-overlay-modal').modal();
+</script>
 
 
