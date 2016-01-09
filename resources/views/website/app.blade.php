@@ -1,18 +1,26 @@
 @inject('pages','App\Article')
-<html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="{!! LaravelLocalization::getCurrentLocale() !!}" lang="{!! LaravelLocalization::getCurrentLocale() !!}">
 <head>
-    <title>LaraCms - @yield('title')</title>
+    <title>@YIELD('title')</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="" />
-    <meta name="keywords" content=." />
-    <meta name="author" content="marcoasperti@gmail.com" />
+    <meta name="description" content="{!! $article->seo_description !!}" />
+    <meta name="keywords" content="{!! $article->seo_keywords !!}" />
+    <meta name="author" content="marcoax" />
     <meta name="google-site-verification" content="" />
-    <meta property="og:title" content="laraCms - design studio - Milan Italy" />
-    <meta property="og:url" content=/" />
-    <meta property="og:image" content="" />
-    <meta property="og:description" content="" />
+    <meta property="og:title" content="@yield('title')" />
+    <meta property="og:url" content="{!!LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() )!!}/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="{!! asset('public/fe/images/logo.jpg') !!}" />
+    <meta property="og:description" content="{!! $article->seo_description !!}" />
+
+    <link rel="image_src" href="{!! asset('public/fe/images/logo.jpg') !!}"/>
+    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+         <link rel="alternate" hreflang="{{$localeCode}}" href="{{ LaravelLocalization::getLocalizedURL($localeCode) }}/"/>
+    @endforeach
+    <link href="{!! LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() )!!}/" rel="canonical" />
+
     <!-- Latest compiled and minified CSS -->
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,500' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -22,6 +30,7 @@
     <link href="{!! asset('public/fe/css/override.css')!!}" rel="stylesheet">
     <link href="{!! asset('public/fe/css/header_default.css')!!}" rel="stylesheet">
     <link href="{!! asset('public/fe/css/app.css')!!}" rel="stylesheet">
+
     <!-- Owl Carousel Assets -->
     <link href="{!! asset('public/fe/plugins/owl-carousel/owl.carousel.css')!!}" rel="stylesheet">
     <link href="{!! asset('public/fe/plugins/owl-carousel/owl.theme.default.css')!!}" rel="stylesheet">
@@ -52,7 +61,6 @@
 <script src="{!! asset('public/fe/js/app.js')!!}"></script>
 @yield('footerjs')
 <script type="text/javascript">
-
     jQuery(document).ready(function() {
         App.init();
         App.initWoW();
@@ -60,10 +68,5 @@
         App.initTouchBTSlider('#myCarousel');
 
     });
-
-
-
-
-
 </script>
 </html>

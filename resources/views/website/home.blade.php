@@ -1,6 +1,6 @@
 @inject('pages','App\Article')
 @extends('website.app')
-@section('title',ucfirst( strtolower( $article->title )) )
+@section('title',($article->seo_title)?$article->seo_title:$article->title )
 
 @section('content')
 @include('website.partials.carousel')

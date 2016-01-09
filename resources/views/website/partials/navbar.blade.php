@@ -38,9 +38,9 @@
                                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                         <li>
                                             @if (LaravelLocalization::getCurrentLocale() ==  $localeCode)
-                                                <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}} </a>
+                                                <a href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}} </a>
                                             @else
-                                                <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}} </a>
+                                                <a href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}} </a>
                                             @endif
                                         </li>
                                     @endforeach
