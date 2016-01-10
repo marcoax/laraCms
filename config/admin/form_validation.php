@@ -13,6 +13,10 @@ return [
 
 		],
 		'news' => [
+		'title' => 'required',
+
+		],
+		'tags' => [
 			'title' => 'required',
 
 		],

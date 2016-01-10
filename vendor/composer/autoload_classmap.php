@@ -34,6 +34,7 @@ return array(
     'CreateProductsTable' => $baseDir . '/database/migrations/2015_08_23_104442_create_products_table.php',
     'CreateSocialsTable' => $baseDir . '/database/migrations/2015_12_23_205357_create_socials_table.php',
     'CreateTables' => $vendorDir . '/dimsav/laravel-translatable/tests/migrations/2013_11_28_152610_create_tables.php',
+    'CreateTagsTable' => $baseDir . '/database/migrations/2016_01_09_213704_create_tags_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'Dimsav\\Translatable\\Test\\Model\\City' => $vendorDir . '/dimsav/laravel-translatable/tests/models/City.php',

@@ -86,6 +86,7 @@
 @endsection
 @section('footerjs')
 	<script src="{!! asset('public/js/vendor/jquery.uploadifive.min.js')!!}" type="text/javascript"></script>
+	<script src="{!! asset(config('admin.path.plugins').'select2/js/select2.min.js')!!}" type="text/javascript"></script>
 	<script type="text/javascript">
 
      	$(function() {
@@ -94,6 +95,9 @@
 			Cms.initUploadifive();
 			Cms.initSortableList("ul#simpleGallery");
 			Cms.initSortableList("ul#simpleDocGallery");
+			$(".select2").select2({
+				allowClear: true
+			})
 
 		});
 	</script>

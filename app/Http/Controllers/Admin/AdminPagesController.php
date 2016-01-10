@@ -175,17 +175,23 @@ class AdminPagesController extends Controller
     public function requestFieldHandler($article)
     {
         foreach ($article->getFillable() as $a) {
-            $article->$a = $this->request->get($a);
+           $article->$a = $this->request->get($a);
         }
-        $this->functionMediadHandler($article, 'image');
-        $this->functionMediadHandler($article, 'doc');
+        if(isset($article->sluggable))  {
+            foreach ($article->sluggable as $a) {
+                $article->$a = $this->handleSluggable($article,$this->request->get($a));
+            }
+        }
 
 
+        $this->mediadHandler($article, 'image');
+        $this->mediadHandler($article, 'doc');
         $article->save();
 
         if ($this->request->has('role')) $article->saveRoles($this->request->get('role'));
+        if ($this->request->has('tag'))  $article->saveTags($this->request->get('tag'));
 
-        if (isset($article->translatedAttributes) && count($article->translatedAttributes) > 1) {
+        if (isset($article->translatedAttributes) && count($article->translatedAttributes) > 0) {
             foreach (config('app.locales') as $locale => $value) {
                 foreach ($article->translatedAttributes as $attribute) {
                     if (config('app.locale') != $locale) $article->translateOrNew($locale)->$attribute = $this->request->get($attribute . '_' . $locale);
@@ -196,7 +202,7 @@ class AdminPagesController extends Controller
         }
     }
 
-    private function functionMediadHandler($model, $media)
+    private function mediadHandler($model, $media)
     {
         //$UM = new UploadManager;
         //$UM->init($media,$model);
@@ -213,5 +219,15 @@ class AdminPagesController extends Controller
 
         }
 
+    }
+
+
+    public function handleSluggable($model,$value)
+    {
+
+        $slug = ($value=='')? str_slug($model->title) :str_slug($value);
+        if( $model->id!='') $count = $model::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->where('id', '!=', $model->id)->count();
+        else $count = $model::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+        return $count ? "{$slug}-{$count}" : $slug;
     }
 }

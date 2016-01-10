@@ -24,14 +24,9 @@ class Social extends Model
             'hidden' => '1',
             'display'=>'0',
         ];
-
-
-
-
         $this->fieldspec['title']    = [
             'type' =>'string',
             'size' =>400,
-            'pkey' => 'n',
             'required' => 'y',
             'hidden' => '0',
             'label'=>'Social',
@@ -39,15 +34,10 @@ class Social extends Model
             'display'=>'1',
 
         ];
-
-
-
-
-        $this->fieldspec['icon'] = [
+       $this->fieldspec['icon'] = [
             'type' =>'string',
             'size' =>600,
             'h' =>300,
-            'pkey' => 'n',
             'required' => 'y',
             'hidden' =>0,
             'label'=>'Font-Awesome class ',
@@ -65,11 +55,8 @@ class Social extends Model
             'label'=>'Social link',
             'extraMsg'=>'',
             'display'=>1,
-
-        ];
-
-
-        $this->fieldspec['image'] = [
+      ];
+       $this->fieldspec['image'] = [
             'type' =>'media',
             'pkey' => 'n',
             'required' => 'y',
@@ -86,16 +73,13 @@ class Social extends Model
             'type' =>'text',
             'size' =>600,
             'h' =>300,
-            'pkey' => 'n',
             'required' => 'y',
             'hidden' =>0,
             'label'=>'Description',
             'extraMsg'=>'',
             'lang'=>0,
             'cssClass'=>'ckeditor',
-            'display'=>1,
-
-
+            'display'=>0,
         ];
         $this->fieldspec['sort'] = [
             'type' => 'integer',
@@ -114,5 +98,4 @@ class Social extends Model
         ];
       return $this->fieldspec;
     }
-
 }

@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300"></liink>
 		<link rel="stylesheet" href="http://localhost/creolos/admin/assets/css/vendor/uploadifive.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
+		<link rel="stylesheet" href="{!! asset(config('admin.path.plugins').'select2/css/select2.min.css') !!}">
     	<link href="{!! asset('public/css/ma_helper.css')!!}" rel="stylesheet">
 		<link href="{!! asset('public/cms/css/bootstrap-theme.css')!!}" rel="stylesheet">
     	<link href="{!! asset('public/cms/css/admin.css')!!}" rel="stylesheet">
@@ -41,5 +41,4 @@
 	    });
 	</script>
 	@yield('footerjs')
-
 </html>

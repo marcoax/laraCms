@@ -2,7 +2,7 @@
 @section('title',($article->seo_title)?$article->seo_title:$article->title )
 @section('content')
 @include('website.partials.page_banner')
-        <!--=== Content Part ===-->
+<!--=== Content Part ===-->
 <section data-role="info-block">
     <div id="creolo_section">
         <div class="container">

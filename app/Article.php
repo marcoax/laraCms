@@ -21,8 +21,9 @@ class Article extends Model
      *
      * @var array
      */
-	public $translatedAttributes = ['title','subtitle','intro','description','abstract','seo_title','seo_keywords','seo_description'];
-    protected $fillable = ['title','subtitle','intro','description','abstract', 'slug','sort','pub','top_menu','id_parent'];
+	public 	  $translatedAttributes = ['title','subtitle','intro','description','abstract','seo_title','seo_keywords','seo_description'];
+	public    $sluggable = ['slug'];
+    protected $fillable  = ['title','subtitle','intro','description','abstract', 'slug','sort','pub','top_menu','id_parent'];
 	protected $fieldspec = [];
 
 
@@ -31,15 +32,6 @@ class Article extends Model
 		return $this->morphMany('App\Media', 'model');
 	}
 
-	public function setSlugAttribute($value)
-	{
-		$slug = ($value=='')? str_slug($this->title) :str_slug($value);
-    	if( $this->id!='') $count =self::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->where('id', '!=', $this->id)->count();
-		else $count =self::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-		$this->attributes['slug'] =$count ? "{$slug}-{$count}" : $slug;
-	}
-
-	
 	 function getFieldSpec ()
     // set the specifications for this database table
     {

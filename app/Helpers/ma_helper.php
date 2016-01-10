@@ -66,6 +66,14 @@
 		return URL::to($path.'/'.str_plural($modelName).'/'.$model->id);
 	}
 
+	function ma_get_admin_preview_url( $model ){
+
+		$modelName    = (!is_object( $model )) ?   strtolower( $model ) : strtolower(str_plural( class_basename($model) ));
+		$resourcePath = ( $modelName!='articles')? str_plural($modelName).'/'.$model->slug : $model->slug;
+		$path = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( $resourcePath ));
+		return URL::to($path);
+	}
+
 	/**
 	 * Is the mime type an image
 	 */

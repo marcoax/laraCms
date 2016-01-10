@@ -38,7 +38,7 @@ class AdminForm {
 			if( (starts_with($key, 'seo') && $this->showSeo ) or (!starts_with($key, 'seo') && !$this->showSeo) )$this->formModelHandler($property,$key,$this->model->$key);
 		}
 
-		if(isset($this->model->translatedAttributes ) && count($this->model->translatedAttributes )>1) {
+		if(isset($this->model->translatedAttributes ) && count($this->model->translatedAttributes )>0) {
 			$this->model->fieldspec = $this->model->getFieldSpec ();
 			foreach (config('app.locales') as $locale => $value) {
 				if(config('app.locale')!= $locale){
@@ -182,11 +182,9 @@ class AdminForm {
 		$b = ( isset( $this->property['label_key']  )  ) ? $this->property['label_key'] : 'name';
 		$nullLabel = ( isset( $this->property['nullLabel']  )  ) ? $this->property['nullLabel'] : 'Select '.$this->property['label'];
 		$multiple = ( isset( $this->property['multiple']  )  ) ? 'multiple' : '';
-		if( $multiple )$html ="<select class=\"form-control\" id=\"".$field."\" name=\"".$field."[]\" ".$multiple.">\n";
+		if( $multiple )$html ="<select data-placeholder=\"Select an option\"  class=\"form-control select2\" id=\"".$field."\" name=\"".$field."[]\" ".$multiple.">\n";
 		else $html ="<select class=\"form-control\" id=\"".$field."\" name=\"".$field."\" >\n";
-		$html .="<option value=\"\">".$nullLabel."</option>";
-
-
+		//$html .="<option value=\"\">".$nullLabel."</option>";
 		foreach( $obj as $item ) {
 
 			$selected = ($item->$a == $selItem || (is_array($selectedArray) && in_array($item->$a,$selectedArray))) ? 'selected':'';

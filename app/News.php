@@ -21,18 +21,14 @@ class News extends Model
      *
      * @var array
      */
-	public $translatedAttributes = ['title','subtitle','intro','description','abstract','seo_title','seo_keywords','seo_description'];
-    protected $fillable 		 = ['title','subtitle','intro','description','date','abstract','link', 'slug','sort','pub'];
-	protected $fieldspec 		 = [];
+	public     $translatedAttributes = ['title','subtitle','intro','description','abstract','seo_title','seo_keywords','seo_description'];
+	public     $sluggable  		 = ['slug'];
+    protected  $fillable 		 = ['title','subtitle','intro','description','date','abstract','link', 'slug','sort','pub'];
+	protected  $fieldspec 		 = [];
 
 
-	public function setSlugAttribute($value)
-	{
-		$slug = ($value=='')? str_slug($this->title) :str_slug($value);
-    	if( $this->id!='') $count =self::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->where('id', '!=', $this->id)->count();
-		else $count =self::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-		$this->attributes['slug'] =$count ? "{$slug}-{$count}" : $slug;
-	}
+
+
 
 	public function media()
 	{
@@ -53,7 +49,10 @@ class News extends Model
 	{
   		return Carbon::parse($this->attributes['date'])->formatLocalized('%d %B %Y');
 	}
-	 function getFieldSpec ()
+
+
+
+	function getFieldSpec ()
     // set the specifications for this database table
     {
        
@@ -69,9 +68,6 @@ class News extends Model
 			'hidden' => '1',
 			'display'=>'0',
 		];
-		
-		
-
 		$this->fieldspec['date']    = [
 			'type' =>'date',
 			'pkey' => 'n',
@@ -149,6 +145,17 @@ class News extends Model
 			'extraMsg'=>'',
 			'cssClass'=>'ckeditor',
 			'display'=>0,
+		];
+
+		$this->fieldspec['tag'] = [
+			'type'       		=> 'relation',
+			'model'      		=> 'tag',
+			'relation_name'     => 'tags',
+			'foreign_key'=> 'id',
+			'label_key'  => 'title',
+			'label'=>'Tags',
+			'display'=>'1',
+			'multiple' => true,
 		];
 		
 		$this->fieldspec['link'] = [	
@@ -259,5 +266,25 @@ class News extends Model
 	public function scopeLatest($query,$limit = 5)    {
 
 		$query->published()->take($limit)->orderBy('date', 'desc');
+	}
+
+	/**
+	 * Many-to-Many relations with Tag.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function tags(){
+
+		return $this->belongsToMany('App\Tag');
+
+	}
+	public function saveTags($values)
+	{
+		if(!empty($values))
+		{
+			$this->tags()->sync($values);
+		} else {
+			$this->tags()->detach();
+		}
 	}
 }

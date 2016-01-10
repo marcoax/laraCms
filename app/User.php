@@ -58,10 +58,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	        $this->roles()->detach();
 	    }
 	}
-	public function setSlug($value)
-    {
-        $this->attributes['slug'] = $article->slug 		    =  Str::slug($value, '-');;
-    }
+
 	
 	 function getFieldSpec ()
     // set the specifications for this database table
@@ -108,7 +105,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		$this->fieldspec['role'] = [
 			'type'       		=> 'relation',
 			'model'      		=> 'role',
-			'relation_name'      => 'roles',
+			'relation_name'     => 'roles',
 			'foreign_key'=> 'id',
 			'label_key'  => 'display_name',
    			'size' => 5,

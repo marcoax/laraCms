@@ -31,7 +31,7 @@ return [
             'delete' => '1',
             'create' => '1',
             'copy' => '1',
-            'preview' => '0',
+            'preview' => '1',
             'view' => '0',
             'selectable' => '1',
             'showMedia' => '1',
@@ -127,11 +127,37 @@ return [
             'delete' => '1',
             'create' => '1',
             'copy' => '1',
-            'preview' => '0',
+            'preview' => '1',
             'view' => '0',
             'selectable' => '1',
             'showMedia' => '1',
             'showSeo' => '1',
+            'menu' => [
+                'home' => true,
+                'top-bar' =>[
+                    'show' => true,
+                    'action' =>['add']
+                ],
+            ],
+        ],
+        'tags' => [
+            'model' => 'tag',
+            'title' => 'TagsNews',
+            'icon'  => 'tag',
+            'fieldLabel' => 'ID,Title,Created At,Updated At',
+            'field' => ['id',
+                'title',
+                'slug',
+                'created_at' => ['type' => 'date', 'field' => 'created_at', 'class' => 'col-sm-1'],
+                'updated_at' => ['type' => 'date', 'field' => 'updated_at', 'class' => 'col-sm-1'],
+            ],
+            'edit' => '1',
+            'delete' => '1',
+            'create' => '1',
+            'copy' => '1',
+            'preview' => '0',
+            'view' => '0',
+            'selectable' => '1',
             'menu' => [
                 'home' => true,
                 'top-bar' =>[
@@ -185,7 +211,6 @@ return [
             'selectable' => '1',
             'menu' => [
                 'home' => true,
-
             ],
         ],
         'users' => [
@@ -210,7 +235,14 @@ return [
             'preview' => '0',
             'view' => '0',
             'selectable' => '1',
-            'password' => 1
+            'password' => 1,
+            'menu' => [
+            'home' => true,
+                'tool' =>[
+                    'show' => true,
+                    'action' =>['add']
+                ],
+            ]
         ],
     ],
 ];

@@ -22,6 +22,7 @@
                             <a href="{!! $news->link !!}" target="_blank" class="big color-3"><i class="fa fa-link fa-1x"></i> {!! trans('website.go_to_site')!!} </a>
                             </div>
                         @endif
+                        @include('website.partials.tag')
                         @foreach (  $news->media->where('collection_name','images','=')->all() as $media)
                             <div class="media mb15 pb15 border-bottom-color-5">
 

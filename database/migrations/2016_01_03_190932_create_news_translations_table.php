@@ -24,8 +24,8 @@ class CreateNewsTranslationsTable extends Migration
             $table->string('seo_title')->nullable();
             $table->string('seo_description')->nullable();
             $table->string('seo_keywords')->nullable();
-            $table->integer('created_by');
-            $table->integer('update_by');
+            $table->integer('created_by')->unsigned();
+            $table->integer('update_by')->unsigned();;
             $table->timestamps();
             $table->unique(['news_id','locale']);
             $table->foreign('news_id')->references('id')->on('news')->onDelete('cascade');

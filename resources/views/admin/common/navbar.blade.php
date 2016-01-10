@@ -9,7 +9,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() , url('')) }}">
+            <a class="navbar-brand"
+               href="{{ LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() , url('')) }}">
                 <img src="{!! asset('public/cms/image/logo.png')!!}" alt="CMS Login" style="height:50px;">
             </a>
         </div>
@@ -17,29 +18,33 @@
         <!-- Navbar Right -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown hidden">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Lang
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                            <li>
-                                @if (LaravelLocalization::getCurrentLocale() ==  $localeCode)
-                                    <a rel="alternate" hreflang="{{$localeCode}}"
-                                       href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{{ $properties['native'] }}} </a>
-                                @else
-                                    <a rel="alternate" hreflang="{{$localeCode}}"
-                                       href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{{ $properties['native'] }}} </a>
+                 @if (Auth::check())
 
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
-                @if (Auth::check())
+                    @if (Auth::user()->hasRole('su'))
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tools
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="dropdown">
+                                    <a href="{{ ma_get_admin_list_url('users') }}"><i class="fa fa-list"></i> Users</a>
+                                </li>
+                                <li>
+                                    <a href="{{  ma_get_admin_create_url('users') }}"><i class="fa fa-plus"></i> Add  User</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{ ma_get_admin_list_url('roles') }}"><i class="fa fa-list"></i> Roles</a>
+                                </li>
+                                <li>
+                                    <a href="{{ ma_get_admin_create_url('roles') }}"><i class="fa fa-plus"></i> Add Role</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                     <li class="dropdown">
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-expanded="false">{{Auth::user()->name}} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-expanded="false">{{Auth::user()->name}} <span class="caret"></span></a>
 
                         <ul class="dropdown-menu" role="menu">
                             @if (Auth::check())
@@ -67,7 +72,8 @@
                         @if ( isset($section['menu']['top-bar']['show']) )
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ $section['title'] }}
-                                    <span class="caret"></span></a>
+                                    <span class="caret"></span>
+                                </a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a href="{{ ma_get_admin_list_url($section['model']) }}"><i class="fa fa-list"></i> {{ $section['title'] }}</a>
@@ -89,34 +95,7 @@
                             </li>
                         @endif
                     @endforeach
-
-                    @if (Auth::user()->hasRole('su'))
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Roles
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ ma_get_admin_list_url('roles') }}"><i class="fa fa-list"></i> Roles</a>
-                                </li>
-                                <li>
-                                    <a href="{{ ma_get_admin_create_url('roles') }}"><i class="fa fa-plus"></i> Add Role</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li class="dropdown">
-                                    <a href="{{ ma_get_admin_list_url('users') }}"><i class="fa fa-list"></i> Users</a>
-                                </li>
-                                <li>
-                                    <a href="{{  ma_get_admin_create_url('users') }}"><i class="fa fa-plus"></i> Add User</a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-                 </ul>
+                </ul>
             @endif
         </div>
     </div>

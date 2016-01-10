@@ -11,7 +11,7 @@
 			</li>
 		@if ($pageConfig['preview']==1)
 			<li>
-				<a href="http://localhost/macms/it/" class="nero" target="_new"> <i class="fa fa-eye"></i> {!! trans('admin.message.view_page')!!}</a>
+				<a href="{{  ma_get_admin_preview_url($article)  }}" class="nero" target="_new"> <i class="fa fa-eye"></i> {!! trans('admin.message.view_page')!!}</a>
 			</li>
 		@endif
 	</ul>
