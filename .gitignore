@@ -55,3 +55,4 @@ cache/*.*
 *.md
 readme.md
 uploads/*
+.env*
