@@ -55,6 +55,7 @@ cache/*.*
 *.md
 readme.md
 uploads/*
+<<<<<<< HEAD
 
 
 # Laravel 5
@@ -69,3 +70,6 @@ Homestead.json
 
 /.idea
 /_ide_helper.php
+=======
+.env*
+>>>>>>> origin/master
