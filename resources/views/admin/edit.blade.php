@@ -44,7 +44,7 @@
 							<div role="tabpanel" class="tab-pane active well noborder-top bs-component " id="main_tab">
 
 								{{ AdminForm::get( $article ) }}
-								@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'s.password')  == 1)
+								@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.password')  == 1)
 									@include('admin.helper.password')
 								@endif
 
