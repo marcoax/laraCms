@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers;
+namespace App\LaraCms;
 Use Form;
 Use App;
 use Carbon\Carbon;

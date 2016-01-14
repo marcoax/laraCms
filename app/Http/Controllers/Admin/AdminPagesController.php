@@ -10,7 +10,7 @@ use App\Http\Requests\AdminFormRequest;
 use App\Http\Requests\ArticleEditFormRequest;
 use Input;
 use Validator;
-use App\Helpers\UploadManager;
+use App\laraCms\UploadManager;
 Use Illuminate\Support\Facades\Session;
 
 

@@ -47,8 +47,8 @@ class AjaxController extends Controller
     {
 			
 		$modelClass  =  'App\\'.ucFirst($model);
-		$object 	 = $modelClass::whereId($id)->firstOrFail();
-		if( $object ) {
+		$object 	 = $modelClass::whereId($id)->first();
+		if( is_object($object) ) {
 			$object->delete();
 			$this->responseContainer['status']  ='ok';
 			$this->responseContainer['message'] ='data has been deleted';

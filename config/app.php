@@ -159,7 +159,7 @@ return [
 
 		// Ma
 		App\Providers\AdminFormServiceProvider::class,
-		'App\Helpers\Notifications\FlashServiceProvider',
+		'App\laraCms\Notifications\FlashServiceProvider',
 	],
 
     /*

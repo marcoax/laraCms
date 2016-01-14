@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers\Notifications;
+namespace App\laraCms\Notifications;
 Use App;
 use Illuminate\Support\ServiceProvider;
 class FlashServiceProvider     extends ServiceProvider
@@ -22,7 +22,7 @@ class FlashServiceProvider     extends ServiceProvider
             'Laracasts\Flash\LaravelSessionStore'
         );
         $this->app->singleton('flash', function () {
-            return $this->app->make('App\Helpers\Notifications\FlashNotifier');
+            return $this->app->make('App\laraCms\Notifications\FlashNotifier');
         });
     }
     /**

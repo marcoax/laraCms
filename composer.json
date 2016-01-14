@@ -28,14 +28,14 @@
     "autoload": {
         "classmap": [
             "database",
-            "app/Helpers"
+            "app/laraCms"
         ],
         "psr-4": {
             "App\\": "app/"
         },
         "files": [
-        	       "app/Helpers/ma_helper.php",
-        	       "app/Helpers/String.class.php"
+        	       "app/laraCms/Tools/ma_helper.php",
+        	       "app/laraCms/Tools/Stringable.class.php"
         	       
     	        ]
     },

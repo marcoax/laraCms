@@ -1,6 +1,6 @@
 <?php
-namespace App\Helpers;
-class String {
+namespace App\LaraCms\Tools;
+class Stringable {
 
     public static function camelize( $string )
     {

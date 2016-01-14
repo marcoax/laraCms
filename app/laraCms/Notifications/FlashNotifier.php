@@ -1,7 +1,7 @@
-<?php namespace App\Helpers\Notifications;
+<?php namespace App\laraCms\Notifications;
 
 use Illuminate\Session\Store;
-//use App\Helpers\Notifications\SessionStore;
+//use App\laraCms\Notifications\SessionStore;
 
 class FlashNotifier
 {

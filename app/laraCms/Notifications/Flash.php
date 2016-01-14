@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers\Notifications;
+namespace App\laraCms\Notifications;
 use Illuminate\Support\Facades\Facade;
 class Flash extends Facade {
     /**

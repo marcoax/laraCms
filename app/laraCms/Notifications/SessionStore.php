@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers\Notifications;
+namespace App\laraCms\Notifications;
 interface SessionStore {
     /**
      * Flash a message to the session.

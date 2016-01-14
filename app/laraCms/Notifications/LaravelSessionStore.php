@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers\Notifications;
+namespace App\laraCms\Notifications;
 use Illuminate\Session\Store;
 class LaravelSessionStore implements SessionStore {
     /**

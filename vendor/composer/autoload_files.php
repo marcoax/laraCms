@@ -18,6 +18,6 @@ return array(
     'a0edc8309cc5e1d60e3047b5df6b7052' => $vendorDir . '/guzzlehttp/psr7/src/functions_include.php',
     '752af1c2bdb339e8474c3c31b22b7d54' => $vendorDir . '/illuminate/html/helpers.php',
     'f18cc91337d49233e5754e93f3ed9ec3' => $vendorDir . '/laravelcollective/html/src/helpers.php',
-    '15a5c25bc06ac5f543223d4b1116e560' => $baseDir . '/app/Helpers/ma_helper.php',
-    '4b4ad6b92a78ddf64038aa25c44693b6' => $baseDir . '/app/Helpers/String.class.php',
+    'e46d8d85e2fe9dba912d599b779f745f' => $baseDir . '/app/laraCms/Tools/ma_helper.php',
+    '0af32864159c78418a6f9cc575ef09d0' => $baseDir . '/app/laraCms/Tools/Stringable.class.php',
 );
