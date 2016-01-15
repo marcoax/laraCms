@@ -71,5 +71,5 @@ Homestead.json
 /.idea
 /_ide_helper.php
 =======
-.env*
+.env
 >>>>>>> origin/master
