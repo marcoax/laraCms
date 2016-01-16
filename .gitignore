@@ -68,8 +68,8 @@ Homestead.yaml
 Homestead.json
 .env
 
+#PHP Storm
+# =========================
 /.idea
 /_ide_helper.php
-=======
-.env
 >>>>>>> origin/master
