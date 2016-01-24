@@ -35,7 +35,12 @@ select:not([multiple]) {
 select {
 	border-radius: 0px;
 }
-/***************************    BUTTON ****************************/
+
+ /**************************  ALERT ****************************/
+.alert {
+	border-radius: 0px;
+}
+/*************************** BUTTON ****************************/
 
 .btn-icon {
 	background-color: #0ABAEE;
@@ -88,6 +93,8 @@ select {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
+
+
 input::-moz-focus-inner {
 	border: 0;
 	padding: 0;
@@ -104,6 +111,11 @@ input::-moz-focus-inner {
 	color: #fff;
 	border-color: #0ABAEE;
 	background: #0ABAEE;
+}
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
+	color: #0ABAEE;
+	border-color: #0ABAEE;
+	background: #F5F5F5;
 }
 
 .btn-primary {

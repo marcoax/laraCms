@@ -68,7 +68,7 @@
                     <li class="active">
                         <a href="{{ URL::to('/admin/') }}">DashBoard</a>
                     </li>
-                    @foreach(config('admin.list.section') as $section)
+                    @foreach(config('laraCms.admin.list.section') as $section)
                         @if ( isset($section['menu']['top-bar']['show']) )
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ $section['title'] }}

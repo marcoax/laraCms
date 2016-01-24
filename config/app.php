@@ -218,7 +218,8 @@ return [
 		'Image' => 'Intervention\Image\Facades\Image',
 
 		'AdminForm'  => App\Facades\AdminForm::class,
-		'Flash' => 'Helpers\Notifications\Flash'
+		'Flash' => 'Helpers\Notifications\Flash',
+
     	
     ],
 

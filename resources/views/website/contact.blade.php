@@ -25,10 +25,11 @@
         <button class="showMap  btn btn-warning mb10" data-text="SHOW CONTACTS" data-old-text="SHOW MAP" href="#">SHOW MAP</button>
     </div>
 </section>
+@include('website.form.contact')
 @endsection
 @section('footerjs')
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" src="{!! asset('public/fe/js/ma_gmaps.js')!!}"></script>
+    <script type="text/javascript" src="{!! asset('public/website/js/ma_gmaps.js')!!}"></script>
     <!-- JS Page Level -->
     <script type="text/javascript">
 

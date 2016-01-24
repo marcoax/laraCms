@@ -27,7 +27,9 @@
 						<th class="middle-vertical-align">{!! $label !!}</th>
 						@endforeach
 						<th class="middle-vertical-align">{!! trans('admin.label.edit')!!}</th>
-						<th class="middle-vertical-align">{!! trans('admin.label.delete')!!}</th>
+						@if ($pageConfig['delete']==1)
+							<th class="middle-vertical-align">{!! trans('admin.label.delete')!!}</th>
+						@endif
 					</tr>
 				</thead>
 				<tbody>
@@ -79,8 +81,14 @@
 							@endif
 						</td>
 						@endforeach
-							<td class="text-center"><a href="{{  ma_get_admin_edit_url($article) }}" class="btn btn-primary btn-small "   data-role ="edit-item"> <i class="fa fa-edit"></i> {!! trans('admin.label.edit')!!}</a></td>
-							<td class="text-center"><a href="{{  ma_get_admin_delete_url($article) }}"  class="btn btn-danger btn-small" data-role ="delete-item"><i class="fa fa-trash"></i> {!! trans('admin.label.delete')!!}</a></td>
+						<td class="text-center"><a href="{{  ma_get_admin_edit_url($article) }}" class="btn btn-primary btn-small "   data-role ="edit-item"> <i class="fa fa-edit"></i> {!! trans('admin.label.edit')!!}</a></td>
+						@if ($pageConfig['delete']==1)
+							<td class="text-center">
+								<a href="{{  ma_get_admin_delete_url($article) }}" class="btn btn-danger btn-small" data-role="delete-item">
+									<i class="fa fa-trash"></i> {!! trans('admin.label.delete')!!}
+								</a>
+							</td>
+						@endif
 					</tr>
 					@endforeach
 				</tbody>

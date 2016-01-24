@@ -14,7 +14,7 @@
 @if ($errors->any())
 <div class='flash alert-danger pf25 mb15'>
 	@foreach ( $errors->all() as $error )
-	{{ $error }}
+	<p>{{ $error }}</p>
 	@endforeach
 </div>
 @endif

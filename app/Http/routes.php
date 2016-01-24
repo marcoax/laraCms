@@ -53,25 +53,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/news/', 'PagesController@news');
     Route::get('/news/{slug}', 'PagesController@news');
     Route::get('/{slug?}', 'PagesController@pages');
+    Route::post('/contact', 'PagesController@getContactUsForm');
 
     Route::get('/api/new/{post?}', function (App\Article $post) {
         return $post;
     });
 
-    Route::get('csv', function () {
-        if (($handle = fopen(public_path() . '/import/nazioni.csv', 'r')) !== FALSE) {
-            while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-                //$scifi = new Scifi();
-                //$scifi->character = $data[0];
-                //$scifi->movie = $data[1];
-                //$scifi->save();
-                //print_r( $data[0] );
-            }
-            fclose($handle);
-        }
 
-        return Scifi::all();
-    });
 
 
     // Authentication routes...

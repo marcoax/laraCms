@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row">
-            @foreach(config('admin.list.section') as $section)
+            @foreach(config('laraCms.admin.list.section') as $section)
                 @if ( isset($section['menu']['home']) )
                 <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 pf5">
                     <div class="btn-icon bck-color-2 text-center color-2 transitioned">

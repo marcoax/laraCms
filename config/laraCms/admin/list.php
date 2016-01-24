@@ -44,6 +44,37 @@ return [
                 ],
             ],
         ],
+        'contacts' => [
+            'model' => 'Contact',
+            'icon'  => 'envelope',
+            'title' => 'Info request',
+            'fieldLabel' => 'ID,Email,Name,Surname,Message,Read,Created At,Updated At',
+            'field' => ['id',
+                'email'     => ['type' => 'text', 'field' => 'email', 'class' => 'col-sm-2'],
+                'name'      => ['type' => 'text', 'field' => 'name', 'class' => 'col-sm-2'],
+                'surname'   => ['type' => 'text', 'field' => 'surname', 'class' => 'col-sm-2'],
+                'message'   => ['type' => 'text', 'field' => 'message', 'class' => 'col-sm-2'],
+                'status'    => ['type' => 'boolean', 'field' => 'status', 'class' => 'col-sm-1 text-center'],
+                'created_at'=> ['type' => 'date', 'field' => 'created_at', 'class' => 'col-sm-1'],
+                'updated_at'=> ['type' => 'date', 'field' => 'updated_at', 'class' => 'col-sm-1'],
+            ],
+            'orderBy' => 'name',
+            'orderType' => 'ASC',
+            'edit' => '1',
+            'delete' => '0',
+            'create' => '0',
+            'copy' => '0',
+            'preview' => '0',
+            'view' => '0',
+            'selectable' => '0',
+            'password' => 0,
+            'menu' => [
+                'home' => true,
+                'top-bar' =>[
+                    'show' => true
+                ],
+            ]
+        ],
         'hpsliders' => [
             'model' => 'HpSlider',
             'title' => 'Home Sliders',

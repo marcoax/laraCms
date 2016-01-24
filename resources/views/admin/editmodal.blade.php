@@ -17,7 +17,7 @@
 	<fieldset>
 		<div>
 			{{ AdminForm::get( $article ) }}
-			@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'s.password')  == 1)
+			@if ( config('laraCms.admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'s.password')  == 1)
 				@include('admin.helper.password')
 			@endif
 			<div class="form-group">

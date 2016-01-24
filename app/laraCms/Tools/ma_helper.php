@@ -1,14 +1,14 @@
 <?php
 	/*********************  doc **********************/
 	function ma_get_doc_from_repository($doc){
-		$path  = config('admin.path.doc_repository');
+		$path  = config('laraCms.admin.path.doc_repository');
 		return asset($path.$doc);
 	}
 
     /********      image    *****************/
 	function ma_get_image_from_repository($img){
 		
-		$path  =config('admin.path.img_repository');
+		$path  =config('laraCms.admin.path.img_repository');
 		return asset($path.$img); 
 	}
 

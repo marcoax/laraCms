@@ -5,13 +5,15 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Input;
 
-class AdminFormRequest extends Request
+class WebsiteFormRequest extends Request
 {
+    protected $model; /*************  cur model to validate **************/
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
+
     public function authorize()
     {
         return true;
@@ -24,11 +26,9 @@ class AdminFormRequest extends Request
      */
     public function rules()
     {
-       
-	   $model= ( $this::segment(2)=='create')? $this::segment( count( $this::segments() )) : $this::segment( count( $this::segments() )-1) ;
-	   $rules =  config('laraCms.admin.form_validation.'.$model);
-	  
-  	 return $rules;
-
+        $segments = $this::segments();
+        $this->model= end( $segments  ) ;
+        $rules =  config('laraCms.website.form_validation.'.$this->model);
+        return $rules;
     }
 }

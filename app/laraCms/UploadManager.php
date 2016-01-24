@@ -15,7 +15,7 @@ class UploadManager {
 		if (Input::hasFile($media) && Input::file($media)->isValid()) {
 			$newMedia  = Input::file($media);
 			$mediaType = ( is_image( $newMedia->getMimeType()) == 'image') ? 'images':'docs';
-			$destinationPath =  config('admin.path.repository').'/'.$mediaType; // upload path
+			$destinationPath =  config('laraCms.admin.path.repository').'/'.$mediaType; // upload path
 			$extension 		 = $newMedia->getClientOriginalExtension(); // getting image extension
 			$name 			 = basename($newMedia->getClientOriginalName(),'.'.$extension);
 			$fileName 		 = str_slug(rand(11111,99999).'_'.$name).".".$extension; // renameing image

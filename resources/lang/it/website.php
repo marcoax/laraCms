@@ -11,7 +11,17 @@ return [
     |
     */
 
+    'email' => 'Email',
+    'name' => 'Nome',
+    'info_request' => 'Richiesta informazioni',
+    'message_email' => 'Messaggio',
     'more_info' => '',
-    'go_to_site' => 'Vai al sito',
+    'send' => 'Invia',
+    'surname' => 'Cognome',
+    'subject' => 'Oggetto',
+    'message' => [
+        'privacy' => 'Accetto termini e condizioni di utilizzo e informativa sulla privacy.',
+        'required_field' => 'I campi contrassestati con (*) sono obbligatori',
+    ],
 
 ];

@@ -5,6 +5,14 @@ return [
 				'description' => 'required',
 
 		],
+		'contacts' => [
+			'name'	  => 'required',
+			'surname' => 'required',
+			'subject' => 'required',
+			'message' => 'required',
+			'email'   => 'required|Between:3,64|Email',
+
+		],
 		'media' => [
 			'title' => 'required',
      	],
@@ -31,7 +39,7 @@ return [
 		],
 		'users' => [
 				'name' => 'required',
-				'email' => 'required',
+				'email' => 'required|Between:3,64|Email',
 			    'role' => 'required',
 
 				'password' => 'alpha_num|min:6|confirmed',

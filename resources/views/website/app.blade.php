@@ -12,10 +12,10 @@
     <meta property="og:title" content="@yield('title')" />
     <meta property="og:url" content="{!!LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() )!!}/" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="{!! asset('public/fe/images/logo.jpg') !!}" />
+    <meta property="og:image" content="{!! asset('public/website/images/logo.jpg') !!}" />
     <meta property="og:description" content="{!! $article->seo_description !!}" />
 
-    <link rel="image_src" href="{!! asset('public/fe/images/logo.jpg') !!}"/>
+    <link rel="image_src" href="{!! asset('public/website/images/logo.jpg') !!}"/>
     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
          <link rel="alternate" hreflang="{{$localeCode}}" href="{{ LaravelLocalization::getLocalizedURL($localeCode) }}/"/>
     @endforeach
@@ -25,15 +25,15 @@
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,500' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{!! asset('public/fe/css/animate.min.css')!!}">
+    <link rel="stylesheet" href="{!! asset('public/website/css/animate.min.css')!!}">
     <link href="{!! asset('public/css/ma_helper.css')!!}" rel="stylesheet">
-    <link href="{!! asset('public/fe/css/override.css')!!}" rel="stylesheet">
-    <link href="{!! asset('public/fe/css/header_default.css')!!}" rel="stylesheet">
-    <link href="{!! asset('public/fe/css/app.css')!!}" rel="stylesheet">
+    <link href="{!! asset('public/website/css/override.css')!!}" rel="stylesheet">
+    <link href="{!! asset('public/website/css/header_default.css')!!}" rel="stylesheet">
+    <link href="{!! asset('public/website/css/app.css')!!}" rel="stylesheet">
 
     <!-- Owl Carousel Assets -->
-    <link href="{!! asset('public/fe/plugins/owl-carousel/owl.carousel.css')!!}" rel="stylesheet">
-    <link href="{!! asset('public/fe/plugins/owl-carousel/owl.theme.default.css')!!}" rel="stylesheet">
+    <link href="{!! asset('public/website/plugins/owl-carousel/owl.carousel.css')!!}" rel="stylesheet">
+    <link href="{!! asset('public/website/plugins/owl-carousel/owl.theme.default.css')!!}" rel="stylesheet">
 </head>
 <body>
     @include('website.partials.navbar')
@@ -55,10 +55,10 @@
 <script src="{!! asset('public/js/jquery-2.1.4.min.js')!!}"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <!-- JS Implementing Plugins -->
-<script type="text/javascript" src="{!! asset('public/fe/plugins/carousel-swipe.js')!!}"></script>
-<script type="text/javascript" src="{!! asset('public/fe/plugins//wow-animations/js/wow.min.js')!!}"></script>
-<script type="text/javascript" language="javascript" src="{!! asset('public/fe/plugins/owl-carousel/owl.carousel.min.js')!!}"></script>
-<script src="{!! asset('public/fe/js/app.js')!!}"></script>
+<script type="text/javascript" src="{!! asset('public/website/plugins/carousel-swipe.js')!!}"></script>
+<script type="text/javascript" src="{!! asset('public/website/plugins//wow-animations/js/wow.min.js')!!}"></script>
+<script type="text/javascript" language="javascript" src="{!! asset('public/website/plugins/owl-carousel/owl.carousel.min.js')!!}"></script>
+<script src="{!! asset('public/website/js/app.js')!!}"></script>
 @yield('footerjs')
 <script type="text/javascript">
     jQuery(document).ready(function() {

@@ -24,14 +24,14 @@
 									@endif
 								</a>
 							</li>
-							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showSeo')  == 1)
+							@if ( config('laraCms.admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showSeo')  == 1)
 								<li role="presentation" class="x-big">
 									<a href="#seo_tab" aria-controls="seo_tab" role="tab" data-toggle="tab">
 										<i class="fa fa-bolt"></i> Seo
 									</a>
 							</li>
 							@endif
-							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showMedia')  == 1 && $article->id!='')
+							@if ( config('laraCms.admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showMedia')  == 1 && $article->id!='')
 								<li role="presentation" class="x-big">
 									<a href="#media_tab" aria-controls="media_tab" role="tab" data-toggle="tab">
 										<i class="fa fa-file-image-o"></i> Media
@@ -44,19 +44,19 @@
 							<div role="tabpanel" class="tab-pane active well noborder-top bs-component " id="main_tab">
 
 								{{ AdminForm::get( $article ) }}
-								@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.password')  == 1)
+								@if ( config('laraCms.admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.password')  == 1)
 									@include('admin.helper.password')
 								@endif
 
 								@include('admin.helper.form_submit_button')
 							</div>
-							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showSeo')  == 1)
+							@if ( config('laraCms.admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showSeo')  == 1)
 								<div role="tabpanel" class="tab-pane well noborder-top  bs-component" id="seo_tab">
 									{{ AdminForm::getSeo( $article ) }}
 									@include('admin.helper.form_submit_button')
 								</div>
 							@endif
-							@if ( config('admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showMedia')  == 1 && $article->id!='')
+							@if ( config('laraCms.admin.list.section.'.strtolower(str_plural($pageConfig['model'])).'.showMedia')  == 1 && $article->id!='')
 								<div role="tabpanel" class="tab-pane  well noborder-top bs-component" id="media_tab">
 									@include('admin.helper.form_uplodifive')
 									@include('admin.helper.form_submit_button')
@@ -86,7 +86,7 @@
 @endsection
 @section('footerjs')
 	<script src="{!! asset('public/js/vendor/jquery.uploadifive.min.js')!!}" type="text/javascript"></script>
-	<script src="{!! asset(config('admin.path.plugins').'select2/js/select2.min.js')!!}" type="text/javascript"></script>
+	<script src="{!! asset(config('laraCms.admin.path.plugins').'select2/js/select2.min.js')!!}" type="text/javascript"></script>
 	<script type="text/javascript">
 
      	$(function() {

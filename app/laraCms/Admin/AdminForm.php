@@ -69,11 +69,10 @@ class AdminForm {
 		else if($this->property['type'] =='readonly' ) {
 			$formElement = Form::text($key, $value , array('readonly' => 'true','class' => ' form-control '.$cssClass));
 		}
-		else if($this->property['type'] =='date' ) {
+		else if($this->property['type'] =='date' || $this->property['type'] =='date-readonly' ) {
 			$value = ($value) ? Carbon::parse($value)->format('d-m-Y') :date('d-m-Y');
-			$formElement = Form::text($key, $value , array('class' => ' form-control '.$cssClass));
+			$formElement = ($this->property['type'] =='date-readonly')?$formElement = Form::text($key, $value , array('readonly' => 'true','class' => ' form-control '.$cssClass)):Form::text($key, $value , array('class' => ' form-control '.$cssClass));
 			$cssClassElement  = (isset($this->property['cssClassElement']))	 ? $this->property['cssClassElement'] : 'col-md-2';
-
 		}
 		else if($this->property['type'] =='integer'  && $this->property['display']== 1) {
 			$cssClassElement  = (isset( $this->property['cssClassElement']))?$this->property['cssClassElement']:'col-md-2';

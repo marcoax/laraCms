@@ -19,13 +19,13 @@
                         </button>
                         <a class="navbar-brand pr25-min-md" href="{{ URL::to('') }}">
                             <img class="visible-xs visible-sm" id="logo-header"
-                                 src="{!! asset('public/fe/images/logo_header_mobile.png') !!}"
+                                 src="{!! asset('public/website/images/logo_header_mobile.png') !!}"
                                  alt="laraCms - design studio - Milan Italy">
                             <img id="logo-colore" class="hidden-xs hidden-sm"
-                                 src="{!! asset('public/fe/images/logo_colore.png') !!}"
+                                 src="{!! asset('public/website/images/logo_colore.png') !!}"
                                  alt="laraCms - design studio - Milan Italy">
                             <img class="hidden-xs hidden-sm transitioned" id="logo-bianco"
-                                 src="{!! asset('public/fe/images/logo_bianco.png') !!}"
+                                 src="{!! asset('public/website/images/logo_bianco.png') !!}"
                                  alt="laraCm - design studio - Milan Italy">
                         </a>
                     </div>

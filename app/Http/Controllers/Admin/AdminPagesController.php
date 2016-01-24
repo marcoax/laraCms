@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminFormRequest;
-use App\Http\Requests\ArticleEditFormRequest;
 use Input;
 use Validator;
 use App\laraCms\UploadManager;
@@ -25,12 +24,13 @@ class AdminPagesController extends Controller
     protected $request;
     protected $config;
     protected $id;
+    use \App\laraCms\Sluggable\SluggableTrait;
 
 
     public function init($model)
     {
         $this->model = $model;
-        $this->config = config('admin.list.section.' . $this->model);
+        $this->config = config('laraCms.admin.list.section.' . $this->model);
         $this->models = strtolower(str_plural($this->config['model']));
         $this->modelClass = 'App\\' . $this->config['model'];
 
@@ -53,7 +53,7 @@ class AdminPagesController extends Controller
         $model = new  $this->modelClass;
         $sort = (isset($this->config->orderBy)) ? $this->config->orderBy : 'id';
         $sortType = (isset($this->config->orderType)) ? $this->config->orderType : 'asc';
-        $articles = $model::orderby($sort, $sortType)->paginate(config('admin.list.item_per_pages'));
+        $articles = $model::orderby($sort, $sortType)->paginate(config('laraCms.admin.list.item_per_pages'));
         return view('admin.list', ['articles' => $articles, 'pageConfig' => $this->config]);
 
     }
@@ -105,7 +105,7 @@ class AdminPagesController extends Controller
     {
         $this->init($model);
         $this->request = $request;
-        $config = config('admin.list.section.' . $model);
+        $config = config('laraCms.admin.list.section.' . $model);
         $model = new  $this->modelClass;
         $article = new $model;
         // input data Handler
@@ -179,7 +179,7 @@ class AdminPagesController extends Controller
         }
         if(isset($article->sluggable))  {
             foreach ($article->sluggable as $a) {
-                $article->$a = $this->handleSluggable($article,$this->request->get($a));
+                $article->$a = $this->sluggy($article,$this->request->get($a));
             }
         }
 
@@ -210,7 +210,7 @@ class AdminPagesController extends Controller
         if (Input::hasFile($media) && Input::file($media)->isValid()) {
             $newMedia  = Input::file($media);
             $mediaType = ( is_image( $newMedia->getMimeType()) == 'image') ? 'images':'docs';
-            $destinationPath =  config('admin.path.repository').'/'.$mediaType; // upload path
+            $destinationPath =  config('laraCms.admin.path.repository').'/'.$mediaType; // upload path
             $extension 		 = $newMedia->getClientOriginalExtension(); // getting image extension
             $name 			 = basename($newMedia->getClientOriginalName(),'.'.$extension);
             $fileName 		 = str_slug(rand(11111,99999).'_'.$name).".".$extension; // renameing image
@@ -221,13 +221,4 @@ class AdminPagesController extends Controller
 
     }
 
-
-    public function handleSluggable($model,$value)
-    {
-
-        $slug = ($value=='')? str_slug($model->title) :str_slug($value);
-        if( $model->id!='') $count = $model::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->where('id', '!=', $model->id)->count();
-        else $count = $model::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-        return $count ? "{$slug}-{$count}" : $slug;
-    }
 }
