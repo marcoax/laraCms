@@ -37,13 +37,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $fieldspec = [];
 
 
-
+	/**
+	 * @param $password
+	 */
 	public function setPasswordAttribute($password)
 	{
-		$this->attributes['password'] = bcrypt($password);
-		//  set  also the real password only for  demo purpose must not fillable
-		if($password !='')$this->attributes['real_password'] = $password;
 
+		if($password !=''){
+			echo $this->attributes['password'] = bcrypt($password);
+
+			//  set  also the real password only for  demo purpose must not fillable
+			$this->attributes['real_password'] = $password;
+		}
 
 	}
 
@@ -104,7 +109,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		];
 		$this->fieldspec['role'] = [
 			'type'       		=> 'relation',
-			'model'      		=> 'role',
+			'model'      		=> 'Role',
 			'relation_name'     => 'roles',
 			'foreign_key'=> 'id',
 			'label_key'  => 'display_name',
