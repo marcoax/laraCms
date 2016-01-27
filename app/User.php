@@ -80,12 +80,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		$this->fieldspec['name']    = [	
 			'type' =>'string',
 			'size' =>400,
+			'max' => 255,
 			'pkey' => 'n',
 			'required' => 'y',
 			'hidden' => '0',
 			'label'=>'Name',
 			'extraMsg'=>'',
 			'display'=>'1',
+			
 		];
 		
 		$this->fieldspec['email']    = [	
@@ -98,6 +100,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			'label'=>'Email',
 			'extraMsg'=>'',
 			'display'=>'1',
+			
 		];
 		$this->fieldspec['role'] = [
 			'type'       		=> 'relation',

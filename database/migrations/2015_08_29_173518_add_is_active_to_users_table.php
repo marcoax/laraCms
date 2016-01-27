@@ -14,18 +14,7 @@ class AddIsActiveToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->increments('id');
-            $table->string('domain', 255);
-            $table->integer('id_parent');
-            $table->integer('id_template');
-            $table->string('title', 255);
-            $table->text('description');
-            $table->string('slug')->nullable();
-            $table->integer('sort');
-            $table->tinyInteger('pub')->default(1)->nullable();
-            $table->tinyInteger('top_menu')->default(1)->nullable();
-            $table->integer('created_by');
-            $table->timestamps();
+            $table->boolean('is_active')->nullable()->after('password');
         });
     }
 
@@ -38,6 +27,7 @@ class AddIsActiveToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+            $table->dropColumn('is_active');
         });
     }
 }

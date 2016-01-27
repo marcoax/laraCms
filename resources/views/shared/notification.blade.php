@@ -1,7 +1,6 @@
 @if (Session::has('flash_notification') && session('flash_notification.message')!='' )
 	@if (Session::has('flash_notification.overlay'))
 		@include('flash::modal', ['modalClass' => 'flash-modal', 'title' => Session::get('flash_notification.title'), 'body' => Session::get('flash_notification.message')])
-
 	@else
 		<div class="flash text-center alert alert-{{ Session::get('flash_notification.level') }} {{ Session::has('flash_notification.important') ? 'alert-important':''}}">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
