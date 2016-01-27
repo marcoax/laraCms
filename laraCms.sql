@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Gen 10, 2016 alle 14:47
+-- Generation Time: Gen 27, 2016 alle 22:12
 -- Versione del server: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -23,10 +23,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `adminusers`
+--
+
+CREATE TABLE IF NOT EXISTS `adminusers` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `real_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `api_token` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `articles`
 --
 
-DROP TABLE IF EXISTS `articles`;
 CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(10) unsigned NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -55,12 +73,12 @@ CREATE TABLE IF NOT EXISTS `articles` (
 --
 
 INSERT INTO `articles` (`id`, `domain`, `id_parent`, `id_template`, `title`, `subtitle`, `intro`, `abstract`, `description`, `slug`, `doc`, `image`, `banner`, `link`, `sort`, `pub`, `top_menu`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, '', 0, 0, 'Home', NULL, NULL, NULL, 'Home', 'home', '', '', '', '', 100, 1, 1, 0, '0000-00-00 00:00:00', '2016-01-09 15:59:37'),
+(1, '', 1, 0, 'Home', NULL, NULL, NULL, 'Home', 'home', '', '', '', '', 100, 1, 1, 0, '0000-00-00 00:00:00', '2016-01-14 16:20:31'),
 (2, '', 1, 0, '', NULL, NULL, NULL, '', 'about', '', '', '', '', 200, 1, 1, 0, '2015-12-20 19:16:48', '2016-01-10 08:35:28'),
 (3, '', 1, 0, '', NULL, NULL, NULL, '', 'news', '', '', '', '', 500, 1, 1, 0, '2015-12-24 18:15:46', '2015-12-29 13:26:24'),
 (12, '', 1, 0, '', NULL, NULL, NULL, '', 'work', '', '', '', '', 400, 1, 1, 0, '2015-12-28 13:37:47', '2015-12-29 13:26:25'),
 (13, '', 1, 0, '', NULL, NULL, NULL, '', 'service', '', '', '', '', 300, 1, 1, 0, '2015-12-28 13:38:11', '2015-12-29 13:26:26'),
-(19, '', 0, 0, '', NULL, NULL, NULL, '', 'contact', '', '', '', '', 600, 1, 1, 0, '2015-12-28 15:19:49', '2016-01-03 21:42:16'),
+(19, '', 1, 0, '', NULL, NULL, NULL, '', 'contact', '', '', '', '', 600, 1, 1, 0, '2015-12-28 15:19:49', '2016-01-23 16:19:45'),
 (20, '', 13, 0, '', NULL, NULL, NULL, '', 'product-design', '', '16202_fiocco.png', '', '', 310, 1, 0, 0, '2015-12-29 13:25:40', '2015-12-29 15:26:38'),
 (21, '', 13, 0, '', NULL, NULL, NULL, '', 'branding', '', '48204_fiocco.png', '', '', 320, 1, 0, 0, '2015-12-29 13:29:14', '2015-12-29 15:28:14'),
 (22, '', 13, 0, '', NULL, NULL, NULL, '', 'design-management', '', '51635_fiocco.png', '', '', 330, 1, 0, 0, '2015-12-29 13:30:16', '2015-12-29 15:28:45'),
@@ -80,7 +98,6 @@ INSERT INTO `articles` (`id`, `domain`, `id_parent`, `id_template`, `title`, `su
 -- Struttura della tabella `article_tag`
 --
 
-DROP TABLE IF EXISTS `article_tag`;
 CREATE TABLE IF NOT EXISTS `article_tag` (
   `article_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
@@ -94,7 +111,6 @@ CREATE TABLE IF NOT EXISTS `article_tag` (
 -- Struttura della tabella `article_translations`
 --
 
-DROP TABLE IF EXISTS `article_translations`;
 CREATE TABLE IF NOT EXISTS `article_translations` (
   `id` int(10) unsigned NOT NULL,
   `article_id` int(10) unsigned NOT NULL,
@@ -118,8 +134,8 @@ CREATE TABLE IF NOT EXISTS `article_translations` (
 --
 
 INSERT INTO `article_translations` (`id`, `article_id`, `locale`, `title`, `subtitle`, `intro`, `description`, `abstract`, `seo_title`, `seo_description`, `seo_keywords`, `created_by`, `update_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 'en', 'Home', '', NULL, '<p>Home intro text</p>', '', 'LaraCms - Simple Laravel 5 CMS', 'Simple Multilanguages Laravel  5x CMS developed using Twitter bootstrap  3x', 'laravel 5, cms , miltilanguages, boostrap', 0, 0, '2015-12-20 18:56:43', '2016-01-09 15:53:27'),
-(2, 1, 'it', 'Home', '', NULL, '', '', 'LaraCms - Simple Laravel 5 CMS', 'Simple Multilanguages Laravel  5x CMS developed using Twitter bootstrap  3x', 'laravel 5, cms , miltilanguages, boostrap', 0, 0, '2015-12-20 18:56:43', '2016-01-09 15:53:27'),
+(1, 1, 'en', 'Home', '', NULL, '<p>Home intro text</p>', '', '', '', '', 0, 0, '2015-12-20 18:56:43', '2016-01-22 18:57:51'),
+(2, 1, 'it', 'Home', '', NULL, '', '', '', '', '', 0, 0, '2015-12-20 18:56:43', '2016-01-22 18:57:51'),
 (3, 2, 'en', 'About us', '', NULL, '<p>We are a design studio based in Milan devoted to create impact and value. Since 2001 we take care of all the creative aspects for a client list of individuals, brands, institutions and NGOs.<br /> We design everything from businesses to brands to products, from books to bowls to boxes. And a lot more beyond. Our multi-disciplinary experience and expertise covers both brand and product design disciplines so we can help you from initial concept to ultimate expression.&nbsp;<br /> As designers we always build from the roots up. Our process is clear and simple: understand and define a clear vision for the project; explore the visual and conceptual roots of the idea; translate these roots into an authentic social and cultural experience.<br /> We embrace and provoke new ways of thinking and doing in order to help you navigate through rapidly changing competitive environments, applying maximum creativity together with strategy to make each project a success.<br /> Besides studio projects, CREOLO enjoys giving lectures and holding workshops at art &amp; design academies here and there around the globe</p>', '<p>We offer services in:&nbsp;<br /> - trend analysis and researches for new scenarios and concepts'' development;&nbsp;<br /> - product and industrial design;&nbsp;<br /> - workshop for product, process and service innovation and training for capacity building;&nbsp;<br /> - strategic design and total branding projects;&nbsp;<br /> - design management and design consulting for new&nbsp;creative industries&nbsp;and&nbsp;start-ups;&nbsp;<br /> - marketing strategies and integrated communication plans;&nbsp;<br /> - art-direction and graphics BTL&nbsp;(corporate identity, catalogues, pubblications);&nbsp;<br /> - adv campaigns and photo shooting services;&nbsp;<br /> - web-design;&nbsp;<br /> - web and&nbsp;social marketing;&nbsp;<br /> - retail design, info-graphics and tools for retail communication;&nbsp;<br /> - packaging, labelling and commercial illustrations/graphics;&nbsp;<br /> - promotional installations and fair booth design;&nbsp;<br /> - conception, coordination, management of events and exhibitions.</p>', '', '', '', 0, 0, '2015-12-20 19:16:48', '2016-01-08 18:01:25'),
 (4, 2, 'it', 'Chi siamo', '', NULL, '<p>We are a design studio based in Milan devoted to create impact and value. Since 2001 we take care of all the creative aspects for a client list of individuals, brands, institutions and NGOs.<br /> We design everything from businesses to brands to products, from books to bowls to boxes. And a lot more beyond. Our multi-disciplinary experience and expertise covers both brand and product design disciplines so we can help you from initial concept to ultimate expression.&nbsp;<br /> As designers we always build from the roots up. Our process is clear and simple: understand and define a clear vision for the project; explore the visual and conceptual roots of the idea; translate these roots into an authentic social and cultural experience.<br /> We embrace and provoke new ways of thinking and doing in order to help you navigate through rapidly changing competitive environments, applying maximum creativity together with strategy to make each project a success.<br /> Besides studio projects, CREOLO enjoys giving lectures and holding workshops at art &amp; design academies here and there around the globe</p>', '', '', '', '', 0, 0, '2015-12-20 19:16:48', '2016-01-08 18:01:25'),
 (5, 3, 'en', 'News', NULL, NULL, '<p>News page</p>', '', '', '', '', 0, 0, '2015-12-24 18:15:46', '2015-12-30 11:17:58'),
@@ -128,7 +144,7 @@ INSERT INTO `article_translations` (`id`, `article_id`, `locale`, `title`, `subt
 (21, 12, 'it', 'Progetti', '', NULL, '<p>I nostri lavori</p>', '', '', '', '', 0, 0, '2015-12-28 13:37:47', '2016-01-09 16:27:36'),
 (22, 13, 'en', 'Service', NULL, NULL, '<p>We develop made-to-measure innovative design solutions to boost what you have in mind.</p>', '', '', '', '', 0, 0, '2015-12-28 13:38:11', '2015-12-30 19:32:44'),
 (23, 13, 'it', 'Servizi', NULL, NULL, '<p>We develop made-to-measure innovative design solutions to boost what you have in mind.</p>', '', '', '', '', 0, 0, '2015-12-28 13:38:11', '2015-12-30 19:32:44'),
-(34, 19, 'en', 'Contact', '', NULL, '<p>Contacts&nbsp;</p>', '', 'Seo title', 'desc', 'seo key', 0, 0, '2015-12-28 15:19:49', '2016-01-03 18:17:45'),
+(34, 19, 'en', 'Contact', '', NULL, '<p>Contact</p>', '', 'Seo title', 'desc', 'seo key', 0, 0, '2015-12-28 15:19:49', '2016-01-23 16:19:11'),
 (35, 19, 'it', 'Contatti', '', NULL, '', '', '', '', '', 0, 0, '2015-12-28 15:19:49', '2016-01-03 18:17:45'),
 (36, 20, 'en', 'Product design', '', NULL, '<p>Product design</p>', '', '', '', '', 0, 0, '2015-12-29 13:25:40', '2016-01-03 20:03:55'),
 (37, 20, 'it', 'Product design', '', NULL, '', '', '', '', '', 0, 0, '2015-12-29 13:25:40', '2016-01-03 20:03:55'),
@@ -158,10 +174,36 @@ INSERT INTO `article_translations` (`id`, `article_id`, `locale`, `title`, `subt
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `contacts`
+--
+
+CREATE TABLE IF NOT EXISTS `contacts` (
+  `id` int(10) unsigned NOT NULL,
+  `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `surname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `replay` text COLLATE utf8_unicode_ci,
+  `status` tinyint(4) DEFAULT '0',
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `contacts`
+--
+
+INSERT INTO `contacts` (`id`, `subject`, `message`, `name`, `surname`, `email`, `replay`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, '12345678', '123456789', 'angelo marco asperti', 'asperti', 'marcoasperti@gmail.com', NULL, NULL, 0, '2016-01-27 19:08:06', '2016-01-27 19:08:06');
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `hpsliders`
 --
 
-DROP TABLE IF EXISTS `hpsliders`;
 CREATE TABLE IF NOT EXISTS `hpsliders` (
   `id` int(10) unsigned NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -193,7 +235,6 @@ INSERT INTO `hpsliders` (`id`, `title`, `description`, `icon`, `image`, `link`, 
 -- Struttura della tabella `media`
 --
 
-DROP TABLE IF EXISTS `media`;
 CREATE TABLE IF NOT EXISTS `media` (
   `id` int(10) unsigned NOT NULL,
   `media_category_id` int(10) unsigned NOT NULL,
@@ -219,7 +260,6 @@ CREATE TABLE IF NOT EXISTS `media` (
 -- Struttura della tabella `media_translations`
 --
 
-DROP TABLE IF EXISTS `media_translations`;
 CREATE TABLE IF NOT EXISTS `media_translations` (
   `id` int(10) unsigned NOT NULL,
   `media_id` int(10) unsigned NOT NULL,
@@ -236,7 +276,6 @@ CREATE TABLE IF NOT EXISTS `media_translations` (
 -- Struttura della tabella `migrations`
 --
 
-DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
@@ -267,7 +306,10 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2016_01_03_190932_create_news_translations_table', 7),
 ('2016_01_03_191050_create_media_table', 8),
 ('2016_01_03_191145_create_media_translations_table', 9),
-('2016_01_09_213704_create_tags_table', 10);
+('2016_01_09_213704_create_tags_table', 10),
+('2016_01_23_141830_create_contact_table', 11),
+('2016_01_23_141830_create_contacts_table', 12),
+('2016_01_27_195512_create_adminusers_table', 12);
 
 -- --------------------------------------------------------
 
@@ -275,7 +317,6 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 -- Struttura della tabella `news`
 --
 
-DROP TABLE IF EXISTS `news`;
 CREATE TABLE IF NOT EXISTS `news` (
   `id` int(10) unsigned NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -312,7 +353,6 @@ INSERT INTO `news` (`id`, `domain`, `date`, `title`, `description`, `subtitle`, 
 -- Struttura della tabella `news_tag`
 --
 
-DROP TABLE IF EXISTS `news_tag`;
 CREATE TABLE IF NOT EXISTS `news_tag` (
   `news_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
@@ -337,7 +377,6 @@ INSERT INTO `news_tag` (`news_id`, `tag_id`, `created_at`, `updated_at`) VALUES
 -- Struttura della tabella `news_translations`
 --
 
-DROP TABLE IF EXISTS `news_translations`;
 CREATE TABLE IF NOT EXISTS `news_translations` (
   `id` int(10) unsigned NOT NULL,
   `news_id` int(10) unsigned NOT NULL,
@@ -374,7 +413,6 @@ INSERT INTO `news_translations` (`id`, `news_id`, `locale`, `title`, `descriptio
 -- Struttura della tabella `object_translation`
 --
 
-DROP TABLE IF EXISTS `object_translation`;
 CREATE TABLE IF NOT EXISTS `object_translation` (
   `id` int(10) unsigned NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -391,7 +429,6 @@ CREATE TABLE IF NOT EXISTS `object_translation` (
 -- Struttura della tabella `password_resets`
 --
 
-DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -404,7 +441,6 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- Struttura della tabella `permissions`
 --
 
-DROP TABLE IF EXISTS `permissions`;
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -420,7 +456,6 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 -- Struttura della tabella `permission_role`
 --
 
-DROP TABLE IF EXISTS `permission_role`;
 CREATE TABLE IF NOT EXISTS `permission_role` (
   `permission_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL
@@ -432,7 +467,6 @@ CREATE TABLE IF NOT EXISTS `permission_role` (
 -- Struttura della tabella `products`
 --
 
-DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -451,7 +485,6 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Struttura della tabella `roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -477,7 +510,6 @@ INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, 
 -- Struttura della tabella `role_user`
 --
 
-DROP TABLE IF EXISTS `role_user`;
 CREATE TABLE IF NOT EXISTS `role_user` (
   `user_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL
@@ -490,7 +522,7 @@ CREATE TABLE IF NOT EXISTS `role_user` (
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 (3, 1),
 (4, 2),
-(4, 3);
+(5, 3);
 
 -- --------------------------------------------------------
 
@@ -498,7 +530,6 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 -- Struttura della tabella `socials`
 --
 
-DROP TABLE IF EXISTS `socials`;
 CREATE TABLE IF NOT EXISTS `socials` (
   `id` int(10) unsigned NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -529,7 +560,6 @@ INSERT INTO `socials` (`id`, `title`, `description`, `icon`, `image`, `link`, `s
 -- Struttura della tabella `tags`
 --
 
-DROP TABLE IF EXISTS `tags`;
 CREATE TABLE IF NOT EXISTS `tags` (
   `id` int(10) unsigned NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -555,7 +585,6 @@ INSERT INTO `tags` (`id`, `title`, `slug`, `created_by`, `update_by`, `created_a
 -- Struttura della tabella `tag_translations`
 --
 
-DROP TABLE IF EXISTS `tag_translations`;
 CREATE TABLE IF NOT EXISTS `tag_translations` (
   `id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
@@ -582,7 +611,6 @@ INSERT INTO `tag_translations` (`id`, `tag_id`, `locale`, `title`, `created_at`,
 -- Struttura della tabella `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -593,19 +621,26 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `is_active` tinyint(4) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dump dei dati per la tabella `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
-(3, 'admin', 'admin@laraCms.com', '$2y$10$ootHGgnOTgD29c6t9NBxtuV2UGKmxPxz5Lh8KcltcKVE8XrciGv16', 'password', 'T3UWyct1gy9I2nvKUra6e9avhNMaVP8YCpTBAfbBApqCYfYnIuay8enQjOui', '0000-00-00 00:00:00', '2016-01-10 12:17:55', 1),
-(4, 'user', 'user@laraCms.con', '$2y$10$rF3o3nJz.v8GLKAMSmxTGuHLq0kAM5lPFI.cXVzh2NYTsIRrxHyhe', 'userpwd', NULL, '2015-12-20 18:57:51', '2016-01-02 12:07:28', 1);
+(3, 'admin', 'marcoasperti@gmail.com', '$2y$10$v9vxCct1ypuGWo7btN2w3OC4RwX8lgFh4XavfAVR.Q7TPmmzXNOdq', 'laracms', 'HBztejQoVq6CqBO701onlraFx1Hx2ZVwCM5wYAsM9gB7arWwgHzaBpgfan3P', '0000-00-00 00:00:00', '2016-01-27 20:11:54', 1),
+(4, 'amministratore', 'admin@laraCms.com', '$2y$10$8rtm4vF.ueZf1fnIwPx4guV/YnR6zrbH.b7BFWMEwQUW9EOl5Mdwu', 'amministratore', 'sUMiUieICdOVvmpBIKb3Ds0wjD5Qu6eqaX8AaTiW9Ilo9ioyatiUhDoiYC9e', '2015-12-20 18:57:51', '2016-01-27 20:11:45', 1),
+(5, '111', 'guest@admin.com', '$2y$10$QGJDPJXQLd6RJTGNIWVpV.JHbOYGmk9UjfcfOD1XrnpWLZwFQurze', 'ospite', 'p3pap4hoRneN4TzKaiHmNhEdjubAgIaGSQZmhDXAnIi05T8qhskH0hbJLlWN', '2016-01-23 17:52:48', '2016-01-27 20:08:35', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `adminusers`
+--
+ALTER TABLE `adminusers`
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `adminusers_email_unique` (`email`), ADD UNIQUE KEY `adminusers_api_token_unique` (`api_token`);
 
 --
 -- Indexes for table `articles`
@@ -618,6 +653,12 @@ ALTER TABLE `articles`
 --
 ALTER TABLE `article_translations`
   ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `article_translations_article_id_locale_unique` (`article_id`,`locale`), ADD KEY `article_translations_locale_index` (`locale`);
+
+--
+-- Indexes for table `contacts`
+--
+ALTER TABLE `contacts`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `hpsliders`
@@ -726,6 +767,11 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `adminusers`
+--
+ALTER TABLE `adminusers`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
@@ -735,6 +781,11 @@ ALTER TABLE `articles`
 --
 ALTER TABLE `article_translations`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
+--
+-- AUTO_INCREMENT for table `contacts`
+--
+ALTER TABLE `contacts`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `hpsliders`
 --
@@ -799,7 +850,7 @@ ALTER TABLE `tag_translations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Limiti per le tabelle scaricate
 --
