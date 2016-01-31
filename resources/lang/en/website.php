@@ -10,8 +10,6 @@ return [
     |
     |
     */
-
-
     'email' => 'Email',
     'go_to_site' => 'Go to the site',
     'name' => 'Name',
@@ -28,4 +26,9 @@ return [
         'privacy' => 'I accept terms and conditions of use and read the privacy note.',
         'required_field' => 'Required field (*)',
     ],
+
+    'mail_message' => [
+        'contact' => 'New request info from ',
+
+    ]
 ];

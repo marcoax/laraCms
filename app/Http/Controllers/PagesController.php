@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WebsiteFormRequest;
@@ -29,6 +30,9 @@ class PagesController extends Controller
         }
         return view('website.normal',compact('article'));
     }
+
+
+
     public function getContactUsForm( WebsiteFormRequest $request  ) {
         $slug = 'contact';
         $this->request = $request;
@@ -38,6 +42,19 @@ class PagesController extends Controller
         }
         $model->save();
         $article = Article::where('slug','=',$slug)->first();
+
+        /****************** send confirm email ***************/
+        $data = $request->only('name', 'email', 'surname','subject');
+        $data['messageLines'] = explode("\n", $request->get('message'));
+        $data['mailSubject']  = trans('website.mail_message.contact').':'.$data['name'].' '.$data['surname'];
+
+        Mail::send('emails.contact', $data,function ($message) use ($data) {
+            $message->subject( $data['mailSubject'] )
+                ->to('marcoasperti@gmail.com')
+                ->replyTo($data['email']);
+        });
+        /******************** end email ***********************/
+
         flash()->success(trans('website.message.contact_feedback'));
         return view('website.feedback',compact('article'));
     }

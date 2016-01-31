@@ -10,7 +10,6 @@ return [
     |
     |
     */
-
     'email' => 'Email',
     'name' => 'Nome',
     'info_request' => 'Richiesta informazioni',
@@ -22,6 +21,11 @@ return [
     'message' => [
         'privacy' => 'Accetto termini e condizioni di utilizzo e informativa sulla privacy.',
         'required_field' => 'I campi contrassestati con (*) sono obbligatori',
+    ],
+
+    'mail_message' => [
+        'contact' => 'Nuova richiesta informazioni da',
+
     ],
 
 ];
