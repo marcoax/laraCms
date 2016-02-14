@@ -1,11 +1,18 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.4.10
 -- http://www.phpmyadmin.net
 --
+<<<<<<< HEAD
 -- Host: 127.0.0.1
 -- Generation Time: Feb 14, 2016 alle 12:35
 -- Versione del server: 5.6.24
 -- PHP Version: 5.6.8
+=======
+-- Host: localhost:3306
+-- Creato il: Feb 01, 2016 alle 09:46
+-- Versione del server: 5.5.42
+-- Versione PHP: 5.6.10
+>>>>>>> origin/master
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +21,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `laracms`
+-- Database: `laraCms`
 --
 CREATE DATABASE IF NOT EXISTS `laracms` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `laracms`;
@@ -29,7 +36,11 @@ USE `laracms`;
 --
 
 DROP TABLE IF EXISTS `adminusers`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `adminusers` (
+=======
+CREATE TABLE `adminusers` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -56,7 +67,11 @@ INSERT INTO `adminusers` (`id`, `name`, `email`, `password`, `real_password`, `r
 --
 
 DROP TABLE IF EXISTS `articles`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `articles` (
+=======
+CREATE TABLE `articles` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `id_parent` int(11) NOT NULL,
@@ -110,7 +125,11 @@ INSERT INTO `articles` (`id`, `domain`, `id_parent`, `id_template`, `title`, `su
 --
 
 DROP TABLE IF EXISTS `article_tag`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `article_tag` (
+=======
+CREATE TABLE `article_tag` (
+>>>>>>> origin/master
   `article_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -124,7 +143,11 @@ CREATE TABLE IF NOT EXISTS `article_tag` (
 --
 
 DROP TABLE IF EXISTS `article_translations`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `article_translations` (
+=======
+CREATE TABLE `article_translations` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `article_id` int(10) unsigned NOT NULL,
   `locale` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -191,7 +214,11 @@ INSERT INTO `article_translations` (`id`, `article_id`, `locale`, `title`, `subt
 --
 
 DROP TABLE IF EXISTS `contacts`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `contacts` (
+=======
+CREATE TABLE `contacts` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `message` text COLLATE utf8_unicode_ci NOT NULL,
@@ -220,7 +247,11 @@ INSERT INTO `contacts` (`id`, `subject`, `message`, `name`, `surname`, `email`, 
 --
 
 DROP TABLE IF EXISTS `hpsliders`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `hpsliders` (
+=======
+CREATE TABLE `hpsliders` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
@@ -252,7 +283,11 @@ INSERT INTO `hpsliders` (`id`, `title`, `description`, `icon`, `image`, `link`, 
 --
 
 DROP TABLE IF EXISTS `media`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `media` (
+=======
+CREATE TABLE `media` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `media_category_id` int(10) unsigned NOT NULL,
   `model_id` int(10) unsigned NOT NULL,
@@ -278,7 +313,11 @@ CREATE TABLE IF NOT EXISTS `media` (
 --
 
 DROP TABLE IF EXISTS `media_translations`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `media_translations` (
+=======
+CREATE TABLE `media_translations` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `media_id` int(10) unsigned NOT NULL,
   `locale` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -295,7 +334,11 @@ CREATE TABLE IF NOT EXISTS `media_translations` (
 --
 
 DROP TABLE IF EXISTS `migrations`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `migrations` (
+=======
+CREATE TABLE `migrations` (
+>>>>>>> origin/master
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -337,7 +380,11 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 --
 
 DROP TABLE IF EXISTS `news`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `news` (
+=======
+CREATE TABLE `news` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL,
@@ -374,7 +421,11 @@ INSERT INTO `news` (`id`, `domain`, `date`, `title`, `description`, `subtitle`, 
 --
 
 DROP TABLE IF EXISTS `news_tag`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `news_tag` (
+=======
+CREATE TABLE `news_tag` (
+>>>>>>> origin/master
   `news_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -399,7 +450,11 @@ INSERT INTO `news_tag` (`news_id`, `tag_id`, `created_at`, `updated_at`) VALUES
 --
 
 DROP TABLE IF EXISTS `news_translations`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `news_translations` (
+=======
+CREATE TABLE `news_translations` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `news_id` int(10) unsigned NOT NULL,
   `locale` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -432,11 +487,35 @@ INSERT INTO `news_translations` (`id`, `news_id`, `locale`, `title`, `descriptio
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
+=======
+-- Struttura della tabella `object_translation`
+--
+
+DROP TABLE IF EXISTS `object_translation`;
+CREATE TABLE `object_translation` (
+  `id` int(10) unsigned NOT NULL,
+  `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `object_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `locale` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+>>>>>>> origin/master
 -- Struttura della tabella `password_resets`
 --
 
 DROP TABLE IF EXISTS `password_resets`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `password_resets` (
+=======
+CREATE TABLE `password_resets` (
+>>>>>>> origin/master
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
@@ -456,7 +535,11 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 --
 
 DROP TABLE IF EXISTS `permissions`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `permissions` (
+=======
+CREATE TABLE `permissions` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -472,7 +555,11 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 --
 
 DROP TABLE IF EXISTS `permission_role`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `permission_role` (
+=======
+CREATE TABLE `permission_role` (
+>>>>>>> origin/master
   `permission_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -484,7 +571,11 @@ CREATE TABLE IF NOT EXISTS `permission_role` (
 --
 
 DROP TABLE IF EXISTS `products`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `products` (
+=======
+CREATE TABLE `products` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` mediumtext COLLATE utf8_unicode_ci NOT NULL,
@@ -503,7 +594,11 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 DROP TABLE IF EXISTS `roles`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `roles` (
+=======
+CREATE TABLE `roles` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -529,7 +624,11 @@ INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, 
 --
 
 DROP TABLE IF EXISTS `role_user`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `role_user` (
+=======
+CREATE TABLE `role_user` (
+>>>>>>> origin/master
   `user_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -550,7 +649,11 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 --
 
 DROP TABLE IF EXISTS `socials`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `socials` (
+=======
+CREATE TABLE `socials` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
@@ -581,7 +684,11 @@ INSERT INTO `socials` (`id`, `title`, `description`, `icon`, `image`, `link`, `s
 --
 
 DROP TABLE IF EXISTS `tags`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `tags` (
+=======
+CREATE TABLE `tags` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -607,7 +714,11 @@ INSERT INTO `tags` (`id`, `title`, `slug`, `created_by`, `update_by`, `created_a
 --
 
 DROP TABLE IF EXISTS `tag_translations`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `tag_translations` (
+=======
+CREATE TABLE `tag_translations` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
   `locale` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -634,7 +745,11 @@ INSERT INTO `tag_translations` (`id`, `tag_id`, `locale`, `title`, `created_at`,
 --
 
 DROP TABLE IF EXISTS `users`;
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `users` (
+=======
+CREATE TABLE `users` (
+>>>>>>> origin/master
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -651,214 +766,263 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
+<<<<<<< HEAD
 (4, 'guest', 'guest@laraCms.com', '$2y$10$eZCZPUVMU8kmhYvMk8ThYOOth4/myQsJgjI3..Da.wL09eHnMSew2', 'amministratore', 'wFcX4LOGC9AhAxgNKItmGtJCwYvKlnv68No3xupJ4C5K2yE3ATVygr2XydyU', '2015-12-20 18:57:51', '2016-02-02 20:42:20', 1),
 (5, 'user', 'user@laraCms.com', '$2y$10$z8/zmvkO0lNFtqVGJGaeyu4Yn5tsRN05UJpqjIRmHphj7qkeTAxSC', 'ginaschena', '', '2016-01-23 17:52:48', '2016-02-02 20:42:12', 1);
+=======
+(3, 'admin', 'marcoasperti@gmail.com', '$2y$10$34hzPQLQr/p4wiLR7VRKOezh0QgheqJuxpyNQlpeKwhkwUemvhiSe', 'laracms', 'M2OMC4mnjppIJJ10N55mJsiFMk8OzRHfFQgICqmJz216mmktPVhXPIMR00Kw', '0000-00-00 00:00:00', '2016-02-01 07:44:17', 1),
+(4, 'amministratore', 'admin@laraCms.com', '$2y$10$zw.6CC1JdTUeUym8DV.abOzjbcfjW4eZ19JEZPGFw1g23SxZup01W', 'amministratore', 'sUMiUieICdOVvmpBIKb3Ds0wjD5Qu6eqaX8AaTiW9Ilo9ioyatiUhDoiYC9e', '2015-12-20 18:57:51', '2016-02-01 07:44:05', 1),
+(5, '111', 'guest@admin.com', '$2y$10$QGJDPJXQLd6RJTGNIWVpV.JHbOYGmk9UjfcfOD1XrnpWLZwFQurze', 'ospite', 'p3pap4hoRneN4TzKaiHmNhEdjubAgIaGSQZmhDXAnIi05T8qhskH0hbJLlWN', '2016-01-23 17:52:48', '2016-01-27 20:08:35', 1);
+>>>>>>> origin/master
 
 --
--- Indexes for dumped tables
+-- Indici per le tabelle scaricate
 --
 
 --
--- Indexes for table `adminusers`
+-- Indici per le tabelle `adminusers`
 --
 ALTER TABLE `adminusers`
+<<<<<<< HEAD
   ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `users_email_unique` (`email`);
+=======
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `adminusers_email_unique` (`email`),
+  ADD UNIQUE KEY `adminusers_api_token_unique` (`api_token`);
+>>>>>>> origin/master
 
 --
--- Indexes for table `articles`
+-- Indici per le tabelle `articles`
 --
 ALTER TABLE `articles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `article_translations`
+-- Indici per le tabelle `article_translations`
 --
 ALTER TABLE `article_translations`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `article_translations_article_id_locale_unique` (`article_id`,`locale`), ADD KEY `article_translations_locale_index` (`locale`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `article_translations_article_id_locale_unique` (`article_id`,`locale`),
+  ADD KEY `article_translations_locale_index` (`locale`);
 
 --
--- Indexes for table `contacts`
+-- Indici per le tabelle `contacts`
 --
 ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hpsliders`
+-- Indici per le tabelle `hpsliders`
 --
 ALTER TABLE `hpsliders`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `hpsliders_slug_unique` (`slug`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `hpsliders_slug_unique` (`slug`);
 
 --
--- Indexes for table `media`
+-- Indici per le tabelle `media`
 --
 ALTER TABLE `media`
-  ADD PRIMARY KEY (`id`), ADD KEY `media_model_id_model_type_index` (`model_id`,`model_type`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `media_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Indexes for table `media_translations`
+-- Indici per le tabelle `media_translations`
 --
 ALTER TABLE `media_translations`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `media_translations_media_id_locale_unique` (`media_id`,`locale`), ADD KEY `media_translations_locale_index` (`locale`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `media_translations_media_id_locale_unique` (`media_id`,`locale`),
+  ADD KEY `media_translations_locale_index` (`locale`);
 
 --
--- Indexes for table `news`
+-- Indici per le tabelle `news`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `news_tag`
+-- Indici per le tabelle `news_tag`
 --
 ALTER TABLE `news_tag`
-  ADD KEY `news_tag_news_id_index` (`news_id`), ADD KEY `news_tag_tag_id_index` (`tag_id`);
+  ADD KEY `news_tag_news_id_index` (`news_id`),
+  ADD KEY `news_tag_tag_id_index` (`tag_id`);
 
 --
--- Indexes for table `news_translations`
+-- Indici per le tabelle `news_translations`
 --
 ALTER TABLE `news_translations`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `news_translations_news_id_locale_unique` (`news_id`,`locale`), ADD KEY `news_translations_locale_index` (`locale`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `news_translations_news_id_locale_unique` (`news_id`,`locale`),
+  ADD KEY `news_translations_locale_index` (`locale`);
 
 --
+<<<<<<< HEAD
 -- Indexes for table `password_resets`
+=======
+-- Indici per le tabelle `object_translation`
+--
+ALTER TABLE `object_translation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `object_translation_locale_index` (`locale`);
+
+--
+-- Indici per le tabelle `password_resets`
+>>>>>>> origin/master
 --
 ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`), ADD KEY `password_resets_token_index` (`token`);
+  ADD KEY `password_resets_email_index` (`email`),
+  ADD KEY `password_resets_token_index` (`token`);
 
 --
--- Indexes for table `permissions`
+-- Indici per le tabelle `permissions`
 --
 ALTER TABLE `permissions`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `permissions_name_unique` (`name`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_unique` (`name`);
 
 --
--- Indexes for table `permission_role`
+-- Indici per le tabelle `permission_role`
 --
 ALTER TABLE `permission_role`
-  ADD PRIMARY KEY (`permission_id`,`role_id`), ADD KEY `permission_role_role_id_foreign` (`role_id`);
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `permission_role_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `products`
+-- Indici per le tabelle `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `roles`
+-- Indici per le tabelle `roles`
 --
 ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `roles_name_unique` (`name`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_unique` (`name`);
 
 --
--- Indexes for table `role_user`
+-- Indici per le tabelle `role_user`
 --
 ALTER TABLE `role_user`
-  ADD PRIMARY KEY (`user_id`,`role_id`), ADD KEY `role_user_role_id_foreign` (`role_id`);
+  ADD PRIMARY KEY (`user_id`,`role_id`),
+  ADD KEY `role_user_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `socials`
+-- Indici per le tabelle `socials`
 --
 ALTER TABLE `socials`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tags`
+-- Indici per le tabelle `tags`
 --
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tag_translations`
+-- Indici per le tabelle `tag_translations`
 --
 ALTER TABLE `tag_translations`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `tag_translations_tag_id_locale_unique` (`tag_id`,`locale`), ADD KEY `tag_translations_locale_index` (`locale`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tag_translations_tag_id_locale_unique` (`tag_id`,`locale`),
+  ADD KEY `tag_translations_locale_index` (`locale`);
 
 --
--- Indexes for table `users`
+-- Indici per le tabelle `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT for table `adminusers`
+-- AUTO_INCREMENT per la tabella `adminusers`
 --
 ALTER TABLE `adminusers`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `articles`
+-- AUTO_INCREMENT per la tabella `articles`
 --
 ALTER TABLE `articles`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
--- AUTO_INCREMENT for table `article_translations`
+-- AUTO_INCREMENT per la tabella `article_translations`
 --
 ALTER TABLE `article_translations`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
 --
--- AUTO_INCREMENT for table `contacts`
+-- AUTO_INCREMENT per la tabella `contacts`
 --
 ALTER TABLE `contacts`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `hpsliders`
+-- AUTO_INCREMENT per la tabella `hpsliders`
 --
 ALTER TABLE `hpsliders`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `media`
+-- AUTO_INCREMENT per la tabella `media`
 --
 ALTER TABLE `media`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `media_translations`
+-- AUTO_INCREMENT per la tabella `media_translations`
 --
 ALTER TABLE `media_translations`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `news`
+-- AUTO_INCREMENT per la tabella `news`
 --
 ALTER TABLE `news`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
--- AUTO_INCREMENT for table `news_translations`
+-- AUTO_INCREMENT per la tabella `news_translations`
 --
 ALTER TABLE `news_translations`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
+<<<<<<< HEAD
 -- AUTO_INCREMENT for table `permissions`
+=======
+-- AUTO_INCREMENT per la tabella `object_translation`
+--
+ALTER TABLE `object_translation`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT per la tabella `permissions`
+>>>>>>> origin/master
 --
 ALTER TABLE `permissions`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT per la tabella `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT per la tabella `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `socials`
+-- AUTO_INCREMENT per la tabella `socials`
 --
 ALTER TABLE `socials`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `tags`
+-- AUTO_INCREMENT per la tabella `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `tag_translations`
+-- AUTO_INCREMENT per la tabella `tag_translations`
 --
 ALTER TABLE `tag_translations`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
@@ -870,46 +1034,46 @@ ALTER TABLE `users`
 -- Limiti per la tabella `article_translations`
 --
 ALTER TABLE `article_translations`
-ADD CONSTRAINT `article_translations_article_id_foreign` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `article_translations_article_id_foreign` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `media_translations`
 --
 ALTER TABLE `media_translations`
-ADD CONSTRAINT `media_translations_media_id_foreign` FOREIGN KEY (`media_id`) REFERENCES `media` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `media_translations_media_id_foreign` FOREIGN KEY (`media_id`) REFERENCES `media` (`id`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `news_tag`
 --
 ALTER TABLE `news_tag`
-ADD CONSTRAINT `news_tag_news_id_foreign` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
-ADD CONSTRAINT `news_tag_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `news_tag_news_id_foreign` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `news_tag_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `news_translations`
 --
 ALTER TABLE `news_translations`
-ADD CONSTRAINT `news_translations_news_id_foreign` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `news_translations_news_id_foreign` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `permission_role`
 --
 ALTER TABLE `permission_role`
-ADD CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `role_user`
 --
 ALTER TABLE `role_user`
-ADD CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `role_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `role_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `tag_translations`
 --
 ALTER TABLE `tag_translations`
-ADD CONSTRAINT `tag_translations_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tag_translations_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
