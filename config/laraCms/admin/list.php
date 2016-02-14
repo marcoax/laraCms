@@ -175,7 +175,7 @@ return [
             'model' => 'Tag',
             'title' => 'TagsNews',
             'icon'  => 'tag',
-            'fieldLabel' => 'ID,Title,Created At,Updated At',
+            'fieldLabel' => 'ID,Title,Slug,Created At,Updated At',
             'field' => ['id',
                 'title',
                 'slug',

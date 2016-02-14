@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\LaraCms\Admin\Controllers;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminFormRequest;
+use App\LaraCms\Admin\Requests\AdminFormRequest;
 use Input;
 use Validator;
 use App\laraCms\UploadManager;
-Use Illuminate\Support\Facades\Session;
 
 
-class AdminPagesController extends Controller
+
+class AdminPagesController  extends Controller
 {
 
 
@@ -112,7 +112,7 @@ class AdminPagesController extends Controller
         $this->requestFieldHandler($article);
 
         flash()->success('The item <strong>' . $article->title . '</strong> has been created!');
-        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id));
+        return redirect(action('\App\laraCms\Admin\Controllers\AdminPagesController@edit', $this->models . '/' . $article->id));
     }
 
     /**
@@ -132,7 +132,7 @@ class AdminPagesController extends Controller
         $this->requestFieldHandler($article);
 
 
-        return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id));
+        return redirect(action('\App\laraCms\Admin\Controllers\AdminPagesController@edit', $this->models . '/' . $article->id));
 
     }
 
@@ -169,7 +169,7 @@ class AdminPagesController extends Controller
         $article = $model::whereId($this->id)->firstOrFail();
         $article->delete();
         flash()->error('The items ' . $article->title . ' has been deleted!')->important();
-        return redirect(action('Admin\AdminPagesController@lista', $this->models));
+        return redirect(action('\App\laraCms\Admin\Controllers\AdminPagesController@lista', $this->models));
     }
 
 

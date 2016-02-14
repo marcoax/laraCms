@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\LaraCms\Admin\Controllers;
 
 use App\AdminUser;
 use Validator;
@@ -61,7 +61,7 @@ class AuthController extends Controller
 
             if ($auth->attempt($credentials)) {
 
-               return redirect()->action('Admin\AdminPagesController@home');
+               return redirect()->action('\App\laraCms\Admin\Controllers\AdminPagesController@home');
             } else {
 
                 return redirect()->back()
