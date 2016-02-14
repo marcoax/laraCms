@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Gen 27, 2016 alle 22:12
+-- Generation Time: Feb 14, 2016 alle 12:35
 -- Versione del server: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `laracms`
 --
+CREATE DATABASE IF NOT EXISTS `laracms` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `laracms`;
 
 -- --------------------------------------------------------
 
@@ -26,18 +28,26 @@ SET time_zone = "+00:00";
 -- Struttura della tabella `adminusers`
 --
 
+DROP TABLE IF EXISTS `adminusers`;
 CREATE TABLE IF NOT EXISTS `adminusers` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `real_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL,
-  `api_token` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `is_active` tinyint(4) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `adminusers`
+--
+
+INSERT INTO `adminusers` (`id`, `name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
+(3, 'superuser', 'marcoasperti@gmail.com', '$2y$10$zJZ5Rs7IZMIQU5oXhXD2O.w7SB5ZRoOBYuWL5/YvPabm2Bd9p.x8K', 'laracms', 'nIAkJMzbMsy2NNjwsqyb3yFFWjh8bKLqMJfAYA69EQWhbpVKTbYlPIl1WmAm', '0000-00-00 00:00:00', '2016-02-01 18:52:00', 1),
+(4, 'adminnna', 'admin@laraCms.com', '$2y$10$dLQm1MhtynluOfoIK90a/.YWnYIIUqb63g3aTC7L2YcSuyZb31CKu', 'amministratore', 'VbTSLKTC4vd56eSHLHWTbh4gtShNd6CZSHYb33z9G47tikOwPStACd2hRcOd', '2015-12-20 18:57:51', '2016-02-02 20:36:02', 1);
 
 -- --------------------------------------------------------
 
@@ -45,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `adminusers` (
 -- Struttura della tabella `articles`
 --
 
+DROP TABLE IF EXISTS `articles`;
 CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(10) unsigned NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -98,6 +109,7 @@ INSERT INTO `articles` (`id`, `domain`, `id_parent`, `id_template`, `title`, `su
 -- Struttura della tabella `article_tag`
 --
 
+DROP TABLE IF EXISTS `article_tag`;
 CREATE TABLE IF NOT EXISTS `article_tag` (
   `article_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
@@ -111,6 +123,7 @@ CREATE TABLE IF NOT EXISTS `article_tag` (
 -- Struttura della tabella `article_translations`
 --
 
+DROP TABLE IF EXISTS `article_translations`;
 CREATE TABLE IF NOT EXISTS `article_translations` (
   `id` int(10) unsigned NOT NULL,
   `article_id` int(10) unsigned NOT NULL,
@@ -177,6 +190,7 @@ INSERT INTO `article_translations` (`id`, `article_id`, `locale`, `title`, `subt
 -- Struttura della tabella `contacts`
 --
 
+DROP TABLE IF EXISTS `contacts`;
 CREATE TABLE IF NOT EXISTS `contacts` (
   `id` int(10) unsigned NOT NULL,
   `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -189,14 +203,15 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dump dei dati per la tabella `contacts`
 --
 
 INSERT INTO `contacts` (`id`, `subject`, `message`, `name`, `surname`, `email`, `replay`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, '12345678', '123456789', 'angelo marco asperti', 'asperti', 'marcoasperti@gmail.com', NULL, NULL, 0, '2016-01-27 19:08:06', '2016-01-27 19:08:06');
+(1, '12345678', '123456789', 'angelo marco asperti', 'asperti', 'marcoasperti@gmail.com', NULL, NULL, 0, '2016-01-27 19:08:06', '2016-01-27 19:08:06'),
+(2, 'a', 'a', 'a', 'a', 'marcoasperti@gmail.com', NULL, NULL, 0, '2016-01-30 16:18:45', '2016-01-30 16:18:45');
 
 -- --------------------------------------------------------
 
@@ -204,6 +219,7 @@ INSERT INTO `contacts` (`id`, `subject`, `message`, `name`, `surname`, `email`, 
 -- Struttura della tabella `hpsliders`
 --
 
+DROP TABLE IF EXISTS `hpsliders`;
 CREATE TABLE IF NOT EXISTS `hpsliders` (
   `id` int(10) unsigned NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -235,6 +251,7 @@ INSERT INTO `hpsliders` (`id`, `title`, `description`, `icon`, `image`, `link`, 
 -- Struttura della tabella `media`
 --
 
+DROP TABLE IF EXISTS `media`;
 CREATE TABLE IF NOT EXISTS `media` (
   `id` int(10) unsigned NOT NULL,
   `media_category_id` int(10) unsigned NOT NULL,
@@ -260,6 +277,7 @@ CREATE TABLE IF NOT EXISTS `media` (
 -- Struttura della tabella `media_translations`
 --
 
+DROP TABLE IF EXISTS `media_translations`;
 CREATE TABLE IF NOT EXISTS `media_translations` (
   `id` int(10) unsigned NOT NULL,
   `media_id` int(10) unsigned NOT NULL,
@@ -276,6 +294,7 @@ CREATE TABLE IF NOT EXISTS `media_translations` (
 -- Struttura della tabella `migrations`
 --
 
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
@@ -317,6 +336,7 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 -- Struttura della tabella `news`
 --
 
+DROP TABLE IF EXISTS `news`;
 CREATE TABLE IF NOT EXISTS `news` (
   `id` int(10) unsigned NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -353,6 +373,7 @@ INSERT INTO `news` (`id`, `domain`, `date`, `title`, `description`, `subtitle`, 
 -- Struttura della tabella `news_tag`
 --
 
+DROP TABLE IF EXISTS `news_tag`;
 CREATE TABLE IF NOT EXISTS `news_tag` (
   `news_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
@@ -377,6 +398,7 @@ INSERT INTO `news_tag` (`news_id`, `tag_id`, `created_at`, `updated_at`) VALUES
 -- Struttura della tabella `news_translations`
 --
 
+DROP TABLE IF EXISTS `news_translations`;
 CREATE TABLE IF NOT EXISTS `news_translations` (
   `id` int(10) unsigned NOT NULL,
   `news_id` int(10) unsigned NOT NULL,
@@ -410,30 +432,22 @@ INSERT INTO `news_translations` (`id`, `news_id`, `locale`, `title`, `descriptio
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `object_translation`
---
-
-CREATE TABLE IF NOT EXISTS `object_translation` (
-  `id` int(10) unsigned NOT NULL,
-  `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `object_id` int(10) unsigned NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `locale` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Struttura della tabella `password_resets`
 --
 
+DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('marcoasperti@gmail.com', '5a26b0fafd2a5e23a6328c7124d53debfbfdf4be1aeb3266a72c38da6bc3a454', '2016-01-31 18:39:12');
 
 -- --------------------------------------------------------
 
@@ -441,6 +455,7 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- Struttura della tabella `permissions`
 --
 
+DROP TABLE IF EXISTS `permissions`;
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -456,6 +471,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 -- Struttura della tabella `permission_role`
 --
 
+DROP TABLE IF EXISTS `permission_role`;
 CREATE TABLE IF NOT EXISTS `permission_role` (
   `permission_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL
@@ -467,6 +483,7 @@ CREATE TABLE IF NOT EXISTS `permission_role` (
 -- Struttura della tabella `products`
 --
 
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -485,6 +502,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Struttura della tabella `roles`
 --
 
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -510,6 +528,7 @@ INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, 
 -- Struttura della tabella `role_user`
 --
 
+DROP TABLE IF EXISTS `role_user`;
 CREATE TABLE IF NOT EXISTS `role_user` (
   `user_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL
@@ -520,9 +539,9 @@ CREATE TABLE IF NOT EXISTS `role_user` (
 --
 
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
-(3, 1),
-(4, 2),
-(5, 3);
+(4, 1),
+(5, 3),
+(4, 7);
 
 -- --------------------------------------------------------
 
@@ -530,6 +549,7 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 -- Struttura della tabella `socials`
 --
 
+DROP TABLE IF EXISTS `socials`;
 CREATE TABLE IF NOT EXISTS `socials` (
   `id` int(10) unsigned NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -560,6 +580,7 @@ INSERT INTO `socials` (`id`, `title`, `description`, `icon`, `image`, `link`, `s
 -- Struttura della tabella `tags`
 --
 
+DROP TABLE IF EXISTS `tags`;
 CREATE TABLE IF NOT EXISTS `tags` (
   `id` int(10) unsigned NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -585,6 +606,7 @@ INSERT INTO `tags` (`id`, `title`, `slug`, `created_by`, `update_by`, `created_a
 -- Struttura della tabella `tag_translations`
 --
 
+DROP TABLE IF EXISTS `tag_translations`;
 CREATE TABLE IF NOT EXISTS `tag_translations` (
   `id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
@@ -611,6 +633,7 @@ INSERT INTO `tag_translations` (`id`, `tag_id`, `locale`, `title`, `created_at`,
 -- Struttura della tabella `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -628,9 +651,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
-(3, 'admin', 'marcoasperti@gmail.com', '$2y$10$v9vxCct1ypuGWo7btN2w3OC4RwX8lgFh4XavfAVR.Q7TPmmzXNOdq', 'laracms', 'HBztejQoVq6CqBO701onlraFx1Hx2ZVwCM5wYAsM9gB7arWwgHzaBpgfan3P', '0000-00-00 00:00:00', '2016-01-27 20:11:54', 1),
-(4, 'amministratore', 'admin@laraCms.com', '$2y$10$8rtm4vF.ueZf1fnIwPx4guV/YnR6zrbH.b7BFWMEwQUW9EOl5Mdwu', 'amministratore', 'sUMiUieICdOVvmpBIKb3Ds0wjD5Qu6eqaX8AaTiW9Ilo9ioyatiUhDoiYC9e', '2015-12-20 18:57:51', '2016-01-27 20:11:45', 1),
-(5, '111', 'guest@admin.com', '$2y$10$QGJDPJXQLd6RJTGNIWVpV.JHbOYGmk9UjfcfOD1XrnpWLZwFQurze', 'ospite', 'p3pap4hoRneN4TzKaiHmNhEdjubAgIaGSQZmhDXAnIi05T8qhskH0hbJLlWN', '2016-01-23 17:52:48', '2016-01-27 20:08:35', 1);
+(4, 'guest', 'guest@laraCms.com', '$2y$10$eZCZPUVMU8kmhYvMk8ThYOOth4/myQsJgjI3..Da.wL09eHnMSew2', 'amministratore', 'wFcX4LOGC9AhAxgNKItmGtJCwYvKlnv68No3xupJ4C5K2yE3ATVygr2XydyU', '2015-12-20 18:57:51', '2016-02-02 20:42:20', 1),
+(5, 'user', 'user@laraCms.com', '$2y$10$z8/zmvkO0lNFtqVGJGaeyu4Yn5tsRN05UJpqjIRmHphj7qkeTAxSC', 'ginaschena', '', '2016-01-23 17:52:48', '2016-02-02 20:42:12', 1);
 
 --
 -- Indexes for dumped tables
@@ -640,7 +662,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `real_password`, `rememb
 -- Indexes for table `adminusers`
 --
 ALTER TABLE `adminusers`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `adminusers_email_unique` (`email`), ADD UNIQUE KEY `adminusers_api_token_unique` (`api_token`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
 -- Indexes for table `articles`
@@ -695,12 +717,6 @@ ALTER TABLE `news_tag`
 --
 ALTER TABLE `news_translations`
   ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `news_translations_news_id_locale_unique` (`news_id`,`locale`), ADD KEY `news_translations_locale_index` (`locale`);
-
---
--- Indexes for table `object_translation`
---
-ALTER TABLE `object_translation`
-  ADD PRIMARY KEY (`id`), ADD KEY `object_translation_locale_index` (`locale`);
 
 --
 -- Indexes for table `password_resets`
@@ -770,7 +786,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adminusers`
 --
 ALTER TABLE `adminusers`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `articles`
 --
@@ -785,7 +801,7 @@ ALTER TABLE `article_translations`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `hpsliders`
 --
@@ -811,11 +827,6 @@ ALTER TABLE `news`
 --
 ALTER TABLE `news_translations`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
---
--- AUTO_INCREMENT for table `object_translation`
---
-ALTER TABLE `object_translation`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `permissions`
 --

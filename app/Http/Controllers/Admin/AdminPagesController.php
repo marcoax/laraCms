@@ -130,7 +130,8 @@ class AdminPagesController extends Controller
         $article = $model::whereId($id)->firstOrFail();
         // input data Handler
         $this->requestFieldHandler($article);
-        flash()->success('The article has been updated!.');
+
+
         return redirect(action('Admin\AdminPagesController@edit', $this->models . '/' . $article->id));
 
     }

@@ -1,5 +1,13 @@
 <?php
 return [
+		'adminusers' => [
+			'name' => 'required',
+			'email' => 'required|Between:3,64|Email',
+			'role' => 'required',
+
+			'password' => 'alpha_num|min:6|confirmed',
+			'password_confirmation' => 'alpha_num|min:6',
+		],
 		'articles' => [
 				'title' => 'required',
 				'description' => 'required',

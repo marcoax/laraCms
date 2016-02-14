@@ -23,7 +23,7 @@
                 @endif
             @endforeach
 
-            @if (Auth::user()->hasRole('su'))
+            @if (Auth::guard('admin')->user()->hasRole('su'))
                 <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 pf5">
                     <div class="btn-icon bck-color-2 text-center color-2 transitioned">
                         <a href="{{ ma_get_admin_list_url('roles') }}" class="color-2"><i class="fa fa-graduation-cap fa-4x"></i>

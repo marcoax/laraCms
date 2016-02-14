@@ -11,7 +11,10 @@
 |
 */
 
-Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'), function () {
+Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adminauth']), function () {
+
+
+
 
     Route::get('/', 'AdminPagesController@home');
     Route::get('/list/{section?}/{sub?}', 'AdminPagesController@lista');
@@ -27,14 +30,8 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
     Route::get('/delete/{section}/{id?}', 'AdminPagesController@destroy');
 
 
-    /*
-
-    Route::get('articles/{id?}/delete','ArticlesController@destroy');
-    Route::get('users/{id?}/delete','UsersController@destroy');
-    Route::get('roles/{id?}/delete','RolesController@destroy');
-    Route::get('socials/{id?}/delete','SocialsController@destroy');
-    Route::get('hpsliders/{id?}/delete','HpSlidersController@destroy');
-    */
+    Route::get('password/email', 'AdminPasswordController@getEmail');
+    Route::post('password/email', 'AdminPasswordController@postEmail');
 
 
     Route::get('api/update/{method}/{model?}/{id?}', 'AjaxController@update');
@@ -60,8 +57,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     });
 
 
-
-
+    Route::get('/admin/login', 'Admin\AuthController@getLogin');
+    Route::post('admin/login', 'Admin\AuthController@adminLogin');
+    Route::get('admin/logout', 'Admin\AuthController@getLogout');
     // Authentication routes...
     Route::get('users/login', 'Auth\AuthController@getLogin');
     Route::post('users/login', 'Auth\AuthController@postLogin');

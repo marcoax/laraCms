@@ -18,19 +18,19 @@
         <!-- Navbar Right -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                 @if (Auth::check())
+                 @if (Auth::guard('admin')->check())
 
-                    @if (Auth::user()->hasRole('su'))
+                    @if (Auth::guard('admin')->user()->hasRole('su'))
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tools
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li class="dropdown">
-                                    <a href="{{ ma_get_admin_list_url('users') }}"><i class="fa fa-list"></i> Users</a>
+                                    <a href="{{ ma_get_admin_list_url('adminusers') }}"><i class="fa fa-list"></i> Admin</a>
                                 </li>
                                 <li>
-                                    <a href="{{  ma_get_admin_create_url('users') }}"><i class="fa fa-plus"></i> Add  User</a>
+                                    <a href="{{  ma_get_admin_create_url('adminusers') }}"><i class="fa fa-plus"></i> Add Admin</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
@@ -44,26 +44,26 @@
                     @endif
                     <li class="dropdown">
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-expanded="false">{{Auth::user()->name}} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-expanded="false">{{Auth::guard('admin')->user()->name}} <span class="caret"></span></a>
 
                         <ul class="dropdown-menu" role="menu">
-                            @if (Auth::check())
+                            @if (Auth::guard('admin')->check())
                                 <li>
-                                    <a href="{{ URL::to('/users/logout') }}">Logout</a>
+                                    <a href="{{ URL::to('/admin/logout') }}">Logout</a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/edit/users/'.Auth::user()->id) }}">Profile</a>
+                                    <a href="{{ URL::to('/admin/edit/adminusers/'.Auth::guard('admin')->user()->id) }}">Profile</a>
                                 </li>
                             @else
                                 <li>
-                                    <a href="{{ URL::to('/users/login') }}">Login</a>
+                                    <a href="{{ URL::to('/admin/login') }}">Login</a>
                                 </li>
                             @endif
                         </ul>
                     </li>
                 @endif
             </ul>
-            @if (Auth::check())
+            @if (Auth::guard('admin')->check())
                 <ul class="nav navbar-nav navbar">
                     <li class="active">
                         <a href="{{ URL::to('/admin/') }}">DashBoard</a>

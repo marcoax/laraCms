@@ -268,7 +268,38 @@ return [
             'selectable' => '1',
             'password' => 1,
             'menu' => [
-            'home' => true,
+                'home' => true,
+                'top-bar' =>[
+                    'show' => true,
+                    'action' =>['add']
+                ],
+            ],
+        ],
+        'adminusers' => [
+            'model' => 'AdminUser',
+            'icon' => 'users',
+            'title' => 'Admin',
+            'fieldLabel' => 'ID,Email,Name,Password,Active,Created At,Updated At',
+            'field' => ['id',
+                'email' => ['type' => 'editable', 'field' => 'email', 'class' => 'col-sm-2'],
+                'name' => ['type' => 'editable', 'field' => 'name', 'class' => 'col-sm-2'],
+                'real_password' => ['type' => 'text', 'field' => 'real_password', 'class' => 'col-sm-2'],
+                'is_active' => ['type' => 'boolean', 'field' => 'is_active', 'class' => 'col-sm-1 text-center'],
+                'created_at' => ['type' => 'date', 'field' => 'created_at', 'class' => 'col-sm-1'],
+                'updated_at' => ['type' => 'date', 'field' => 'updated_at', 'class' => 'col-sm-1'],
+            ],
+            'orderBy' => 'name',
+            'orderType' => 'ASC',
+            'edit' => '1',
+            'delete' => '1',
+            'create' => '1',
+            'copy' => '1',
+            'preview' => '0',
+            'view' => '0',
+            'selectable' => '1',
+            'password' => 1,
+            'menu' => [
+                'home' => true,
                 'tool' =>[
                     'show' => true,
                     'action' =>['add']
