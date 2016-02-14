@@ -172,7 +172,7 @@ return [
             ],
         ],
         'tags' => [
-            'model' => 'tag',
+            'model' => 'Tag',
             'title' => 'TagsNews',
             'icon'  => 'tag',
             'fieldLabel' => 'ID,Title,Created At,Updated At',
