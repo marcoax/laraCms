@@ -268,9 +268,9 @@ return [
             'selectable' => '1',
             'password' => 1,
             'menu' => [
-                'home' => true,
+                'home' => false,
                 'top-bar' =>[
-                    'show' => true,
+                    'show' => false,
                     'action' =>['add']
                 ],
             ],
@@ -299,7 +299,7 @@ return [
             'selectable' => '1',
             'password' => 1,
             'menu' => [
-                'home' => true,
+
                 'tool' =>[
                     'show' => true,
                     'action' =>['add']

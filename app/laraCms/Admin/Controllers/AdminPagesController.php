@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\LaraCms\Admin\Requests\AdminFormRequest;
+use App\laraCms\Admin\Requests\AdminFormRequest;
 use Input;
 use Validator;
 use App\laraCms\UploadManager;
