@@ -1,20 +1,15 @@
 @inject('pages','App\Article')
 <html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="{!! LaravelLocalization::getCurrentLocale() !!}" lang="{!! LaravelLocalization::getCurrentLocale() !!}">
 <head>
-    <title>@YIELD('title')</title>
-    <!-- Meta -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{!! $article->seo_description !!}" />
-    <meta name="keywords" content="{!! $article->seo_keywords !!}" />
     <meta name="author" content="marcoax" />
     <meta name="google-site-verification" content="" />
-    <meta property="og:title" content="@yield('title')" />
+    <!-- Meta SEO -->
+    {!! SEO::generate() !!}
     <meta property="og:url" content="{!!LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() )!!}/" />
-    <meta property="og:type" content="article" />
-    <meta property="og:image" content="{!! asset('public/website/images/logo.jpg') !!}" />
-    <meta property="og:description" content="{!! $article->seo_description !!}" />
-
+    <!-- ./Meta SEO -->
     <link rel="image_src" href="{!! asset('public/website/images/logo.jpg') !!}"/>
     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
          <link rel="alternate" hreflang="{{$localeCode}}" href="{{ LaravelLocalization::getLocalizedURL($localeCode) }}/"/>

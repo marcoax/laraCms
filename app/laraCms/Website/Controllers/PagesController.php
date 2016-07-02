@@ -14,17 +14,27 @@ use App\Article;
 use App\News;
 use App\Contact;
 
+
+
 class PagesController extends Controller
+
 {
+
+    use \App\laraCms\SeoTools\laraCmsSeoTrait;
+
     public function home()
     {
         $article = Article::where('slug','=','home')->first();
+        $this->setSeo($article);    
         return view('website.home',compact('article'));
     }
 
     public function pages($slug) {
+
+      
         $article = Article::where('slug','=',$slug)->first();
         //$article =  $article->translateOrDefault(config('app.locale'));
+        $this->setSeo($article);
         if (view()->exists('website.'.$slug)) {
             return view('website.'.$slug,compact('article'));
         }
@@ -32,41 +42,17 @@ class PagesController extends Controller
     }
 
 
-
-    public function getContactUsForm( WebsiteFormRequest $request  ) {
-        $slug = 'contact';
-        $this->request = $request;
-        $model = new  Contact;
-        foreach ($model->getFillable() as $a) {
-            $model->$a = $this->request->get($a);
-        }
-        $model->save();
-        $article = Article::where('slug','=',$slug)->first();
-
-        /****************** send confirm email ***************/
-        $data = $request->only('name', 'email', 'surname','subject');
-        $data['messageLines'] = explode("\n", $request->get('message'));
-        $data['mailSubject']  = trans('website.mail_message.contact').':'.$data['name'].' '.$data['surname'];
-
-        Mail::send('emails.contact', $data,function ($message) use ($data) {
-            $message->subject( $data['mailSubject'] )
-                ->to('marcoasperti@gmail.com')
-                ->replyTo($data['email']);
-        });
-        /******************** end email ***********************/
-
-        flash()->success(trans('website.message.contact_feedback'));
-        return view('website.feedback',compact('article'));
-    }
-
     public function news($slug='') {
         $article = Article::where('slug','=','news')->first();
         if($slug=='') {
             $news = News::published()->get();
+            $this->setSeo($article);
             return view('website.news',compact('article','news'));
         }
         else {
-            $news = News::where('slug','=',$slug)->first();;
+            $news = News::where('slug','=',$slug)->first();
+            $this->setSeo($news);
+            $this->addOpenGraphProperty('type','articles');
             return view('website.news_single',compact('article','news'));
         }
     }

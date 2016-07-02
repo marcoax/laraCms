@@ -153,15 +153,15 @@ return [
 		'hisorange\BrowserDetect\Provider\BrowserDetectService',
 		Collective\Html\HtmlServiceProvider::class,
 		'Zizaco\Entrust\EntrustServiceProvider',
-
 		'Intervention\Image\ImageServiceProvider',
+		 Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 
 
 		// Ma
-		App\Providers\AdminFormServiceProvider::class,
+		App\LaraCms\Admin\Providers\AdminFormServiceProvider::class,
 		'App\laraCms\Notifications\FlashServiceProvider',
 		App\LaraCms\Website\Providers\HtmlMenuServiceProvider::class,
-		App\LaraCms\Website\Providers\HtmlSocialServiceProvider::class,
+		App\LaraCms\Website\Providers\HtmlSocialServiceProvider::class
 	],
 
     /*
@@ -210,16 +210,24 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
-	     
+		/*
+        *  Vendor
+        */
 		'LaravelLocalization'   => 'Mcamara\LaravelLocalization\Facades\LaravelLocalization',
     	'BrowserDetect' => 'hisorange\BrowserDetect\Facade\Parser',
     	'Form'    => Collective\Html\FormFacade::class,
     	'Html'    => Collective\Html\HtmlFacade::class,
     	'Entrust' => 'Zizaco\Entrust\EntrustFacade',
+		'Image'   => 'Intervention\Image\Facades\Image',
+		'SEO'     => Artesaos\SEOTools\Facades\SEOTools::class,
+		'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
+		'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+		'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
 
-		'Image' => 'Intervention\Image\Facades\Image',
-
-		'AdminForm'      => App\Facades\AdminForm::class,
+		/*
+         *  Ma
+        */
+		'AdminForm'      => App\laraCms\Admin\Facades\AdminForm::class,
 		'Flash' =>   	'Helpers\Notifications\Flash',
 		'HtmlMenu'       => App\laraCms\Website\Facades\HtmlMenu::class,
 		'HtmlSocial'     => App\laraCms\Website\Facades\HtmlSocial::class

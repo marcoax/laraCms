@@ -6,7 +6,7 @@
             </div>
             <div class="container col-sm-6 col-sm-offset-3  pt15">@include('flash::notification')</div>
             <div class="clearfix"></div>
-            {{ Form::open(array('action' => '\App\laraCms\Website\Controllers\PagesController@getContactUsForm')) }}
+            {{ Form::open(array('action' => '\App\laraCms\Website\Controllers\FormsController@getContactUsForm')) }}
                 <div class="col-sm-12">
                     <div class="color-3 text-center mb15 wow bounceInUp animated">{!! trans('website.message.required_field') !!}</div>
                 </div>

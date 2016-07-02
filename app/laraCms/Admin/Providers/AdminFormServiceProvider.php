@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\laraCms\Admin\Providers;
 Use App;
 use Illuminate\Support\ServiceProvider;
 

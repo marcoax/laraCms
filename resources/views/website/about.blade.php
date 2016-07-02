@@ -1,5 +1,4 @@
 @extends('website.app')
-@section('title',($article->seo_title)?$article->seo_title:$article->title )
 @section('content')
 @include('website.partials.page_banner')
 <!--=== Content Part ===-->

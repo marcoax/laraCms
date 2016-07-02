@@ -49,7 +49,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/news/',       '\App\laraCms\Website\Controllers\PagesController@news');
     Route::get('/news/{slug}', '\App\laraCms\Website\Controllers\PagesController@news');
     Route::get('/{slug?}',     '\App\laraCms\Website\Controllers\PagesController@pages');
-    Route::post('/contact',    '\App\laraCms\Website\Controllers\PagesController@getContactUsForm');
+    Route::post('/contact',    '\App\laraCms\Website\Controllers\FormsController@getContactUsForm');
 
     Route::get('/api/new/{post?}', function (App\Article $post) {
         return $post;
