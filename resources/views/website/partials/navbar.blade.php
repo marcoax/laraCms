@@ -49,6 +49,9 @@
                             </li>
                         </ul>
                         <ul id="menu" class="nav navbar-nav nav navbar-right">
+
+
+
                             @foreach (  $pages->top()->get() as  $index => $page )
 
                                 <li class="{{ ($article->id == $page->id)?'active':'' }}" id="{{ $page->slug }}">

@@ -160,6 +160,8 @@ return [
 		// Ma
 		App\Providers\AdminFormServiceProvider::class,
 		'App\laraCms\Notifications\FlashServiceProvider',
+		App\Providers\HtmlMenuServiceProvider::class,
+		App\Providers\HtmlSocialServiceProvider::class,
 	],
 
     /*
@@ -217,10 +219,10 @@ return [
 
 		'Image' => 'Intervention\Image\Facades\Image',
 
-		'AdminForm'  => App\Facades\AdminForm::class,
-		'Flash' => 'Helpers\Notifications\Flash',
-
-    	
+		'AdminForm'      => App\Facades\AdminForm::class,
+		'Flash' =>   	'Helpers\Notifications\Flash',
+		'HtmlMenu'       => App\laraCms\Website\Facades\HtmlMenu::class,
+		'HtmlSocial'     => App\laraCms\Website\Facades\HtmlSocial::class
     ],
 
 ];
