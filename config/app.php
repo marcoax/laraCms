@@ -160,8 +160,8 @@ return [
 		// Ma
 		App\Providers\AdminFormServiceProvider::class,
 		'App\laraCms\Notifications\FlashServiceProvider',
-		App\Providers\HtmlMenuServiceProvider::class,
-		App\Providers\HtmlSocialServiceProvider::class,
+		App\LaraCms\Website\Providers\HtmlMenuServiceProvider::class,
+		App\LaraCms\Website\Providers\HtmlSocialServiceProvider::class,
 	],
 
     /*

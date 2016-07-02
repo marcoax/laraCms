@@ -1,5 +1,5 @@
 <?php
-namespace App\laraCms\Website;
+namespace App\laraCms\Website\Decorator;
 Use App;
 Use App\Social;
 use Carbon\Carbon;
