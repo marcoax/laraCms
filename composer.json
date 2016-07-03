@@ -17,6 +17,7 @@
         "intervention/image": "^2.3",
         "intervention/imagecache": "^2.3",
         "artesaos/seotools": "^0.9.2",
+        "maatwebsite/excel": "~2.1.0",
 
         "laravelcollective/bus": "^5.2"
     },
