@@ -4,11 +4,11 @@ namespace Illuminate\Auth;
 
 use RuntimeException;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Contracts\Auth\SupportsBasicAuth;
 use Illuminate\Contracts\Cookie\QueueingFactory as CookieJar;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -161,7 +161,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
             return;
         }
 
-        $id = $this->session->get($this->getName(), $this->getRecallerId());
+        $id = $this->session->get($this->getName());
 
         if (is_null($id) && $this->user()) {
             $id = $this->user()->getAuthIdentifier();
@@ -214,7 +214,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Determine if the recaller cookie is in a valid format.
      *
-     * @param  string  $recaller
+     * @param  mixed  $recaller
      * @return bool
      */
     protected function validRecaller($recaller)
@@ -260,9 +260,10 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      * Attempt to authenticate using HTTP Basic Auth.
      *
      * @param  string  $field
+     * @param  array  $extraConditions
      * @return \Symfony\Component\HttpFoundation\Response|null
      */
-    public function basic($field = 'email')
+    public function basic($field = 'email', $extraConditions = [])
     {
         if ($this->check()) {
             return;
@@ -271,7 +272,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
         // If a username is set on the HTTP basic request, we will return out without
         // interrupting the request lifecycle. Otherwise, we'll need to generate a
         // request indicating that the given credentials were invalid for login.
-        if ($this->attemptBasic($this->getRequest(), $field)) {
+        if ($this->attemptBasic($this->getRequest(), $field, $extraConditions)) {
             return;
         }
 
@@ -282,11 +283,14 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      * Perform a stateless HTTP Basic login attempt.
      *
      * @param  string  $field
+     * @param  array  $extraConditions
      * @return \Symfony\Component\HttpFoundation\Response|null
      */
-    public function onceBasic($field = 'email')
+    public function onceBasic($field = 'email', $extraConditions = [])
     {
-        if (! $this->once($this->getBasicCredentials($this->getRequest(), $field))) {
+        $credentials = $this->getBasicCredentials($this->getRequest(), $field);
+
+        if (! $this->once(array_merge($credentials, $extraConditions))) {
             return $this->getBasicResponse();
         }
     }
@@ -296,15 +300,18 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      *
      * @param  \Symfony\Component\HttpFoundation\Request  $request
      * @param  string  $field
+     * @param  array  $extraConditions
      * @return bool
      */
-    protected function attemptBasic(Request $request, $field)
+    protected function attemptBasic(Request $request, $field, $extraConditions = [])
     {
         if (! $request->getUser()) {
             return false;
         }
 
-        return $this->attempt($this->getBasicCredentials($request, $field));
+        $credentials = $this->getBasicCredentials($request, $field);
+
+        return $this->attempt(array_merge($credentials, $extraConditions));
     }
 
     /**
@@ -356,6 +363,13 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
             return true;
         }
 
+        // If the authentication attempt fails we will fire an event so that the user
+        // may be notified of any suspicious attempts to access their account from
+        // an unrecognized user. A developer may listen to this event as needed.
+        if ($login) {
+            $this->fireFailedEvent($user, $credentials);
+        }
+
         return false;
     }
 
@@ -385,6 +399,20 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
             $this->events->fire(new Events\Attempting(
                 $credentials, $remember, $login
             ));
+        }
+    }
+
+    /**
+     * Fire the failed authentication attempt event with the given arguments.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable|null  $user
+     * @param  array  $credentials
+     * @return void
+     */
+    protected function fireFailedEvent($user, array $credentials)
+    {
+        if (isset($this->events)) {
+            $this->events->fire(new Events\Failed($user, $credentials));
         }
     }
 
@@ -465,11 +493,15 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      */
     public function loginUsingId($id, $remember = false)
     {
-        $this->session->set($this->getName(), $id);
+        $user = $this->provider->retrieveById($id);
 
-        $this->login($user = $this->provider->retrieveById($id), $remember);
+        if (! is_null($user)) {
+            $this->login($user, $remember);
 
-        return $user;
+            return $user;
+        }
+
+        return false;
     }
 
     /**
@@ -480,7 +512,9 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      */
     public function onceUsingId($id)
     {
-        if (! is_null($user = $this->provider->retrieveById($id))) {
+        $user = $this->provider->retrieveById($id);
+
+        if (! is_null($user)) {
             $this->setUser($user);
 
             return true;
@@ -678,13 +712,15 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      * Set the current user.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @return void
+     * @return $this
      */
     public function setUser(AuthenticatableContract $user)
     {
         $this->user = $user;
 
         $this->loggedOut = false;
+
+        return $this;
     }
 
     /**
@@ -727,7 +763,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      */
     public function getName()
     {
-        return 'login_'.$this->name.'_'.sha1(get_class($this));
+        return 'login_'.$this->name.'_'.sha1(static::class);
     }
 
     /**
@@ -737,7 +773,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      */
     public function getRecallerName()
     {
-        return 'remember_'.$this->name.'_'.sha1(get_class($this));
+        return 'remember_'.$this->name.'_'.sha1(static::class);
     }
 
     /**
