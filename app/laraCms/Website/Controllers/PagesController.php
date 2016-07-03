@@ -13,7 +13,6 @@ use Validator;
 use App\Article;
 use App\News;
 use App\Contact;
-
 use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
 use App\LaraCms\Website\Repos\Post\NewsRepositoryInterface;
 
