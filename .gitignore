@@ -61,8 +61,10 @@ uploads/*
 # Laravel 5
 # =========================
 
-.DS_Store
+
+/vendor*.*
 /vendor
+vendor/
 /node_modules
 Homestead.yaml
 Homestead.json
