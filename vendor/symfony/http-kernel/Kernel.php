@@ -59,11 +59,11 @@ abstract class Kernel implements KernelInterface, TerminableInterface
     protected $startTime;
     protected $loadClassCache;
 
-    const VERSION = '3.0.0';
-    const VERSION_ID = 30000;
+    const VERSION = '3.0.8';
+    const VERSION_ID = 30008;
     const MAJOR_VERSION = 3;
     const MINOR_VERSION = 0;
-    const RELEASE_VERSION = 0;
+    const RELEASE_VERSION = 8;
     const EXTRA_VERSION = '';
 
     const END_OF_MAINTENANCE = '07/2016';
@@ -134,6 +134,14 @@ abstract class Kernel implements KernelInterface, TerminableInterface
         }
 
         if ($this->getHttpKernel() instanceof TerminableInterface) {
+            if (!$this->debug) {
+                if (function_exists('fastcgi_finish_request')) {
+                    fastcgi_finish_request();
+                } elseif ('cli' !== PHP_SAPI) {
+                    Response::closeOutputBuffers(0, true);
+                }
+            }
+
             $this->getHttpKernel()->terminate($request, $response);
         }
     }
@@ -629,10 +637,7 @@ abstract class Kernel implements KernelInterface, TerminableInterface
             $dumper->setProxyDumper(new ProxyDumper(md5($cache->getPath())));
         }
 
-        $content = $dumper->dump(array('class' => $class, 'base_class' => $baseClass, 'file' => $cache->getPath()));
-        if (!$this->debug) {
-            $content = static::stripComments($content);
-        }
+        $content = $dumper->dump(array('class' => $class, 'base_class' => $baseClass, 'file' => $cache->getPath(), 'debug' => $this->debug));
 
         $cache->write($content, $container->getResources());
     }
@@ -679,14 +684,15 @@ abstract class Kernel implements KernelInterface, TerminableInterface
         $output = '';
         $tokens = token_get_all($source);
         $ignoreSpace = false;
-        for (reset($tokens); false !== $token = current($tokens); next($tokens)) {
-            if (is_string($token)) {
+        for ($i = 0; isset($tokens[$i]); ++$i) {
+            $token = $tokens[$i];
+            if (!isset($token[1]) || 'b"' === $token) {
                 $rawChunk .= $token;
             } elseif (T_START_HEREDOC === $token[0]) {
                 $output .= $rawChunk.$token[1];
                 do {
-                    $token = next($tokens);
-                    $output .= $token[1];
+                    $token = $tokens[++$i];
+                    $output .= isset($token[1]) && 'b"' !== $token ? $token[1] : $token;
                 } while ($token[0] !== T_END_HEREDOC);
                 $rawChunk = '';
             } elseif (T_WHITESPACE === $token[0]) {
@@ -711,6 +717,12 @@ abstract class Kernel implements KernelInterface, TerminableInterface
         }
 
         $output .= $rawChunk;
+
+        if (PHP_VERSION_ID >= 70000) {
+            // PHP 7 memory manager will not release after token_get_all(), see https://bugs.php.net/70098
+            unset($tokens, $rawChunk);
+            gc_mem_caches();
+        }
 
         return $output;
     }

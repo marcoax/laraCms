@@ -76,7 +76,7 @@ abstract class Queue
         } elseif (is_object($job)) {
             return json_encode([
                 'job' => 'Illuminate\Queue\CallQueuedHandler@call',
-                'data' => ['command' => serialize(clone $job)],
+                'data' => ['commandName' => get_class($job), 'command' => serialize(clone $job)],
             ]);
         }
 
@@ -140,7 +140,7 @@ abstract class Queue
      *
      * @param  \Closure  $job
      * @param  mixed     $data
-     * @return string
+     * @return array
      */
     protected function createClosurePayload($job, $data)
     {

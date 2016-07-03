@@ -31,6 +31,48 @@ if (! function_exists('abort')) {
     }
 }
 
+if (! function_exists('abort_if')) {
+    /**
+     * Throw an HttpException with the given data if the given condition is true.
+     *
+     * @param  bool    $boolean
+     * @param  int     $code
+     * @param  string  $message
+     * @param  array   $headers
+     * @return void
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    function abort_if($boolean, $code, $message = '', array $headers = [])
+    {
+        if ($boolean) {
+            abort($code, $message, $headers);
+        }
+    }
+}
+
+if (! function_exists('abort_unless')) {
+    /**
+     * Throw an HttpException with the given data unless the given condition is true.
+     *
+     * @param  bool    $boolean
+     * @param  int     $code
+     * @param  string  $message
+     * @param  array   $headers
+     * @return void
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    function abort_unless($boolean, $code, $message = '', array $headers = [])
+    {
+        if (! $boolean) {
+            abort($code, $message, $headers);
+        }
+    }
+}
+
 if (! function_exists('action')) {
     /**
      * Generate a URL to a controller action.
@@ -95,11 +137,16 @@ if (! function_exists('auth')) {
     /**
      * Get the available auth instance.
      *
+     * @param  string|null  $guard
      * @return \Illuminate\Contracts\Auth\Factory
      */
-    function auth()
+    function auth($guard = null)
     {
-        return app(AuthFactory::class);
+        if (is_null($guard)) {
+            return app(AuthFactory::class);
+        } else {
+            return app(AuthFactory::class)->guard($guard);
+        }
     }
 }
 
@@ -210,7 +257,7 @@ if (! function_exists('csrf_field')) {
     /**
      * Generate a CSRF token form field.
      *
-     * @return string
+     * @return \Illuminate\Support\HtmlString
      */
     function csrf_field()
     {
@@ -224,7 +271,7 @@ if (! function_exists('csrf_token')) {
      *
      * @return string
      *
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     function csrf_token()
     {
@@ -282,20 +329,24 @@ if (! function_exists('elixir')) {
      * Get the path to a versioned Elixir file.
      *
      * @param  string  $file
+     * @param  string  $buildDirectory
      * @return string
      *
      * @throws \InvalidArgumentException
      */
-    function elixir($file)
+    function elixir($file, $buildDirectory = 'build')
     {
-        static $manifest = null;
+        static $manifest;
+        static $manifestPath;
 
-        if (is_null($manifest)) {
-            $manifest = json_decode(file_get_contents(public_path('build/rev-manifest.json')), true);
+        if (is_null($manifest) || $manifestPath !== $buildDirectory) {
+            $manifest = json_decode(file_get_contents(public_path($buildDirectory.'/rev-manifest.json')), true);
+
+            $manifestPath = $buildDirectory;
         }
 
         if (isset($manifest[$file])) {
-            return '/build/'.$manifest[$file];
+            return '/'.trim($buildDirectory.'/'.$manifest[$file], '/');
         }
 
         throw new InvalidArgumentException("File {$file} not defined in asset manifest.");
@@ -335,15 +386,12 @@ if (! function_exists('env')) {
             case 'true':
             case '(true)':
                 return true;
-
             case 'false':
             case '(false)':
                 return false;
-
             case 'empty':
             case '(empty)':
                 return '';
-
             case 'null':
             case '(null)':
                 return;
@@ -415,7 +463,7 @@ if (! function_exists('logger')) {
      *
      * @param  string  $message
      * @param  array  $context
-     * @return null|\Illuminate\Contracts\Logging\Log
+     * @return \Illuminate\Contracts\Logging\Log|null
      */
     function logger($message = null, array $context = [])
     {
@@ -432,7 +480,7 @@ if (! function_exists('method_field')) {
      * Generate a form field to spoof the HTTP verb used by forms.
      *
      * @param  string  $method
-     * @return string
+     * @return \Illuminate\Support\HtmlString
      */
     function method_field($method)
     {
@@ -561,12 +609,11 @@ if (! function_exists('route')) {
      * @param  string  $name
      * @param  array   $parameters
      * @param  bool    $absolute
-     * @param  \Illuminate\Routing\Route  $route
      * @return string
      */
-    function route($name, $parameters = [], $absolute = true, $route = null)
+    function route($name, $parameters = [], $absolute = true)
     {
-        return app('url')->route($name, $parameters, $absolute, $route);
+        return app('url')->route($name, $parameters, $absolute);
     }
 }
 
@@ -642,7 +689,7 @@ if (! function_exists('trans')) {
      * @param  array   $parameters
      * @param  string  $domain
      * @param  string  $locale
-     * @return string
+     * @return \Symfony\Component\Translation\TranslatorInterface|string
      */
     function trans($id = null, $parameters = [], $domain = 'messages', $locale = null)
     {
@@ -659,7 +706,7 @@ if (! function_exists('trans_choice')) {
      * Translates the given message based on a count.
      *
      * @param  string  $id
-     * @param  int     $number
+     * @param  int|array|\Countable  $number
      * @param  array   $parameters
      * @param  string  $domain
      * @param  string  $locale

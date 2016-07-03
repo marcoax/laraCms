@@ -3,9 +3,10 @@
 namespace Dotenv;
 
 /**
- * Dotenv.
+ * This is the dotenv class.
  *
- * Loads a `.env` file in the given directory and sets the environment vars.
+ * It's responsible for loading a `.env` file in the given directory and
+ * setting the environment vars.
  */
 class Dotenv
 {
@@ -23,34 +24,38 @@ class Dotenv
      */
     protected $loader;
 
+    /**
+     * Create a new dotenv instance.
+     *
+     * @param string $path
+     * @param string $file
+     *
+     * @return void
+     */
     public function __construct($path, $file = '.env')
     {
         $this->filePath = $this->getFilePath($path, $file);
-        $this->loader = new Loader($this->filePath, $immutable = true);
+        $this->loader = new Loader($this->filePath, true);
     }
 
     /**
-     * Load `.env` file in given directory.
+     * Load environment file in given directory.
      *
      * @return array
      */
     public function load()
     {
-        $this->loader = new Loader($this->filePath, $immutable = true);
-
-        return $this->loader->load();
+        return $this->loadData();
     }
 
     /**
-     * Load `.env` file in given directory.
+     * Load environment file in given directory.
      *
      * @return array
      */
     public function overload()
     {
-        $this->loader = new Loader($this->filePath, $immutable = false);
-
-        return $this->loader->load();
+        return $this->loadData(true);
     }
 
     /**
@@ -73,7 +78,21 @@ class Dotenv
     }
 
     /**
-     * Required ensures that the specified variables exist, and returns a new Validator object.
+     * Actually load the data.
+     *
+     * @param bool $overload
+     *
+     * @return array
+     */
+    protected function loadData($overload = false)
+    {
+        $this->loader = new Loader($this->filePath, !$overload);
+
+        return $this->loader->load();
+    }
+
+    /**
+     * Required ensures that the specified variables exist, and returns a new validator object.
      *
      * @param string|string[] $variable
      *

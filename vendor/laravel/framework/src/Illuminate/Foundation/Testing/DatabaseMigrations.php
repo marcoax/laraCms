@@ -5,13 +5,13 @@ namespace Illuminate\Foundation\Testing;
 trait DatabaseMigrations
 {
     /**
-     * @before
+     * Define hooks to migrate the database before and after each test.
+     *
+     * @return void
      */
     public function runDatabaseMigrations()
     {
-        $this->afterApplicationCreated(function () {
-            $this->artisan('migrate');
-        });
+        $this->artisan('migrate');
 
         $this->beforeApplicationDestroyed(function () {
             $this->artisan('migrate:rollback');

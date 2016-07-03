@@ -19,10 +19,7 @@ trait EntrustRoleTrait
      */
     public function users()
     {
-        /* MA_XXX 'auth.provider.user.model */
-
-
-        return $this->belongsToMany(Config::get('auth.providers.users.model'), Config::get('entrust.role_user_table'));
+        return $this->belongsToMany(Config::get('auth.model'), Config::get('entrust.role_user_table'));
     }
 
     /**

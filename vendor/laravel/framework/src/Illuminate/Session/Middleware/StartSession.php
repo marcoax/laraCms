@@ -97,7 +97,9 @@ class StartSession
      */
     protected function startSession(Request $request)
     {
-        with($session = $this->getSession($request))->setRequestOnHandler($request);
+        $session = $this->getSession($request);
+
+        $session->setRequestOnHandler($request);
 
         $session->start();
 
@@ -178,7 +180,8 @@ class StartSession
         if ($this->sessionIsPersistent($config = $this->manager->getSessionConfig())) {
             $response->headers->setCookie(new Cookie(
                 $session->getName(), $session->getId(), $this->getCookieExpirationDate(),
-                $config['path'], $config['domain'], Arr::get($config, 'secure', false)
+                $config['path'], $config['domain'], Arr::get($config, 'secure', false),
+                Arr::get($config, 'http_only', true)
             ));
         }
     }

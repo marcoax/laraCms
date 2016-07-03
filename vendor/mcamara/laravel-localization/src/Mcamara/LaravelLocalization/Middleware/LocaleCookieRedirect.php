@@ -17,15 +17,14 @@ class LocaleCookieRedirect implements Middleware {
     public function handle( $request, Closure $next )
     {
         $params = explode('/', $request->path());
+        $locale = $request->cookie('locale', false);
 
-        if ( count($params) > 0 && $locale = app('laravellocalization')->checkLocaleInSupportedLocales($params[ 0 ]) )
+        if ( count($params) > 0 && app('laravellocalization')->checkLocaleInSupportedLocales($params[ 0 ]) )
         {
             cookie('locale', $params[ 0 ]);
 
             return $next($request);
         }
-
-        $locale = $request->cookie('locale', false);
 
         if ( $locale && !( app('laravellocalization')->getDefaultLocale() === $locale && app('laravellocalization')->hideDefaultLocaleInURL() ) )
         {

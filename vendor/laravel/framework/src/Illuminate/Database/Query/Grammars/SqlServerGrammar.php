@@ -175,6 +175,17 @@ class SqlServerGrammar extends Grammar
     }
 
     /**
+     * Compile the random statement into SQL.
+     *
+     * @param  string  $seed
+     * @return string
+     */
+    public function compileRandom($seed)
+    {
+        return 'NEWID()';
+    }
+
+    /**
      * Compile the "limit" portions of the query.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
@@ -320,5 +331,31 @@ class SqlServerGrammar extends Grammar
         }
 
         return trim("update {$table}{$joins} set $columns $where");
+    }
+
+    /**
+     * Wrap a table in keyword identifiers.
+     *
+     * @param  \Illuminate\Database\Query\Expression|string  $table
+     * @return string
+     */
+    public function wrapTable($table)
+    {
+        return $this->wrapTableValuedFunction(parent::wrapTable($table));
+    }
+
+    /**
+     * Wrap a table in keyword identifiers.
+     *
+     * @param  string  $table
+     * @return string
+     */
+    protected function wrapTableValuedFunction($table)
+    {
+        if (preg_match('/^(.+?)(\(.*?\))]$/', $table, $matches) === 1) {
+            $table = $matches[1].']'.$matches[2];
+        }
+
+        return $table;
     }
 }

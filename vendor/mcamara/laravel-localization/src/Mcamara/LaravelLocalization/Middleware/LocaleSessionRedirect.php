@@ -16,15 +16,14 @@ class LocaleSessionRedirect implements Middleware {
     public function handle( $request, Closure $next )
     {
         $params = explode('/', $request->path());
+        $locale = session('locale', false);
 
-        if ( count($params) > 0 && $locale = app('laravellocalization')->checkLocaleInSupportedLocales($params[ 0 ]) )
+        if ( count($params) > 0 && app('laravellocalization')->checkLocaleInSupportedLocales($params[ 0 ]) )
         {
             session([ 'locale' => $params[ 0 ] ]);
 
             return $next($request);
         }
-
-        $locale = session('locale', false);
 
         if ( $locale && app('laravellocalization')->checkLocaleInSupportedLocales($locale) && !( app('laravellocalization')->getDefaultLocale() === $locale && app('laravellocalization')->hideDefaultLocaleInURL() ) )
         {
