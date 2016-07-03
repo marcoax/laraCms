@@ -1,12 +1,28 @@
 ## Version History
 
+### v.5.6
+
+- Added scope notTranslatedIn() [#235](https://github.com/dimsav/laravel-translatable/pull/235)
+
+### v.5.5.1
+
+- Fixed a bug in locale fallback on toArray()
+
+### v.5.5
+
+- Added Laravel 5.2 support
+- Dropped Laravel 5.0 support
+- Added scope whereTranslationLike() [#183](https://github.com/dimsav/laravel-translatable/pull/183)
+- Fire 'updated' event when saving translations. [#190](https://github.com/dimsav/laravel-translatable/pull/190)
+- setAttribute() returns the model itself, which is now the default in eloquent. [#201](https://github.com/dimsav/laravel-translatable/issues/201)
+
 ### v.5.4
 
-- Added compatibility with custom primary key. #174
+- Added compatibility with custom primary key [#174](https://github.com/dimsav/laravel-translatable/issues/174)
 
 ### v.5.3
 
-- Added whereTranslation() scope. [#168](https://github.com/dimsav/laravel-translatable/issues/168)
+- Added whereTranslation() scope [#168](https://github.com/dimsav/laravel-translatable/issues/168)
 
 ### v.5.2
 
@@ -35,7 +51,7 @@
 
 - Applied PSR-2 code style.
 
-### v. 5
+### v. 5.0
 
 - Laravel 5 ready
 - Added configuration option for returning fallback translations
@@ -43,7 +59,7 @@
 ### v. 4.5
 
 - Added scope to list translated attributes in the current locale.
-- Force fire "saved" event when the original model is not saved, but the translation is. [#85](https://github.com/dimsav/laravel-translatable/issues/85]
+- Force fire "saved" event when the original model is not saved, but the translation is [#85](https://github.com/dimsav/laravel-translatable/issues/85)
 
 ### v. 4.4
 

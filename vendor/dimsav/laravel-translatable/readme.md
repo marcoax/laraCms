@@ -1,6 +1,7 @@
 Laravel-Translatable
 ====================
 
+
 [![Total Downloads](https://poser.pugx.org/dimsav/laravel-translatable/downloads.svg)](https://packagist.org/packages/dimsav/laravel-translatable)
 [![Build Status](https://travis-ci.org/dimsav/laravel-translatable.svg?branch=v4.3)](https://travis-ci.org/dimsav/laravel-translatable)
 [![Code Coverage](https://scrutinizer-ci.com/g/dimsav/laravel-translatable/badges/coverage.png?s=da6f88287610ff41bbfaf1cd47119f4333040e88)](https://scrutinizer-ci.com/g/dimsav/laravel-translatable/)
@@ -23,7 +24,9 @@ If you want to store translations of your models into the database, this package
 
  Laravel  | Translatable
 :---------|:----------
- 5.x      | 5.x
+ 5.2      | 5.5
+ 5.1      | 5.0 - 5.5
+ 5.0      | 5.0 - 5.4
  4.2.x    | 4.4.x
  4.1.x    | 4.4.x
  4.0.x    | 4.3.x
@@ -257,6 +260,9 @@ $germany->translations();
 // Returns all countries having translations in english
 Country::translatedIn('en')->get();
 
+// Returns all countries not being translated in english
+Country::notTranslatedIn('en')->get();
+
 // Returns all countries having translations
 Country::translated()->get();
 
@@ -274,6 +280,9 @@ Country::listsTranslations('name')->get()->toArray();
 
 // Filters countries by checking the translation against the given value 
 Country::whereTranslation('name', 'Greece')->first();
+
+// Filters countries by checking the translation against the given string with wildcards
+Country::whereTranslationLike('name', '%Gree%')->first();
 ```
 
 ### Magic properties
@@ -360,6 +369,13 @@ What applies for the fallback of the locales using the `en-MX` format?
 Let's say our fallback locale is `en`. Now, when we try to fetch from the database the translation for the 
 locale `es-MX` but it doesn't exist,  we won't get as fallback the translation for `en`. Translatable will use as a 
 fallback `es` (the first part of `es-MX`) and only if nothing is found, the translation for `en` is returned.
+ 
+#### Add ons
+
+Thanks to the community a few packages have been written to make usage of Translatable easier when working with forms:
+
+- [Propaganistas/Laravel-Translatable-Bootforms](https://github.com/Propaganistas/Laravel-Translatable-Bootforms)
+- [TypiCMS/TranslatableBootForms](https://github.com/TypiCMS/TranslatableBootForms)
  
 ## FAQ
 
