@@ -14,27 +14,41 @@ use App\Article;
 use App\News;
 use App\Contact;
 
+use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
+use App\LaraCms\Website\Repos\Post\NewsRepositoryInterface;
 
 
 class PagesController extends Controller
 
 {
 
-    use \App\laraCms\SeoTools\laraCmsSeoTrait;
+    use \App\laraCms\SeoTools\LaraCmsSeoTrait;
+
+    protected $articleRepo;
+    protected $newsRepo;
+
+    /**
+     * @return mixed
+     */
+
+    public function __construct(ArticleRepositoryInterface $article,NewsRepositoryInterface $news)
+    {
+        $this->articleRepo = $article;
+        $this->newsRepo    = $news;
+    }
 
     public function home()
     {
-        $article = Article::where('slug','=','home')->first();
-        $this->setSeo($article);    
+        $article =$this->articleRepo->getBySlug('home');
+        $this->setSeo($article);
         return view('website.home',compact('article'));
     }
 
     public function pages($slug) {
 
-      
-        $article = Article::where('slug','=',$slug)->first();
+         $article = $this->articleRepo->getBySlug($slug);
         //$article =  $article->translateOrDefault(config('app.locale'));
-        $this->setSeo($article);
+         $this->setSeo($article);
         if (view()->exists('website.'.$slug)) {
             return view('website.'.$slug,compact('article'));
         }
@@ -43,14 +57,14 @@ class PagesController extends Controller
 
 
     public function news($slug='') {
-        $article = Article::where('slug','=','news')->first();
+        $article = $this->articleRepo->getBySlug('news');;
         if($slug=='') {
-            $news = News::published()->get();
+            $news = $this->newsRepo->getAll();
             $this->setSeo($article);
             return view('website.news',compact('article','news'));
         }
         else {
-            $news = News::where('slug','=',$slug)->first();
+            $news = $this->newsRepo->getBySlug($slug);
             $this->setSeo($news);
             $this->addOpenGraphProperty('type','articles');
             return view('website.news_single',compact('article','news'));

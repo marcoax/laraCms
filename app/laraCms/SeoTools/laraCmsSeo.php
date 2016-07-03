@@ -52,6 +52,7 @@ trait LaraCmsSeoTrait
 
     public function setOpenGraphImages()
     {
+        $this->image = ($this->model->image!='')?ma_get_image_from_repository($this->model->image):asset('public/website/images/logo.jpg');
         SEO::opengraph()->addImage($this->image);
     }
 
