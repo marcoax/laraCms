@@ -3,7 +3,6 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-
 use SEO;
 
 /**
@@ -11,19 +10,17 @@ use SEO;
  *
  *
  */
-trait laraCmsSeoTrait
+trait LaraCmsSeoTrait
 {
-
-
     protected $title;
     protected $image;
     protected $model;
     protected $url;
 
-    public static function bootlaraCmsSeoTrait()
+    public static function bootLaraCmsSeoTrait()
     {
         static::created(function($item){
-            // Index the item
+            // Index the itemcompo
         });
     }
 
@@ -55,8 +52,7 @@ trait laraCmsSeoTrait
 
     public function setOpenGraphImages()
     {
-        $this->image = ($this->model->image)?ma_get_image_from_repository($this->model->image):asset('public/website/images/logo.jpg');
-        $this->addOpenGraphProperty('images', $this->image);
+        SEO::opengraph()->addImage($this->image);
     }
 
     public function addOpenGraphProperty($property,$value)
@@ -69,5 +65,4 @@ trait laraCmsSeoTrait
         return ($this->model->{'seo_'.$tag}!='')?$this->model->{'seo_'.$tag}:$this->model->{$tag};
 
     }
-
 }

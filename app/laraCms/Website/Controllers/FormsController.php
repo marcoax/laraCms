@@ -7,17 +7,26 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\LaraCms\Website\Requests\WebsiteFormRequest;
-use Illuminate\Support\Str;
 use Input;
 use Validator;
-use App\Article;
-use App\News;
 use App\Contact;
+use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
 
 class Forms extends Controller
 {
-    
 
+    protected $articleRepo;
+
+
+    /**
+     * @return mixed
+     */
+
+    public function __construct(ArticleRepositoryInterface $article)
+    {
+        $this->articleRepo = $article;
+
+    }
 
 
     public function getContactUsForm( WebsiteFormRequest $request  ) {
@@ -28,7 +37,7 @@ class Forms extends Controller
             $model->$a = $this->request->get($a);
         }
         $model->save();
-        $article = Article::where('slug','=',$slug)->first();
+        $article = $this->articleRepo->getBySlug($slug);;
 
         /****************** send confirm email ***************/
         $data = $request->only('name', 'email', 'surname','subject');
@@ -46,5 +55,4 @@ class Forms extends Controller
         return view('website.feedback',compact('article'));
     }
 
-    
 }

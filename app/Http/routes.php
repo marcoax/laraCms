@@ -13,9 +13,6 @@
 
 Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adminauth']), function () {
 
-
-
-
     Route::get('/', '\App\laraCms\Admin\Controllers\AdminPagesController@home');
     Route::get('/list/{section?}/{sub?}', '\App\laraCms\Admin\Controllers\AdminPagesController@lista');
     Route::get('/create/{section}', '\App\laraCms\Admin\Controllers\AdminPagesController@create');
@@ -29,10 +26,6 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 
     Route::get('/delete/{section}/{id?}', '\App\laraCms\Admin\Controllers\AdminPagesController@destroy');
 
-
-
-
-
     Route::get('api/update/{method}/{model?}/{id?}', '\App\laraCms\Admin\Controllers\AjaxController@update');
     Route::get('api/delete/{model?}/{id?}', '\App\laraCms\Admin\Controllers\AjaxController@delete');
     Route::post('api/uploadifive/', '\App\laraCms\Admin\Controllers\AjaxController@uploadifive');
@@ -43,6 +36,10 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 });
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+
+
+    App::bind('App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface', 'App\LaraCms\Website\Repos\Article\DbArticleRepository');
+    App::bind('App\LaraCms\Website\Repos\Post\NewsRepositoryInterface', 'App\LaraCms\Website\Repos\Post\DbNewsRepository');
 
 
     Route::get('/',            '\App\laraCms\Website\Controllers\PagesController@home');
