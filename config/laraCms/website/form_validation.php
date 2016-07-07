@@ -10,5 +10,8 @@ return [
 			'email'   => 'required|Between:3,64|Email',
 
 		],
+		'newsletter' => [
+			'email'   => 'required|Between:3,64|Email',
+		],
 
 ];

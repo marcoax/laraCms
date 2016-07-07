@@ -12,7 +12,7 @@ use Validator;
 use App\Contact;
 use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
 
-class Forms extends Controller
+class FormsController extends Controller
 {
 
     protected $articleRepo;

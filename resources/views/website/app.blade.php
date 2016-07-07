@@ -33,13 +33,23 @@
 <body>
     @include('website.partials.navbar')
     @yield('content')
-    @include('website.partials.social')
+    <div class="bck-color-main">
+        <div class="container bck-color-main">
+            <div class="row">
+                <div class=" col-sm-12 col-xs-12 col-md-6 pt25" id="foot-dx-bottom">
+                    @include('website.partials.newsletter')
+                </div>
+                <div class=" col-sm-12 col-xs-12 col-md-6 pt5" id="foot-dx-bottom">
+                    @include('website.partials.social')
+                </div>
+            </div>
+        </div>
+    </div>
     @section('footer')
         <footer class="bck-color-footer pf15">
             <div class="container">
                 <div class="row">
-                    <p class="mf0 color-5">&copy;  2015 creolo | design studio | Milan Italy <a href="#" class="color-5">Privacy</a> &middot; <a href="#" class="color-5">Terms</a>
-                    </p>
+                    <p class="mf0 color-5">&copy;  2015 creolo | design studio | Milan Italy <a href="#" class="color-5">Privacy</a> &middot; <a href="#" class="color-5">Terms</a></p>
                 </div>
             </div>
         </footer>
@@ -56,6 +66,7 @@
 <script src="{!! asset('public/website/js/app.js')!!}"></script>
 @yield('footerjs')
 <script type="text/javascript">
+    var urlAjaxHandler = "{{ url('') }}";
     jQuery(document).ready(function() {
         App.init();
         App.initWoW();

@@ -744,6 +744,29 @@ footer .copyright {
     top: 20px;
     right: 20px;
 }
+/******************* BOX   NEWS letter   ************/
+#newsletter .control-label {
+    margin-right: 5px;
+    font-size: 16px
+}
+#newsletter input {
+    border:1px solid #B79A48;
+    height:35px;
+}
+.btn-newslwtter {
+    background-color: #953743;
+    border-color: #953743;;
+    color: #ffffff;
+    border:0px;
+    border-radius:0px;
+    height:35px;
+}
+
+.btn-newslwtter:hover {
+    background-color: #AC9E75;
+    border-color: #AC9E75;
+    color: #fff;
+}
 
 /***** BOOSTRAP MEDIA  QUERY ******/
 

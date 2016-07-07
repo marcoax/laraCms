@@ -103,21 +103,19 @@ var App = function () {
 
             //showWait();
             $.ajax({
-                type : 'GET',
-                url : urlAjaxHandler+"/validate/newsletter",
-                data : {
-                    email      : $('#email').val(),
-                    Firstname  : $('#nome').val(),
-                },
+                type : 'POST',
+                url : urlAjaxHandler+"/api/newsletter",
+                data : $( "#form-newsletter" ).serialize(),
                 dataType : 'json',
                 success : function(response) {
-                    if (response.status) {
-                        updateModalAlertMsg(response.msg);
+                    console.log(response.status)
+                    if (response.status=='ok') {
+                       alert(response.msg);
                     }
-                    else updateModalAlertMsg(response.msg);
+                    else  alert(response);
                 },
                 error : function(response) {
-                    updateModalAlertMsg('Sorry! Error');
+                    console.log(response.email);
                 }
             });
         });

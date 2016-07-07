@@ -48,6 +48,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/{slug?}',     '\App\laraCms\Website\Controllers\PagesController@pages');
     Route::post('/contact',    '\App\laraCms\Website\Controllers\FormsController@getContactUsForm');
 
+    Route::post('/api/newsletter',        '\App\laraCms\Website\Controllers\ApiController@subscribeNewsletter');
+
     Route::get('/api/new/{post?}', function (App\Article $post) {
         return $post;
     });

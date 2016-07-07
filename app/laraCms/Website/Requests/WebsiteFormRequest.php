@@ -4,6 +4,7 @@ namespace App\LaraCms\Website\Requests;
 
 use App\Http\Requests\Request;
 use Input;
+use Validator;
 
 class WebsiteFormRequest extends Request
 {
@@ -30,5 +31,13 @@ class WebsiteFormRequest extends Request
         $this->model= end( $segments  ) ;
         $rules =  config('laraCms.website.form_validation.'.$this->model);
         return $rules;
+    }
+
+
+    public function validate()
+    {
+       
+
+
     }
 }
