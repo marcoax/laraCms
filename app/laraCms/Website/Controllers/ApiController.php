@@ -2,17 +2,14 @@
 
 namespace App\LaraCms\Website\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\Response;
+
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\LaraCms\Website\Requests\WebsiteFormRequest;
+use App\LaraCms\Website\Requests\AjaxFormRequest;
 use Input;
 use Validator;
-use App\Contact;
-use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
+
 
 class ApiController extends Controller
 {
@@ -27,7 +24,7 @@ class ApiController extends Controller
     
 
 
-    public function subscribeNewsletter( WebsiteFormRequest $request  ) {
+    public function subscribeNewsletter( AjaxFormRequest $request  ) {
 
      
         $validator = Validator::make($request->all(), $request->rules());

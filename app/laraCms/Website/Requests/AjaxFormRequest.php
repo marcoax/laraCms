@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 use Input;
 use Validator;
 
-class WebsiteFormRequest extends Request
+class AjaxFormRequest extends Request
 {
     protected $model; /*************  cur model to validate **************/
     /**
@@ -34,5 +34,10 @@ class WebsiteFormRequest extends Request
     }
 
 
-   
+    public function validate()
+    {
+       
+
+
+    }
 }
