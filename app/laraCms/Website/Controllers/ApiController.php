@@ -26,7 +26,6 @@ class ApiController extends Controller
 
     public function subscribeNewsletter( AjaxFormRequest $request  ) {
 
-     
         $validator = Validator::make($request->all(), $request->rules());
         // check if the validator failed -----------------------
         if ($validator->fails()) {
