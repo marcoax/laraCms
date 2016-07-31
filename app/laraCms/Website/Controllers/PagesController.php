@@ -23,6 +23,7 @@ class PagesController extends Controller
 
     use \App\laraCms\SeoTools\LaraCmsSeoTrait;
 
+
     protected $articleRepo;
     protected $newsRepo;
 
@@ -45,13 +46,19 @@ class PagesController extends Controller
 
     public function pages($slug) {
 
-         $article = $this->articleRepo->getBySlug($slug);
-        //$article =  $article->translateOrDefault(config('app.locale'));
-         $this->setSeo($article);
+        $article = $this->articleRepo->getBySlug($slug);
+        if(!$article) return redirect()->guest('');
+        $this->setSeo($article);
+
         if (view()->exists('website.'.$slug)) {
             return view('website.'.$slug,compact('article'));
         }
         return view('website.normal',compact('article'));
+    }
+
+    public function pino() {
+
+        return redirect()->guest('');
     }
 
 
@@ -64,6 +71,7 @@ class PagesController extends Controller
         }
         else {
             $news = $this->newsRepo->getBySlug($slug);
+            if(!$news) return redirect()->guest('');
             $this->setSeo($news);
             $this->addOpenGraphProperty('type','articles');
             return view('website.news_single',compact('article','news'));
