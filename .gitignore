@@ -65,6 +65,7 @@ uploads/*
 /vendor*.*
 /vendor
 vendor/
+/vendor/**/.git
 /bootstrap/compiled.php
 /vendor
 .idea/ #I added this for phpstorm
