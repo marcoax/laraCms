@@ -13,12 +13,17 @@ function ma_get_image_from_repository($img)
     $path = config('laraCms.admin.path.img_repository');
     return asset($path . $img);
 }
+function ma_get_image_path_from_repository($img)
+{
 
-/********      image    *****************/
+    $path = config('laraCms.admin.path.img_repository');
+    return  base_path($path . $img);
+}
+
 function ma_get_image_on_the_fly($asset, $w, $h, $type = 'jpg')
 {
 
-    if ($asset != '') {
+    if ($asset != '' && file_exists(ma_get_image_path_from_repository($asset))) {
         $img = Image::make(ma_get_image_from_repository($asset))->fit($w, $h)->encode($type);
         return 'data:image/' . $type . ';base64,' . base64_encode($img);
     } else return null;
@@ -27,18 +32,20 @@ function ma_get_image_on_the_fly($asset, $w, $h, $type = 'jpg')
 /********      image    *****************/
 function ma_get_image_on_the_fly_chached($asset, $w, $h, $type = 'jpg')
 {
-    if ($asset != '') {
+
+
+    if ($asset != '' && file_exists(ma_get_image_path_from_repository($asset))) {
         $dataImage = array();
         $dataImage['asset'] = $asset;
         $dataImage['w'] = $w;
         $dataImage['h'] = $h;
         $dataImage['type'] = $type;
-        if (file_exists($dataImage['asset'])) {
+
             $img = Image::cache(function ($image) use ($dataImage) {
                 $image->make(ma_get_image_from_repository($dataImage['asset']))->fit($dataImage['w'], $dataImage['h'])->encode($dataImage['type']);
             });
             return 'data:image/' . $type . ';base64,' . base64_encode($img);
-        } else return null;
+
     } else return null;
 }
 
