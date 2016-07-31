@@ -209,17 +209,18 @@ class AdminPagesController  extends Controller
         //$UM->init($media,$model);
         
         if (Input::hasFile($media) && Input::file($media)->isValid()) {
-            $newMedia  = Input::file($media);
-            $mediaType = ( is_image( $newMedia->getMimeType()) == 'image') ? 'images':'docs';
-            $destinationPath =  config('laraCms.admin.path.repository').'/'.$mediaType; // upload path
-            $extension 		 = $newMedia->getClientOriginalExtension(); // getting image extension
+            $newMedia        = Input::file($media);
+            $mediaType       = ( is_image( $newMedia->getMimeType()) == 'image') ? 'images':'docs';
+            $destinationPath = config('laraCms.admin.path.repository').$mediaType;                 // upload path
+            $extension 		 = $newMedia->getClientOriginalExtension();                             // getting image extension
             $name 			 = basename($newMedia->getClientOriginalName(),'.'.$extension);
-            $fileName 		 = str_slug(rand(11111,99999).'_'.$name).".".$extension; // renameing image
+            $fileName 		 = $newMedia->getClientOriginalName();
+            // renaming image if exist
+            if(  file_exists(base_path($destinationPath.'/'.$fileName))) $fileName = str_slug(rand(11111,99999).'_'.$name).".".$extension;
             $newMedia->move($destinationPath, $fileName); // uploading file to given path
             $model->$media = $fileName;
 
         }
-
     }
 
 }
