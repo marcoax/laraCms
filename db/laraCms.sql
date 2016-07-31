@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2016 alle 20:26
+-- Generation Time: Lug 31, 2016 alle 13:38
 -- Versione del server: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `laracms`
 --
+CREATE DATABASE IF NOT EXISTS `laracms` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `laracms`;
 
 -- --------------------------------------------------------
 
@@ -44,8 +46,8 @@ CREATE TABLE IF NOT EXISTS `adminusers` (
 --
 
 INSERT INTO `adminusers` (`id`, `name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
-(3, 'superuser', 'marcoasperti@gmail.com', '$2y$10$zJZ5Rs7IZMIQU5oXhXD2O.w7SB5ZRoOBYuWL5/YvPabm2Bd9p.x8K', 'laracms', 'nIAkJMzbMsy2NNjwsqyb3yFFWjh8bKLqMJfAYA69EQWhbpVKTbYlPIl1WmAm', '0000-00-00 00:00:00', '2016-02-01 18:52:00', 1),
-(4, 'adminnna', 'admin@laraCms.com', '$2y$10$dLQm1MhtynluOfoIK90a/.YWnYIIUqb63g3aTC7L2YcSuyZb31CKu', 'amministratore', 'ErE0Hwy0m1WaBtNe8yQqk9oZDEyxYyUNKhC6Q6O34lsbdQI00lyRbqQFpBEH', '2015-12-20 18:57:51', '2016-02-14 12:02:21', 1);
+(3, 'superuser', 'marcoasperti@gmail.com', '$2y$10$x9Pc/thhYAC9MrGoAtxtPOd4s9RX8tBMjFgAO1a3DQTzacD7JxEvC', 'laracms', 'Vll0XEHd5MyQrmWVipdr20SebCuhZFUvNerPN1ShfL0JpGJ2vnzIm3P1UQjE', '0000-00-00 00:00:00', '2016-07-31 07:50:27', 1),
+(4, 'adminnna', 'admin@laraCms.com', '$2y$10$dLQm1MhtynluOfoIK90a/.YWnYIIUqb63g3aTC7L2YcSuyZb31CKu', 'amministratore', 'HsBevdGVRNMVXtVURQqD5wVZ0MH2OHroupx37qp82fXlYCBPuqmwhMRGonUu', '2015-12-20 18:57:51', '2016-07-31 07:08:04', 1);
 
 -- --------------------------------------------------------
 
@@ -97,9 +99,9 @@ INSERT INTO `articles` (`id`, `domain`, `id_parent`, `id_template`, `title`, `su
 (26, '', 12, 0, '', NULL, NULL, NULL, '', 'identity', '', '', '', '', 420, 1, 0, 0, '2015-12-30 19:13:40', '2015-12-30 19:14:57'),
 (27, '', 12, 0, '', NULL, NULL, NULL, '', 'research', '', '', '', '', 430, 1, 0, 0, '2015-12-30 19:14:16', '2015-12-30 19:14:50'),
 (28, '', 25, 0, '', NULL, NULL, NULL, '', 'armour-climbing-helmet', '', '34971-armour.jpg', '', '', 412, 1, 0, 0, '2015-12-30 19:59:34', '2016-01-09 15:47:59'),
-(29, '', 26, 0, '', NULL, NULL, NULL, '', 'manifattura-visual-identity', '', '57785-progetti-manifattura.jpg', '', '', 0, 0, 0, 0, '2015-12-31 16:42:16', '2016-01-09 15:48:29'),
-(30, '', 25, 0, '', NULL, NULL, NULL, '', 'pebble-ceramic-collection', '', '71443_CR3.jpg', '', '', 0, 1, 0, 0, '2015-12-31 16:52:32', '2015-12-31 16:52:42'),
-(31, '', 27, 0, '', NULL, NULL, NULL, '', 'semi-precious-stone-workshop-tajikistan', '', '61886_progetti_tj13.jpg', '', '', 0, 1, 0, 0, '2015-12-31 16:55:11', '2015-12-31 16:55:11');
+(29, '', 26, 0, '', NULL, NULL, NULL, '', 'manifattura-visual-identity', '', '57785-progetti-manifattura.jpg', '', '', 10, 0, 0, 0, '2015-12-31 16:42:16', '2016-04-27 16:42:06'),
+(30, '', 25, 0, '', NULL, NULL, NULL, '', 'pebble-ceramic-collection', '', '71443_CR3.jpg', '', '', 10, 1, 0, 0, '2015-12-31 16:52:32', '2016-04-27 16:42:10'),
+(31, '', 27, 0, '', NULL, NULL, NULL, '', 'semi-precious-stone-workshop-tajikistan', '', '61886_progetti_tj13.jpg', '', '', 10, 1, 0, 0, '2015-12-31 16:55:11', '2016-04-27 16:42:13');
 
 -- --------------------------------------------------------
 
@@ -145,17 +147,17 @@ CREATE TABLE IF NOT EXISTS `article_translations` (
 --
 
 INSERT INTO `article_translations` (`id`, `article_id`, `locale`, `title`, `subtitle`, `intro`, `description`, `abstract`, `seo_title`, `seo_description`, `seo_keywords`, `created_by`, `update_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 'en', 'Home', '', NULL, '<p>Home intro text</p>', '', '', '', '', 0, 0, '2015-12-20 18:56:43', '2016-01-22 18:57:51'),
+(1, 1, 'en', 'Home', '', NULL, '<p>Home intro text</p>', '', 'seo for home', '', '', 0, 0, '2015-12-20 18:56:43', '2016-07-02 11:39:34'),
 (2, 1, 'it', 'Home', '', NULL, '', '', '', '', '', 0, 0, '2015-12-20 18:56:43', '2016-01-22 18:57:51'),
 (3, 2, 'en', 'About us', '', NULL, '<p>We are a design studio based in Milan devoted to create impact and value. Since 2001 we take care of all the creative aspects for a client list of individuals, brands, institutions and NGOs.<br /> We design everything from businesses to brands to products, from books to bowls to boxes. And a lot more beyond. Our multi-disciplinary experience and expertise covers both brand and product design disciplines so we can help you from initial concept to ultimate expression.&nbsp;<br /> As designers we always build from the roots up. Our process is clear and simple: understand and define a clear vision for the project; explore the visual and conceptual roots of the idea; translate these roots into an authentic social and cultural experience.<br /> We embrace and provoke new ways of thinking and doing in order to help you navigate through rapidly changing competitive environments, applying maximum creativity together with strategy to make each project a success.<br /> Besides studio projects, CREOLO enjoys giving lectures and holding workshops at art &amp; design academies here and there around the globe</p>', '<p>We offer services in:&nbsp;<br /> - trend analysis and researches for new scenarios and concepts'' development;&nbsp;<br /> - product and industrial design;&nbsp;<br /> - workshop for product, process and service innovation and training for capacity building;&nbsp;<br /> - strategic design and total branding projects;&nbsp;<br /> - design management and design consulting for new&nbsp;creative industries&nbsp;and&nbsp;start-ups;&nbsp;<br /> - marketing strategies and integrated communication plans;&nbsp;<br /> - art-direction and graphics BTL&nbsp;(corporate identity, catalogues, pubblications);&nbsp;<br /> - adv campaigns and photo shooting services;&nbsp;<br /> - web-design;&nbsp;<br /> - web and&nbsp;social marketing;&nbsp;<br /> - retail design, info-graphics and tools for retail communication;&nbsp;<br /> - packaging, labelling and commercial illustrations/graphics;&nbsp;<br /> - promotional installations and fair booth design;&nbsp;<br /> - conception, coordination, management of events and exhibitions.</p>', '', '', '', 0, 0, '2015-12-20 19:16:48', '2016-01-08 18:01:25'),
 (4, 2, 'it', 'Chi siamo', '', NULL, '<p>We are a design studio based in Milan devoted to create impact and value. Since 2001 we take care of all the creative aspects for a client list of individuals, brands, institutions and NGOs.<br /> We design everything from businesses to brands to products, from books to bowls to boxes. And a lot more beyond. Our multi-disciplinary experience and expertise covers both brand and product design disciplines so we can help you from initial concept to ultimate expression.&nbsp;<br /> As designers we always build from the roots up. Our process is clear and simple: understand and define a clear vision for the project; explore the visual and conceptual roots of the idea; translate these roots into an authentic social and cultural experience.<br /> We embrace and provoke new ways of thinking and doing in order to help you navigate through rapidly changing competitive environments, applying maximum creativity together with strategy to make each project a success.<br /> Besides studio projects, CREOLO enjoys giving lectures and holding workshops at art &amp; design academies here and there around the globe</p>', '', '', '', '', 0, 0, '2015-12-20 19:16:48', '2016-01-08 18:01:25'),
-(5, 3, 'en', 'News', NULL, NULL, '<p>News page</p>', '', '', '', '', 0, 0, '2015-12-24 18:15:46', '2015-12-30 11:17:58'),
-(6, 3, 'it', 'News', NULL, NULL, '', '', '', '', '', 0, 0, '2015-12-24 18:15:46', '2015-12-30 12:41:37'),
+(5, 3, 'en', 'News', '', NULL, '<p>News page</p>', '', '', '', '', 0, 0, '2015-12-24 18:15:46', '2016-07-03 10:16:37'),
+(6, 3, 'it', 'News', '', NULL, '', '', '', '', '', 0, 0, '2015-12-24 18:15:46', '2016-07-03 10:16:37'),
 (20, 12, 'en', 'Projects', '', NULL, '<p>Our projects</p>', '', '', '', '', 0, 0, '2015-12-28 13:37:47', '2016-01-09 16:27:36'),
 (21, 12, 'it', 'Progetti', '', NULL, '<p>I nostri lavori</p>', '', '', '', '', 0, 0, '2015-12-28 13:37:47', '2016-01-09 16:27:36'),
 (22, 13, 'en', 'Service', NULL, NULL, '<p>We develop made-to-measure innovative design solutions to boost what you have in mind.</p>', '', '', '', '', 0, 0, '2015-12-28 13:38:11', '2015-12-30 19:32:44'),
 (23, 13, 'it', 'Servizi', NULL, NULL, '<p>We develop made-to-measure innovative design solutions to boost what you have in mind.</p>', '', '', '', '', 0, 0, '2015-12-28 13:38:11', '2015-12-30 19:32:44'),
-(34, 19, 'en', 'Contact', '', NULL, '<p>Contact</p>', '', 'Seo title', 'desc', 'seo key', 0, 0, '2015-12-28 15:19:49', '2016-01-23 16:19:11'),
+(34, 19, 'en', 'Contact', '', NULL, '<p>Contact</p>', '', 'Seo title per  contatc page', 'desc seo desc contact', 'seo key', 0, 0, '2015-12-28 15:19:49', '2016-07-02 10:37:29'),
 (35, 19, 'it', 'Contatti', '', NULL, '', '', '', '', '', 0, 0, '2015-12-28 15:19:49', '2016-01-03 18:17:45'),
 (36, 20, 'en', 'Product design', '', NULL, '<p>Product design</p>', '', '', '', '', 0, 0, '2015-12-29 13:25:40', '2016-01-03 20:03:55'),
 (37, 20, 'it', 'Product design', '', NULL, '', '', '', '', '', 0, 0, '2015-12-29 13:25:40', '2016-01-03 20:03:55'),
@@ -201,17 +203,20 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dump dei dati per la tabella `contacts`
 --
 
 INSERT INTO `contacts` (`id`, `subject`, `message`, `name`, `surname`, `email`, `replay`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, '12345678', '123456789', 'angelo marco asperti', 'asperti', 'marcoasperti@gmail.com', NULL, NULL, 0, '2016-01-27 19:08:06', '2016-01-27 19:08:06'),
-(2, 'a', 'a', 'a', 'a', 'marcoasperti@gmail.com', NULL, NULL, 0, '2016-01-30 16:18:45', '2016-01-30 16:18:45'),
-(3, 'a', 'a', 'angelo marco asperti', 'asperti', 'marcoasperti@gmail.com', NULL, NULL, 0, '2016-02-14 12:18:55', '2016-02-14 12:18:55'),
-(4, 'ss', 'sss', 'angelo marco asperti', 'asperti', 'marcoasperti@gmail.com', NULL, NULL, 0, '2016-02-14 12:22:25', '2016-02-14 12:22:25');
+(1, '12345678', '123456789', 'angelo marco asperti', 'asperti', 'marcoasperti@gmail.com', NULL, 1, 0, '2016-04-27 18:42:19', '2016-04-27 16:42:19'),
+(2, 'a', 'a', 'a', 'a', 'marcoasperti@gmail.com', NULL, 1, 0, '2016-04-27 18:42:21', '2016-04-27 16:42:21'),
+(3, 'a', 'a', 'angelo marco asperti', 'asperti', 'marcoasperti@gmail.com', NULL, 1, 0, '2016-04-27 18:42:23', '2016-04-27 16:42:23'),
+(4, 'ss', 'sss', 'angelo marco asperti', 'asperti', 'marcoasperti@gmail.com', NULL, NULL, 0, '2016-02-14 12:22:25', '2016-02-14 12:22:25'),
+(5, 'aa', 'aa', 'aa', 'aa', 'marco.a@gfstudio.com', NULL, NULL, 0, '2016-07-07 03:29:34', '2016-07-07 03:29:34'),
+(6, '', 'aa', '', 'aa', 'marco.a@gfstudio.com', NULL, NULL, 0, '2016-07-07 03:29:49', '2016-07-07 03:29:49'),
+(7, 'a', 'aa', 'a', 'aa', 'marco.a@gfstudio.com', NULL, NULL, 0, '2016-07-07 03:33:20', '2016-07-07 03:33:20');
 
 -- --------------------------------------------------------
 
@@ -241,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `hpsliders` (
 
 INSERT INTO `hpsliders` (`id`, `title`, `description`, `icon`, `image`, `link`, `slug`, `sort`, `is_active`, `created_by`, `created_at`, `updated_at`) VALUES
 (1, 'DESIGN WITH A VIEW', 'We are a design studio devoted to create impact and value', NULL, '79928_header1.jpg', '', 'design-with-a-view', 10, 1, 0, '2016-01-05 16:38:00', '2016-01-05 15:38:00'),
-(4, 'DESIGN FORWARDERS', 'Maximum creativity together with strategy to make each project a success', NULL, '24655_header2.jpg', '', 'design-forwarders', 20, 1, 0, '2015-12-29 09:39:14', '2015-12-29 08:39:14'),
+(4, 'DESIGN FORWARDERS', 'Maximum creativity together with strategy to make each project a success', NULL, '24655_header2.jpg', '', 'design-forwarders', 20, 1, 0, '2016-04-27 18:44:32', '2016-04-27 16:44:32'),
 (5, 'QUIET & POWERFUL', 'Design to embrace and provoke new ways of thinking and doing', NULL, '78781_header3.jpg', '', 'quiet-powerful', 30, 1, 0, '2015-12-29 10:15:18', '2015-12-29 09:15:18'),
 (11, 'WE DESIGN EVERYTHING', 'Maximum creativity together with strategy to make each project a success', NULL, '45952_header4.jpg', '', 'we-design-everything', 40, 1, 0, '2015-12-29 10:15:20', '2015-12-29 09:15:20');
 
@@ -269,15 +274,25 @@ CREATE TABLE IF NOT EXISTS `media` (
   `sort` int(10) unsigned DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dump dei dati per la tabella `media`
 --
 
 INSERT INTO `media` (`id`, `media_category_id`, `model_id`, `model_type`, `collection_name`, `name`, `description`, `file_name`, `file_ext`, `disk`, `size`, `manipulations`, `pub`, `sort`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'App\\Article', 'docs', '', '', '66837-estrattoconto-cc-201211.pdf', 'pdf', 'docs', 133280, '', 1, NULL, '2016-02-14 11:46:23', '2016-02-14 11:46:23'),
-(2, 1, 1, 'App\\Article', 'images', '', '', '20171-download-1.jpg', 'jpg', 'images', 4566, '', 1, NULL, '2016-02-14 11:46:46', '2016-02-14 11:46:46');
+(2, 1, 1, 'App\\Article', 'images', '', '', '20171-download-1.jpg', 'jpg', 'images', 4566, '', 1, NULL, '2016-02-14 11:46:46', '2016-02-14 11:46:46'),
+(3, 0, 20, 'App\\Article', 'images', '', '', '72214-casa-in-tronchi-tecnica-blockbau-val-bedretto-006.JPG', 'JPG', 'images', 248876, '', 1, NULL, '2016-07-31 05:47:08', '2016-07-31 05:47:08'),
+(4, 0, 15, 'App\\News', 'images', '', '', '14230-casa-in-tronchi-tecnica-blockbau-val-bedretto-005.JPG', 'JPG', 'images', 362328, '', 1, NULL, '2016-07-31 06:05:09', '2016-07-31 06:05:09'),
+(5, 0, 15, 'App\\News', 'images', '', '', '53434-casa-in-tronchi-tecnica-blockbau-val-bedretto-001.JPG', 'JPG', 'images', 479210, '', 1, NULL, '2016-07-31 06:05:09', '2016-07-31 06:05:09'),
+(6, 0, 15, 'App\\News', 'images', '', '', '89076-casa-in-tronchi-tecnica-blockbau-val-bedretto-002.JPG', 'JPG', 'images', 541356, '', 1, NULL, '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
+(7, 0, 15, 'App\\News', 'images', '', '', '27753-casa-in-tronchi-tecnica-blockbau-val-bedretto-006.JPG', 'JPG', 'images', 248876, '', 1, NULL, '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
+(8, 0, 15, 'App\\News', 'images', '', '', '96568-casa-in-tronchi-tecnica-blockbau-val-bedretto-004.JPG', 'JPG', 'images', 289768, '', 1, NULL, '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
+(9, 0, 15, 'App\\News', 'images', '', '', '18890-casa-in-tronchi-tecnica-blockbau-val-bedretto-003.JPG', 'JPG', 'images', 402617, '', 1, NULL, '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
+(10, 0, 17, 'App\\News', 'images', '', '', '77265-immagine3321312.png', 'png', 'images', 97616, '', 1, NULL, '2016-07-31 06:27:34', '2016-07-31 06:27:34'),
+(14, 0, 17, 'App\\News', 'images', '', '', 'Senza-titolo-1.png', 'png', 'images', 6332, '', 1, NULL, '2016-07-31 06:42:30', '2016-07-31 06:42:30'),
+(21, 0, 17, 'App\\News', 'docs', '', '', 'ContabileF24.pdf', 'pdf', 'docs', 1239692, '', 1, NULL, '2016-07-31 06:52:09', '2016-07-31 06:52:09'),
+(22, 0, 17, 'App\\News', 'docs', '', '', '34396-contabilef24.pdf', 'pdf', 'docs', 1239692, '', 1, NULL, '2016-07-31 06:52:16', '2016-07-31 06:52:16');
 
 -- --------------------------------------------------------
 
@@ -294,15 +309,25 @@ CREATE TABLE IF NOT EXISTS `media_translations` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dump dei dati per la tabella `media_translations`
 --
 
 INSERT INTO `media_translations` (`id`, `media_id`, `locale`, `title`, `description`, `created_at`, `updated_at`) VALUES
-(1, 1, 'en', '66837-estrattoconto-cc-201211.pdf', '', '2016-02-14 11:46:24', '2016-02-14 11:46:24'),
-(2, 2, 'en', '20171-download-1.jpg', '', '2016-02-14 11:46:46', '2016-02-14 11:46:46');
+(2, 2, 'en', '20171-download-1.jpg', '', '2016-02-14 11:46:46', '2016-02-14 11:46:46'),
+(3, 3, 'en', '72214-casa-in-tronchi-tecnica-blockbau-val-bedretto-006.JPG', '', '2016-07-31 05:47:08', '2016-07-31 05:47:08'),
+(4, 4, 'en', '14230-casa-in-tronchi-tecnica-blockbau-val-bedretto-005.JPG', '', '2016-07-31 06:05:09', '2016-07-31 06:05:09'),
+(5, 5, 'en', '53434-casa-in-tronchi-tecnica-blockbau-val-bedretto-001.JPG', '', '2016-07-31 06:05:09', '2016-07-31 06:05:09'),
+(6, 6, 'en', '89076-casa-in-tronchi-tecnica-blockbau-val-bedretto-002.JPG', '', '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
+(7, 7, 'en', '27753-casa-in-tronchi-tecnica-blockbau-val-bedretto-006.JPG', '', '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
+(8, 8, 'en', '96568-casa-in-tronchi-tecnica-blockbau-val-bedretto-004.JPG', '', '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
+(9, 9, 'en', '18890-casa-in-tronchi-tecnica-blockbau-val-bedretto-003.JPG', '', '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
+(10, 10, 'en', '77265-immagine3321312.png', '', '2016-07-31 06:27:34', '2016-07-31 06:27:34'),
+(14, 14, 'en', 'Senza-titolo-1.png', '', '2016-07-31 06:42:30', '2016-07-31 06:42:30'),
+(21, 21, 'en', 'ContabileF24.pdf', '', '2016-07-31 06:52:09', '2016-07-31 06:52:09'),
+(22, 22, 'en', '34396-contabilef24.pdf', '', '2016-07-31 06:52:16', '2016-07-31 06:52:16');
 
 -- --------------------------------------------------------
 
@@ -344,7 +369,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2016_01_09_213704_create_tags_table', 10),
 ('2016_01_23_141830_create_contact_table', 11),
 ('2016_01_23_141830_create_contacts_table', 12),
-('2016_01_27_195512_create_adminusers_table', 12);
+('2016_01_27_195512_create_adminusers_table', 12),
+('2016_07_31_090641_create_role_adminuser_table', 13);
 
 -- --------------------------------------------------------
 
@@ -379,9 +405,9 @@ CREATE TABLE IF NOT EXISTS `news` (
 --
 
 INSERT INTO `news` (`id`, `domain`, `date`, `title`, `description`, `subtitle`, `intro`, `abstract`, `slug`, `doc`, `image`, `banner`, `link`, `sort`, `pub`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, '', '2015-12-20', '', '', NULL, NULL, '', 'best-wisth', '', '12676-bf2016.jpg', '', '', 0, 1, 0, '2016-01-10 13:24:45', '2016-01-10 12:24:45'),
-(15, '', '2016-01-06', '', '', NULL, NULL, '', 'we-are-the-new-italian-design', '', '84391-the-new-italian-design.jpg', '', '', 0, 1, 0, '2016-01-10 13:24:31', '2016-01-10 12:24:31'),
-(17, '', '2015-11-09', '', '', NULL, NULL, '', 'design-for-business-competitiveness', '', '39488-villa-la-magia-ville-medicee-650x435.jpg', '', '', 0, 1, 0, '2016-01-10 13:27:47', '2016-01-10 12:27:47');
+(1, '', '2015-12-20', '', '', NULL, NULL, '', 'best-wisth', '', '12676-bf2016.jpg', '', '', 0, 0, 0, '2016-04-27 18:46:14', '2016-04-27 16:46:14'),
+(15, '', '2016-01-06', '', '', NULL, NULL, '', 'we-are-the-new-italian-design', '', '84391-the-new-italian-design.jpg', '', '', 0, 1, 0, '2016-07-31 08:14:25', '2016-07-31 06:14:25'),
+(17, '', '2015-11-09', '', '', NULL, NULL, '', 'design-for-business-competitiveness', '', '93625-senza-titolo-1.png', '', '', 0, 1, 0, '2016-07-31 08:41:42', '2016-07-31 06:41:42');
 
 -- --------------------------------------------------------
 
@@ -402,7 +428,6 @@ CREATE TABLE IF NOT EXISTS `news_tag` (
 --
 
 INSERT INTO `news_tag` (`news_id`, `tag_id`, `created_at`, `updated_at`) VALUES
-(1, 2, '2016-01-10 13:22:16', '0000-00-00 00:00:00'),
 (1, 1, '2016-01-10 13:23:27', '0000-00-00 00:00:00'),
 (15, 2, '2016-01-10 13:24:31', '0000-00-00 00:00:00'),
 (1, 3, '2016-01-10 13:24:45', '0000-00-00 00:00:00'),
@@ -440,9 +465,9 @@ CREATE TABLE IF NOT EXISTS `news_translations` (
 INSERT INTO `news_translations` (`id`, `news_id`, `locale`, `title`, `description`, `abstract`, `subtitle`, `intro`, `seo_title`, `seo_description`, `seo_keywords`, `created_by`, `update_by`, `created_at`, `updated_at`) VALUES
 (1, 1, 'en', 'best wisth', '<p>We wish you all a creative and inspiring new year!...</p>', NULL, NULL, NULL, '', '', '', 0, 0, '2016-01-10 09:28:41', '2016-01-10 08:28:41'),
 (2, 1, 'it', 'News in italiano', '', NULL, NULL, NULL, '', '', '', 0, 0, '2016-01-10 09:44:18', '2016-01-10 08:44:18'),
-(29, 15, 'en', 'WE ARE THE NEW ITALIAN DESIGN', '<p>On the occasion of Gwangju Design Biennale 2015, we are with Triennale Design Museum presenting&nbsp;an upgraded and updated edition of The New Italian Design from October 15th until November 13th 201...</p>', NULL, NULL, NULL, '', '', '', 0, 0, '2016-01-06 23:29:25', '2016-01-06 22:29:25'),
+(29, 15, 'en', 'WE ARE THE NEW ITALIAN DESIGN', '<p>On the occasion of Gwangju Design Biennale 2015, we are with Triennale Design Museum presenting&nbsp;an upgraded and updated edition of The New Italian Design from October 15th until November 13th 201...</p>', NULL, NULL, NULL, 'ffsfdsf', 'ffsdfsfdsfds', 'sdfdsfds', 0, 0, '2016-07-02 13:13:59', '2016-07-02 11:13:59'),
 (30, 15, 'it', '', '', NULL, NULL, NULL, '', '', '', 0, 0, '2016-01-06 22:29:25', '2016-01-06 22:29:25'),
-(33, 17, 'en', 'DESIGN FOR BUSINESS COMPETITIVENESS', '<p>Edoardo Perri is guest-lecturer @ &ldquo;DESIGN FOR COMPETITIVENESS&rdquo;, Toscany. The meeting aims to present case studies of companies who have walked the path of a design-driven innovation in all its forms, from product to communication - through the story of the protagonists.</p>', NULL, NULL, NULL, '', '', '', 0, 0, '2016-01-09 20:56:17', '2016-01-09 19:56:17'),
+(33, 17, 'en', 'DESIGN FOR BUSINESS COMPETITIVENESS', '<p>Edoardo Perri is guest-lecturer @ &ldquo;DESIGN FOR COMPETITIVENESS&rdquo;, Toscany. The meeting aims to present case studies of companies who have walked the path of a design-driven innovation in all its forms, from product to communication - through the story of the protagonists.</p>', NULL, NULL, NULL, '', 'Edoardo Perri', '', 0, 0, '2016-07-02 13:45:23', '2016-07-02 11:45:23'),
 (34, 17, 'it', 'DESIGN FOR BUSINESS COMPETITIVENESS', '<p>Edoardo Perri is guest-lecturer @ &ldquo;DESIGN FOR COMPETITIVENESS&rdquo;, Toscany. The meeting aims to present case studies of companies who have walked the path of a design-driven innovation in all its forms, from product to communication - through the story of the protagonists.</p>', NULL, NULL, NULL, '', '', '', 0, 0, '2016-01-09 19:56:17', '2016-01-09 19:56:17');
 
 -- --------------------------------------------------------
@@ -541,6 +566,26 @@ INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, 
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `role_adminuser`
+--
+
+DROP TABLE IF EXISTS `role_adminuser`;
+CREATE TABLE IF NOT EXISTS `role_adminuser` (
+  `user_id` int(10) unsigned NOT NULL,
+  `role_id` int(10) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `role_adminuser`
+--
+
+INSERT INTO `role_adminuser` (`user_id`, `role_id`) VALUES
+(3, 1),
+(4, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `role_user`
 --
 
@@ -555,7 +600,9 @@ CREATE TABLE IF NOT EXISTS `role_user` (
 --
 
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
-(4, 1),
+(5, 1),
+(4, 2),
+(4, 3),
 (5, 3),
 (4, 7);
 
@@ -585,7 +632,7 @@ CREATE TABLE IF NOT EXISTS `socials` (
 --
 
 INSERT INTO `socials` (`id`, `title`, `description`, `icon`, `image`, `link`, `sort`, `is_active`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 'facebook', '', 'fa-facebook', '', 'https://www.facebook.com/', 10, 1, 0, '2016-01-09 17:42:23', '2016-01-09 16:42:23'),
+(1, 'facebook', '', 'fa-facebook', '', 'https://www.facebook.com/', 10, 1, 0, '2016-04-27 18:44:58', '2016-04-27 16:44:58'),
 (2, 'Twitter', '', 'fa-twitter', '', 'https://twitter.com/?lang=it', 20, 1, 0, '2015-12-23 20:25:38', '2015-12-23 20:25:38'),
 (3, 'Linkedin', '', 'fa-linkedin', '', 'https://www.linkedin.com/in/marcoax', 30, 1, 0, '2015-12-30 18:32:16', '2015-12-30 17:32:16'),
 (4, 'Github', '', 'fa-github', '', 'https://github.com/marcoax', 0, 1, 0, '2015-12-23 21:57:46', '2015-12-23 20:57:46');
@@ -605,7 +652,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `update_by` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dump dei dati per la tabella `tags`
@@ -614,7 +661,8 @@ CREATE TABLE IF NOT EXISTS `tags` (
 INSERT INTO `tags` (`id`, `title`, `slug`, `created_by`, `update_by`, `created_at`, `updated_at`) VALUES
 (1, '', 'research', 0, 0, '2016-01-10 09:40:24', '2016-01-10 08:40:24'),
 (2, '', 'project', 0, 0, '2016-01-10 08:40:41', '2016-01-10 08:40:41'),
-(3, '', 'creolo', 0, 0, '2016-01-10 12:24:19', '2016-01-10 12:24:19');
+(3, '', 'creolo', 0, 0, '2016-01-10 12:24:19', '2016-01-10 12:24:19'),
+(4, '', 'sex', 0, 0, '2016-04-27 16:45:52', '2016-04-27 16:45:52');
 
 -- --------------------------------------------------------
 
@@ -630,7 +678,7 @@ CREATE TABLE IF NOT EXISTS `tag_translations` (
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dump dei dati per la tabella `tag_translations`
@@ -641,7 +689,9 @@ INSERT INTO `tag_translations` (`id`, `tag_id`, `locale`, `title`, `created_at`,
 (2, 2, 'en', 'Project', '2016-01-10 09:41:02', '2016-01-10 08:41:02'),
 (3, 2, 'it', 'progetti', '2016-01-10 08:45:17', '2016-01-10 08:45:17'),
 (4, 3, 'en', 'Creolo', '2016-01-10 13:25:02', '2016-01-10 12:25:02'),
-(5, 3, 'it', 'Creolo', '2016-01-10 13:25:02', '2016-01-10 12:25:02');
+(5, 3, 'it', 'Creolo', '2016-01-10 13:25:02', '2016-01-10 12:25:02'),
+(6, 4, 'en', 'sex', '2016-04-27 16:45:52', '2016-04-27 16:45:52'),
+(7, 4, 'it', 'sex', '2016-04-27 16:45:52', '2016-04-27 16:45:52');
 
 -- --------------------------------------------------------
 
@@ -667,6 +717,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
+(3, 'guestpino', 'pino@laraCms.com', '$2y$10$eZCZPUVMU8kmhYvMk8ThYOOth4/myQsJgjI3..Da.wL09eHnMSew2', 'amministratore', 'wFcX4LOGC9AhAxgNKItmGtJCwYvKlnv68No3xupJ4C5K2yE3ATVygr2XydyU', '2015-12-20 18:57:51', '2016-02-02 20:42:20', 1),
 (4, 'guest', 'guest@laraCms.com', '$2y$10$eZCZPUVMU8kmhYvMk8ThYOOth4/myQsJgjI3..Da.wL09eHnMSew2', 'amministratore', 'wFcX4LOGC9AhAxgNKItmGtJCwYvKlnv68No3xupJ4C5K2yE3ATVygr2XydyU', '2015-12-20 18:57:51', '2016-02-02 20:42:20', 1),
 (5, 'user', 'user@laraCms.com', '$2y$10$z8/zmvkO0lNFtqVGJGaeyu4Yn5tsRN05UJpqjIRmHphj7qkeTAxSC', 'ginaschena', '', '2016-01-23 17:52:48', '2016-02-02 20:42:12', 1);
 
@@ -765,6 +816,12 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `roles_name_unique` (`name`);
 
 --
+-- Indexes for table `role_adminuser`
+--
+ALTER TABLE `role_adminuser`
+  ADD PRIMARY KEY (`user_id`,`role_id`), ADD KEY `role_adminuser_role_id_foreign` (`role_id`);
+
+--
 -- Indexes for table `role_user`
 --
 ALTER TABLE `role_user`
@@ -817,7 +874,7 @@ ALTER TABLE `article_translations`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `hpsliders`
 --
@@ -827,12 +884,12 @@ ALTER TABLE `hpsliders`
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `media_translations`
 --
 ALTER TABLE `media_translations`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `news`
 --
@@ -867,12 +924,12 @@ ALTER TABLE `socials`
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tag_translations`
 --
 ALTER TABLE `tag_translations`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -913,6 +970,13 @@ ADD CONSTRAINT `news_translations_news_id_foreign` FOREIGN KEY (`news_id`) REFER
 ALTER TABLE `permission_role`
 ADD CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limiti per la tabella `role_adminuser`
+--
+ALTER TABLE `role_adminuser`
+ADD CONSTRAINT `role_adminuser_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `role_adminuser_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `adminusers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `role_user`
