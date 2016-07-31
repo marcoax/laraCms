@@ -73,6 +73,6 @@ return [
     | database.
     |
     */
-    'role_user_table' => 'role_user',
+    'role_user_table' => 'role_adminuser',
 
 ];
