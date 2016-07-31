@@ -32,6 +32,7 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
     Route::get('api/updateHtml/{mediaType?}/{model?}/{id?}', '\App\laraCms\Admin\Controllers\AjaxController@updeteMediaList');
     Route::get('api/updateMediaSortList/', '\App\laraCms\Admin\Controllers\AjaxController@updateMediaSortList');
 
+    Route::get('export/{model?}', '\App\laraCms\Admin\Controllers\ExportController@model');
 
 });
 
