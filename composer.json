@@ -7,7 +7,6 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "illuminate/html": "5.0.*",
         "hisorange/browser-detect": "2.*",
         "laravelcollective/html": "^5.1",
         "mcamara/laravel-localization": "1.0.*",
