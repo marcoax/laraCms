@@ -63,9 +63,18 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('admin/password/email', '\App\laraCms\Admin\Controllers\AdminPasswordController@postEmail');
 
     // Authentication routes...
-    Route::get('users/login',  'Auth\AuthController@getLogin');
-    Route::post('users/login', 'Auth\AuthController@postLogin');
-    Route::get('users/logout', 'Auth\AuthController@getLogout');
+    Route::get('users/login',  '\App\laraCms\Website\Controllers\AuthController@getLogin');
+    Route::post('users/login', '\App\laraCms\Website\Controllers\AuthController@postLogin');
+    Route::get('users/logout', '\App\laraCms\Website\Controllers\AuthController@getLogout');
+
+    Route::get('users/dashboard',  '\App\laraCms\Website\Controllers\UserController@dashboard')->middleware('auth');
+    Route::get('users/profile', '\App\laraCms\Website\Controllers\UserController@profile')->middleware('auth');
+/*
+    Route::get('profile', [
+        'middleware' => 'auth',
+        'uses' => 'ProfileController@show'
+    ]);
+*/
 
     // Registration routes...
     Route::get('users/register', 'Auth\AuthController@getRegister');
