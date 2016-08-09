@@ -34,14 +34,15 @@
                     <div id="nav-main" class="collapse navbar-collapse navbar-responsive-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="{{url('')}} " class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Lang <span class="caret"></span></a>
+                                <a href="{{url('')}} " class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false">Lang <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                         <li>
                                             @if (LaravelLocalization::getCurrentLocale() ==  $localeCode)
-                                                <a href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}} </a>
+                                                <a href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}</a>
                                             @else
-                                                <a href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}} </a>
+                                                <a href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">{{ $properties['native'] }}</a>
                                             @endif
                                         </li>
                                     @endforeach
@@ -49,30 +50,48 @@
                             </li>
                         </ul>
                         <ul id="menu" class="nav navbar-nav nav navbar-right">
-
-
-
                             @foreach (  $pages->top()->get() as  $index => $page )
-
                                 <li class="{{ ($article->id == $page->id)?'active':'' }}" id="{{ $page->slug }}">
                                     @if ('home' == $page->slug)
                                         <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '' ) ) }}">
                                     @else
-                                        <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( $page->slug )) }}" >
+                                        <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( $page->slug )) }}">
                                     @endif
-                                       {{ $page->title }}
-                                    </a>
+                                    {{ $page->title }}
+                                     </a>
                                 </li>
-                             @endforeach
+                                @endforeach
+                                @if (!Auth::guard()->check())
+                                    <li><a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( 'users/login' ) ) }}">Login</a></li>
+                                @else
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            {{Auth::guard()->user()->name}}
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( 'users/dashboard' ) ) }}"><i class="fa fa-list"></i> Dashboard</a>
+                                            </li>
 
-                            <!-- Home -->
-                            <!-- Search Block -->
+                                            <li class="divider"></li>
+                                            <li class="dropdown">
+                                                <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( 'users/profile' ) ) }}"><i class="fa fa-user"></i> Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( 'users/logout' ) ) }}"> <i class="fa fa-sign-out"></i> Logout</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                 @endif
+                                <!-- Search Block -->
                             <li class="hidden">
                                 <i class="search fa fa-search search-btn"></i>
-                                    <div class="search-open">
+                                <div class="search-open">
                                     <div class="input-group animated fadeInDown">
                                         <input type="text" class="form-control" placeholder="Search">
-							            <span class="input-group-btn">
+                                        <span class="input-group-btn">
 							                <button class="btn-u" type="button">Go</button>
 						                </span>
                                     </div>
