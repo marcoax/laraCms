@@ -34,17 +34,13 @@ class AdminAuthenticate extends  Authenticate
      */
     public function handle($request, Closure $next)
     {
-
-
         if (!auth()->guard('admin')->check()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-
-               return redirect()->guest('admin/login');
+               return redirect('admin/login');
             }
         }
-
         return $next($request);
     }
 }

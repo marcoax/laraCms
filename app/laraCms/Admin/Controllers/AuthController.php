@@ -10,7 +10,6 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Auth, Input;
 use App\User;
 
-
 class AuthController extends Controller
 {
     /*
@@ -25,9 +24,10 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-	private   $redirectTo 			= '/admin';
-	protected $loginPath  		    = '/admin/login';
-	protected $redirectAfterLogout  ='/admin/login';
+    protected $redirectTo = '/admin/';
+    protected $loginPath = '/admin/login';
+    protected $redirectAfterLogout = '/admin/login';
+
     /**
      * Create a new authentication controller instance.
      *
@@ -35,33 +35,28 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+         //$this->middleware('guest', ['except' => 'getLogout']);
+        //php$this->middleware('adminauth', ['except' => 'getLogin','getLogout']);
     }
 
-	public function getLogin()
+    public function getLogin()
     {
-        if (view()->exists('auth.authenticate')) {
-            return view('auth.authenticate');
-        }
-
         return view('admin.login');
     }
-    public function adminLogin(){
+
+    public function adminLogin()
+    {
         $input = Input::all();
 
-        if(count($input) > 0){
+        if (count($input) > 0) {
             $auth = auth()->guard('admin');
-           // print_r($input);
-
-
             $credentials = [
-                'email' =>  $input['email'],
-                'password' =>  $input['password'],
+                'email' => $input['email'],
+                'password' => $input['password'],
             ];
 
             if ($auth->attempt($credentials)) {
-
-               return redirect()->action('\App\laraCms\Admin\Controllers\AdminPagesController@home');
+                return redirect()->action('\App\laraCms\Admin\Controllers\AdminPagesController@home');
             } else {
 
                 return redirect()->back()
@@ -71,12 +66,9 @@ class AuthController extends Controller
                     ]);
             }
         } else {
-
             return view('admin.login');
         }
     }
-
-
     public function getLogout()
     {
         return $this->logout();
@@ -90,10 +82,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::guard('admin')->logout();
-
+        $this->redirectAfterLogout;
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
-
-
-	
 }
