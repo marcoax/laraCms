@@ -1,5 +1,4 @@
 <?php
-
 namespace App\LaraCms\Website\Controllers;
 
 use Illuminate\Http\Request;
@@ -25,7 +24,6 @@ class FormsController extends Controller
     public function __construct(ArticleRepositoryInterface $article)
     {
         $this->articleRepo = $article;
-
     }
 
 
@@ -50,9 +48,7 @@ class FormsController extends Controller
                 ->replyTo($data['email']);
         });
         /******************** end email ***********************/
-
         flash()->success(trans('website.message.contact_feedback'));
         return view('website.feedback',compact('article'));
     }
-
 }

@@ -47,7 +47,7 @@ class PagesController extends Controller
     public function pages($slug) {
 
         $article = $this->articleRepo->getBySlug($slug);
-        if(!$article) return redirect()->guest('');
+        if(!$article) return redirect('');
         $this->setSeo($article);
 
         if (view()->exists('website.'.$slug)) {
@@ -56,10 +56,7 @@ class PagesController extends Controller
         return view('website.normal',compact('article'));
     }
 
-    public function pino() {
-
-        return redirect()->guest('');
-    }
+ 
 
 
     public function news($slug='') {
@@ -71,7 +68,7 @@ class PagesController extends Controller
         }
         else {
             $news = $this->newsRepo->getBySlug($slug);
-            if(!$news) return redirect()->guest('');
+            if(!$news) return redirect('');
             $this->setSeo($news);
             $this->addOpenGraphProperty('type','articles');
             return view('website.news_single',compact('article','news'));

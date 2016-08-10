@@ -6,7 +6,10 @@
  * Time: 11:21
  */
 namespace App\LaraCms\Website\Repos\Article;
-
+/**
+ * Interface ArticleRepositoryInterface
+ * @package App\LaraCms\Website\Repos\Article
+ */
 interface ArticleRepositoryInterface
 {
     public function getBySlug($slug);

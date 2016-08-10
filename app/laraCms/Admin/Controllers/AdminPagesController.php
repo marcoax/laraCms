@@ -11,8 +11,6 @@ use Input;
 use Validator;
 use App\laraCms\UploadManager;
 
-
-
 class AdminPagesController  extends Controller
 {
 
@@ -71,10 +69,9 @@ class AdminPagesController  extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
+     * @param $model
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($model, $id)
     {
@@ -85,6 +82,11 @@ class AdminPagesController  extends Controller
         return view('admin.edit', ['article' => $article, 'pageConfig' => $this->config]);
     }
 
+    /**
+     * @param $model
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editmodal($model, $id)
     {
         $this->id = $id;
@@ -94,11 +96,13 @@ class AdminPagesController  extends Controller
         return view('admin.editmodal', ['article' => $article, 'pageConfig' => $this->config]);
     }
 
+
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request $request
-     * @return Response
+     * * Store a newly created resource in storage.
+     * @param $model
+     * @param AdminFormRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
 
     public function store($model, AdminFormRequest $request)
@@ -117,10 +121,10 @@ class AdminPagesController  extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  Request $request
-     * @param  int $id
-     * @return Response
+     * @param $model
+     * @param $id
+     * @param AdminFormRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
         public function update($model, $id, AdminFormRequest $request)
     {
@@ -138,10 +142,10 @@ class AdminPagesController  extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  Request $request
-     * @param  int $id
-     * @return Response
+
+     * @param $model
+     * @param $id
+     * @param AdminFormRequest $request
      */
     public function updatemodal($model, $id, AdminFormRequest $request)
     {
@@ -158,8 +162,9 @@ class AdminPagesController  extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     * @return Respons
+     * @param $model
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($model, $id)
     {
@@ -172,7 +177,9 @@ class AdminPagesController  extends Controller
         return redirect(action('\App\laraCms\Admin\Controllers\AdminPagesController@lista', $this->models));
     }
 
-
+    /**
+     * @param $article
+     */
     public function requestFieldHandler($article)
     {
         foreach ($article->getFillable() as $a) {
@@ -185,8 +192,8 @@ class AdminPagesController  extends Controller
         }
 
 
-        $this->mediadHandler($article, 'image');
-        $this->mediadHandler($article, 'doc');
+        $this->mediaHandler($article, 'image');
+        $this->mediaHandler($article, 'doc');
         $article->save();
 
         if ($this->request->has('role')) $article->saveRoles($this->request->get('role'));
@@ -203,7 +210,11 @@ class AdminPagesController  extends Controller
         }
     }
 
-    private function mediadHandler($model, $media)
+    /**
+     * @param $model
+     * @param $media
+     */
+    private function mediaHandler($model, $media)
     {
         //$UM = new UploadManager;
         //$UM->init($media,$model);
