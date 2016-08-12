@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand"
-               href="{{ LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() , url('')) }}">
+               href="{{ LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() , url('/admin')) }}">
                 <img src="{!! asset('public/cms/image/logo.png')!!}" alt="CMS Login" style="height:50px;">
             </a>
         </div>

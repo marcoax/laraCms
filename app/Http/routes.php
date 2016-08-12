@@ -36,33 +36,28 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 
 });
 
+
+Route::group(array('prefix' => 'admin'), function () {
+    Route::get('login', '\App\laraCms\Admin\Controllers\AuthController@getLogin');
+    Route::post('login', '\App\laraCms\Admin\Controllers\AuthController@adminLogin');
+    Route::get('logout', '\App\laraCms\Admin\Controllers\AuthController@getLogout');
+    Route::get('password/email', '\App\laraCms\Admin\Controllers\AdminPasswordController@getEmail');
+    Route::post('password/email', '\App\laraCms\Admin\Controllers\AdminPasswordController@postEmail');
+    Route::get('password/reset/{token}', '\App\laraCms\Admin\Controllers\AdminPasswordController@getReset');
+    Route::post('password/reset', '\App\laraCms\Admin\Controllers\AdminPasswordController@postReset');
+});
+
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
-    Route::post('admin/password/reset', 'Auth\PasswordController@postReset');
-
-
-
 
     Route::get('/',            '\App\laraCms\Website\Controllers\PagesController@home');
     Route::get('/news/',       '\App\laraCms\Website\Controllers\PagesController@news');
     Route::get('/news/{slug}', '\App\laraCms\Website\Controllers\PagesController@news');
     Route::get('/{slug?}',     '\App\laraCms\Website\Controllers\PagesController@pages');
     Route::post('/contact',    '\App\laraCms\Website\Controllers\FormsController@getContactUsForm');
-
     Route::post('/api/newsletter',        '\App\laraCms\Website\Controllers\ApiController@subscribeNewsletter');
-
     Route::get('/api/new/{post?}', function (App\Article $post) {
         return $post;
     });
-
-
-    Route::get('/admin/login', '\App\laraCms\Admin\Controllers\AuthController@getLogin');
-    Route::post('admin/login', '\App\laraCms\Admin\Controllers\AuthController@adminLogin');
-    Route::get('admin/logout', '\App\laraCms\Admin\Controllers\AuthController@getLogout');
-    Route::get('admin/password/email', '\App\laraCms\Admin\Controllers\AdminPasswordController@getEmail');
-    Route::post('admin/password/email', '\App\laraCms\Admin\Controllers\AdminPasswordController@postEmail');
-
-    Route::get('admin/password/reset/{token}', '\App\laraCms\Admin\Controllers\AdminPasswordController@getReset');
-    Route::post('admin/password/reset', 'Auth\PasswordController@postReset');
 
     // Authentication routes...
     Route::get('users/login',  '\App\laraCms\Website\Controllers\AuthController@getLogin');
