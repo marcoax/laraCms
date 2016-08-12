@@ -85,7 +85,7 @@
 	</div>
 @endsection
 @section('footerjs')
-	<script src="{!! asset(config('laraCms.admin.path.plugins').'uploadifive/jquery.uploadifive.min.js')!!}" type="text/javascript"></script>
+	<script src="{!! asset('public/js/vendor/jquery.uploadifive.min.js')!!}" type="text/javascript"></script>
 	<script src="{!! asset(config('laraCms.admin.path.plugins').'select2/js/select2.min.js')!!}" type="text/javascript"></script>
 	<script type="text/javascript">
 
@@ -98,6 +98,7 @@
 			$(".select2").select2({
 				allowClear: true
 			})
+
 		});
 	</script>
 	<script>

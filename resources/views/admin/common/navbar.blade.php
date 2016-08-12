@@ -11,7 +11,7 @@
             </button>
             <a class="navbar-brand"
                href="{{ LaravelLocalization::getLocalizedURL( LaravelLocalization::getCurrentLocale() , url('')) }}">
-                <img src="{!! asset('cms/image/logo.png')!!}" alt="CMS Login" style="margin-top:2px;height:45px;">
+                <img src="{!! asset('public/cms/image/logo.png')!!}" alt="CMS Login" style="height:50px;">
             </a>
         </div>
 
@@ -111,27 +111,12 @@
                                             @endif
                                         @endforeach
                                     @endif
-                                    @if ( isset($section['menu']['top-bar']['submodel']) )
-                                        @foreach($section['menu']['top-bar']['submodel'] as $item )
-
-                                            <li>
-                                                <a href="{{ ma_get_admin_list_url($item['model']) }}"><i class="fa fa-list"></i> {{ ucfirst ($item['label'])  }}</a>
-                                            </li>
-                                            @if($item['add']==1)
-                                            <li>
-                                                <a href="{{  ma_get_admin_create_url($item['model']) }}"><i class="fa fa-plus"></i> Add {{ ucfirst ($item['label'])  }}</a>
-                                            </li>
-                                            @endif
-
-                                       @endforeach
-                                   @endif
-
-                               </ul>
-                           </li>
-                       @endif
-                   @endforeach
-               </ul>
-           @endif
-       </div>
-   </div>
+                                </ul>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+    </div>
 </nav>

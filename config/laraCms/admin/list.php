@@ -35,7 +35,6 @@ return [
             'view' => '0',
             'selectable' => '1',
             'showMedia' => '1',
-            'showMediaCategory' =>'1',
             'showSeo' => '1',
             'menu' => [
                 'home' => true,
@@ -163,7 +162,6 @@ return [
             'view' => '0',
             'selectable' => '1',
             'showMedia' => '1',
-            'showMediaCategory' =>'1',
             'showSeo' => '1',
             'menu' => [
                 'home' => true,

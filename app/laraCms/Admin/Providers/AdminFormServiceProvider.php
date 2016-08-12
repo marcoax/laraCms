@@ -25,7 +25,7 @@ class AdminFormServiceProvider extends ServiceProvider
     {
         App::bind('AdminForm', function()
         {
-            return new \App\laraCms\Admin\AdminForm;
+            return new App\laraCms\Admin\AdminForm;
         });
     }
 }

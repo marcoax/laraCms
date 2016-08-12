@@ -30,7 +30,7 @@ function ma_get_image_on_the_fly($asset, $w, $h, $type = 'jpg')
 }
 
 /********      image    *****************/
-function ma_get_image_on_the_fly_cached($asset, $w, $h, $type = 'jpg')
+function ma_get_image_on_the_fly_chached($asset, $w, $h, $type = 'jpg')
 {
 
 
