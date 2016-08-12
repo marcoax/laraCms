@@ -26,7 +26,7 @@
                             <div class="media mb15 pb15 border-bottom-color-5">
 
                                 <div class="media-left">
-                                    <img class="media-object" alt="{{ $media->title }}" src="{!! ma_get_image_on_the_fly_chached($media->file_name,200,150,'jpg') !!}" border="0" width="200" heigth="150">
+                                    <img class="media-object" alt="{{ $media->title }}" src="{!! ma_get_image_on_the_fly_cached($media->file_name,200,150,'jpg') !!}" border="0" width="200" heigth="150">
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading color-4 small">{{ $media->title }}</h4>

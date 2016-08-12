@@ -4,7 +4,7 @@ namespace App\laraCms\Admin\Providers;
 Use App;
 use Illuminate\Support\ServiceProvider;
 
-class AdminFormServiceProvider extends ServiceProvider
+class AdminServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -14,6 +14,10 @@ class AdminFormServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        view()->composer('*', function($view){
+            $view_name = str_replace('.', '-', $view->getName());
+            view()->share('view_name', $view_name);
+        });
     }
 
     /**
@@ -23,9 +27,6 @@ class AdminFormServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('AdminForm', function()
-        {
-            return new \App\laraCms\Admin\AdminForm;
-        });
+
     }
 }

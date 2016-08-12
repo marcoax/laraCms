@@ -13,7 +13,7 @@
                             <div >
                                 <div class="mediaholder">
                                     <a href="news/{{ $post->slug }}">
-                                    <img src="{!! ma_get_image_on_the_fly_chached($post->image,720,500  ,'jpg') !!}"
+                                    <img src="{!! ma_get_image_on_the_fly_cached($post->image,720,500  ,'jpg') !!}"
                                          alt="{{ $post->title }}" border="0" class="img-responsive-100">
                                     </a>
                                 </div>

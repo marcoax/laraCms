@@ -3,17 +3,21 @@
 
         <div class="pull-right">
             <div class="btn-group">
-                <a  class="btn btn-default btn-lg "
-                    href="#"
-                    onclick="document.getElementById('edit_form').submit()"
-                    data-original-title="{!! trans('admin.label.save')!!}"
-                    data-placement="bottom" rel="tooltip">
-                    <i class="fa fa-save  color-main"></i>
-                </a>
+                @if($view_name=='admin-edit')
+                    <a  class="btn btn-default btn-lg "
+                        href="#"
+                        onclick="document.getElementById('edit_form').submit()"
+                        title="{!! trans('admin.label.save')!!}"
+                        data-toggle="tooltip"
+                        data-placement="bottom" rel="tooltip">
+                        <i class="fa fa-save  color-main"></i>
+                    </a>
+                @endif
                 @if ($pageConfig['create']==1)
                     <a class="btn btn-default btn-lg"
                        href="{{ ma_get_admin_create_url($pageConfig['model']) }}"
-                       data-original-title="{!! trans('admin.message.create')!!}"
+                       title="{!! trans('admin.message.create')!!}"
+                       data-toggle="tooltip"
                        data-placement="bottom" rel="tooltip">
                         <i class="fa fa-plus  color-main lg"></i>
                     </a>
@@ -24,11 +28,19 @@
 		<div id="list-action-bar" class="pull-left" style="display:none">
             <div class="btn-group">
                 <button id="toolbar_deleteButtonHandler" class="btn btn-default btn-danger btn-lg"  data-role="deleteAll"
-                    rel="tooltip" data-placement="bottom" data-original-title="{!! trans('admin.message.delete_items')!!}">
+                        rel="tooltip"
+                        data-placement="bottom"
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="{!! trans('admin.message.delete_items')!!}"
+
+                        data-original-title="{!! trans('admin.message.delete_items')!!}">
                     <i class="fa fa-trash  "></i>
                 </button>
                 <button id="toolbar_editButtonHandler" class="btn btn-default btn-lg "
-                    rel="tooltip" data-placement="bottom" data-original-title="{!! trans('admin.message.edit_items')!!}">
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="{!! trans('admin.message.edit_items')!!}">
                     <i class="fa fa-edit"></i>
                 </button>
             </div>

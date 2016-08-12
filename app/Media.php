@@ -11,13 +11,18 @@ class Media extends Model
 
     protected   $table = 'media';
     public      $translatedAttributes = ['title','description'];
-    protected   $fillable = ['title','description','sort'];
+    protected   $fillable = ['title','description','sort','media_category_id'];
     protected   $fieldspec = [];
 
 
     public function media()
     {
         return $this->morphTo();
+    }
+
+    public function media_category()
+    {
+        return $this->belongsTo('App\Domain','media_category_id','id');
     }
 
     function getFieldSpec ()
@@ -44,6 +49,21 @@ class Media extends Model
             'extraMsg' => '',
             'lang' => 0,
             'display' => 1,
+
+        ];
+
+
+
+        $this->fieldspec['media_category_id'] = [
+            'type'      => 'relation',
+            'model'     => 'Domain',
+            'filter'    =>  ['domain' => 'imagetype'],
+            'foreign_key' => 'value',
+            'label_key' => 'title',
+            'label'     => 'Media Category',
+            'hidden'    => '0',
+            'required'  =>  false,
+            'display'   => '1',
 
         ];
 
@@ -92,4 +112,13 @@ class Media extends Model
         return $this->fieldspec;
     }
 
+    /**
+     * @param $query
+     * @param string $media_category_id
+     */
+
+    public function scopeGallery($query,$media_category_id='')    {
+        if($media_category_id!='') $query->where('media_category_id',$media_category_id) ;
+        $query->orderBy('sort', 'asc');
+    }
 }

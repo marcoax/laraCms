@@ -9,9 +9,9 @@ return [
 	 
 	 
 	  'cms'            => 'admin/',
-	  'cms_assets'     => 'public/admin/',
-	  'cms_js'         => 'public/admin/js/',
-	  'cms_css'        => 'public/admin/css/',
+	  'cms_assets'     => 'public/cms/',
+	  'cms_js'         => 'public/cms/js/',
+	  'cms_css'        => 'public/cms/css/',
 	  
 	  'assets'     	   => 'public/',
 	  'common_js'      => 'public/js/',

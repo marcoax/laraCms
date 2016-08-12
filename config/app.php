@@ -160,13 +160,14 @@ return [
 
 
         // laraCMS
+        App\laraCms\Admin\Providers\AdminServiceProvider::class,
         App\laraCms\Admin\Providers\AdminFormServiceProvider::class,
         'App\laraCms\Notifications\FlashServiceProvider',
 
 
         // laraCMSfe
-        App\laraCms\Website\Providers\AppDbServiceProvider::class,
         App\laraCms\Website\Providers\AppServiceProvider::class,
+        App\laraCms\Website\Providers\AppDbServiceProvider::class,
         App\laraCms\Website\Providers\DecoratorServiceProvider::class,
 
 	],

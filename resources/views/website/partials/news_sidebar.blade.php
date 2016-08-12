@@ -10,7 +10,7 @@
 
             <div class="media-left">
                 <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( $article->slug.'/'.$posta->slug )) }}">
-                    <img class="media-object"  src="{!! ma_get_image_on_the_fly_chached($posta->image,64,48,'jpg') !!}" border="0" width="64" heigth="64">
+                    <img class="media-object"  src="{!! ma_get_image_on_the_fly_cached($posta->image,64,48,'jpg') !!}" border="0" width="64" heigth="64">
                 </a>
 
             </div>
