@@ -38,7 +38,6 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => 'getLogout']);
         $this->articleRepo = $article;
-
     }
 
     /**
@@ -68,6 +67,7 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'real_password' => $data['password'],
         ]);
     }
     public function getLogin()

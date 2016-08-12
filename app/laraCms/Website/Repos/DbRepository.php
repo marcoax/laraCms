@@ -6,8 +6,7 @@
  * Time: 11:40
  */
 
-namespace App\LaraCms\Website\Repos;
-use Carbon\Carbon;
+namespace App\laraCms\Website\Repos;
 
 abstract class DbRepository
 {

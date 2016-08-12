@@ -4,7 +4,7 @@ namespace App\laraCms\Website\Providers;
 Use App;
 use Illuminate\Support\ServiceProvider;
 
-class HtmlMenuServiceProvider extends ServiceProvider
+class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -24,9 +24,6 @@ class HtmlMenuServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('HtmlMenu', function()
-        {
-            return new \App\laraCms\Website\Decorator\HtmlMenu;
-        });
+
     }
 }

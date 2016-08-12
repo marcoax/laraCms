@@ -12,7 +12,7 @@ class AdminAuthenticate extends  Authenticate
      *
      * @var Guard
      */
-    protected $auth;
+    protected $guard   = 'admin';
 
     /**
      * Create a new filter instance.
@@ -22,7 +22,6 @@ class AdminAuthenticate extends  Authenticate
      */
     public function __construct(Guard $auth)
     {
-        $this->auth = $auth;
     }
 
     /**

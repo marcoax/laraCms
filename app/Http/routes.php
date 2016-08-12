@@ -37,10 +37,9 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 });
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+    Route::post('admin/password/reset', 'Auth\PasswordController@postReset');
 
 
-    App::bind('App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface', 'App\LaraCms\Website\Repos\Article\DbArticleRepository');
-    App::bind('App\LaraCms\Website\Repos\Post\NewsRepositoryInterface', 'App\LaraCms\Website\Repos\Post\DbNewsRepository');
 
 
     Route::get('/',            '\App\laraCms\Website\Controllers\PagesController@home');
@@ -61,6 +60,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('admin/logout', '\App\laraCms\Admin\Controllers\AuthController@getLogout');
     Route::get('admin/password/email', '\App\laraCms\Admin\Controllers\AdminPasswordController@getEmail');
     Route::post('admin/password/email', '\App\laraCms\Admin\Controllers\AdminPasswordController@postEmail');
+
+    Route::get('admin/password/reset/{token}', '\App\laraCms\Admin\Controllers\AdminPasswordController@getReset');
+    Route::post('admin/password/reset', 'Auth\PasswordController@postReset');
 
     // Authentication routes...
     Route::get('users/login',  '\App\laraCms\Website\Controllers\AuthController@getLogin');

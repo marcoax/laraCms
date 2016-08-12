@@ -5,7 +5,7 @@
  * Date: 03/07/2016
  * Time: 11:21
  */
-namespace App\LaraCms\Website\Repos\Post;
+namespace App\laraCms\Website\Repos\News;
 
 interface NewsRepositoryInterface
 {

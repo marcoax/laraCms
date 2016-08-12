@@ -12,7 +12,7 @@
 				<div class="panel-body">
 					@include('admin.common.error')
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ URL::to('/password/reset') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ URL::to('/admin/password/reset') }}">
 						 {!! csrf_field() !!}
 
 						<input type="hidden" name="token" value="{{ $token }}">

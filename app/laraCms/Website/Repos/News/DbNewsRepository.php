@@ -1,13 +1,13 @@
 <?php
-namespace App\LaraCms\Website\Repos\Post;
+namespace App\laraCms\Website\Repos\News;
 /**
  * Created by PhpStorm.
  * User: Marco Asperti
  * Date: 03/07/2016
  * Time: 10:58
  */
-use App\Article;
-use App\LaraCms\Website\Repos\DbRepository;
+
+use App\laraCms\Website\Repos\DbRepository;
 use App\News;
 use Carbon\Carbon;
 class DbNewsRepository extends DbRepository implements NewsRepositoryInterface

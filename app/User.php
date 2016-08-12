@@ -107,6 +107,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			'display'=>'1',
 			
 		];
+        /*
 		$this->fieldspec['role'] = [
 			'type'       		=> 'relation',
 			'model'      		=> 'Role',
@@ -123,6 +124,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			'display'=>'1',
 			 'multiple' => true,
 		];
+        */
 		
 		$this->fieldspec['password']    = [	
 			'type' =>'password',

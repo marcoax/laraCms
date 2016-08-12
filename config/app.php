@@ -159,11 +159,16 @@ return [
          Maatwebsite\Excel\ExcelServiceProvider::class,
 
 
-		// Ma
-		App\LaraCms\Admin\Providers\AdminFormServiceProvider::class,
-		'App\laraCms\Notifications\FlashServiceProvider',
-		App\LaraCms\Website\Providers\HtmlMenuServiceProvider::class,
-		App\LaraCms\Website\Providers\HtmlSocialServiceProvider::class
+        // laraCMS
+        App\laraCms\Admin\Providers\AdminFormServiceProvider::class,
+        'App\laraCms\Notifications\FlashServiceProvider',
+
+
+        // laraCMSfe
+        App\laraCms\Website\Providers\AppDbServiceProvider::class,
+        App\laraCms\Website\Providers\AppServiceProvider::class,
+        App\laraCms\Website\Providers\DecoratorServiceProvider::class,
+
 	],
 
     /*
@@ -225,16 +230,18 @@ return [
 		'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
 		'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
 		'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
-
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
-		/*
-         *  Ma
+        /*
+        laraCMS
         */
-		'AdminForm'      => App\laraCms\Admin\Facades\AdminForm::class,
-		'Flash' =>   	'Helpers\Notifications\Flash',
-		'HtmlMenu'       => App\laraCms\Website\Facades\HtmlMenu::class,
-		'HtmlSocial'     => App\laraCms\Website\Facades\HtmlSocial::class
+        'AdminForm' => App\laraCms\Admin\Facades\AdminForm::class,
+        'Flash'     => 'Helpers\Notifications\Flash',
+        'SEO'       => Artesaos\SEOTools\Facades\SEOTools::class,
+        'Setting'   => \App\laraCms\Tools\SettingHelper::class,
+
+        'HtmlMenu'       => App\laraCms\Website\Facades\HtmlMenu::class,
+        'HtmlSocial'     => App\laraCms\Website\Facades\HtmlSocial::class,
     ],
 
 ];

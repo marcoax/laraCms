@@ -1,10 +1,10 @@
 <?php
 
-namespace App\LaraCms\Website\Providers;
+namespace App\laraCms\Website\Providers;
 Use App;
 use Illuminate\Support\ServiceProvider;
 
-class HtmlSocialServiceProvider extends ServiceProvider
+class DecoratorServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -24,9 +24,13 @@ class HtmlSocialServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        App::bind('HtmlMenu', function()
+        {
+            return new App\laraCms\Website\Decorator\HtmlMenu;
+        });
         App::bind('HtmlSocial', function()
         {
-            return new \App\laraCms\Website\Decorator\HtmlSocial;
+            return new App\laraCms\Website\Decorator\HtmlSocial;
         });
     }
 }

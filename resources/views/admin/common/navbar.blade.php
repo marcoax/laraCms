@@ -34,6 +34,26 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
+                                    <a href="{{ ma_get_admin_list_url('domains') }}"><i class="fa fa-list"></i> Domains</a>
+                                </li>
+                                <li>
+                                    <a href="{{ ma_get_admin_create_url('domains') }}"><i class="fa fa-plus"></i> Add Domains</a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ ma_get_admin_list_url('countries') }}"><i class="fa fa-list"></i> Countries</a>
+                                </li>
+                                <li>
+                                    <a href="{{ ma_get_admin_create_url('countries') }}"><i class="fa fa-plus"></i> Add Country</a>
+                                </li>
+                                <li>
+                                    <a href="{{ ma_get_admin_list_url('settings') }}"><i class="fa fa-list"></i> Settings</a>
+                                </li>
+                                <li>
+                                    <a href="{{ ma_get_admin_create_url('settings') }}"><i class="fa fa-plus"></i> Add Setting</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
                                     <a href="{{ ma_get_admin_list_url('roles') }}"><i class="fa fa-list"></i> Roles</a>
                                 </li>
                                 <li>

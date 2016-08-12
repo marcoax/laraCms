@@ -2,6 +2,7 @@
 
 namespace App\LaraCms\Website\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests;
@@ -14,7 +15,7 @@ use App\Article;
 use App\News;
 use App\Contact;
 use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
-use App\LaraCms\Website\Repos\Post\NewsRepositoryInterface;
+use App\LaraCms\Website\Repos\News\NewsRepositoryInterface;
 
 
 class PagesController extends Controller
@@ -56,7 +57,7 @@ class PagesController extends Controller
         return view('website.normal',compact('article'));
     }
 
- 
+
 
 
     public function news($slug='') {

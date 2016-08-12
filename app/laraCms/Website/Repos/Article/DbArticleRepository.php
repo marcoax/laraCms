@@ -1,5 +1,5 @@
 <?php
-namespace App\LaraCms\Website\Repos\Article;
+namespace App\laraCms\Website\Repos\Article;
 /**
  * Created by PhpStorm.
  * User: Marco Asperti

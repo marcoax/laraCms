@@ -81,3 +81,4 @@ Thumbs.db
 /.idea
 /_ide_helper.php
 >>>>>>> origin/master
+.env
