@@ -9,7 +9,7 @@
 namespace App\LaraCms\Website\Controllers;
 
 use App\laraCms\SeoTools\LaraCmsSeoTrait;
-use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
+use App\laraCms\Website\Repos\Article\ArticleRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Input;
 use Validator;

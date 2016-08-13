@@ -14,8 +14,8 @@ use Validator;
 use App\Article;
 use App\News;
 use App\Contact;
-use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
-use App\LaraCms\Website\Repos\News\NewsRepositoryInterface;
+use App\laraCms\Website\Repos\Article\ArticleRepositoryInterface;
+use App\laraCms\Website\Repos\News\NewsRepositoryInterface;
 
 
 class PagesController extends Controller

@@ -9,7 +9,7 @@ use App\LaraCms\Website\Requests\WebsiteFormRequest;
 use Input;
 use Validator;
 use App\Contact;
-use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
+use App\laraCms\Website\Repos\Article\ArticleRepositoryInterface;
 
 class FormsController extends Controller
 {

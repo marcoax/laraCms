@@ -1,6 +1,6 @@
 <?php
 namespace App\LaraCms\Website\Controllers;
-use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
+use App\laraCms\Website\Repos\Article\ArticleRepositoryInterface;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
