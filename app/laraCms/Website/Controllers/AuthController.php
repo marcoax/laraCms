@@ -23,7 +23,7 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     | MA@laraCms custom auth views has been created
-    | TODO auth localization
+    |
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
@@ -31,9 +31,11 @@ class AuthController extends Controller
     protected $loginPath  		     = '/users/login';
     protected $redirectPath          = '/users/dashboard';
     protected $redirectAfterLogout   = '/users/login';
+    protected $localePrefix          =  '';
 
     /**
      * Create a new authentication controller instance.
+     * and  setup  some localized  variables
      *
      * @param ArticleRepositoryInterface $article
      */
@@ -42,13 +44,12 @@ class AuthController extends Controller
         $this->middleware('guest', ['except' => 'getLogout']);
         $this->articleRepo          = $article;
 
+        $this->localePrefix         = $this->getRealLocale();
+        $this->redirectTo           = $this->localePrefix.'/users/dashboard';
+        $this->redirectPath         = $this->localePrefix.'/users/dashboard';
+        $this->loginPath            = $this->localePrefix.'/users/login';
+        $this->redirectAfterLogout  = $this->localePrefix.'/users/login';
 
-        $this->redirectTo           = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/dashboard');
-        /*
-       $this->redirectPath         = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/dashboard');
-       $this->loginPath            = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/login');
-       $this->redirectAfterLogout  = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/login');
-       */
     }
 
     /**
@@ -80,9 +81,23 @@ class AuthController extends Controller
             'real_password' => $data['password'],
         ]);
     }
+
+    /**
+     *  Override  getLogin Method
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getLogin()
     {
         $article =$this->articleRepo->getBySlug('login');
         return view('website.auth.login',compact('article'));
+    }
+
+    /**
+     * Calculate the current Locale path  prefix if needed
+     * @return string
+     */
+    protected function getRealLocale()
+    {
+        return (LaravelLocalization::getCurrentLocale()==LaravelLocalization::getDefaultLocale())?'':'/'.LaravelLocalization::getCurrentLocale();
     }
 }

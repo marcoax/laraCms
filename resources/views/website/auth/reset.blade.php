@@ -5,7 +5,7 @@
 	<section data-role="info-block">
 		<div class="container mv25 pt25">
 			<div class="row mv25">
-				@include('website.form.reset')
+				@include('website.auth.form.reset')
 			</div><!-- /row -->
 		</div> <!-- /container -->
 	</section>

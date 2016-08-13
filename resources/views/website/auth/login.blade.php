@@ -8,7 +8,7 @@
 				<div class="row mv25">
 					@include('website.partials.pagetitle')
 					<div class="col-sm-12 mb0 text-center">{!! $article->description !!}</div>
-					@include('website.form.login')
+					@include('website.auth.form.login')
 				</div><!-- /row -->
 
 			</div> <!-- /container -->
