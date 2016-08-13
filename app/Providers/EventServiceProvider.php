@@ -16,9 +16,6 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\NewsletterSubscribe' => [
             'App\Listeners\SendSubscribeNotification',
         ],
-
-
-
     ];
 
     /**

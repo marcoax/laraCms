@@ -9,7 +9,7 @@
 hr {
 	border-top: 1px solid #DADADA;
 }
-.img-thumbnail,.btn,.panel,.form-control,select.form-control,select,.alert {
+.img-thumbnail,.btn,.panel,.form-control,select.form-control,select,.alert,.modal-content {
 	border-radius: 0px;
 }
 
@@ -159,7 +159,6 @@ input::-moz-focus-inner {
 	color: #fff;
 }
 
-
 .dropdown-menu {
 	border-radius: 0 !important;
 	-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -169,8 +168,21 @@ input::-moz-focus-inner {
 	top: 92%;
 }
 
+/************************ MODAL ******************************/
+.modal-content {
+	position: relative;
+	background-color: #fff;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	border: 1px solid #999;
+	border: 1px solid rgba(0,0,0,.2);
+	border-radius: 0px;
+	outline: 0;
+	-webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+	box-shadow: 0 3px 9px rgba(0,0,0,.5);
+}
 
-/************************  HP   SLIDER ************************/
+/************************  HP SLIDER ************************/
 .carousel-caption {
 
 }

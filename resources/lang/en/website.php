@@ -12,10 +12,12 @@ return [
     */
     'email' => 'Email',
     'go_to_site' => 'Go to the site',
-    'name' => 'Name',
+
     'info_request' => 'Contact form',
     'message_email' => 'Message',
     'more_info' => '',
+    'name' => 'Name',
+    'newsletter_subscribe_ok' => 'Thanks for your registration to our newsletter',
     'send' => 'Send',
     'surname' => 'Surname',
     'subject' => 'Subject',

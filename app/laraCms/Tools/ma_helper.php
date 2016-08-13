@@ -1,5 +1,19 @@
 <?php
+
+/***** SANITIZE PARAMETERS *****/
+/**
+ * @param $parameter
+ * @return string
+ */
+function ma_sanitizeParameter($parameter)
+{
+    return htmlspecialchars($parameter, ENT_QUOTES, 'utf-8');
+}
 /*********************  doc **********************/
+/**
+ * @param $doc
+ * @return string
+ */
 function ma_get_doc_from_repository($doc)
 {
     $path = config('laraCms.admin.path.doc_repository');
@@ -7,12 +21,21 @@ function ma_get_doc_from_repository($doc)
 }
 
 /********      image    *****************/
+/**
+ * @param $img
+ * @return string
+ */
 function ma_get_image_from_repository($img)
 {
 
     $path = config('laraCms.admin.path.img_repository');
     return asset($path . $img);
 }
+
+/**
+ * @param $img
+ * @return string
+ */
 function ma_get_image_path_from_repository($img)
 {
 
@@ -20,6 +43,13 @@ function ma_get_image_path_from_repository($img)
     return  base_path($path . $img);
 }
 
+/**
+ * @param $asset
+ * @param $w
+ * @param $h
+ * @param string $type
+ * @return null|string
+ */
 function ma_get_image_on_the_fly($asset, $w, $h, $type = 'jpg')
 {
 
@@ -55,6 +85,10 @@ function ma_get_image_on_the_fly_cached($asset, $w, $h, $type = 'jpg')
 
 
 /*******************  admin   ***************/
+/**
+ * @param $model
+ * @return mixed
+ */
 function ma_get_admin_list_url($model)
 {
     $path = '/admin/list';
@@ -62,6 +96,10 @@ function ma_get_admin_list_url($model)
     return URL::to($path . '/' . str_plural($modelName));
 }
 
+/**
+ * @param $model
+ * @return mixed
+ */
 function ma_get_admin_create_url($model)
 {
     $path = '/admin/create';
@@ -69,6 +107,10 @@ function ma_get_admin_create_url($model)
     return URL::to($path . '/' . str_plural($modelName));
 }
 
+/**
+ * @param $model
+ * @return mixed
+ */
 function ma_get_admin_edit_url($model)
 {
     $path = '/admin/edit';
@@ -76,6 +118,10 @@ function ma_get_admin_edit_url($model)
     return URL::to($path . '/' . str_plural($modelName) . '/' . $model->id);
 }
 
+/**
+ * @param $model
+ * @return mixed
+ */
 function ma_get_admin_editmodal_url($model)
 {
     $path = '/admin/editmodal';
@@ -83,6 +129,10 @@ function ma_get_admin_editmodal_url($model)
     return URL::to($path . '/' . str_plural($modelName) . '/' . $model->id);
 }
 
+/**
+ * @param $model
+ * @return mixed
+ */
 function ma_get_admin_delete_url($model)
 {
     $path = '/admin/delete';
@@ -90,6 +140,10 @@ function ma_get_admin_delete_url($model)
     return URL::to($path . '/' . str_plural($modelName) . '/' . $model->id);
 }
 
+/**
+ * @param $model
+ * @return mixed
+ */
 function ma_get_admin_preview_url($model)
 {
 
@@ -107,6 +161,9 @@ function is_image($mimeType)
     return starts_with($mimeType, 'image/');
 }
 
+/**
+ *
+ */
 if (!function_exists('flash')) {
     /**
      * Arrange for a flash message.

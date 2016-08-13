@@ -26,7 +26,9 @@
 						@foreach($labels=explode(',',$pageConfig['fieldLabel']) as $label)
 						<th class="middle-vertical-align">{!! $label !!}</th>
 						@endforeach
-						<th class="middle-vertical-align">{!! trans('admin.label.edit')!!}</th>
+						@if ($pageConfig['edit']==1)
+							<th class="middle-vertical-align">{!! trans('admin.label.edit')!!}</th>
+						@endif
 						@if ($pageConfig['delete']==1)
 							<th class="middle-vertical-align">{!! trans('admin.label.delete')!!}</th>
 						@endif
@@ -81,7 +83,13 @@
 							@endif
 						</td>
 						@endforeach
-						<td class="text-center"><a href="{{  ma_get_admin_edit_url($article) }}" class="btn btn-primary btn-small "   data-role ="edit-item"> <i class="fa fa-edit"></i> {!! trans('admin.label.edit')!!}</a></td>
+						@if ($pageConfig['edit']==1)
+							<td class="text-center">
+								<a href="{{  ma_get_admin_edit_url($article) }}" class="btn btn-primary btn-small "   data-role ="edit-item">
+									<i class="fa fa-edit"></i> {!! trans('admin.label.edit')!!}
+								</a>
+							</td>
+						@endif
 						@if ($pageConfig['delete']==1)
 							<td class="text-center">
 								<a href="{{  ma_get_admin_delete_url($article) }}" class="btn btn-danger btn-small" data-role="delete-item">

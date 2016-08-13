@@ -63,10 +63,12 @@
 <script type="text/javascript" src="{!! asset('public/website/plugins/carousel-swipe.js')!!}"></script>
 <script type="text/javascript" src="{!! asset('public/website/plugins//wow-animations/js/wow.min.js')!!}"></script>
 <script type="text/javascript" language="javascript" src="{!! asset('public/website/plugins/owl-carousel/owl.carousel.min.js')!!}"></script>
+<script src="{!! asset( config('laraCms.admin.path.js_vendor').'bootbox.js') !!}"></script>
 <script src="{!! asset('public/website/js/app.js')!!}"></script>
 @yield('footerjs')
 <script type="text/javascript">
-    var urlAjaxHandler = "{{ url('') }}";
+    var urlAjaxHandler  = "{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '' )) }}";
+    var _LANG          =" {{ LaravelLocalization::getCurrentLocale()}} ";
     jQuery(document).ready(function() {
         App.init();
         App.initWoW();

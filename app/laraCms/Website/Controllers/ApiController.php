@@ -2,44 +2,44 @@
 
 namespace App\laraCms\Website\Controllers;
 
-
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\laraCms\Website\Requests\AjaxFormRequest;
+use App\Newsletter;
 use Input;
 use Validator;
-
 
 class ApiController extends Controller
 {
 
+    /**
+     * @var
+     */
     protected $articleRepo;
 
-
     /**
-     * @return mixed
+     * @param AjaxFormRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-
-    
-
-
-    public function subscribeNewsletter( AjaxFormRequest $request  ) {
-
+    public function subscribeNewsletter(AjaxFormRequest $request)
+    {
         $validator = Validator::make($request->all(), $request->rules());
         // check if the validator failed -----------------------
         if ($validator->fails()) {
             return response()->json(array(
-                'success' => false,
+                'status' => 'ko',
                 'errors' => $validator->getMessageBag()->toArray()
             ));
-
+        } else
+        {
+            // INSERT RECORD IN DATABASE
+            $newsletter = new Newsletter;
+            $newsletter->email = ma_sanitizeParameter( $request->email );
+            $saved = $newsletter->save();
+            return response()->json(array(
+                'status' =>'ok',
+                'msg' => trans('website.newsletter_subscribe_ok'),
+            ));
         }
-        else return response()->json(array(
-            'status' =>'ok',
-            'msg' => 'ok'
-        ));
-
     }
-
 }

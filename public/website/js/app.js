@@ -70,13 +70,8 @@ var App = function () {
                 $("#main-navi").addClass("bottomonly-shadow");
                 $("#logo-colore").show();
                 $("#logo-bianco").hide();
-
-
-
             } else {
                 //$(".topbar").slideDown();
-
-
                 setTimeout(function(){
                     $("#main-navi").removeClass("bottomonly-shadow");
                     $("#logo-colore").hide();
@@ -98,7 +93,6 @@ var App = function () {
 
     function iscivitiNewsletter() {
         var msg = '';
-
         jQuery('#btn-newsletter-subscribe').click(function(){
 
             //showWait();
@@ -108,14 +102,21 @@ var App = function () {
                 data : $( "#form-newsletter" ).serialize(),
                 dataType : 'json',
                 success : function(response) {
-                    console.log(response.status)
+                    var msgHtml = '';
                     if (response.status=='ok') {
-                       alert(response.msg);
+                        msgHtml += '<h4>' + response.msg + '</h4>';
                     }
-                    else  alert(response);
+                    else   {
+                       $.each( response.errors , function( key, value ) {
+                            msgHtml += '<h4>' + value[0] + '</h4>'; //showing only the first error.
+                        });
+
+                    };
+                    updateModalAlertMsg(msgHtml);
+
                 },
                 error : function(response) {
-                    console.log(response.email);
+                    updateModalAlertMsg('Error');
                 }
             });
         });
@@ -133,9 +134,7 @@ var App = function () {
             $('html, body').animate({
                 scrollTop: $(place).offset().top-100
             }, 1200, 'swing');
-
         });
-
     }
 
 
@@ -143,7 +142,6 @@ var App = function () {
     return {
         init: function () {
             handleBootstrap();
-
             handleSearch();
             handleToggle();
             handleHeader();
@@ -151,7 +149,6 @@ var App = function () {
             //niceScroll();
             iscivitiNewsletter();
         },
-
         iniServiceOwl: function () {
             var Serviziowl = $('.servizi-carousel');
             Serviziowl.owlCarousel({
@@ -193,7 +190,6 @@ var App = function () {
             })
 
         },
-
         initFancybox: function () {
             jQuery(".fancybox-button").fancybox({
                 groupAttr: 'data-rel',
@@ -299,7 +295,6 @@ var App = function () {
 
 
 function scrollToAnchor(aid){
-
     window.location.hash = '#'+aid;
 }
 

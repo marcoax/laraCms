@@ -1,7 +1,6 @@
 <?php
 
 namespace App\laraCms\Admin\Controllers;
-
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +15,13 @@ class AjaxController extends Controller
     private $responseContainer = ['status' => 'ko', 'message' => '', 'error' => '', 'data' => ''];
     protected $request;
 
-
+    /**
+     * @param $action
+     * @param $model
+     * @param string $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update($action, $model, $id = '', Request $request)
     {
         $this->request = $request;
@@ -43,6 +48,11 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * @param $model
+     * @param string $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete($model, $id = '')
     {
 
@@ -56,6 +66,10 @@ class AjaxController extends Controller
         return $this->responseHandler();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function uploadifive(Request $request)
     {
 
@@ -65,10 +79,10 @@ class AjaxController extends Controller
             $newMedia = Input::file($media);
             $mediaType = (is_image($newMedia->getMimeType()) == 'image') ? 'images' : 'docs';
             $destinationPath = $mediaType; // upload path folder
-            $extension  = $newMedia->getClientOriginalExtension(); // getting image extension
-            $name       = basename($newMedia->getClientOriginalName(), '.' . $extension);
-            $fileName   = str_slug($newMedia->getClientOriginalName());
-            $mediaPath  = public_path('media/' . $destinationPath . '/' . $fileName);
+            $extension = $newMedia->getClientOriginalExtension(); // getting image extension
+            $name = basename($newMedia->getClientOriginalName(), '.' . $extension);
+            $fileName = str_slug($newMedia->getClientOriginalName());
+            $mediaPath = public_path('media/' . $destinationPath . '/' . $fileName);
             // renaming image if exist
             if (file_exists($mediaPath)) $fileName = str_slug(rand(11111, 99999) . '_' . $name) . "." . $extension;
             $storage = \Storage::disk('media');
@@ -96,20 +110,26 @@ class AjaxController extends Controller
         }
     }
 
-
+    /**
+     * @param $mediaType
+     * @param $model
+     * @param string $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updeteMediaList($mediaType, $model, $id = '')
     {
-
         $modelClass = 'App\\' . $model;
         $object = $modelClass::whereId($id)->firstOrFail();
         if ($mediaType == 'images') return view('admin.helper.images_list_gallery', ['article' => $object]);
         else return view('admin.helper.docs_list', ['article' => $object]);
     }
 
+    /**
+     * @param Request $request
+     */
     public function updateMediaSortList(Request $request)
     {
         $i = 1;
-
         $input = Input::all();
         foreach ($input as $key => $items) {
             $dataObject = explode('_', $key);
@@ -121,13 +141,13 @@ class AjaxController extends Controller
                 $i++;
             };
         };
-
-
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function responseHandler()
     {
-
         return response()->json($this->responseContainer);
     }
 }

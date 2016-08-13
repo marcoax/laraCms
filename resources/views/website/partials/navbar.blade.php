@@ -17,7 +17,7 @@
                             <span class="sr-only">Toggle navigation</span>
                             <span class="fa fa-bars xx-big color-2 "></span>
                         </button>
-                        <a class="navbar-brand pr25-min-md" href="{{ URL::to('') }}">
+                        <a class="navbar-brand pr25-min-md" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '' )) }}">
                             <img class="visible-xs visible-sm" id="logo-header"
                                  src="{!! asset('public/website/images/logo_header_mobile.png') !!}"
                                  alt="laraCms - design studio - Milan Italy">
