@@ -18,6 +18,7 @@ class AdminPasswordController extends Controller
     | and uses a simple trait to include this behavior. You're free to
     | explore this trait and override any methods you wish to tweak.
     |
+    |  MA@laraCms laravel default  auth views has been used
     */
   
     protected $redirectTo   = '/admin/';

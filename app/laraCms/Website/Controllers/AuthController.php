@@ -22,6 +22,8 @@ class AuthController extends Controller
     | authentication of existing users. By default, this controller uses
     | a simple trait to add these behaviors. Why don't you explore it?
     |
+    | MA@laraCms custom auth views has been created
+    | TODO auth localization
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
@@ -40,12 +42,13 @@ class AuthController extends Controller
         $this->middleware('guest', ['except' => 'getLogout']);
         $this->articleRepo          = $article;
 
-        /*
+
         $this->redirectTo           = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/dashboard');
-        $this->redirectPath         = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/dashboard');
-        $this->loginPath            = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/login');
-        $this->redirectAfterLogout  = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/login');
-        */
+        /*
+       $this->redirectPath         = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/dashboard');
+       $this->loginPath            = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/login');
+       $this->redirectAfterLogout  = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/login');
+       */
     }
 
     /**
