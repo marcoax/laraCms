@@ -7,7 +7,7 @@ namespace App\laraCms\Website\Repos\Article;
  * Time: 10:58
  */
 use App\Article;
-use App\LaraCms\Website\Repos\DbRepository;
+use App\laraCms\Website\Repos\DbRepository;
 class DbArticleRepository extends DbRepository implements ArticleRepositoryInterface
 {
 

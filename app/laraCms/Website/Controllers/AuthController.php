@@ -1,5 +1,5 @@
 <?php
-namespace App\LaraCms\Website\Controllers;
+namespace App\laraCms\Website\Controllers;
 use App\laraCms\Website\Repos\Article\ArticleRepositoryInterface;
 use App\User;
 use Validator;

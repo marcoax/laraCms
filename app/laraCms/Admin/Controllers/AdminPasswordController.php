@@ -1,6 +1,6 @@
 <?php
 
-namespace App\LaraCms\Admin\Controllers;
+namespace App\laraCms\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;

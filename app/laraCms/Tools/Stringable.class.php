@@ -1,5 +1,5 @@
 <?php
-namespace App\LaraCms\Tools;
+namespace App\laraCms\Tools;
 class Stringable {
 
     public static function camelize( $string )

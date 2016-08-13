@@ -1,12 +1,12 @@
 <?php
 
-namespace App\LaraCms\Website\Controllers;
+namespace App\laraCms\Website\Controllers;
 
 
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\LaraCms\Website\Requests\AjaxFormRequest;
+use App\laraCms\Website\Requests\AjaxFormRequest;
 use Input;
 use Validator;
 

@@ -6,7 +6,7 @@
  * Time: 11:53
  */
 
-namespace App\LaraCms\Website\Controllers;
+namespace App\laraCms\Website\Controllers;
 
 use App\laraCms\SeoTools\LaraCmsSeoTrait;
 use App\laraCms\Website\Repos\Article\ArticleRepositoryInterface;

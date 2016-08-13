@@ -1,11 +1,11 @@
 <?php
-namespace App\LaraCms\Website\Controllers;
+namespace App\laraCms\Website\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\LaraCms\Website\Requests\WebsiteFormRequest;
+use App\laraCms\Website\Requests\WebsiteFormRequest;
 use Input;
 use Validator;
 use App\Contact;

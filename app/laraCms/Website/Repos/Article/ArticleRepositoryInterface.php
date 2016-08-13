@@ -8,7 +8,7 @@
 namespace App\laraCms\Website\Repos\Article;
 /**
  * Interface ArticleRepositoryInterface
- * @package App\LaraCms\Website\Repos\Article
+ * @package App\laraCms\Website\Repos\Article
  */
 interface ArticleRepositoryInterface
 {

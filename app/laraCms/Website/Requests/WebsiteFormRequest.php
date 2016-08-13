@@ -1,6 +1,6 @@
 <?php
 
-namespace App\LaraCms\Website\Requests;
+namespace App\laraCms\Website\Requests;
 
 use App\Http\Requests\Request;
 use Input;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\LaraCms\Admin\Controllers;
+namespace App\laraCms\Admin\Controllers;
 
 use Illuminate\Http\Request;
 
@@ -15,7 +15,7 @@ Use Excel;
 
 /**
  * Class ExportController
- * @package App\LaraCms\Admin\Controllers
+ * @package App\laraCms\Admin\Controllers
  */
 class ExportController  extends Controller
 {

@@ -1,4 +1,4 @@
-<?php namespace App\LaraCms\Tools;
+<?php namespace App\laraCms\Tools;
 class Tool {
 
     

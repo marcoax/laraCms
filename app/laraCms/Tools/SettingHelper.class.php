@@ -1,9 +1,9 @@
-<?php namespace App\LaraCms\Tools;
+<?php namespace App\laraCms\Tools;
 
  use App\Setting;
 /**
  * Class Setting
- * @package App\LaraCms\Tools
+ * @package App\laraCms\Tools
  */
 class SettingHelper {
 
