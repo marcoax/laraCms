@@ -1,4 +1,4 @@
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3  wow bounceInLeft">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3>Reset Password</h3>
