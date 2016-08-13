@@ -8,8 +8,8 @@ simple laravel 5.2 cms with twitter bootstrap
  - run Php artisan migrate
  - from phpMyadmin  import  laraCms.sql file
  - login in the  admin (http://localhost/laraCms/admin)
-    - email : admin@laraCms.com
-   - password: password
+    - email : adminlaracms@gmail.com
+   - password: laracms
   
 License
 =======
