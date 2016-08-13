@@ -47,7 +47,6 @@ class AdminPasswordController extends Controller
             'real_password' =>$password, // Changed by Ma
             'remember_token' => Str::random(60),
         ])->save();
-
         Auth::guard($this->getGuard())->login($user);
     }
 }

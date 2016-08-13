@@ -1,1 +1,1 @@
-{{ trans('password.mail_reset_message') }}: {{ url('admin/password/reset/'.$token) }}
+{{ trans('passwords.mail_reset_message') }}: {{ url('admin/password/reset/'.$token) }}
