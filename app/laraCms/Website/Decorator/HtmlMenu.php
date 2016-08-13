@@ -2,30 +2,16 @@
 namespace App\laraCms\Website\Decorator;
 Use App;
 use Carbon\Carbon;
-class HtmlMenu {
+class HtmlMenu  extends  laraCmsDecorator{
 
-	protected  $html;
-	protected  $model;
-	protected  $property;
-
-	public function get($model)
-	{
-
-		$this->initHtml ( $model );
-		echo $this->render();
-	}
-
-	public function  render ()
-	{
-
-		return $this->html;
-	}
-
-	protected   function  initHtml ($model)
-	{
-		$this->html  = "";
-		$this->model = $model;
-
-	}
-	
+    public function get($model)
+    {
+        $this->initHtml ( $model );
+        echo $this->render();
+    }
+    protected   function  initHtml ($model)
+    {
+        $this->html  = "";
+        $this->model = $model;
+    }
 }

@@ -3,7 +3,7 @@ namespace App\laraCms\Website\Decorator;
 Use App;
 Use App\Social;
 use Carbon\Carbon;
-class HtmlSocial {
+class HtmlSocial extends  laraCmsDecorator  {
 
 	protected  $html;
 	protected  $model;
@@ -17,13 +17,6 @@ class HtmlSocial {
 		return $this;
 	}
 
-	/**
-	 * @return mixed
-	 */
-	public function  render ()
-	{
-		return $this->html;
-	}
 
 	/**
 	 *  init

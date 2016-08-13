@@ -29,11 +29,15 @@ function ma_get_image_on_the_fly($asset, $w, $h, $type = 'jpg')
     } else return null;
 }
 
-/********      image    *****************/
-function ma_get_image_on_the_fly_chached($asset, $w, $h, $type = 'jpg')
+/***
+ * @param $asset
+ * @param $w
+ * @param $h
+ * @param string $type
+ * @return null|string
+ */
+function ma_get_image_on_the_fly_cached($asset, $w, $h, $type = 'jpg')
 {
-
-
     if ($asset != '' && file_exists(ma_get_image_path_from_repository($asset))) {
         $dataImage = array();
         $dataImage['asset'] = $asset;
@@ -41,10 +45,10 @@ function ma_get_image_on_the_fly_chached($asset, $w, $h, $type = 'jpg')
         $dataImage['h'] = $h;
         $dataImage['type'] = $type;
 
-            $img = Image::cache(function ($image) use ($dataImage) {
-                $image->make(ma_get_image_from_repository($dataImage['asset']))->fit($dataImage['w'], $dataImage['h'])->encode($dataImage['type']);
-            });
-            return 'data:image/' . $type . ';base64,' . base64_encode($img);
+        $img = Image::cache(function ($image) use ($dataImage) {
+            $image->make(ma_get_image_from_repository($dataImage['asset']))->fit($dataImage['w'], $dataImage['h'])->encode($dataImage['type']);
+        });
+        return 'data:image/' . $type . ';base64,' . base64_encode($img);
 
     } else return null;
 }

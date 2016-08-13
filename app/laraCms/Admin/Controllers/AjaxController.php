@@ -67,7 +67,7 @@ class AjaxController extends Controller
             $destinationPath = $mediaType; // upload path folder
             $extension  = $newMedia->getClientOriginalExtension(); // getting image extension
             $name       = basename($newMedia->getClientOriginalName(), '.' . $extension);
-            $fileName   = $newMedia->getClientOriginalName();
+            $fileName   = str_slug($newMedia->getClientOriginalName());
             $mediaPath  = public_path('media/' . $destinationPath . '/' . $fileName);
             // renaming image if exist
             if (file_exists($mediaPath)) $fileName = str_slug(rand(11111, 99999) . '_' . $name) . "." . $extension;

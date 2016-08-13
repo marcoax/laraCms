@@ -6,7 +6,7 @@
                     <div class="box-image">
                         <a href="{!!  ma_get_image_from_repository($item->image) !!} "
                            class="fancybox-button zoomer" data-rel="fancybox-button" title="{{$item->title }}">
-                        <span class="overlay-zoom"><img src="{!! ma_get_image_on_the_fly_chached($item->image,300,180,'jpg') !!}"
+                        <span class="overlay-zoom"><img src="{!! ma_get_image_on_the_fly_cached($item->image,300,180,'jpg') !!}"
                                                         alt="{{$item->title }}" border="0" class="img-responsive-100">
                             <span class="zoom-icon"><i class="fa fa-search-plus fa-4x color-6 fa-rotate-90"></i></span>
                         </span>

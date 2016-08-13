@@ -17,7 +17,7 @@ class CreateArticlesTable extends Migration
 	        $table->increments('id');
 			$table->string('domain', 255);
 			$table->integer('id_parent');
-			$table->integer('id_template');
+			$table->integer('template_id');
 	        $table->string('title', 255);
 	        $table->text('description');
 	        $table->string('slug')->nullable();

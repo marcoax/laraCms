@@ -23,7 +23,7 @@ class Article extends Model
      */
 	public 	  $translatedAttributes = ['title','subtitle','intro','description','abstract','seo_title','seo_keywords','seo_description'];
 	public    $sluggable = ['slug'];
-    protected $fillable  = ['title','subtitle','intro','description','abstract', 'slug','sort','pub','top_menu','id_parent'];
+    protected $fillable  = ['title','subtitle','intro','description','abstract', 'slug','sort','pub','top_menu','id_parent','template_id','link'];
 	protected $fieldspec = [];
 
 
@@ -31,6 +31,11 @@ class Article extends Model
 	{
 		return $this->morphMany('App\Media', 'model');
 	}
+
+    public function template()
+    {
+        return $this->belongsTo('App\Domain', 'template_id', 'id');
+    }
 
 	 function getFieldSpec ()
     // set the specifications for this database table
@@ -48,6 +53,18 @@ class Article extends Model
 			'hidden' => '1',
 			'display' => '0',
 		];
+
+        $this->fieldspec['template_id'] = [
+            'type' => 'relation',
+            'model' => 'Domain',
+            'filter'    =>  ['domain' => 'template'],
+            'foreign_key' => 'id',
+            'label_key' => 'title',
+            'required' => false,
+            'label' => 'Template',
+            'hidden' => '0',
+            'display' => '1',
+        ];
 
 		$this->fieldspec['id_parent'] = [
 			'type' => 'relation',
@@ -128,17 +145,14 @@ class Article extends Model
 			'display' => 0,
 		];
 
-		$this->fieldspec['link'] = [
-			'type' => 'string',
-			'size' => 600,
-			'h' => 300,
-			'required' => 'y',
-			'hidden' => 0,
-			'label' => 'Externa url',
-			'extraMsg' => '',
-			'display' => 1,
-
-		];
+        $this->fieldspec['link'] = [
+            'type' => 'string',
+            'required' => false,
+            'hidden' => 0,
+            'label' => 'External url',
+            'extraMsg' => '',
+            'display' => 1,
+        ];
 
 
 		$this->fieldspec['image'] = [
