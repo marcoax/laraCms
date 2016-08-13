@@ -13,10 +13,12 @@ use App\laraCms\UploadManager;
 Use Excel;
 
 
-
+/**
+ * Class ExportController
+ * @package App\LaraCms\Admin\Controllers
+ */
 class ExportController  extends Controller
 {
-
 
     protected $model;
     protected $models;
@@ -25,18 +27,23 @@ class ExportController  extends Controller
     protected $request;
     protected $config;
     protected $id;
-    use \App\laraCms\Sluggable\SluggableTrait;
+    use App\laraCms\Sluggable\SluggableTrait;
 
 
+    /**
+     * @param $model
+     */
     public function init($model)
     {
         $this->model = $model;
         $this->config = config('laraCms.admin.list.section.' . $this->model);
         $this->models = strtolower(str_plural($this->config['model']));
         $this->modelClass = 'App\\' . $this->config['model'];
-
     }
 
+    /**
+     * @param $model
+     */
     public function model($model)
     {
         $this->init($model);
@@ -50,9 +57,6 @@ class ExportController  extends Controller
                 $sheet->fromModel($model::all());
 
             });
-
         })->export('csv');
     }
-
-
 }

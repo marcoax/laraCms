@@ -22,8 +22,8 @@ return [
                 'top_menu' => ['type' => 'boolean', 'field' => 'top_menu', 'class' => 'col-sm-1 text-center'],
                 'sort' => ['type' => 'editable', 'field' => 'sort', 'class' => 'col-sm-1'],
 
-                'created_at' => ['type' => 'date', 'field' => 'created_at', 'class' => 'col-sm-1'],
-                'updated_at' => ['type' => 'date', 'field' => 'updated_at', 'class' => 'col-sm-1'],
+                'created_at' => ['type' => 'date', 'field' => 'created_at', 'class' => 'col-sm-1 text-center'],
+                'updated_at' => ['type' => 'date', 'field' => 'updated_at', 'class' => 'col-sm-1 text-center'],
             ],
             'orderBy' => 'sort',
             'orderType' => 'ASC',
@@ -35,6 +35,8 @@ return [
             'view' => '0',
             'selectable' => '1',
             'showMedia' => '1',
+            'showMediaCategory' => '1',
+            'showMediaDoc' => '0',
             'showSeo' => '1',
             'menu' => [
                 'home' => true,

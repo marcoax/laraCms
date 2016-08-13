@@ -13,8 +13,6 @@ use App\laraCms\UploadManager;
 
 class AdminPagesController  extends Controller
 {
-
-
     protected $model;
     protected $models;
     protected $modelClass;
@@ -134,10 +132,7 @@ class AdminPagesController  extends Controller
         $article = $model::whereId($id)->firstOrFail();
         // input data Handler
         $this->requestFieldHandler($article);
-
-
         return redirect(action('\App\laraCms\Admin\Controllers\AdminPagesController@edit', $this->models . '/' . $article->id));
-
     }
 
     /**
@@ -157,7 +152,6 @@ class AdminPagesController  extends Controller
         $this->requestFieldHandler($article);
         echo json_encode(array('status'=> $this->config['model'].' Has been update'));
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -190,7 +184,6 @@ class AdminPagesController  extends Controller
                 $article->$a = $this->sluggy($article,$this->request->get($a));
             }
         }
-
 
         $this->mediaHandler($article, 'image');
         $this->mediaHandler($article, 'doc');
@@ -233,5 +226,4 @@ class AdminPagesController  extends Controller
 
         }
     }
-
 }

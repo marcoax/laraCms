@@ -44,7 +44,7 @@ class FormsController extends Controller
 
         Mail::send('emails.contact', $data,function ($message) use ($data) {
             $message->subject( $data['mailSubject'] )
-                ->to('marcoasperti@gmail.com')
+                ->to('userslaracms@gmail.com')
                 ->replyTo($data['email']);
         });
         /******************** end email ***********************/

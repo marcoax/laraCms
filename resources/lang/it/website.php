@@ -25,7 +25,6 @@ return [
 
     'mail_message' => [
         'contact' => 'Nuova richiesta informazioni da',
-
     ],
 
 ];

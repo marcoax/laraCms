@@ -14,7 +14,7 @@ class AuthController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Registration & Login Controller
+    |LaraCms Login Controller
     |--------------------------------------------------------------------------
     |
     | This controller handles the registration of new users, as well as the
@@ -35,13 +35,19 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-           }
+    }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getLogin()
     {
         return view('admin.login');
     }
 
+    /**
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function adminLogin()
     {
         $input = Input::all();
@@ -67,6 +73,10 @@ class AuthController extends Controller
             return view('admin.login');
         }
     }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
     public function getLogout()
     {
         return $this->logout();
@@ -74,7 +84,6 @@ class AuthController extends Controller
 
     /**
      * Log the user out of the application.
-     *
      * @return \Illuminate\Http\Response
      */
     public function logout()

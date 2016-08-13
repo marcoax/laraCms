@@ -36,8 +36,9 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 
 });
 
-
 Route::group(array('prefix' => 'admin'), function () {
+
+    // Admin Auth and Password routes...
     Route::get('login', '\App\laraCms\Admin\Controllers\AuthController@getLogin');
     Route::post('login', '\App\laraCms\Admin\Controllers\AuthController@adminLogin');
     Route::get('logout', '\App\laraCms\Admin\Controllers\AuthController@getLogout');
@@ -47,16 +48,21 @@ Route::group(array('prefix' => 'admin'), function () {
     Route::post('password/reset', '\App\laraCms\Admin\Controllers\AdminPasswordController@postReset');
 });
 
+
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
+    // Pages routes...
     Route::get('/',            '\App\laraCms\Website\Controllers\PagesController@home');
     Route::get('/news/',       '\App\laraCms\Website\Controllers\PagesController@news');
     Route::get('/news/{slug}', '\App\laraCms\Website\Controllers\PagesController@news');
     Route::get('/{slug?}',     '\App\laraCms\Website\Controllers\PagesController@pages');
     Route::post('/contact',    '\App\laraCms\Website\Controllers\FormsController@getContactUsForm');
-    Route::post('/api/newsletter',        '\App\laraCms\Website\Controllers\ApiController@subscribeNewsletter');
-    Route::get('/api/new/{post?}', function (App\Article $post) {
-        return $post;
+    Route::post('/api/newsletter','\App\laraCms\Website\Controllers\ApiController@subscribeNewsletter');
+
+    // Reserved area routes...
+    Route::group(array('prefix' =>'users','middleware' => ['auth']), function () {
+        Route::get('dashboard', '\App\laraCms\Website\Controllers\UserController@dashboard');
+        Route::get('profile',   '\App\laraCms\Website\Controllers\UserController@profile');
     });
 
     // Authentication routes...
@@ -64,27 +70,18 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('users/login', '\App\laraCms\Website\Controllers\AuthController@postLogin');
     Route::get('users/logout', '\App\laraCms\Website\Controllers\AuthController@getLogout');
 
-    Route::get('users/dashboard',  '\App\laraCms\Website\Controllers\UserController@dashboard')->middleware('auth');
-    Route::get('users/profile', '\App\laraCms\Website\Controllers\UserController@profile')->middleware('auth');
-/*
-    Route::get('profile', [
-        'middleware' => 'auth',
-        'uses' => 'ProfileController@show'
-    ]);
-*/
-
-    // Registration routes...
-    Route::get('users/register', 'Auth\AuthController@getRegister');
+     // Registration routes...
+    Route::get('users/register',  'Auth\AuthController@getRegister');
     Route::post('users/register', 'Auth\AuthController@postRegister');
-
+    // Password routes...
     Route::controllers([
-        'password' => 'Auth\PasswordController',
+        'password' => '\App\laraCms\Website\Controllers\PasswordController',
     ]);
-    Route::get('password/email', 'Auth\PasswordController@getEmail');
-    Route::post('password/email', 'Auth\PasswordController@postEmail');
+    Route::get('password/email',  '\App\laraCms\Website\Controllers\PasswordController@getEmail');
+    Route::post('password/email', '\App\laraCms\Website\Controllers\PasswordController@postEmail');
 
     // Password reset routes...
-    Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-    Route::post('password/reset', 'Auth\PasswordController@postReset');
+    Route::get('password/reset/{token}', '\App\laraCms\Website\Controllers\PasswordController@getReset');
+    Route::post('password/reset', '\App\laraCms\Website\Controllers\PasswordController@postReset');
 });
 

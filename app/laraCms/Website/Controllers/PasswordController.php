@@ -1,13 +1,14 @@
 <?php
 
-namespace App\LaraCms\Admin\Controllers;
+namespace App\LaraCms\Website\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
-class AdminPasswordController extends Controller
+
+class PasswordController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -20,31 +21,38 @@ class AdminPasswordController extends Controller
     |
     */
   
-    protected $redirectTo   = '/admin/';
-    protected $guard        = 'admin';
-    protected $broker       = 'admin';
+    protected $redirectTo = '/users/login/';
+
     use ResetsPasswords;
+    protected $linkRequestView = "website.auth.password";
+    protected $resetView       = "website.auth.reset";
 	
     /**
      * Create a new password controller instance.
-     * AdminPasswordController constructor.
+     *
+     * @return void
      */
     public function __construct()
     {
-
+        $this->middleware('guest');
     }
-
     /**
-     * custom resetPassword for admin
-     * @param $user
-     * @param $password
+     * Reset the given user's password.
      *
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string  $password
+     * @return void
      */
+
+    public function getEmail()
+    {
+        return $this->showLinkRequestForm();
+    }
     protected function resetPassword($user, $password)
     {
         $user->forceFill([
-            'password' =>$password, // Changed by Ma
-            'real_password' =>$password, // Changed by Ma
+            'password' =>$password,
+            'real_password' =>$password,
             'remember_token' => Str::random(60),
         ])->save();
 

@@ -55,8 +55,8 @@ return [
     */
 
     'from' => [
-        'address' => 'ginaschena@gmail.com',
-        'name' =>'marco'
+        'address' => 'userslaracms@gmail.com',
+        'name' =>'marcoatlaracms'
     ],
 
     /*
@@ -121,7 +121,5 @@ return [
     | you may inspect the message. This is great for local development.
     |
     */
-
     'pretend' => env('MAIL_DEBUG'),
-
 ];

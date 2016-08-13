@@ -1,4 +1,1 @@
-Gina  schena
-
-
-Click here to reset your password: {{ url('password/reset/'.$token) }}
+{{ trans('password.mail_reset_message') }}: {{ url('admin/password/reset/'.$token) }}

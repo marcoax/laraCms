@@ -9,16 +9,7 @@
 hr {
 	border-top: 1px solid #DADADA;
 }
-.img-thumbnail {
-	border-radius: 0px;
-}
-.btn {
-	border-radius: 0px;
-}
-.form-control {
-	border-radius: 0px;
-}
-select.form-control {
+.img-thumbnail,.btn,.panel,.form-control,select.form-control,select,.alert {
 	border-radius: 0px;
 }
 
@@ -32,14 +23,10 @@ select:not([multiple]) {
 	padding-right: 1.5em;
 	color: #9D9999;
 }
-select {
-	border-radius: 0px;
-}
+
 
  /**************************  ALERT ****************************/
-.alert {
-	border-radius: 0px;
-}
+
 /*************************** BUTTON ****************************/
 
 .btn-icon {
@@ -54,7 +41,6 @@ select {
 	line-height: 1.35;
 	padding: 7px 16px;
 }
-
 .btn {
 	font-weight: 600;
 	border: 2px solid transparent;
@@ -93,7 +79,6 @@ select {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
-
 
 input::-moz-focus-inner {
 	border: 0;

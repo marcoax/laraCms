@@ -6,6 +6,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /**
  * @property ArticleRepositoryInterface articleRepo
@@ -37,7 +38,14 @@ class AuthController extends Controller
     public function __construct( ArticleRepositoryInterface $article)
     {
         $this->middleware('guest', ['except' => 'getLogout']);
-        $this->articleRepo = $article;
+        $this->articleRepo          = $article;
+
+        /*
+        $this->redirectTo           = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/dashboard');
+        $this->redirectPath         = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/dashboard');
+        $this->loginPath            = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/login');
+        $this->redirectAfterLogout  = LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),'/users/login');
+        */
     }
 
     /**
@@ -57,7 +65,6 @@ class AuthController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
-     *
      * @param  array  $data
      * @return User
      */
@@ -72,7 +79,7 @@ class AuthController extends Controller
     }
     public function getLogin()
     {
-        $article =$this->articleRepo->getBySlug('about');
-        return view('website.users.login',compact('article'));
+        $article =$this->articleRepo->getBySlug('login');
+        return view('website.auth.login',compact('article'));
     }
 }

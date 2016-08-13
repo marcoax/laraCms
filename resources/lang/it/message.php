@@ -12,9 +12,11 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
-    'register_account' => 'Registrati.',
-    'throttle' => 'Troppi tentativi di login attendi :seconds secondi.',
+    'password_confirm' =>'Conferma Password',
     'password_sent_reset_link'  => 'Invia Link per reset password',
-
+    'password_forgot_your' =>'Password dimenticata?',
+    'password_forgot' =>'Password dimenticata',
+    'remember_me' =>'Ricordami',
+    'register_account' => 'Registrati.',
+    'throttle' => 'Troppi tentativi di login attendi :seconds secondi.'
 ];

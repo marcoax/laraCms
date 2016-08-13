@@ -1,0 +1,1 @@
+{{ trans('passwords.mail_reset_message') }}: {{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),url('password/reset/'.$token)) }}

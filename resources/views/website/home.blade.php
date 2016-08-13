@@ -4,7 +4,7 @@
 @include('website.partials.carousel')
 <!--=== Content Part infoblock ===-->
 <section data-role="info-block">
-    <div id="creolo_section">
+    <div id="home_section">
         <div class="container">
             <div class="row mb0">
                 <div class="col-sm-12 text-center ">

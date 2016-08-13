@@ -22,7 +22,7 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-	private   $redirectTo 			= '/admin';
+	private   $redirectTo 			= '/users/';
 	protected $loginPath  		    = '/users/login';
 	protected $redirectAfterLogout  ='/users/login';
     /**
@@ -69,8 +69,6 @@ class AuthController extends Controller
         if (view()->exists('auth.authenticate')) {
             return view('auth.authenticate');
         }
-
         return view('auth.login');
     }
-	
 }

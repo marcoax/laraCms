@@ -51,7 +51,7 @@
                         </ul>
                         <ul id="menu" class="nav navbar-nav nav navbar-right">
                             @foreach (  $pages->top()->get() as  $index => $page )
-                                <li class="{{ ($article->id == $page->id)?'active':'' }}" id="{{ $page->slug }}">
+                                <li class="{{ ( ! empty($article) && $article->id == $page->id)?'active':'' }}" id="{{ $page->slug }}">
                                     @if ('home' == $page->slug)
                                         <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '' ) ) }}">
                                     @else
