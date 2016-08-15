@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'new_user' =>'New user? Register',
+    'new_user' =>'Create a new account?',
     'password_confirm' =>'Confirm Password',
     'password_sent_reset_link'  => 'Send Password Reset Link',
     'password_forgot_your' =>'Forgot Your Password?',
