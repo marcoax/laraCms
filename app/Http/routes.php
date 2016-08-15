@@ -71,8 +71,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('users/logout', '\App\laraCms\Website\Controllers\AuthController@getLogout');
 
      // Registration routes...
-    Route::get('users/register',  'Auth\AuthController@getRegister');
-    Route::post('users/register', 'Auth\AuthController@postRegister');
+    Route::get('users/register',  '\App\laraCms\Website\Controllers\AuthController@getRegister');
+    Route::post('users/register', '\App\laraCms\Website\Controllers\AuthController@postRegister');
     // Password routes...
     Route::controllers([
         'password' => '\App\laraCms\Website\Controllers\PasswordController',

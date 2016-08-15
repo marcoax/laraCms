@@ -2,6 +2,7 @@
 
 namespace App\laraCms\Website\Controllers;
 
+use App\Events\Registration\NewsletterSubscribe;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\laraCms\Website\Requests\AjaxFormRequest;
@@ -32,10 +33,11 @@ class ApiController extends Controller
             ));
         } else
         {
-            // INSERT RECORD IN DATABASE
-            $newsletter = new Newsletter;
-            $newsletter->email = ma_sanitizeParameter( $request->email );
-            $saved = $newsletter->save();
+            /*
+             *  INSERT RECORD IN DB AND NOTIFY SUBSCRIPTION
+             *  @event App\Events\Registration\NewsletterSubscribe
+             */
+            $newsletter  = Newsletter::addToDefaultList($request->email);
             return response()->json(array(
                 'status' =>'ok',
                 'msg' => trans('website.newsletter_subscribe_ok'),

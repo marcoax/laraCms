@@ -1,23 +1,30 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Registration;
 
 use App\Events\Event;
+use App\Newsletter;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class NewsletterSubscribe extends Event
 {
     use SerializesModels;
+    public $newsletter;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * NewsletterSubscribe constructor.
+     * @param Newsletter $newsletter
      */
-    public function __construct()
+    public function __construct(Newsletter $newsletter)
     {
         //
+        $this->newsletter = $newsletter;
+    }
+
+    function __call($name, $arguments)
+    {
+        // TODO: Implement __call() method.
     }
 
     /**

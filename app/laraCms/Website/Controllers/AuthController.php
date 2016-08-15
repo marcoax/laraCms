@@ -1,5 +1,6 @@
 <?php
 namespace App\laraCms\Website\Controllers;
+use App\Events\Registration\UserRegistered;
 use App\laraCms\Website\Repos\Article\ArticleRepositoryInterface;
 use App\User;
 use Validator;
@@ -32,6 +33,8 @@ class AuthController extends Controller
     protected $redirectPath          = '/users/dashboard';
     protected $redirectAfterLogout   = '/users/login';
     protected $localePrefix          =  '';
+
+    protected $registerView          =  'website.auth.register';
 
     /**
      * Create a new authentication controller instance.
@@ -70,16 +73,15 @@ class AuthController extends Controller
     /**
      * Create a new user instance after a valid registration.
      * @param  array  $data
+     * @event @event App\Events\Registration\userRegistered
      * @return User
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'real_password' => $data['password'],
-        ]);
+
+        $user = User::register($data);
+
+        return $user;
     }
 
     /**

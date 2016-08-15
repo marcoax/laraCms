@@ -13,8 +13,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\NewsletterSubscribe' => [
-            'App\Listeners\SendSubscribeNotification',
+        'App\Events\Registration\NewsletterSubscribe' => [
+            'App\Listeners\Registration\SendSubscribeNotification',
+        ],
+        'App\Events\Registration\UserRegistered' => [
+            'App\Listeners\Registration\SendWelcomeMessage',
+            'App\Listeners\Registration\AddUserToDefaultNewsletterList',
         ],
     ];
 

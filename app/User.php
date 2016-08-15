@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\Registration\UserRegistered;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -9,6 +10,13 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
+
+/**
+ * Class User
+ * @package App
+ *
+ * @
+ */
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
@@ -151,5 +159,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		
 		return $this->fieldspec;
 	}
-	  
+
+    /**
+     * create a new  user
+     * @param array $data
+     * @return mixed
+     */
+    static  public function   register(array $data) {
+        $user = static::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' =>   $data['password'],
+        ]);
+        event( new UserRegistered($user) );
+        return $user;
+    }
 }

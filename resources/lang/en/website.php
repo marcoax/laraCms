@@ -10,9 +10,9 @@ return [
     |
     |
     */
+    'cancel' => 'Cancel',
     'email' => 'Email',
     'go_to_site' => 'Go to the site',
-
     'info_request' => 'Contact form',
     'message_email' => 'Message',
     'more_info' => '',
@@ -31,6 +31,9 @@ return [
 
     'mail_message' => [
         'contact' => 'New request info from ',
+        'welcome_subject' => 'Welcome in laraCms ',
+        'welcome_message' => 'Dear user,<br> welcome in laraCms,<br> hereafter your data to login laraCms: ',
+        'subscribe_newsletter_subject' => 'Nuova iscrizione alla newsletter',
 
     ]
 ];

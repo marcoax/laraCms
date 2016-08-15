@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Ago 13, 2016 alle 12:22
+-- Generation Time: Ago 13, 2016 alle 23:34
 -- Versione del server: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `laracms`
 --
+CREATE DATABASE IF NOT EXISTS `laracms` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `laracms`;
 
 -- --------------------------------------------------------
 
@@ -43,8 +45,8 @@ CREATE TABLE IF NOT EXISTS `adminusers` (
 --
 
 INSERT INTO `adminusers` (`id`, `name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
-(3, 'angelo marco asperti', 'marcoasperti@gmail.com', '$2y$10$Lj7llsqfe9WtBRxEmM7cNujjd41.WxsjIXn.KGuWfMDe4JgWRpx7i', 'laracms', 'rMP2zJrXxoVd5sMbg3PaKlOL2CfL5ro6jylfEwGlBbdDqQXsDf5phtC2onHG', '0000-00-00 00:00:00', '2016-08-13 08:16:58', 1),
-(4, 'admin', 'adminlaracms@gmail.com', '$2y$10$Kh66XRjamn.WMmb3KxO/nuyHJ9zo776xOQpK/JIxJxpXYM.2qojL2', 'laraadmin', 'kHVNkswUF1Q2txXYcFIhP4GkZELnX8s55aOYreW0Txnk0QsOa2KVIkkvlJdo', '2015-12-20 18:57:51', '2016-08-13 08:17:59', 1);
+(3, 'angelo marco asperti', 'marcoasperti@gmail.com', '$2y$10$Lj7llsqfe9WtBRxEmM7cNujjd41.WxsjIXn.KGuWfMDe4JgWRpx7i', 'laracms', 'xPVjfamzmPRmjCsQCY9s73G1nn7SEBIZNgXh5DzAbykw9VqE2TmC8iKqyyIt', '0000-00-00 00:00:00', '2016-08-13 08:49:25', 1),
+(4, 'admin', 'adminlaracms@gmail.com', '$2y$10$Kh66XRjamn.WMmb3KxO/nuyHJ9zo776xOQpK/JIxJxpXYM.2qojL2', 'laraadmin', 'yvWiXY8one1sb60vOcYTPxnzmvd6tZN3mTmZelujHNbNejl7s2rWbIz5igAg', '2015-12-20 18:57:51', '2016-08-13 11:39:37', 1);
 
 -- --------------------------------------------------------
 
@@ -56,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(10) unsigned NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `id_parent` int(11) NOT NULL,
-  `id_template` int(11) NOT NULL,
+  `template_id` int(11) NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `subtitle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `intro` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -79,8 +81,8 @@ CREATE TABLE IF NOT EXISTS `articles` (
 -- Dump dei dati per la tabella `articles`
 --
 
-INSERT INTO `articles` (`id`, `domain`, `id_parent`, `id_template`, `title`, `subtitle`, `intro`, `abstract`, `description`, `slug`, `doc`, `image`, `banner`, `link`, `sort`, `pub`, `top_menu`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, '', 1, 0, 'Home', NULL, NULL, NULL, 'Home', 'home', '', '65532-azienda.jpg', '', '', 120, 1, 1, 0, '0000-00-00 00:00:00', '2016-08-12 13:36:38'),
+INSERT INTO `articles` (`id`, `domain`, `id_parent`, `template_id`, `title`, `subtitle`, `intro`, `abstract`, `description`, `slug`, `doc`, `image`, `banner`, `link`, `sort`, `pub`, `top_menu`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, '', 1, 0, 'Home', NULL, NULL, NULL, 'Home', 'home', '', '65532-azienda.jpg', '', '', 120, 1, 1, 0, '0000-00-00 00:00:00', '2016-08-13 11:43:14'),
 (2, '', 1, 0, '', NULL, NULL, NULL, '', 'about', '', '', '', '', 200, 1, 1, 0, '2015-12-20 19:16:48', '2016-01-10 08:35:28'),
 (3, '', 1, 0, '', NULL, NULL, NULL, '', 'news', '', '', '', '', 500, 1, 1, 0, '2015-12-24 18:15:46', '2015-12-29 13:26:24'),
 (12, '', 1, 0, '', NULL, NULL, NULL, '', 'work', '', '', '', '', 400, 1, 1, 0, '2015-12-28 13:37:47', '2015-12-29 13:26:25'),
@@ -541,7 +543,7 @@ INSERT INTO `domain_translations` (`id`, `domain_id`, `locale`, `title`, `update
 (7, 2, 'it', 'Bottom Slider Image', 0, '2016-06-23 05:38:24', '2016-06-28 05:59:19'),
 (8, 2, 'en', 'Bottom Slider Image', 0, '2016-06-23 05:38:24', '2016-08-12 12:06:53'),
 (121, 21, 'it', 'Template con sottopagine', 0, '2016-06-28 11:18:04', '2016-07-04 05:38:10'),
-(122, 21, 'en', '', 0, '2016-06-28 11:18:04', '2016-06-28 11:18:04');
+(122, 21, 'en', 'Template con sottopagine', 0, '2016-06-28 11:18:04', '2016-08-13 11:40:07');
 
 -- --------------------------------------------------------
 
@@ -597,7 +599,7 @@ CREATE TABLE IF NOT EXISTS `media` (
   `sort` int(10) unsigned DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dump dei dati per la tabella `media`
@@ -612,7 +614,6 @@ INSERT INTO `media` (`id`, `media_category_id`, `model_id`, `model_type`, `colle
 (8, 0, 15, 'App\\News', 'images', '', '', '96568-casa-in-tronchi-tecnica-blockbau-val-bedretto-004.JPG', 'JPG', 'images', 289768, '', 1, NULL, '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
 (9, 0, 15, 'App\\News', 'images', '', '', '18890-casa-in-tronchi-tecnica-blockbau-val-bedretto-003.JPG', 'JPG', 'images', 402617, '', 1, NULL, '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
 (10, 0, 17, 'App\\News', 'images', '', '', '77265-immagine3321312.png', 'png', 'images', 97616, '', 1, NULL, '2016-07-31 06:27:34', '2016-07-31 06:27:34'),
-(14, 0, 17, 'App\\News', 'images', '', '', 'Senza-titolo-1.png', 'png', 'images', 6332, '', 1, NULL, '2016-07-31 06:42:30', '2016-07-31 06:42:30'),
 (21, 0, 17, 'App\\News', 'docs', '', '', 'ContabileF24.pdf', 'pdf', 'docs', 1239692, '', 1, NULL, '2016-07-31 06:52:09', '2016-07-31 06:52:09'),
 (22, 0, 17, 'App\\News', 'docs', '', '', '34396-contabilef24.pdf', 'pdf', 'docs', 1239692, '', 1, NULL, '2016-07-31 06:52:16', '2016-07-31 06:52:16'),
 (23, 0, 20, 'App\\Article', 'images', '', '', 'azienda.jpg', 'jpg', 'images', 70552, '', 1, NULL, '2016-08-12 13:34:53', '2016-08-12 13:34:53'),
@@ -621,7 +622,11 @@ INSERT INTO `media` (`id`, `media_category_id`, `model_id`, `model_type`, `colle
 (26, 0, 1, 'App\\Article', 'docs', '', '', 'notify.min.js', 'js', 'docs', 13641, '', 1, NULL, '2016-08-12 13:37:34', '2016-08-12 13:37:34'),
 (27, 0, 1, 'App\\Article', 'images', '', '', 'agrodolce.jpg', 'jpg', 'images', 31721, '', 1, NULL, '2016-08-12 15:41:55', '2016-08-12 13:41:55'),
 (28, 0, 1, 'App\\Article', 'images', '', '', '64154-agrodolce.jpg', 'jpg', 'images', 31721, '', 1, NULL, '2016-08-12 13:45:32', '2016-08-12 13:45:32'),
-(29, 0, 1, 'App\\News', 'images', '', '', '76326-azienda.jpg', 'jpg', 'images', 70552, '', 1, NULL, '2016-08-12 15:52:06', '2016-08-12 13:52:06');
+(29, 0, 1, 'App\\News', 'images', '', '', '76326-azienda.jpg', 'jpg', 'images', 70552, '', 1, NULL, '2016-08-12 15:52:06', '2016-08-12 13:52:06'),
+(30, 0, 17, 'App\\News', 'images', '', '', '30940-images-4.jpg', 'jpg', 'images', 12301, '', 1, NULL, '2016-08-13 12:11:36', '2016-08-13 12:11:36'),
+(31, 0, 17, 'App\\News', 'images', '', '', 'images-2jpg', 'jpg', 'images', 10961, '', 1, NULL, '2016-08-13 12:11:36', '2016-08-13 12:11:36'),
+(32, 0, 17, 'App\\News', 'images', '', '', 'images-1jpg', 'jpg', 'images', 7555, '', 1, NULL, '2016-08-13 12:11:36', '2016-08-13 12:11:36'),
+(33, 0, 17, 'App\\News', 'images', '', '', 'images-3jpg', 'jpg', 'images', 9134, '', 1, NULL, '2016-08-13 12:11:36', '2016-08-13 12:11:36');
 
 -- --------------------------------------------------------
 
@@ -637,7 +642,7 @@ CREATE TABLE IF NOT EXISTS `media_translations` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dump dei dati per la tabella `media_translations`
@@ -652,7 +657,6 @@ INSERT INTO `media_translations` (`id`, `media_id`, `locale`, `title`, `descript
 (8, 8, 'en', '96568-casa-in-tronchi-tecnica-blockbau-val-bedretto-004.JPG', '', '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
 (9, 9, 'en', '18890-casa-in-tronchi-tecnica-blockbau-val-bedretto-003.JPG', '', '2016-07-31 06:05:10', '2016-07-31 06:05:10'),
 (10, 10, 'en', '77265-immagine3321312.png', '', '2016-07-31 06:27:34', '2016-07-31 06:27:34'),
-(14, 14, 'en', 'Senza-titolo-1.png', '', '2016-07-31 06:42:30', '2016-07-31 06:42:30'),
 (21, 21, 'en', 'ContabileF24.pdf', '', '2016-07-31 06:52:09', '2016-07-31 06:52:09'),
 (22, 22, 'en', '34396-contabilef24.pdf', '', '2016-07-31 06:52:16', '2016-07-31 06:52:16'),
 (23, 4, 'it', '', '', '2016-08-12 12:07:26', '2016-08-12 12:07:26'),
@@ -665,7 +669,11 @@ INSERT INTO `media_translations` (`id`, `media_id`, `locale`, `title`, `descript
 (30, 27, 'it', '', '', '2016-08-12 13:41:55', '2016-08-12 13:41:55'),
 (31, 28, 'en', '64154-agrodolce.jpg', '', '2016-08-12 13:45:32', '2016-08-12 13:45:32'),
 (32, 29, 'en', 'titolo', '', '2016-08-12 15:52:06', '2016-08-12 13:52:06'),
-(33, 29, 'it', 'title', '', '2016-08-12 13:52:06', '2016-08-12 13:52:06');
+(33, 29, 'it', 'title', '', '2016-08-12 13:52:06', '2016-08-12 13:52:06'),
+(34, 30, 'en', '30940-images-4.jpg', '', '2016-08-13 12:11:36', '2016-08-13 12:11:36'),
+(35, 31, 'en', 'images-2jpg', '', '2016-08-13 12:11:36', '2016-08-13 12:11:36'),
+(36, 32, 'en', 'images-1jpg', '', '2016-08-13 12:11:37', '2016-08-13 12:11:37'),
+(37, 33, 'en', 'images-3jpg', '', '2016-08-13 12:11:37', '2016-08-13 12:11:37');
 
 -- --------------------------------------------------------
 
@@ -712,7 +720,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2016_08_09_135031_create_settings_table', 14),
 ('2016_08_12_133839_create_domians_table', 15),
 ('2016_08_12_134137_create_domains_table', 16),
-('2016_08_12_134748_create_domain_table', 17);
+('2016_08_12_134748_create_domain_table', 17),
+('2016_07_06_154403_create_newsletters_table', 18);
 
 -- --------------------------------------------------------
 
@@ -747,8 +756,25 @@ CREATE TABLE IF NOT EXISTS `news` (
 
 INSERT INTO `news` (`id`, `domain`, `date`, `title`, `description`, `subtitle`, `intro`, `abstract`, `slug`, `doc`, `image`, `banner`, `link`, `sort`, `pub`, `created_by`, `created_at`, `updated_at`) VALUES
 (1, '', '2015-12-20', '', '', NULL, NULL, '', 'best-wisth', '', '12676-bf2016.jpg', '', '', 0, 0, 0, '2016-08-12 15:59:05', '2016-08-12 13:59:05'),
-(15, '', '2016-01-06', '', '', NULL, NULL, '', 'we-are-the-new-italian-design', '', '84391-the-new-italian-design.jpg', '', '', 0, 1, 0, '2016-08-12 17:04:21', '2016-08-12 15:04:21'),
-(17, '', '2015-11-09', '', '', NULL, NULL, '', 'design-for-business-competitiveness', '', '93625-senza-titolo-1.png', '', '', 0, 1, 0, '2016-07-31 08:41:42', '2016-07-31 06:41:42');
+(15, '', '2016-01-06', '', '', NULL, NULL, '', 'we-are-the-new-italian-design', '', '84391-the-new-italian-design.jpg', '', '', 0, 0, 0, '2016-08-13 14:08:01', '2016-08-13 12:08:01'),
+(17, '', '2015-11-09', '', '', NULL, NULL, '', 'design-for-business-competitiveness', '', 'images-4jpg', '', '', 0, 1, 0, '2016-08-13 14:10:50', '2016-08-13 12:10:50');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `newsletters`
+--
+
+CREATE TABLE IF NOT EXISTS `newsletters` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sort` int(11) NOT NULL,
+  `pub` tinyint(4) DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -807,8 +833,8 @@ INSERT INTO `news_translations` (`id`, `news_id`, `locale`, `title`, `descriptio
 (2, 1, 'it', 'News in italiano', '', NULL, NULL, NULL, '', '', '', 0, 0, '2016-01-10 09:44:18', '2016-01-10 08:44:18'),
 (29, 15, 'en', 'WE ARE THE NEW ITALIAN DESIGN', '<p>On the occasion of Gwangju Design Biennale 2015, we are with Triennale Design Museum presenting&nbsp;an upgraded and updated edition of The New Italian Design from October 15th until November 13th 201...</p>', NULL, NULL, NULL, 'ffsfdsf', 'ffsdfsfdsfds', 'sdfdsfds', 0, 0, '2016-07-02 13:13:59', '2016-07-02 11:13:59'),
 (30, 15, 'it', '', '', NULL, NULL, NULL, '', '', '', 0, 0, '2016-01-06 22:29:25', '2016-01-06 22:29:25'),
-(33, 17, 'en', 'DESIGN FOR BUSINESS COMPETITIVENESS', '<p>Edoardo Perri is guest-lecturer @ &ldquo;DESIGN FOR COMPETITIVENESS&rdquo;, Toscany. The meeting aims to present case studies of companies who have walked the path of a design-driven innovation in all its forms, from product to communication - through the story of the protagonists.</p>', NULL, NULL, NULL, '', 'Edoardo Perri', '', 0, 0, '2016-07-02 13:45:23', '2016-07-02 11:45:23'),
-(34, 17, 'it', 'DESIGN FOR BUSINESS COMPETITIVENESS', '<p>Edoardo Perri is guest-lecturer @ &ldquo;DESIGN FOR COMPETITIVENESS&rdquo;, Toscany. The meeting aims to present case studies of companies who have walked the path of a design-driven innovation in all its forms, from product to communication - through the story of the protagonists.</p>', NULL, NULL, NULL, '', '', '', 0, 0, '2016-01-09 19:56:17', '2016-01-09 19:56:17');
+(33, 17, 'en', 'DESIGN FOR BUSINESS COMPETITIVENESS', '<p>Edoardo Perri is guest-lecturer @ &ldquo;DESIGN FOR COMPETITIVENESS&rdquo;, Toscany. The meeting aims to present case studies of companies who have walked the path of a design-driven innovation in all its forms, from product to communication - through the story of the protagonists.</p>', NULL, NULL, NULL, '', 'Edoardo Perri', '', 0, 0, '2016-08-13 14:10:50', '2016-08-13 12:10:50'),
+(34, 17, 'it', 'DESIGN FOR BUSINESS COMPETITIVENESS', '<p>Edoardo Perri is guest-lecturer @ &ldquo;DESIGN FOR COMPETITIVENESS&rdquo;, Toscany. The meeting aims to present case studies of companies who have walked the path of a design-driven innovation in all its forms, from product to communication - through the story of the protagonists.</p>', NULL, NULL, NULL, '', '', '', 0, 0, '2016-08-13 14:10:50', '2016-08-13 12:10:50');
 
 -- --------------------------------------------------------
 
@@ -828,7 +854,7 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 ('marcoasperti@gmail.com', '8eec4d6ec69e9a6f68a53a0cbe05cdd9363af8d8c266456c1f6ffd9070978304', '2016-08-13 07:52:25'),
-('userslaracms@gmail.com', '75edb811ba593a2724deb5ced59eee6cfcaac0978a9300f96a2777b5fbdb8dc4', '2016-08-13 08:02:19');
+('userslaracms@gmail.com', 'd74104a796746aca7b81bb9786276754be12845084f868139737a6ee1e940c67', '2016-08-13 09:17:56');
 
 -- --------------------------------------------------------
 
@@ -1071,7 +1097,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
 (4, 'guest', 'guest@laraCms.com', '$2y$10$pAaDDP9X4hOJLOz0qxr1Ae/GTSbhNQSsd3yqVpvm4392eeavaq586', 'laracms', 'wFcX4LOGC9AhAxgNKItmGtJCwYvKlnv68No3xupJ4C5K2yE3ATVygr2XydyU', '2015-12-20 18:57:51', '2016-08-13 07:56:49', 1),
-(5, 'user', 'userslaracms@gmail.com', '$2y$10$tWaDIGmGph0CPGoV9us5d.2QDHgQ6bZeCLiMQObnFui4AY/SRaQK2', 'laracms', 'MGQudVZ3iYRtza1sidH88Atw4Z8RaRzr8MbGIAgp5Vmf1KKG9V8uNiSdyntx', '2016-01-23 17:52:48', '2016-08-13 08:02:31', 1);
+(5, 'user', 'userslaracms@gmail.com', '$2y$10$tWaDIGmGph0CPGoV9us5d.2QDHgQ6bZeCLiMQObnFui4AY/SRaQK2', 'laracms', 'MiZL705bMtFXSSwtvegPwKU6ZioQkk6mXquGheizcOIUzpwjSidVgjLWHVBC', '2016-01-23 17:52:48', '2016-08-13 09:17:51', 1);
 
 --
 -- Indexes for dumped tables
@@ -1136,6 +1162,12 @@ ALTER TABLE `media_translations`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `newsletters`
+--
+ALTER TABLE `newsletters`
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `news_tag`
@@ -1264,17 +1296,22 @@ ALTER TABLE `hpsliders`
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `media_translations`
 --
 ALTER TABLE `media_translations`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `newsletters`
+--
+ALTER TABLE `newsletters`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `news_translations`
 --

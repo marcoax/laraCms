@@ -1,5 +1,4 @@
 @extends('admin.master')
-
 @section('name', 'Register')
 
 @section('content')
