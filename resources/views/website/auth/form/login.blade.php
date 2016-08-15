@@ -36,6 +36,8 @@
                 Login
             </button>
             <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '/password/email/' ) ) }}">{{ trans('message.password_forgot_your') }} </a>
+            <br>
+            <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '/users/register/' ) ) }}">{{ trans('message.new_user') }} </a>
         </div>
     </div>
 </form>

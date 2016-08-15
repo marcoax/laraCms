@@ -5,6 +5,7 @@ namespace App\Listeners\Registration;
 use App\Events\Registration\UserRegistered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class SendWelcomeMessage
 {
@@ -30,6 +31,7 @@ class SendWelcomeMessage
          *  TODO Add a mail wrapper
          */
         $data['email'] = $event->user->email;
+        $data['real_password'] = $event->user->real_password;
         $data['mailSubject']  = trans('website.mail_message.welcome_subject').' '.$event->user->name;
 
         Mail::send('emails.welcome_notification', $data,function ($message) use ($data) {
