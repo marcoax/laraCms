@@ -35,9 +35,10 @@
             <button type="submit" class="btn btn-default active btn-block mb15" style="margin-right: 15px;">
                 Login
             </button>
+            <a class="pull-right" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '/users/register/' ) ) }}">{{ trans('message.new_user') }} </a>
             <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '/password/email/' ) ) }}">{{ trans('message.password_forgot_your') }} </a>
-            <br>
-            <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '/users/register/' ) ) }}">{{ trans('message.new_user') }} </a>
+
+
         </div>
     </div>
 </form>
