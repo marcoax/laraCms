@@ -68,7 +68,7 @@
     font-size: 18px;
     height: 100px;
     line-height: 20px;
-    padding: 30px 25px 5px 15px;
+    padding: 30px 15px 5px 15px;
 }
 
 /* < Medium */
@@ -82,7 +82,7 @@
         float: left;
         font-size: 18px;
         height: 70px;
-        padding: 10px 25px 5px 15px;
+        padding: 10px 15px 5px 15px;
     }
     .navbar-default {
         background-color: #fff;
@@ -110,7 +110,7 @@
 @media (min-width: 992px) {
     .nav > li {
 
-        margin: 5px 15px 0px 15px;
+        margin: 5px 10px 0px 10px;
     }
     .nav > li > a {
 

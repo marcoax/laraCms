@@ -194,9 +194,7 @@ html,body {
     flex:0;
 }
 
-.row-flex > div[class*='col-'], .container-flex > div[class*='col-'] {
-    margin:-.2px; /* hack adjust for wrapping */
-}
+
 
 .container-flex > div[class*='col-'] div,.row-flex > div[class*='col-'] div {
     width:100%;
@@ -210,10 +208,17 @@ html,body {
     flex-flow: column nowrap;
 }
 
-.flex-grow {
-    display: flex;
-    -webkit-flex: 2;
-    flex: 2;
+
+
+@media(min-width:992px) {
+    .flex-grow {
+        display: flex;
+        -webkit-flex: 2;
+        flex: 2;
+    }
+    .row-flex > div[class*='col-'], .container-flex > div[class*='col-'] {
+        margin:-.2px; /* hack adjust for wrapping */
+    }
 }
 /* MEDIA QUERY*/
 
