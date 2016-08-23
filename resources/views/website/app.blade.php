@@ -18,12 +18,8 @@
 
     <!-- Latest compiled and minified CSS -->
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,500' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{!! asset('public/website/css/animate.min.css')!!}">
-    <link href="{!! asset('public/css/ma_helper.css')!!}" rel="stylesheet">
-    <link href="{!! asset('public/website/css/override.css')!!}" rel="stylesheet">
-    <link href="{!! asset('public/website/css/header_default.css')!!}" rel="stylesheet">
     <link href="{!! asset('public/website/css/app.css')!!}" rel="stylesheet">
 
     <!-- Owl Carousel Assets -->

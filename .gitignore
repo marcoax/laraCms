@@ -75,6 +75,8 @@ composer.lock
 .env.php
 .DS_Store
 Thumbs.db
+/node_modules
+/public/build**
 
 #PHP Storm
 # =========================
@@ -83,3 +85,5 @@ Thumbs.db
 >>>>>>> origin/master
 .env
 .env
+npm-shrinkwrap.json
+
