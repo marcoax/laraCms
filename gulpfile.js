@@ -10,12 +10,11 @@ var elixir = require('laravel-elixir');
  | file for our application, as well as publishing vendor resources.
  |
  */
-
 elixir(function(mix) {
     mix.sass([
         'override.scss',
         'ma_helper.scss',
         'header_default.scss',
         'app.scss'
-    ],'public/website/css/appa.css');
+    ],'public/website/css/app.css');
 })

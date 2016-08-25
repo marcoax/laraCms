@@ -1,13 +1,10 @@
 /*------------------------------------------------------------------
-
 [General helper  extends boostra]
-
 	Project:	   laraCms
 	Version:	   1.0
 	Last change:
 	Assigned to:	Marco Asperti
 **************************/
-
 
 /* POSITION */
 .relative {position: relative;}
@@ -23,8 +20,8 @@
     text-align:center;
 }
 .full-width {
-	 width:100%;
-	 max-width:100%;
+    width:100%;
+    max-width:100%;
 }
 /* GF_ma CURSOR*/
 .pointer {cursor: pointer;}
@@ -48,6 +45,39 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 100%;
+}
+
+/*******************************  FLEX *********************/
+
+html,body {
+    height:100%;
+}
+
+.row-flex, .row-flex > div[class*='col-'] {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex:1 1 auto;
+}
+
+.row-flex-wrap {
+    -webkit-flex-flow: row wrap;
+    align-content: flex-start;
+    flex:0;
+}
+
+.container-flex > div[class*='col-'] div,.row-flex > div[class*='col-'] div {
+    width:100%;
+}
+
+
+.flex-col {
+    display: flex;
+    display: -webkit-flex;
+    flex: 1 100%;
+    flex-flow: column nowrap;
 }
 
 /* STANDARD MARGIN */
@@ -165,48 +195,10 @@ ul.iconized li:before { font-family: FontAwesome; left: 0; position: absolute;}
 .shadow-1:after { background: none repeat scroll 0 0 rgba(230, 132, 13, 0); bottom: 15px; box-shadow: 0 15px 10px rgba(0, 0, 0, 0.4); content: ""; height: 10px; left: 0; max-width: 100%; position: absolute; -ms-transform: rotate(-3deg); -webkit-transform: rotate(-3deg); transform: rotate(-3deg); width: 50%; z-index: -1;}
 .shadow-1:after { left: auto; right: 0; -ms-transform: rotate(3deg); -webkit-transform: rotate(3deg); transform: rotate(3deg);}
 
-/****EFFETTO FADE CAROUSEL BOOTSTRAP*****/
-.carousel.carousel-fade .item { -webkit-transition: opacity 0.5s ease-in-out; -moz-transition: opacity 0.5s ease-in-out; -ms-transition: opacity 0.5s ease-in-out; -o-transition: opacity 0.5s ease-in-out; transition: opacity 0.5s ease-in-out; opacity:0;}
-.carousel.carousel-fade .active.item { opacity:1;}
-.carousel.carousel-fade .active.left, .carousel.carousel-fade .active.right { left: 0; z-index: 2; opacity: 0; filter: alpha(opacity=0);}
-.carousel.carousel-fade .next,.carousel.carousel-fade .prev { left: 0; z-index: 1;}
-.carousel.carousel-fade .carousel-control { z-index: 3;}
-
-
-/*******************************  FLEX *********************/
-
-html,body {
-    height:100%;
-}
-
-.row-flex, .row-flex > div[class*='col-'] {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex:1 1 auto;
-}
-
-.row-flex-wrap {
-    -webkit-flex-flow: row wrap;
-    align-content: flex-start;
-    flex:0;
-}
 
 
 
-.container-flex > div[class*='col-'] div,.row-flex > div[class*='col-'] div {
-    width:100%;
-}
 
-
-.flex-col {
-    display: flex;
-    display: -webkit-flex;
-    flex: 1 100%;
-    flex-flow: column nowrap;
-}
 
 
 
@@ -843,7 +835,6 @@ html,body {
 }
 
 /****************************** TRANSITION  ********************************/
-
 .rotate-90 {
 	-webkit-transition: -webkit-transform 0.4s ease-in-out;
 	-moz-transition: -moz-transform 0.4s ease-in-out;
@@ -852,9 +843,7 @@ html,body {
 	transition: transform 0.4s ease-in-out;
 	cursor: pointer;
 }
-
 .rotate-90:hover {
-	
 	-webkit-transform: rotateZ(90deg);
 	-moz-transform: rotateZ(90deg);
 	-ms-transform: rotateZ(90deg);

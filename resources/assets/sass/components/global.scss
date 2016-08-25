@@ -1,0 +1,21 @@
+/** BOOTSTRAP **/
+.hidden-ani {
+  opacity: 0;
+}
+.visible-ani {
+  opacity: 1;
+}
+hr {
+  border-top: 1px solid #DADADA;
+}
+.img-thumbnail, .btn, .panel, .form-control, select.form-control, select, .alert, .modal-content, .well {
+  border-radius: 0px;
+}
+.dropdown-menu {
+  border-radius: 0 !important;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.dropdown-menu.dropdown-close {
+  top: 92%;
+}

@@ -3,7 +3,7 @@
 @section('content')
     @include('website.partials.page_banner')
     <!--=== Content Part ===-->
-    <div class="container mv25"><h3>.row-flex (make columns equal heights in each row)</h3></div>
+    <div class="container mv25"><h3>111.row-flex (make columns equal heights in each row)</h3></div>
     <div class="container">
         <div class="row row-flex row-flex-wrap">
             <div class="col-md-3">
