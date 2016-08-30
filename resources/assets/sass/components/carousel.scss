@@ -1,33 +1,24 @@
 /************************  HP SLIDER ************************/
-.carousel-caption {
-
-}
 .carousel-indicators {
   position: absolute;
   bottom: 0px;
-}
-
-.carousel-indicators li {
-  background-color: #DADADA;
-  border: 0px solid #FFFFFF;
-  border-radius: 2px;
-  cursor: pointer;
-  display: inline-block;
-  height: 20px;
-  margin: 1px;
-  text-indent: -999px;
-  width: 20px;
-}
-
-.carousel-indicators .active {
-  background-color: #A81729;
-  height: 20px;
-  margin: 1px;
-  width: 20px;
-}
-
-.slider-side-box {
-  padding: 25px;
+  li {
+    background-color: #DADADA;
+    border: 0px solid #FFFFFF;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    margin: 1px;
+    text-indent: -999px;
+    width: 20px;
+  }
+  &.active {
+    background-color: #A81729;
+    height: 20px;
+    margin: 1px;
+    width: 20px;
+  }
 }
 
 .carousel-inner > .item > img {
@@ -46,71 +37,74 @@
   text-align: center;
   text-shadow: none;
   font-weight: normal;
-}
-
-.carousel-caption h2 {
-  color: #FFFFFF;
-  font-size: 250%;
-}
-
-.carousel-caption p {
-  color: #FFFFFF;
-  font-size: 110%;
-}
-
-.carousel-control {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 15%;
-  font-size: 20px;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
-  filter: alpha(opacity=50);
-  opacity: .5;
-}
-
-/* Animation delays */
-.carousel-caption h2 {
-  -webkit-animation-delay: 1s;
-  animation-delay: 1s;
-}
-
-.carousel-caption p {
-  -webkit-animation-delay: 2s;
-  animation-delay: 2s;
-}
-
-.carousel-caption button {
-  -webkit-animation-delay: 3s;
-  animation-delay: 3s;
-}
-/****EFFETTO FADE CAROUSEL BOOTSTRAP*****/
-.carousel.carousel-fade .item { -webkit-transition: opacity 0.5s ease-in-out; -moz-transition: opacity 0.5s ease-in-out; -ms-transition: opacity 0.5s ease-in-out; -o-transition: opacity 0.5s ease-in-out; transition: opacity 0.5s ease-in-out; opacity:0;}
-.carousel.carousel-fade .active.item { opacity:1;}
-.carousel.carousel-fade .active.left, .carousel.carousel-fade .active.right { left: 0; z-index: 2; opacity: 0; filter: alpha(opacity=0);}
-.carousel.carousel-fade .next,.carousel.carousel-fade .prev { left: 0; z-index: 1;}
-.carousel.carousel-fade .carousel-control { z-index: 3;}
-
-/* Extra Small */
-@media (max-width: 767px) {
-  .carousel-caption {
-    position: absolute;
-    left: 15%;
-    right: 15%;
+  @include breakpoint(xs) {
     top: 10%;
-    z-index: 10;
-    padding-top: 20px;
-    padding-bottom: 20px;
+  }
+  h2 {
+    color: #FFFFFF;
+    font-size: 3rem;
+    -webkit-animation-delay: 1s; /* Animation delays */
+    animation-delay: 1s;
+    @include breakpoint(xs) {
+      font-size: 1rem;
+    }
+    p {
+      color: #FFFFFF;
+      font-size: 110%;
+      -webkit-animation-delay: 2s;
+      animation-delay: 2s;
+    }
+    button {
+      -webkit-animation-delay: 3s;
+      animation-delay: 3s;
+    }
+  }
+
+  .carousel-control {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 15%;
+    font-size: 20px;
     color: #fff;
     text-align: center;
-    text-shadow: none;
-    font-weight: normal;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+    filter: alpha(opacity=50);
+    opacity: .5;
   }
-  .carousel-caption h2 {
-    color: #FFFFFF;
-    font-size: 150%;
-  }
+}
+
+/****EFFETTO FADE CAROUSEL BOOTSTRAP*****/
+.carousel.carousel-fade .item {
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.carousel.carousel-fade .active.item {
+  opacity: 1;
+}
+
+.carousel.carousel-fade .active.left, .carousel.carousel-fade .active.right {
+  left: 0;
+  z-index: 2;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.carousel.carousel-fade .next, .carousel.carousel-fade .prev {
+  left: 0;
+  z-index: 1;
+}
+
+.carousel.carousel-fade .carousel-control {
+  z-index: 3;
+}
+
+.slider-side-box {
+  padding: 25px;
 }

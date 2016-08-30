@@ -17,4 +17,5 @@ elixir(function(mix) {
         'header_default.scss',
         'app.scss'
     ],'public/website/css/app.css');
+    mix.browserSync();
 })
