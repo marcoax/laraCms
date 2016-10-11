@@ -2,6 +2,7 @@
 
 namespace App\laraCms\Admin\Controllers;
 
+use App\laraCms\Sluggable\SluggableTrait;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,7 +21,7 @@ class AdminPagesController  extends Controller
     protected $request;
     protected $config;
     protected $id;
-    use \App\laraCms\Sluggable\SluggableTrait;
+    use SluggableTrait;
 
 
     public function init($model)
