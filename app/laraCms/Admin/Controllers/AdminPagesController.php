@@ -219,7 +219,8 @@ class AdminPagesController  extends Controller
             $destinationPath = config('laraCms.admin.path.repository').$mediaType;                 // upload path
             $extension 		 = $newMedia->getClientOriginalExtension();                             // getting image extension
             $name 			 = basename($newMedia->getClientOriginalName(),'.'.$extension);
-            $fileName 		 = str_slug($newMedia->getClientOriginalName());
+            $fileName 		 = str_slug($name ).'.'.$extension;
+
             // renaming image if exist
             if(  file_exists(base_path($destinationPath.'/'.$fileName))) $fileName = str_slug(rand(11111,99999).'_'.$name).".".$extension;
             $newMedia->move($destinationPath, $fileName); // uploading file to given path
