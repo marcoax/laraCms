@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     //
-    protected $fillable = ['subject','name', 'email', 'surname','message','replay','status'];
+    protected $fillable = ['request_product_id','name','surname','subject','company','email', 'message', 'status'];
     protected $fieldspec = [];
+	
+	public function product() {
+        return $this->belongsTo('App\Product','request_product_id','id');
+    }
+	
     function getFieldSpec ()
     // set the specifications for this database table
     {
@@ -17,92 +22,83 @@ class Contact extends Model
         $this->fieldspec['created_at'] = [
             'type' => 'date-readonly',
             'pkey' => 'n',
-            'required' => '',
+            'required' => false,
             'hidden' => '0',
             'label' => trans('admin.label.created_at'),
             'display' => '1'
         ];
-        $this->fieldspec['id'] = [
+        $this->fieldspec['request_product_id'] = [
             'type' => 'integer',
             'size' => 5,
             'pkey' => 'y',
-            'required' => 'y',
+            'required' =>true,
             'hidden' => '1',
             'display' => '0',
         ];
-
-        $this->fieldspec['email']    = [
+        $this->fieldspec['id'] = [
+            'type'     => 'integer',
+            'minvalue' => 0,
+            'pkey'     => 'y',
+            'required' =>true,
+            'label'    => 'id',
+            'hidden'   => '1',
+            'display'  => '0',
+        ];
+        $this->fieldspec['email'] = [
             'type' =>'readonly',
             'size' =>400,
             'pkey' => 'n',
-            'required' => 'y',
+            'required' =>true,
             'hidden' => '0',
             'label'=>'Email',
             'extraMsg'=>'',
             'display'=>'1',
         ];
-        $this->fieldspec['name']    = [
+        $this->fieldspec['name'] = [
             'type' =>'readonly',
             'size' =>400,
             'pkey' => 'n',
-            'required' => 'y',
+            'required' =>true,
             'hidden' => '0',
             'label'=>'Name',
             'extraMsg'=>'',
             'display'=>'1',
         ];
-        $this->fieldspec['surname']    = [
+        $this->fieldspec['company'] = [
             'type' =>'readonly',
             'size' =>400,
             'pkey' => 'n',
-            'required' => 'y',
+            'required' =>true,
             'hidden' => '0',
-            'label'=>'Surname',
+            'label'=>'Azienda',
             'extraMsg'=>'',
             'display'=>'1',
         ];
-
         $this->fieldspec['subject'] = [
             'type' => 'readonly',
             'pkey' => 'n',
-            'required' => 'y',
+            'required' =>true,
             'hidden' => '0',
             'label' => 'Subject',
             'extraMsg' => '',
             'display' => '1',
         ];
-
-
-
         $this->fieldspec['message'] = [
             'type' => 'readonly',
             'size' => 600,
             'h' => 300,
             'pkey' => 'n',
-            'required' => 'y',
-            'hidden' => 0,
+            'required' =>true,
+            'hidden' => 1,
             'label' => 'Message',
             'extraMsg' => '',
-            'display' => 1,
+            'display' => 0,
 
         ];
-        $this->fieldspec['replay'] = [
-            'type' => 'text',
-            'size' => 600,
-            'h' => 300,
-            'pkey' => 'n',
-            'required' => 'y',
-            'hidden' => 0,
-            'label' => trans('admin.message.replay_message'),
-            'extraMsg' => '',
-            'display' => 1,
-            'readonly' => 1,
-        ];
-
         $this->fieldspec['status'] = [
             'type' => 'boolean',
             'pkey' => 'n',
-            'required' => '',
+            'required' => false,
             'hidden' => '0',
             'label' => trans('admin.label.read'),
             'display' => '1'

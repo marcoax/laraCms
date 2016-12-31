@@ -1,263 +1,270 @@
-<?php
-
-namespace App;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class Article extends Model
 {
+    use \Dimsav\Translatable\Translatable;
 
-	use \Dimsav\Translatable\Translatable;
-	/**
-     * The database table used by the model.
+    /**
+     * Attributes that can be translated.
      *
-     * @var string
+     * @var array
      */
-    protected $table = 'articles';
+    public $translatedAttributes = ['menu_title', 'title', 'subtitle', 'abstract', 'description', 'seo_title', 'seo_keywords', 'seo_description', 'seo_no_index'];
+
+    /**
+     * Attributes that can be 'slugged'.
+     *
+     * @var array
+     */
+    public $sluggable = ['slug'];
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-	public 	  $translatedAttributes = ['title','subtitle','intro','description','abstract','seo_title','seo_keywords','seo_description'];
-	public    $sluggable = ['slug'];
-    protected $fillable  = ['title','subtitle','intro','description','abstract', 'slug','sort','pub','top_menu','id_parent','template_id','link'];
-	protected $fieldspec = [];
+    protected $fillable = ['title', 'subtitle', 'abstract', 'description', 'slug', 'sort', 'pub', 'top_menu', 'id_parent', 'link', 'template_id'];
 
+    /**
+     * The list of fields to build the edit/new form.
+     *
+     * @var array
+     */
+    protected $fieldspec = [];
 
-	public function media()
-	{
-		return $this->morphMany('App\Media', 'model');
-	}
+    /**
+     * Accessibility roles for searches.
+     *
+     * @var array
+     */
+    public $ajaxAccessibilityRoles = ['su'];
 
+    /**
+     * The Domain relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function template()
     {
         return $this->belongsTo('App\Domain', 'template_id', 'id');
     }
 
-	 function getFieldSpec ()
-    // set the specifications for this database table
+    /**
+     * The Media relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function media()
     {
+        return $this->morphMany('App\Media', 'model');
+    }
 
-		// build array of field specifications
-		$this->fieldspec['id'] = [
-			'type' => 'integer',
-			'size' => 5,
-			'minvalue' => 0,
-			'maxvalue' => 65535,
-			'pkey' => 'y',
-			'required' => 'y',
-			'label' => 'Name',
-			'hidden' => '1',
-			'display' => '0',
-		];
-
-        $this->fieldspec['template_id'] = [
-            'type' => 'relation',
-            'model' => 'Domain',
-            'filter'    =>  ['domain' => 'template'],
-            'foreign_key' => 'id',
-            'label_key' => 'title',
-            'required' => false,
-            'label' => 'Template',
-            'hidden' => '0',
-            'display' => '1',
-        ];
-
-		$this->fieldspec['id_parent'] = [
-			'type' => 'relation',
-			'model' => 'article',
-			'foreign_key' => 'id',
-			'label_key' => 'title',
-			'pkey' => 'y',
-			'required' => 'y',
-			'label' => 'Parent Page',
-			'hidden' => '0',
-			'display' => '1',
-		];
-
-		$this->fieldspec['title'] = [
-			'type' => 'string',
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => '0',
-			'label' => 'Title',
-			'extraMsg' => '',
-			'display' => '1',
-		];
-
-		$this->fieldspec['slug'] = [
-			'type' => 'string',
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => 0,
-			'label' => 'Slug',
-			'extraMsg' => '',
-			'display' => 1,
-		];
-
-		$this->fieldspec['subtitle'] = [
-			'type' => 'string',
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => '0',
-			'label' => 'Subtitle',
-			'extraMsg' => '',
-			'display' => '1',
-		];
-
-		$this->fieldspec['description'] = [
-			'type' => 'text',
-			'size' => 600,
-			'h' => 300,
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => 0,
-			'label' => 'Description',
-			'extraMsg' => '',
-			'cssClass' => 'ckeditor',
-			'display' => 1,
-		];
-		$this->fieldspec['abstract'] = [
-			'type' => 'text',
-			'size' => 600,
-			'h' => 100,
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => 0,
-			'label' => 'Abstract or  text  right column',
-			'extraMsg' => '',
-			'cssClass' => 'ckeditor',
-			'display' => 1,
-		];
-		$this->fieldspec['intro'] = [
-			'type' => 'text',
-			'size' => 600,
-			'h' => 100,
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => 0,
-			'label' => 'Abstract or  right side  column',
-			'extraMsg' => '',
-			'cssClass' => '',
-			'display' => 0,
-		];
-
-        $this->fieldspec['link'] = [
-            'type' => 'string',
-            'required' => false,
-            'hidden' => 0,
-            'label' => 'External url',
-            'extraMsg' => '',
-            'display' => 1,
-        ];
-
-
-		$this->fieldspec['image'] = [
-			'type' => 'media',
-			'size' => 600,
-			'h' => 300,
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => 0,
-			'label' => 'Image',
-			'extraMsg' => '',
-			'extraMsgEnabled' => 'Code',
-			'mediaType' => 'Img',
-			'display' => 1,
-
-		];
-		$this->fieldspec['doc'] = [
-			'type' => 'media',
-			'size' => 600,
-			'h' => 300,
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => 0,
-			'label' => 'Document',
-			'extraMsg' => '',
-			'lang' => 0,
-			'mediaType' => 'Doc',
-			'display' => 1,
-
-		];
-		$this->fieldspec['sort'] = [
-			'type' => 'integer',
-			'pkey' => 'y',
-			'required' => 'y',
-			'label' => 'Order',
-			'hidden' => '0',
-			'display' => '1',
-		];
-		$this->fieldspec['pub'] = [
-			'type' => 'boolean',
-			'pkey' => 'n',
-			'required' => '',
-			'hidden' => '0',
-			'label' => trans('admin.label.active'),
-			'display' => '1'
-		];
-		$this->fieldspec['top_menu'] = [
-			'type' => 'boolean',
-			'pkey' => 'n',
-			'required' => '',
-			'hidden' => '0',
-			'label' => trans('admin.label.top_menu'),
-			'display' => '1'
-		];
-		$this->fieldspec['seo_title'] = [
-			'type' => 'string',
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => '0',
-			'label' => 'Seo Title',
-			'extraMsg' => '',
-			'display' => '1',
-
-		];
-		$this->fieldspec['seo_keywords'] = [
-			'type' => 'string',
-
-			'pkey' => 'n',
-			'hidden' => 0,
-			'label' => 'Seo keywords, (list separated by comma like google,bing,yahoo',
-			'extraMsg' => '',
-			'cssClass' => '',
-			'display' => 1,
-
-		];
-		$this->fieldspec['seo_description'] = [
-			'type' => 'text',
-			'size' => 600,
-			'h' => 300,
-			'pkey' => 'n',
-			'hidden' => 0,
-			'label' => 'Seo description',
-			'extraMsg' => '',
-			'cssClass' => 'no',
-			'display' => 1,
-		];
-		return $this->fieldspec;
-	}
-	
-	/**
-     * Get the phone record associated with the user.
+    /**
+     * The Article relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function parentPage()
     {
         return $this->hasOne('App\Article','id','id_parent');
     }
 
-	public function scopePublished($query)    {
+    /**
+     * Set the specifications for this database table.
+     *
+     * @return array
+     */
+    function getFieldSpec()
+    {
+        // build array of field specifications
+        $this->fieldspec['id'] = [
+            'type'     => 'integer',
+            'minvalue' => 0,
+            'pkey'     => 'y',
+            'required' =>true,
+            'label'    => 'id',
+            'hidden'   => '1',
+            'display'  => '0',
+        ];
+        $this->fieldspec['id_parent'] = [
+            'type'        => 'relation',
+            'model'       => 'article',
+            'foreign_key' => 'id',
+            'label_key'   => 'title',
+            'required'    => false,
+            'label'       => 'Parent Page',
+            'hidden'      => '0',
+            'display'     => '1',
+        ];
+        $this->fieldspec['template_id'] = [
+            'type'        => 'relation',
+            'model'       => 'Domain',
+            'filter'      => ['domain' => 'template'],
+            'foreign_key' => 'id',
+            'label_key'   => 'title',
+            'required'    => false,
+            'label'       => 'Template',
+            'hidden'      => '0',
+            'display'     => '1',
+        ];
+        $this->fieldspec['menu_title'] = [
+            'type'     => 'string',
+            'required' => false,
+            'hidden'   => 0,
+            'label'    => 'Menu Title',
+            'extraMsg' => '',
+            'display'  => 1,
+        ];
+        $this->fieldspec['title'] = [
+            'type'     => 'string',
+            'required' => '1',
+            'hidden'   => '0',
+            'label'    => 'Page Title',
+            'extraMsg' => '',
+            'display'  => '1',
+        ];
+        $this->fieldspec['subtitle'] = [
+            'type'     => 'string',
+            'required' => false,
+            'hidden'   => '0',
+            'label'    => 'Subtitle',
+            'extraMsg' => '',
+            'display'  => '1',
+        ];
+        $this->fieldspec['slug'] = [
+            'type'     => 'string',
+            'required' => '1',
+            'hidden'   => 0,
+            'label'    => 'Slug',
+            'extraMsg' => '',
+            'display'  => 1,
+        ];
+        $this->fieldspec['description'] = [
+            'type'     => 'text',
+            'size'     => 600,
+            'h'        => 300,
+            'required' => 'n',
+            'hidden'   => 0,
+            'label'    => 'Description',
+            'extraMsg' => '',
+            'cssClass' => 'ckeditor',
+            'display'  => 1,
+        ];
+        $this->fieldspec['abstract'] = [
+            'type'     => 'text',
+            'size'     => 600,
+            'h'        => 100,
+            'required' => 'n',
+            'hidden'   => 0,
+            'label'    => 'Abstract or text right side column',
+            'extraMsg' => '',
+            'cssClass' => 'ckeditor',
+            'display'  => 1,
+        ];
+        $this->fieldspec['link'] = [
+            'type'     => 'string',
+            'required' => false,
+            'hidden'   => 0,
+            'label'    => 'External url',
+            'extraMsg' => '',
+            'display'  => 1,
+        ];
+        $this->fieldspec['image'] = [
+            'type'      => 'media',
+            'required'  => false,
+            'hidden'    => 0,
+            'label'     => 'Image',
+            'extraMsg'  => '',
+            'mediaType' => 'Img',
+            'display'   => 1,
+        ];
+        $this->fieldspec['doc'] = [
+            'type'      => 'media',
+            'required'  => false,
+            'hidden'    => 0,
+            'label'     => 'Document',
+            'extraMsg'  => '',
+            'lang'      => 0,
+            'mediaType' => 'Doc',
+            'display'   => 1,
+        ];
+        $this->fieldspec['sort'] = [
+            'type'     => 'integer',
+            'required' => false,
+            'label'    => 'Order',
+            'hidden'   => '0',
+            'display'  => '1',
+        ];
+        $this->fieldspec['pub'] = [
+            'type'     => 'boolean',
+            'required' => false,
+            'hidden'   => '0',
+            'label'    => trans('admin.label.active'),
+            'display'  => '1'
+        ];
+        $this->fieldspec['top_menu'] = [
+            'type'     => 'boolean',
+            'required' => false,
+            'hidden'   => '0',
+            'label'    => trans('admin.label.top_menu'),
+            'display'  => '1'
+        ];
+        $this->fieldspec['seo_title'] = [
+            'type'     => 'string',
+            'required' => 'n',
+            'hidden'   => '0',
+            'label'    => trans('admin.seo.title'),
+            'extraMsg' => '',
+            'display'  => '1',
+        ];
+        $this->fieldspec['seo_keywords'] = [
+            'type'     => 'string',
+            'hidden'   => 0,
+            'label'    => trans('admin.seo.keywords').'<br>'.trans('admin.seo.keywords_eg_list'),
+            'extraMsg' => '',
+            'cssClass' => '',
+            'display'  => 1,
+        ];
+        $this->fieldspec['seo_description'] = [
+            'type'     => 'text',
+            'size'     => 600,
+            'h'        => 300,
+            'hidden'   => 0,
+            'label'    => trans('admin.seo.description'),
+            'extraMsg' => '',
+            'cssClass' => 'no',
+            'display'  => 1,
+        ];
+        $this->fieldspec['seo_no_index'] = [
+            'type'     => 'boolean',
+            'required' => false,
+            'hidden'   => '0',
+            'label'    => trans('admin.seo.no-index'),
+            'display'  => '1'
+        ];
 
-		$query->where('pub', '=',1 );
-	}
-	public function scopeTop($query)    {
-		$query->where('top_menu', '=',1 )->orderBy('sort', 'asc');
-	}
-	public function scopeChildren($query,$id='')    {
-		 $query->where('id_parent', '=',$id )->orderBy('sort', 'asc');
-	}
+        return $this->fieldspec;
+    }
+
+    public function scopePublished($query)
+    {
+        $query->where('pub', '=', 1);
+    }
+
+    public function scopeTop($query)
+    {
+        $query->where('top_menu', '=', 1)->where('id_parent', '=', 1)->orderBy('sort', 'asc');
+    }
+
+    public function scopeChildren($query, $id = '')
+    {
+        $query->where('id_parent', '=', $id)->orderBy('sort', 'asc');
+    }
+
+    public function scopeChildrenMenu($query, $id)
+    {
+        $query->where('id_parent', '=', $id)->where('top_menu', '=', 1)->orderBy('sort', 'asc');
+    }
 }

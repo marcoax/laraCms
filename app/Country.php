@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Model;
  * Class Country
  * @package App
  */
+
+
 class Country extends Model
 {
+
+
+
     /**
      * @var array
      */
-    protected $fillable  = ['name','country_code','id_continent', 'eu','vat','is_active','created_by','updated_by'];
+    protected $fillable  = ['name','iso_code','id_continent', 'eu','vat','is_active','created_by','updated_by'];
     /**
      * @var array
      */
@@ -27,28 +32,30 @@ class Country extends Model
     {
         // build array of field specifications
         $this->fieldspec['id'] = [
-            'type' => 'integer',
-            'pkey' => 'y',
-            'label' => 'Id',
-            'hidden' => '1',
-            'display' => '0',
+            'type'     => 'integer',
+            'minvalue' => 0,
+            'pkey'     => 'y',
+            'required' =>true,
+            'label'    => 'id',
+            'hidden'   => '1',
+            'display'  => '0',
         ];
 
         $this->fieldspec['name'] = [
             'type' => 'string',
-            'required' => 1,
+            'required' =>true,
             'hidden' => '0',
-            'required' => true,
+            'required' =>true,
             'label' => 'Name',
             'extraMsg' => '',
             'display' => '1',
         ];
 
-        $this->fieldspec['country_code'] = [
+        $this->fieldspec['iso_code'] = [
             'type' => 'string',
-            'required' => true,
+            'required' =>true,
             'hidden' => '0',
-            'label' => 'Country code',
+            'label' => 'Iso code',
             'extraMsg' => '',
             'display' => '1',
         ];
@@ -65,7 +72,7 @@ class Country extends Model
 
         $this->fieldspec['eu'] = [
             'type' => 'boolean',
-            'required' => true,
+            'required' =>true,
             'hidden' => '0',
             'label' => "Eu",
             'display' => '1'
@@ -80,7 +87,7 @@ class Country extends Model
 
         $this->fieldspec['is_active'] = [
             'type' => 'boolean',
-            'required' => '',
+            'required' => false,
             'hidden' => '0',
             'label' => trans('admin.label.active'),
             'display' => '1'

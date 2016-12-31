@@ -24,19 +24,18 @@ class HpSlider extends Model
 
         // build array of field specifications
         $this->fieldspec['id'] = [
-            'type' => 'integer',
-            'pkey' => 'y',
-            'required' => 'y',
-            'label'=>'Name',
-            'hidden' => '1',
-            'display'=>'0',
+            'type'     => 'integer',
+            'minvalue' => 0,
+            'pkey'     => 'y',
+            'required' =>true,
+            'label'    => 'id',
+            'hidden'   => '1',
+            'display'  => '0',
         ];
-
         $this->fieldspec['title']    = [
             'type' =>'string',
             'size' =>400,
-            'pkey' => 'n',
-            'required' => 'y',
+            'required' =>true,
             'hidden' => '0',
             'label'=>'Title',
             'extraMsg'=>'',
@@ -45,74 +44,63 @@ class HpSlider extends Model
 
         $this->fieldspec['description'] = [
             'type' =>'string',
-            'pkey' => 'n',
-            'required' => 'y',
+            'required' =>true,
             'hidden' =>0,
             'label'=>'Caption',
             'extraMsg'=>'',
             'lang'=>0,
             'cssClass'=>'ckeditor',
-            'display'=>1,
+            'display'   =>  1,
         ];
         $this->fieldspec['slug'] = [
             'type' =>'string',
             'size' =>600,
-            'pkey' => 'n',
-            'required' => 'y',
+            'required' =>true,
             'hidden' =>1,
             'label'=>'Slug',
             'extraMsg'=>'',
             'display'=>0,
-
         ];
         $this->fieldspec['link'] = [
             'type' =>'string',
             'size' =>600,
-            'pkey' => 'n',
-            'required' => 'y',
+            'required' => 'n',
             'hidden' =>0,
             'label'=>'External link  (optional)',
             'extraMsg'=>'',
-            'display'=>1,
+            'display'=>0,
         ];
-
         $this->fieldspec['image'] = [
             'type' =>'media',
             'pkey' => 'n',
-            'required' => 'y',
+            'required' =>true,
             'hidden' =>0,
             'label'=>'Image',
             'extraMsg'=>'',
             'extraMsgEnabled'=>'Code',
             'lang'=>0,
             'mediaType'=>'Img',
-            'display'=>1,
+            'display'   =>  1,
 
         ];
-
         $this->fieldspec['sort'] = [
-            'type' => 'integer',
-            'required' => 'y',
-            'label'=>'Order',
-            'hidden' => '0',
-            'display'=>'1',
+            'type'     => 'integer',
+            'required' => false,
+            'label'    => 'Order',
+            'hidden'   => '0',
+            'display'  => '1',
         ];
-        $this->fieldspec['is_active']   = [
-            'type' =>'boolean',
-            'pkey' => 'n',
-            'required' => '',
-            'hidden' => '0',
-            'label'=>trans('admin.label.active'),
-            'display'=>'1'
+        $this->fieldspec['is_active'] = [
+            'type'     => 'boolean',
+            'required' => false,
+            'hidden'   => '0',
+            'label'    => trans('admin.label.active'),
+            'display'  => '1'
         ];
         return $this->fieldspec;
     }
 
-
-
-
     public function scopeActive($query)    {
-
         $query->where('is_active', '=',1 );
     }
 

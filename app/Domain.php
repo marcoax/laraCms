@@ -27,7 +27,7 @@ class Domain extends Model
 
         $this->fieldspec['domain'] = [
             'type' => 'string',
-            'required' => 1,
+            'required' =>true,
             'hidden' => 0,
             'label' => 'Domain',
             'extraMsg' => '',
@@ -36,7 +36,7 @@ class Domain extends Model
 
         $this->fieldspec['title'] = [
             'type' => 'string',
-            'required' => 1,
+            'required' =>true,
             'hidden' => '0',
             'label' => 'Title',
             'extraMsg' => '',
@@ -64,7 +64,7 @@ class Domain extends Model
         $this->fieldspec['pub'] = [
             'type' => 'boolean',
             'pkey' => 'n',
-            'required' => '',
+            'required' => false,
             'hidden' => '0',
             'label' => trans('admin.label.active'),
             'display' => '1'
