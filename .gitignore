@@ -87,3 +87,4 @@ Thumbs.db
 .env
 npm-shrinkwrap.json
 
+*.env
