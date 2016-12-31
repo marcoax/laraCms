@@ -4,6 +4,31 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    */
+
+    'name' => 'laraCms',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Environment
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "environment" your application is currently
+    | running in. This may determine how you prefer to configure various
+    | services your application utilizes. Set this in your ".env" file.
+    |
+    */
+
+    'env' => env('APP_ENV', 'production'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |
@@ -13,8 +38,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', TRUE),
-    'env' => env('APP_ENV', 'production'),
+    'debug' => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -27,7 +51,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,8 +77,10 @@ return [
     |
     */
 
+
     'locale' => 'en',
     'locales' => ['en' => 'English', 'it' => 'Italiano'],
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -79,7 +105,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'SomeRandomString'),
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -96,7 +122,9 @@ return [
     |
     */
 
-    'log' => 'single',
+    'log' => env('APP_LOG', 'single'),
+
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
     |--------------------------------------------------------------------------
@@ -114,13 +142,11 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        //Illuminate\Routing\ControllerServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -128,6 +154,7 @@ return [
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
@@ -138,36 +165,57 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
+
+        /*
+         * Package Service Providers...
+         */
+
+        //
+
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /*
-        *  Vendor
-        */
+
+       /*
+       |--------------------------------------------------------------------------
+       | Vendor Service Providers...
+       |--------------------------------------------------------------------------
+       */
+
         'Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider',
         Dimsav\Translatable\TranslatableServiceProvider::class,
         'hisorange\BrowserDetect\Provider\BrowserDetectService',
         Collective\Html\HtmlServiceProvider::class,
         'Zizaco\Entrust\EntrustServiceProvider',
         'Intervention\Image\ImageServiceProvider',
-        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
-        Collective\Bus\BusServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
         'Clockwork\Support\Laravel\ClockworkServiceProvider',
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
-        // laraCMS
-        App\laraCms\Admin\Providers\AdminFormServiceProvider::class,
-        'App\laraCms\Notifications\FlashServiceProvider',
+       /*
+       |--------------------------------------------------------------------------
+       | laraCMS Service Providers...
+       |--------------------------------------------------------------------------
+       */
+        App\LaraCms\Providers\LaraServiceProvider::class,
 
+
+        'App\LaraCms\Notifications\FlashServiceProvider',
+        App\LaraCms\Admin\Providers\AdminFormServiceProvider::class,
+        App\LaraCms\Admin\Providers\AdminListServiceProvider::class,
+        App\LaraCms\Website\Providers\WebsiteDbServiceProvider::class,
 
         // laraCMSfe
-        App\laraCms\Website\Providers\AppDbServiceProvider::class,
-        App\laraCms\Website\Providers\AppServiceProvider::class,
-        App\laraCms\Website\Providers\DecoratorServiceProvider::class,
+        App\LaraCms\Website\Providers\HtmlSocialServiceProvider::class,
+        App\LaraCms\Website\Providers\WebsiteDecoratorServiceProvider::class,
+
 
     ],
 
@@ -197,12 +245,13 @@ return [
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,
         'File' => Illuminate\Support\Facades\File::class,
+        'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'Input' => Illuminate\Support\Facades\Input::class,
-        'Inspiring' => Illuminate\Foundation\Inspiring::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
@@ -217,31 +266,39 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        /*
-        *  Vendor
-        */
-        'LaravelLocalization' => 'Mcamara\LaravelLocalization\Facades\LaravelLocalization',
-        'BrowserDetect' => 'hisorange\BrowserDetect\Facade\Parser',
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
-        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
-        'Image' => 'Intervention\Image\Facades\Image',
-        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
-        'SEOMeta' => Artesaos\SEOTools\Facades\SEOMeta::class,
-        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
-        'Twitter' => Artesaos\SEOTools\Facades\TwitterCard::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
         /*
-        laraCMS
+        |--------------------------------------------------------------------------
+        | Vendor Class Aliases
+        |--------------------------------------------------------------------------
         */
-        'AdminForm' => App\laraCms\Admin\Facades\AdminForm::class,
-        'Flash' => 'Helpers\Notifications\Flash',
-        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
-        'Setting' => \App\laraCms\Tools\SettingHelper::class,
 
-        'HtmlMenu' => App\laraCms\Website\Facades\HtmlMenu::class,
-        'HtmlSocial' => App\laraCms\Website\Facades\HtmlSocial::class,
+        'LaravelLocalization'   => 'Mcamara\LaravelLocalization\Facades\LaravelLocalization',
+        'BrowserDetect'         => 'hisorange\BrowserDetect\Facade\Parser',
+        'Form'                  => Collective\Html\FormFacade::class,
+        'Html'                  => Collective\Html\HtmlFacade::class,
+        'Entrust'               => 'Zizaco\Entrust\EntrustFacade',
+        'Image'                 => 'Intervention\Image\Facades\Image',
+        'Excel' 				=> Maatwebsite\Excel\Facades\Excel::class,
+        'Clockwork'             => 'Clockwork\Support\Laravel\Facade',
+
+
+        /*
+         |--------------------------------------------------------------------------
+         | laraCms Class Aliases
+         |--------------------------------------------------------------------------
+        */
+        'AdminForm' => App\LaraCms\Admin\Facades\AdminForm::class,
+        'AdminList' => App\LaraCms\Admin\Facades\AdminList::class,
+
+        'Flash'     => 'Helpers\Notifications\Flash',
+        'HtmlHelper'=> \App\LaraCms\Tools\HtmlHelper::class,
+        'SEO'       => Artesaos\SEOTools\Facades\SEOTools::class,
+        'Setting'   => \App\LaraCms\Tools\SettingHelper::class,
+
+        'ImgHelper' => App\LaraCms\Website\Facades\ImgHelper::class,
+        'HtmlSocial'=> App\LaraCms\Website\Facades\HtmlSocial::class,
+
     ],
 
 ];

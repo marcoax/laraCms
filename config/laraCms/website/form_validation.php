@@ -1,17 +1,18 @@
 <?php
 return [
 
-		'contact' => [
+		'contacts' => [
 			'name'	  => 'required',
 			'surname' => 'required',
-			'subject' => 'required',
+            'company' => 'required',
+            'subject' => 'required',
 			'message' => 'required',
 			'privacy' => 'required',
 			'email'   => 'required|Between:3,64|Email',
-
 		],
-        'newsletter' => [
-            'email'   => 'required|Between:3,64|Email|unique:newsletters',
-        ]
 
+		'newsletter' => [
+			'email'   => 'required|Between:3,64|Email|unique:newsletters',
+		]
+		
 ];

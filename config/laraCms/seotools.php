@@ -1,4 +1,6 @@
 <?php
+
+
 return [
     'meta'      => [
         /*
@@ -26,7 +28,7 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title'       => 'araCms!', // set false to total remove
+            'title'       => 'laraCms!', // set false to total remove
             'description' => 'Laravel Cms by Marco A.', // set false to total remove
             'url'         => false,
             'type'        => false,

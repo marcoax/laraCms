@@ -6,8 +6,8 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'       => 'laraCms', // set false to total remove
-            'description' => 'laraCms', // set false to total remove
+            'title'        => "laraCms", // set false to total remove
+            'description'  => 'For those who helped create the Genki Dama', // set false to total remove
             'separator'    => ' - ',
             'keywords'     => [],
             'canonical'    => false, // Set null for using Url::current(), set false to total remove
@@ -29,8 +29,8 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title'       => 'laraCms', // set false to total remove
-            'description' => 'laraCms', // set false to total remove
+            'title'       => 'Over 9000 Thousand!', // set false to total remove
+            'description' => 'For those who helped create the Genki Dama', // set false to total remove
             'url'         => false,
             'type'        => false,
             'site_name'   => false,
