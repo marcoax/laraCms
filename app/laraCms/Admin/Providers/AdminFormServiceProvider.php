@@ -1,6 +1,6 @@
 <?php
 
-namespace App\laraCms\Admin\Providers;
+namespace App\LaraCms\Admin\Providers;
 Use App;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,7 +25,7 @@ class AdminFormServiceProvider extends ServiceProvider
     {
         App::bind('AdminForm', function()
         {
-            return new App\laraCms\Admin\AdminForm;
+            return new \App\LaraCms\Admin\AdminForm;
         });
     }
 }

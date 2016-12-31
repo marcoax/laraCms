@@ -1,8 +1,14 @@
-<?php
+<?php namespace App\Providers;
 
-namespace App\Providers;
+
 
 use Illuminate\Support\ServiceProvider;
+
+/*
+ *  laraCms
+ */
+use DB;
+use Event;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 
     /**

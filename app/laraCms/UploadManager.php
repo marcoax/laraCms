@@ -4,6 +4,8 @@ Use Form;
 Use App;
 use Carbon\Carbon;
 use Input;
+
+/* TODO  -> this must be refactor */
 class UploadManager {
 	protected $media;
     protected $model;

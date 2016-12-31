@@ -19,17 +19,17 @@ class Tag extends Model
 
         // build array of field specifications
         $this->fieldspec['id'] = [
-            'type' => 'integer',
-            'size' => 5,
-            'pkey' => 'y',
-            'required' => 'y',
-            'label'=>'Id',
-            'hidden' => '1',
-            'display'=>'0',
+            'type'     => 'integer',
+            'minvalue' => 0,
+            'pkey'     => 'y',
+            'required' =>true,
+            'label'    => 'id',
+            'hidden'   => '1',
+            'display'  => '0',
         ];
         $this->fieldspec['title']   = [
             'type' =>'string',
-            'required' => 'y',
+            'required' =>true,
             'hidden' => '0',
             'label'=>'Title',
             'extraMsg'=>'',
@@ -41,7 +41,7 @@ class Tag extends Model
             'hidden' =>0,
             'label'=>'Slug',
             'extraMsg'=>'',
-            'display'=>1,
+            'display'   =>  1,
         ];
         return $this->fieldspec;
     }
@@ -54,4 +54,6 @@ class Tag extends Model
         return $this->belongsToMany('App\News');
 
     }
+
+
 }

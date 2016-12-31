@@ -1,14 +1,13 @@
-<?php
+<?php namespace App\LaraCms\Admin\Requests;
 
-namespace App\laraCms\Admin\Requests;
-
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 use Input;
 
-class AdminFormRequest extends Request
+class AdminFormRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the user is authorized
+     * to make this request.
      *
      * @return bool
      */
@@ -18,17 +17,15 @@ class AdminFormRequest extends Request
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Get the validation rules that
+     * apply to the request.
      *
      * @return array
      */
     public function rules()
     {
-       
-	   $model= ( $this::segment(2)=='create')? $this::segment( count( $this::segments() )) : $this::segment( count( $this::segments() )-1) ;
-	   $rules =  config('laraCms.admin.form_validation.'.$model);
-	  
-  	 return $rules;
-
+        $model= ( $this::segment(2)=='create')? $this::segment( count( $this::segments() )) : $this::segment( count( $this::segments() )-1) ;
+        $rules =  config('laraCms.admin.form_validation.'.$model);
+        return $rules;
     }
 }

@@ -1,34 +1,51 @@
 <?php
 
-namespace App\laraCms\Website\Controllers;
-
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Requests;
+namespace App\LaraCms\Website\Controllers;
+use App\FaqCategory;
+use App\LaraCms\Website\Repos\Article\ArticleRepositoryInterface;
+use App\LaraCms\Website\Repos\News\NewsRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\laraCms\Website\Requests\WebsiteFormRequest;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Redirect;
 use Input;
 use Validator;
 use App\Article;
 use App\News;
-use App\Contact;
-use App\laraCms\Website\Repos\Article\ArticleRepositoryInterface;
-use App\laraCms\Website\Repos\News\NewsRepositoryInterface;
+use App\Product;
+use App\PlantProvenience;
+use App\LeafType;
+use App\Environment;
+use Domain;
 
-/**
- * Class PagesController
- * @package App\laraCms\Website\Controllers
- */
 
 class PagesController extends Controller
 
 {
+	use \App\LaraCms\SeoTools\LaraCmsSeoTrait;
+    /**
+     * @var
+     */
+    protected  $template;
+    /**
+     * @var ArticleRepositoryInterface
+     */
+    protected  $articleRepo;
+    /**
+     * @var NewsRepositoryInterface
+     */
+    protected  $newsRepo;
+    /**
+     * @var NewsRepositoryInterface
+     *
+     *
+     */
+    private $news;
 
-    use \App\laraCms\SeoTools\LaraCmsSeoTrait;
-    protected $articleRepo;
-    protected $newsRepo;
-    public function __construct(ArticleRepositoryInterface $article,NewsRepositoryInterface $news)
+    /**
+     * @param ArticleRepositoryInterface $article
+     * @param PostRepositoryInterface $news
+     */
+
+    public function __construct(ArticleRepositoryInterface $article,NewsRepositoryInterface $news )
     {
         $this->articleRepo = $article;
         $this->newsRepo    = $news;
@@ -46,36 +63,63 @@ class PagesController extends Controller
 
     /**
      * @param $slug
-     * @return \Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function pages($slug) {
         $article = $this->articleRepo->getBySlug($slug);
-        if(!$article) return redirect('');
-        $this->setSeo($article);
-        $this->template = ( $article->template_id ) ?  $article->template->value  : $slug;
-        if (view()->exists('website.'. $this->template)) {
-            return view('website.'.$this->template,compact('article'));
+        if($article){
+            $this->setSeo($article);
+            $this->template = ( $article->template_id ) ?  $article->template->value  : $slug;
+            if (view()->exists('website.'. $this->template)) {
+                return view('website.'.$this->template,compact('article'));
+            }
+            return view('website.normal',compact('article'));
         }
-        return view('website.normal',compact('article'));
+        else {
+            return Redirect::to('/');
+        }
+    }
+
+    public function test() {
+        phpinfo();
+        die();
     }
 
     /**
+     * @param int $parameter
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function contacts($parameter=0) {
+        $article = $this->articleRepo->getBySlug('contacts');
+		if( $parameter ) {
+			return view('website.contacts', ['request_product_id' => $parameter, 'article' => $article]);
+		}else{
+			return view('website.contacts', ['request_product_id' => 0, 'article' => $article]);
+		}
+	}
+
+    /**
      * @param string $slug
-     * @return \Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function news($slug='') {
-        $article = $this->articleRepo->getBySlug('news');;
+        $article = $this->articleRepo->getBySlug('news');
+
         if($slug=='') {
-            $news = $this->newsRepo->getAll();
-            $this->setSeo($article);
+        	$this->setSeo($article);
+            $news = $this->newsRepo->getPublished();
             return view('website.news.home',compact('article','news'));
         }
         else {
-            $news = $this->newsRepo->getBySlug($slug);
-            if(!$news) return redirect('');
-            $this->setSeo($news);
-            $this->addOpenGraphProperty('type','articles');
-            return view('website.news.single',compact('article','news'));
+            $news = $this->newsRepo->getBySlug($slug);;
+            if($news){
+                $this->setSeo($news);
+                return view('website.news.single',compact('article','news'));
+            }
+            return Redirect::to('/');
         }
     }
+
+
+
 }

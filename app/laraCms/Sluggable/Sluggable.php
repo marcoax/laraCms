@@ -1,4 +1,4 @@
-<?php namespace App\laraCms\Sluggable;
+<?php namespace App\LaraCms\Sluggable;
 
 
 use Illuminate\Database\Eloquent\Model;
@@ -16,13 +16,23 @@ trait SluggableTrait
 
     protected $value;
 
-    public function sluggy(Model $model,$value)
+	public function sluggy(Model $model, $value)
     {
         $this->value = $value;
 
-        $slug = ($this->value=='')? str_slug($model->title) :str_slug($this->value);
-        if( $model->id!='') $count = $model::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->where('id', '!=', $model->id)->count();
-        else $count = $model::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+		$count = 0;
+
+        $slug = ($this->value == '') ? str_slug($model->title) : str_slug($this->value);
+        if ($model->id != '') {
+			if ($model::where('slug', $slug)->where('id', '!=', $model->id)->count()) {
+				$count = $model::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->where('id', '!=', $model->id)->count();
+			}
+		}
+        else {
+			if ($model::where('slug', $slug)->count()) {
+				$count = $model::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+			}
+		}
         return $count ? "{$slug}-{$count}" : $slug;
     }
 

@@ -6,7 +6,7 @@
  * Time: 1:47 PM
  */
 
-namespace App\laraCms\Website\Facades;
+namespace App\LaraCms\Website\Facades;
 use Illuminate\Support\Facades\Facade;
 
 class HtmlSocial extends Facade{

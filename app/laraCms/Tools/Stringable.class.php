@@ -1,5 +1,5 @@
 <?php
-namespace App\laraCms\Tools;
+namespace App\LaraCms\Tools;
 class Stringable {
 
     public static function camelize( $string )
@@ -60,9 +60,15 @@ class Stringable {
 
         return $string;
     }
-    
-    
-    public static function format_size($size) {
+
+    /**
+     * This method is used to convert file sizes into human readable strings.
+     *
+     * @param $bytes
+     *
+     * @return string
+     */
+    public static function humanReadableFileSize($size) {
         $units = explode(' ','B KB MB GB TB PB');
         $mod = 1024;
 

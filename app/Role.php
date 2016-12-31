@@ -13,59 +13,51 @@ class Role extends EntrustRole
     {
        
 		// build array of field specifications
-		$this->fieldspec['id'] = [
-			'type' => 'integer',
-			'size' => 5,
-			'minvalue' => 0,
-			'maxvalue' => 65535,
-			'pkey' => 'y',
-			'required' => 'y',
-			'label'=>'Name',
-			'hidden' => '1',
-			'display'=>'0',
-		];
-		
-		$this->fieldspec['name']    = [	
+        $this->fieldspec['id'] = [
+            'type'     => 'integer',
+            'minvalue' => 0,
+            'pkey'     => 'y',
+            'required' =>true,
+            'label'    => 'id',
+            'hidden'   => '1',
+            'display'  => '0',
+        ];
+		$this->fieldspec['name']    = [
 			'type' =>'string',
 			'size' =>400,
 			'max' => 255,
 			'pkey' => 'n',
-			'required' => 'y',
+			'required' =>true,
 			'hidden' => '0',
 			'label'=>'Name',
 			'extraMsg'=>'',
-			'display'=>'1',
-			
+			'display'=>'1'
 		];
-		
 		$this->fieldspec['display_name']    = [	
 			'type' =>'string',
 			'size' =>400,
 			'max' => 255,
 			'pkey' => 'n',
-			'required' => 'y',
+			'required' =>true,
 			'hidden' => '0',
 			'label'=>'Display Name',
 			'extraMsg'=>'',
 			'display'=>'1',
 			
 		];
-		
 		$this->fieldspec['description'] = [	
 			'type' =>'text',
 			'size' =>600,
 			'h' =>300,
 			'max' => 255,
 			'pkey' => 'n',
-			'required' => 'y',
+			'required' =>true,
 			'hidden' =>0,
 			'label'=>'Description',
 			'extraMsg'=>'',
 			'cssClass'=>'',
-			'display'=>1,
-			
+			'display'   =>  1,
 		];
-		
 		return $this->fieldspec;
 	}
 }

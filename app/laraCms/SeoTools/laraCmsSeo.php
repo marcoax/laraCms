@@ -1,9 +1,10 @@
-<?php namespace App\laraCms\SeoTools;
+<?php namespace App\LaraCms\SeoTools;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use SEO;
+use Request;
 
 /**
  * Class laraCmsSeoTrait
@@ -30,23 +31,24 @@ trait LaraCmsSeoTrait
         $this->setTitle();
         $this->setDescription();
         $this->setOpenGraphImages();
+        $this->setCanonical();
     }
 
     public function setTitle()
-    { 
-        $this->title = ucfirst( strtolower($this->tagHandler('title') ) ); 
+    {
+        $this->title = $this->tagHandler('title');
         SEO::setTitle($this->title);
     }
 
      public function setDescription()
     {
-         SEO::setDescription($this->tagHandler('description'));
+         SEO::setDescription( str_limit( $this->tagHandler('description'), 150 ) );
 
     }
 
     public function setCanonical()
     {
-
+        $this->url = Request::url();
         SEO::setCanonical($this->url);
     }
 

@@ -2,119 +2,85 @@
 
 namespace App;
 
-use App\Events\Registration\UserRegistered;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\LaraCms\Notifications\UserResetPasswordNotification as UserResetPasswordNotification;
 
-/**
- * Class User
- * @package App
- *
- * @
- */
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends Authenticatable
 {
-    use Authenticatable, CanResetPassword;
-	use EntrustUserTrait; // add this trait to your user model
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password','is_active'];
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
 
     /**
-     * The attributes excluded from the model's JSON form.
+     * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = ['password','remember_token'];
-	protected $fieldspec = [];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
+    protected $fieldspec = [];
 
-	/**
-	 * @param $password
-	 */
-	public function setPasswordAttribute($password)
-	{
-		if($password !=''){
-			$this->attributes['password'] = bcrypt($password);
-			//  set  also the real password only for  demo purpose must not fillable
-			$this->attributes['real_password'] = $password;
-		}
-	}
-
-	/**
-	 * @param $roles
-	 */
-	public function saveRoles($roles)
-	{
-	    if(!empty($roles))
-	    {
-	        $this->roles()->sync($roles);
-	    } else {
-	        $this->roles()->detach();
-	    }
-	}
-
-	/**
-	 * @return array
-	 */
-	 function getFieldSpec ()
-    // set the specifications for this database table
+    /**
+     * @param $password
+     */
+    public function setPasswordAttribute($password)
     {
-       
-		// build array of field specifications
-		$this->fieldspec['id'] = [
-			'type' => 'integer',
-			'size' => 5,
-			'minvalue' => 0,
-			'maxvalue' => 65535,
-			'pkey' => 'y',
-			'required' => 'y',
-			'label'=>'Name',
-			'hidden' => '1',
-			'display'=>'0',
-		];
-		
-		$this->fieldspec['name']    = [	
-			'type' =>'string',
-			'size' =>400,
-			'max' => 255,
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => '0',
-			'label'=>'Name',
-			'extraMsg'=>'',
-			'display'=>'1',
-			
-		];
-		
-		$this->fieldspec['email']    = [	
-			'type' =>'string',
-			'size' =>400,
-			'max' => 255,
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => '0',
-			'label'=>'Email',
-			'extraMsg'=>'',
-			'display'=>'1',
-			
-		];
+        if($password !=''){
+            $this->attributes['password'] = bcrypt($password);
+            //  set  also the real password only for  demo purpose must not fillable
+            $this->attributes['real_password'] = $password;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    function getFieldSpec ()
+        // set the specifications for this database table
+    {
+
+        // build array of field specifications
+        $this->fieldspec['id'] = [
+            'type'     => 'integer',
+            'minvalue' => 0,
+            'pkey'     => 'y',
+            'required' =>true,
+            'label'    => 'id',
+            'hidden'   => '1',
+            'display'  => '0',
+        ];
+        $this->fieldspec['name']    = [
+            'type' =>'string',
+            'size' =>400,
+            'max' => 255,
+            'pkey' => 'n',
+            'required' =>true,
+            'hidden' => '0',
+            'label'=>'Name',
+            'extraMsg'=>'',
+            'display'=>'1',
+        ];
+        $this->fieldspec['email']    = [
+            'type' =>'string',
+            'size' =>400,
+            'max' => 255,
+            'required' =>true,
+            'hidden' => '0',
+            'label'=>'Email',
+            'extraMsg'=>'',
+            'display'=>'1',
+        ];
         /*
 		$this->fieldspec['role'] = [
 			'type'       		=> 'relation',
@@ -126,39 +92,37 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			'minvalue' => 0,
 			'maxvalue' => 65535,
 			'pkey' => 'y',
-			'required' => 'y',
+			'required' =>true,
 			'label'=>'Role',
 			'hidden' => '1',
 			'display'=>'1',
 			 'multiple' => true,
 		];
         */
-		
-		$this->fieldspec['password']    = [	
-			'type' =>'password',
-			'size' =>400,
-			'max' => 255,
-			'pkey' => 'n',
-			'required' => 'y',
-			'hidden' => '0',
-			'label'=>'Password',
-			'extraMsg'=>'',
-			'display'=>'1',
-			'template'=>'password'
-		];
-		$this->fieldspec['is_active']   = [
-			'type' =>'boolean',
-			'size' =>1,
-			'max' => 1,
-			'pkey' => 'n',
-			'required' => '',
-			'hidden' => '0',
-			'label'=>trans('admin.label.active'),
-			'display'=>'1'
-       ];
-		
-		return $this->fieldspec;
-	}
+        $this->fieldspec['password']    = [
+            'type' =>'password',
+            'size' =>400,
+            'max' => 255,
+            'pkey' => 'n',
+            'required' =>true,
+            'hidden' => '0',
+            'label'=>'Password',
+            'extraMsg'=>'',
+            'display'=>'1',
+            'template'=>'password'
+        ];
+        $this->fieldspec['is_active']   = [
+            'type' =>'boolean',
+            'size' =>1,
+            'max' => 1,
+            'pkey' => 'n',
+            'required' => false,
+            'hidden' => '0',
+            'label'=>trans('admin.label.active'),
+            'display'=>'1'
+        ];
+        return $this->fieldspec;
+    }
 
     /**
      * create a new  user
@@ -173,5 +137,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         ]);
         event( new UserRegistered($user) );
         return $user;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notifiable override the sendPasswordResetNotification
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new UserResetPasswordNotification($token));
     }
 }

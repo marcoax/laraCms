@@ -1,4 +1,4 @@
-<?php namespace App\laraCms\Tools;
+<?php namespace App\LaraCms\Tools;
 class Tool {
 
     
@@ -83,14 +83,7 @@ class Tool {
 		return $pageURL;
 	}
  
-	/**
-	* url della  pagina ma_curPageURL
-	* @param  string $urlString
-	* @return string $urlString
-	*/
-	function ma_get_full_url($urlString) {
-		return DIR_WS_CATALOG.$urlString;
-	}
+
 	
 	/**
 	* return to the previus  page

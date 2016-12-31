@@ -6,7 +6,7 @@
  * Time: 11:22
  */
 
-namespace App\laraCms\Website\Decorator;
+namespace App\LaraCms\Website\Decorator;
 
 class laraCmsDecorator
 {

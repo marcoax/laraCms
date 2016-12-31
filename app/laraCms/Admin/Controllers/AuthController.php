@@ -1,14 +1,13 @@
-<?php
+<?php namespace App\LaraCms\Admin\Controllers;
 
-namespace App\laraCms\Admin\Controllers;
-
-use App\AdminUser;
-use Validator;
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Auth, Input;
-use App\User;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Lang;
+use Validator;
+use Input;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -24,18 +23,26 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-    protected $redirectTo = '/admin/';
-    protected $loginPath = '/admin/login';
-    protected $redirectAfterLogout = '/admin/login';
 
     /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
+     * The redirect path after login success.
+     * @var string
      */
-    public function __construct()
-    {
-    }
+    protected $redirectTo = '/admin/';
+
+    /**
+     * Login path.
+     *
+     * @var string
+     */
+    protected $loginPath = '/admin/login';
+
+    /**
+     * The redirect path after logout.
+     *
+     * @var string
+     */
+    protected $redirectAfterLogout = '/admin/login';
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -46,6 +53,8 @@ class AuthController extends Controller
     }
 
     /**
+     * This method is used to authenticate an admin.
+     *
      * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function adminLogin()
@@ -53,14 +62,26 @@ class AuthController extends Controller
         $input = Input::all();
 
         if (count($input) > 0) {
+
             $auth = auth()->guard('admin');
             $credentials = [
-                'email' => $input['email'],
+                'email'    => $input['email'],
                 'password' => $input['password'],
             ];
 
             if ($auth->attempt($credentials)) {
-                return redirect()->action('\App\laraCms\Admin\Controllers\AdminPagesController@home');
+
+                // Make sure that the user is authorized.
+                if ($auth->user()->is_active == 1)
+                    return redirect()->action('\App\LaraCms\Admin\Controllers\AdminPagesController@home');
+                else {
+
+                    Auth::guard('admin')->logout();
+
+                    return redirect()->back()->withErrors([
+                        'unauthorized' => Lang::has('auth.unauthorized') ? Lang::get('auth.unauthorized') : 'You are not authorized to proceed.',
+                    ]);
+                }
             } else {
 
                 return redirect()->back()
@@ -84,12 +105,13 @@ class AuthController extends Controller
 
     /**
      * Log the user out of the application.
+     *
      * @return \Illuminate\Http\Response
      */
     public function logout()
     {
         Auth::guard('admin')->logout();
-        $this->redirectAfterLogout;
-        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+
+        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/admin');
     }
 }

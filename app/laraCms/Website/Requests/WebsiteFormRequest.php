@@ -1,12 +1,11 @@
 <?php
 
-namespace App\laraCms\Website\Requests;
+namespace App\LaraCms\Website\Requests;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 use Input;
-use Validator;
 
-class WebsiteFormRequest extends Request
+class WebsiteFormRequest extends FormRequest
 {
     protected $model; /*************  cur model to validate **************/
     /**
@@ -32,7 +31,4 @@ class WebsiteFormRequest extends Request
         $rules =  config('laraCms.website.form_validation.'.$this->model);
         return $rules;
     }
-
-
-   
 }

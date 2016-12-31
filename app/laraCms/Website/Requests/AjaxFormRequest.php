@@ -1,12 +1,12 @@
 <?php
+namespace App\LaraCms\Website\Requests;
 
-namespace App\laraCms\Website\Requests;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 use Input;
 use Validator;
 
-class AjaxFormRequest extends Request
+class AjaxFormRequest extends FormRequest
 {
     protected $model; /*************  cur model to validate **************/
     /**
@@ -36,7 +36,7 @@ class AjaxFormRequest extends Request
 
     public function validate()
     {
-       
+
 
 
     }

@@ -6,7 +6,7 @@
  * Time: 1:47 PM
  */
 
-namespace App\laraCms\Admin\Facades;
+namespace App\LaraCms\Admin\Facades;
 use Illuminate\Support\Facades\Facade;
 
 class AdminForm extends Facade{

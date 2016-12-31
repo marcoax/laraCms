@@ -1,5 +1,5 @@
 <?php
-namespace App\laraCms\Website\Repos\Article;
+namespace App\LaraCms\Website\Repos\Article;
 /**
  * Created by PhpStorm.
  * User: Marco Asperti
@@ -7,7 +7,7 @@ namespace App\laraCms\Website\Repos\Article;
  * Time: 10:58
  */
 use App\Article;
-use App\laraCms\Website\Repos\DbRepository;
+use App\LaraCms\Website\Repos\DbRepository;
 class DbArticleRepository extends DbRepository implements ArticleRepositoryInterface
 {
 

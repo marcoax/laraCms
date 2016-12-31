@@ -23,13 +23,14 @@ class Setting extends Model
     {
         // build array of field specifications
         $this->fieldspec['id'] = [
-            'type' => 'integer',
-            'pkey' => 'y',
-            'label' => 'Id',
-            'hidden' => '1',
-            'display' => '0',
+            'type'     => 'integer',
+            'minvalue' => 0,
+            'pkey'     => 'y',
+            'required' =>true,
+            'label'    => 'id',
+            'hidden'   => '1',
+            'display'  => '0',
         ];
-
         $this->fieldspec['domain'] = [
             'type' => 'integer',
             'required' => 0,
@@ -38,20 +39,18 @@ class Setting extends Model
             'extraMsg' => '',
             'display' => 1,
         ];
-
         $this->fieldspec['key'] = [
             'type' => 'integer',
-            'required' => 1,
+            'required' =>true,
             'hidden' => '0',
-            'required' => true,
+            'required' =>true,
             'label' => 'Key',
             'extraMsg' => '',
             'display' => '1',
         ];
-
         $this->fieldspec['value'] = [
             'type' => 'string',
-            'required' => true,
+            'required' =>true,
             'hidden' => '0',
             'label' => 'Value',
             'extraMsg' => '',
@@ -68,8 +67,6 @@ class Setting extends Model
             'cssClass' => '',
             'display' => 1,
         ];
-
-
         return $this->fieldspec;
     }
 }
