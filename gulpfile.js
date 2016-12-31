@@ -1,4 +1,6 @@
-var elixir = require('laravel-elixir');
+const elixir = require('laravel-elixir');
+
+require('laravel-elixir-vue');
 
 /*
  |--------------------------------------------------------------------------
@@ -10,12 +12,8 @@ var elixir = require('laravel-elixir');
  | file for our application, as well as publishing vendor resources.
  |
  */
-elixir(function(mix) {
-    mix.sass([
-        'override.scss',
-        'ma_helper.scss',
-        'header_default.scss',
-        'app.scss'
-    ],'public/website/css/app.css');
-    mix.browserSync();
-})
+
+elixir(mix => {
+    mix.sass('app.scss')
+       .webpack('app.js');
+});

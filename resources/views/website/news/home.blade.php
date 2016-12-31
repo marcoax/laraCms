@@ -13,8 +13,7 @@
                             <div >
                                 <div class="mediaholder">
                                     <a href="news/{{ $post->slug }}">
-                                    <img src="{!! ma_get_image_on_the_fly_cached($post->image,720,500  ,'jpg') !!}"
-                                         alt="{{ $post->title }}" border="0" class="img-responsive-100">
+                                        <img src="{!! ImgHelper::get($post->image, config('laraCms.image.defaults')) !!}" alt="{{ $post->title }}" border="0" class="img-responsive-100">
                                     </a>
                                 </div>
                                 <div class="mv5">
@@ -22,8 +21,9 @@
                                 </div>
                                 <div class="media-body">
                                     <h4 class="mv5 color-main"> {{ $post->title }}</h4>
-                                    <div>{!! $post->description !!}</div>
+                                    {!! str_limit( $post->description, 450 )  !!}
                                 </div>
+                                <a href="news/{{ $post->slug }}" class="read-more mb5">{!! trans('website.read_more') !!}</a>
                             </div>
                         </div><!--/news -->
                     @endforeach

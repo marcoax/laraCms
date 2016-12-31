@@ -1,0 +1,36 @@
+/***********  mappa  ******************/
+
+.map {
+  width: 100%;
+  height: 600px;
+  border-top: solid 1px #eee;
+  border-bottom: solid 1px #eee;
+}
+
+.gm-style-iw {
+  /*overflow: inherit !important;*/
+}
+
+.info-title {
+  width: 250px;
+}
+
+#contact-layer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  vertical-align: middle;
+  display: table-cell;
+  padding: 10% 0px 0px 0px;
+  line-height: 4em;
+}
+
+.showMap {
+  position: absolute;
+  z-index: 3;
+  top: 20px;
+  right: 20px;
+}

@@ -16,7 +16,7 @@
     <div class="form-group">
         <div class="col-md-4 col-lg-offset-4">
             <label class="control-label">Password </label>
-            <input type="password " class="form-control" name="password" value="" autocomplete="off">
+            <input type="password"  class="form-control" name="password" value="" autocomplete="off">
 
         </div>
     </div>
@@ -35,8 +35,8 @@
             <button type="submit" class="btn btn-default active btn-block mb15" style="margin-right: 15px;">
                 Login
             </button>
-            <a class="pull-right" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '/users/register/' ) ) }}">{{ trans('message.new_user') }} </a>
-            <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '/password/email/' ) ) }}">{{ trans('message.password_forgot_your') }} </a>
+            <a class="pull-right" href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '/register' ) ) }}">{{ trans('message.new_user') }} </a>
+            <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( '/password/reset' ) ) }}">{{ trans('message.password_forgot_your') }} </a>
 
 
         </div>

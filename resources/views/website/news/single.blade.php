@@ -22,6 +22,12 @@
                             </div>
                         @endif
                         @include('website.partials.tag')
+
+                        @include('website.news.news_share')
+
+
+
+
                         @foreach (  $news->media->where('collection_name','images','=')->all() as $media)
                             <div class="media mb15 pb15 border-bottom-color-5">
 

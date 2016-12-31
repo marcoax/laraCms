@@ -15,5 +15,5 @@ return [
 
     'failed' => 'Nessun Record trovato con le tue  credenziali.',
     'throttle' => 'Troppi tentativi di login attendi :seconds secondi.',
-
+    'unauthorized' => 'Questo account è stato disabilitato.',
 ];

@@ -1,0 +1,37 @@
+/*******************************  FLEX *********************/
+
+html,
+body {
+  height: 100%;
+}
+
+.row-flex,
+.row-flex > div[class*='col-'] {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.row-flex-wrap {
+  -webkit-flex-flow: row wrap;
+  -ms-flex-line-pack: start;
+  align-content: flex-start;
+  -ms-flex: 0;
+  flex: 0;
+}
+
+.container-flex > div[class*='col-'] div,
+.row-flex > div[class*='col-'] div {
+  width: 100%;
+}
+
+.flex-col {
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-flex;
+  -ms-flex: 1 100%;
+  flex: 1 100%;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+}

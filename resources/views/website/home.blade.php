@@ -8,8 +8,8 @@
         <div class="container">
             <div class="row mb0">
                 <div class="col-sm-12 text-center ">
-                    <h1 class="color-4 mv20 wow bounceInRight smally">Design Studio in Milan</h1>
-                    <h2 class=" mt5 mb25 text-uppercase color-main wow bounceInLeft">Creolo</h2>
+                    <h1 class="color-4 mv20 wow bounceInRight smally">{!! $article->subtitle !!}</h1>
+                    <h2 class=" mt5 mb25 text-uppercase color-main wow bounceInLeft">{!! $article->title !!}</h2>
                 </div>
                 @include('website.partials.pagecontent',['page' => $pages->where('slug','=','about')->first()])
             </div><!-- /row -->

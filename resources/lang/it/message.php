@@ -12,12 +12,17 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+
     'new_user' =>'Crea nuovo account?',
     'password_confirm' =>'Conferma Password',
     'password_sent_reset_link'  => 'Invia Link per reset password',
+    'password_reset'  => 'Reset password',
     'password_forgot_your' =>'Password dimenticata?',
     'password_forgot' =>'Password dimenticata',
+    'register_account' => 'Crea nuovo account',
+    'register' => 'Registrati',
     'remember_me' =>'Ricordami',
-    'register_account' => 'Registrati.',
+
     'throttle' => 'Troppi tentativi di login attendi :seconds secondi.'
+
 ];

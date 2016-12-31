@@ -1,0 +1,26 @@
+/******************* BOX   NEWS letter   ************/
+
+#newsletter .control-label {
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+#newsletter input {
+  border: 1px solid #B79A48;
+  height: 35px;
+}
+
+.btn.btn-newslwtter {
+  background-color: $back-color-1;
+  border-color: $back-color-1;
+  color: $third-color;
+  border: 0px;
+  border-radius: 0px;
+  height: 35px;
+}
+
+.btn.btn-newslwtter:hover {
+  background-color: $back-color-1;
+  border-color: $third-color;
+  color: $third-color;
+}

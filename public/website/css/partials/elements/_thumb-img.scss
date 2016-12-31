@@ -1,0 +1,161 @@
+/*******************************     THUMBNAIL        *******************************/
+
+.thumbnail {
+  background-color: #fff;
+  border: 0px solid #ddd;
+  border-radius: 0px;
+  display: block;
+  line-height: 1.42857;
+  margin-bottom: 10px;
+  padding: 0px;
+  transition: border 0.2s ease-in-out 0s;
+}
+
+.thumbnail .caption {
+  text-align: left;
+  padding: 10px;
+  min-height: 55px;
+}
+
+.caption-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(22, 193, 143, 0.7);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #fff !important;
+  z-index: 2;
+  filter: alpha(opacity=0);
+  -webkit-backface-visibility: hidden;
+  transition: all 0.4s ease-in-out;
+  transform: scale(0);
+  padding: 52% 40%;
+}
+
+.box-image {
+  position: relative;
+}
+
+.box-image:hover .caption-image {
+  opacity: 0.8;
+  transform: scale(1);
+  filter: alpha(opacity=50);
+}
+
+.abs-footer-box {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  margin: 0px;
+  right: 15px;
+}
+
+.product-gallery:hover img {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  /* For IE8 and earlier */
+  background: red;
+}
+
+.product-gallery .caption,
+.servizi-gallery .caption {
+  text-align: left;
+  padding: 10px 25px 5px 25px;
+  min-height: 80px;
+}
+
+.product-gallery .zoom-image {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #fff !important;
+  z-index: 2;
+  filter: alpha(opacity=0);
+  -webkit-backface-visibility: hidden;
+  transition: all 0.4s ease-in-out;
+  transform: scale(0);
+  opacity: 0.6;
+  top: 29%;
+  bottom: 0px;
+  filter: alpha(opacity=60);
+  /* For IE8 and earlier */
+}
+
+.product-gallery:hover .zoom-image {
+  opacity: 0.9;
+  transform: scale(1);
+  filter: alpha(opacity=90);
+}
+
+.item-badge {
+  padding-top: 40px;
+}
+
+.box-badge {
+  padding-top: 40px;
+}
+
+.box-badge img {
+  margin-top: -80px;
+}
+
+/*Fancybox
+ ------------------------------------*/
+
+/*For Topbar*/
+
+.fancybox-overlay.fancybox-overlay-fixed {
+  z-index: 9999;
+}
+
+/*FancyBox Hover Effect*/
+
+.zoomer:hover .overlay-zoom .zoom-icon {
+  opacity: 0.6;
+  transform: scale(1);
+  filter: alpha(opacity=50);
+}
+
+.overlay-zoom {
+  z-index: 90;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.1s ease-in-out;
+}
+
+.overlay-zoom .zoom-icon {
+  top: 0;
+  opacity: 0;
+  z-index: 100;
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  background-color: #000;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background: rgba(9, 147, 187, 0.75);
+  filter: alpha(opacity=0);
+  -webkit-backface-visibility: hidden;
+  transition: all 0.4s ease-in-out;
+  transform: scale(0);
+  left: 0;
+  right: 0;
+  padding: 24% 44%;
+}
+
+.team-gallery .overlay-zoom .zoom-icon {
+  padding: 48% 43%;
+}
+
+@media (max-width: 768px) {
+  .fancybox-overlay {
+    background: none !important;
+  }
+}

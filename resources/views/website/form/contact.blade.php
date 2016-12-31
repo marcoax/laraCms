@@ -6,7 +6,7 @@
             </div>
             <div class="container col-sm-6 col-sm-offset-3  pt15">@include('flash::notification')</div>
             <div class="clearfix"></div>
-            {{ Form::open(array('action' => '\App\laraCms\Website\Controllers\FormsController@getContactUsForm')) }}
+            {{ Form::open(array('action' => '\App\LaraCms\Website\Controllers\WebsiteFormController@getContactUsForm')) }}
                 <div class="col-sm-12">
                     <div class="color-3 text-center mb15 wow bounceInUp animated">{!! trans('website.message.required_field') !!}</div>
                 </div>
@@ -26,6 +26,11 @@
                     {{ $errors->first('surname') }}
                 </div>
                 <div class="form-group col-sm-6 col-sm-offset-3">
+                    {{ Form::label('company',trans('website.company').'*') }}
+                    <span class="block ">{{ Form::text('company', null,  ['class' => 'form-control']) }}</span>
+                    {{ $errors->first('company') }}
+                </div>
+                <div class="form-group col-sm-6 col-sm-offset-3">
                     {{ Form::label('subject', trans('website.subject').'*') }}
                     <span class="block ">{{ Form::text('subject', null,  ['class' => 'form-control']) }}</span>
                     {{ $errors->first('subject') }}
@@ -41,7 +46,7 @@
                     <span class="block ">{{ $errors->first('privacy') }}</span>
                 </div>
                 <div class="form-group col-sm-6 col-sm-offset-3 ">
-                    {{ Form::submit(trans('website.send'), array('class' => 'btn btn-lg btn-default active btn-block mb0')) }}
+                    {{ Form::submit(trans('website.send'), array('class' => 'btn btn-lg btn-primary btn-block mb0')) }}
                 </div>
             {{ Form::close() }}
         </div>

@@ -1,0 +1,140 @@
+
+
+.btn {
+  font-weight: 600;
+  border: 2px solid transparent;
+  padding: 11px 17px;
+  font-size: 13px;
+  line-height: 13px;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 3px;
+  transition: all .1s ease;
+  color: #333;
+
+  &:hover,&.focus,&:active,&.active {
+    color: #fff;
+    border-color: #ea623d;
+    text-decoration: none;
+    outline: none;
+    outline: 0;
+    background-image: none;
+    box-shadow: none;
+  }
+  &.btn-icon {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+    border: 0px;
+    color: #fff;
+  }
+
+  &.btn-sm {
+    font-weight: 400;
+    padding: 6px 11px;
+    font-size: 11px;
+    line-height: 12px;
+    border-radius: 3px;
+  }
+
+  &.btn-lg {
+    border-width: 5px;
+    line-height: 1.35;
+    padding: 7px 16px;
+  }
+  &.with-icon {
+    margin: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 39px;
+  }
+
+  &.btn-warning {
+    background-color: #FFFFFF;
+    border-color: $secondary-color;
+    color: $secondary-color;
+    &:hover,
+    &.active,
+    &.active,
+    &:focus {
+      background-color: $secondary-color;
+      border-color: #fff;
+      color: #fff;
+    }
+  }
+  &.btn-xs-full {
+    @include breakpoint-down(sm) {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+    }
+
+  }
+
+}
+
+.btn.disabled,.btn[disabled],fieldset[disabled] .btn {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: .65;
+  filter: alpha(opacity=65);
+  box-shadow: none;
+}
+
+
+
+.btn-default {
+  background-color:  $third-color;
+  border-color: $secondary-color;
+  color: $secondary-color;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active {
+  color: $third-color ;
+  border-color: $secondary-color;
+  background: $secondary-color;
+}
+
+.btn-default.active.focus,
+.btn-default.active:focus,
+.btn-default.active:hover,
+.open > .dropdown-toggle.btn-default.focus,
+.open > .dropdown-toggle.btn-default:focus,
+.open > .dropdown-toggle.btn-default:hover {
+  color: $third-color ;
+  border-color: $third-color;
+  background: $secondary-color;
+}
+
+.btn-primary {
+  background-color: $secondary-color;
+  border-color: $secondary-color;
+  color: $third-color ;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  background-color: $secondary-color;
+  border-color: $third-color;
+  color: $third-color ;
+
+}
+
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+  background-color: $secondary-color;
+  border-color: $third-color;
+  color: $third-color ;
+}

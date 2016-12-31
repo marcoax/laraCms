@@ -4,7 +4,6 @@ var curItem;
 
 var Cms = function () {
 
-
     function handleBootstrap() {
         /*Bootstrap Carousel*/
         /*
@@ -14,17 +13,9 @@ var Cms = function () {
          });
          */
 
-
-        /*Tooltips*/
-
-        jQuery('.tooltips,*[rel=tooltip]').tooltip();
-        jQuery('.tooltips-show').tooltip('show');
-        jQuery('.tooltips-hide').tooltip('hide');
-        jQuery('.tooltips-toggle').tooltip('toggle');
-        jQuery('.tooltips-destroy').tooltip('destroy');
+        $('[data-toggle="tooltip"]').tooltip();
 
         /*Popovers*/
-
         jQuery('.popovers').popover();
         jQuery('.popovers-show').popover('show');
         jQuery('.popovers-hide').popover('hide');
@@ -178,6 +169,25 @@ var Cms = function () {
         });
     }
 
+	$("#sidebar").mCustomScrollbar({
+		theme: "minimal",
+		scrollInertia: 200
+	});
+
+	var sidebar_compressed = localStorage.sidebar_compressed == 'true';
+
+	if (sidebar_compressed) {
+		$('#sidebar').addClass('compressed');
+		$('body').addClass('expanded');
+	}
+
+	$('#sidebar-button').click(function() {
+		$('#sidebar').toggleClass('compressed');
+		$('body').toggleClass('expanded');
+		sidebar_compressed = !sidebar_compressed;
+		localStorage.setItem('sidebar_compressed', sidebar_compressed);
+	});
+
 
     return {
         init: function () {
@@ -247,8 +257,6 @@ var Cms = function () {
         },
 
     }
-
-
 }();
 
 

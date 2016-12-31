@@ -1,0 +1,47 @@
+
+
+div.cookie_notice[role="status"] {
+	display: none;
+	position: fixed;
+	left: 0px;
+	z-index: 100000;
+	background: #52565a none repeat scroll 0 0;
+	bottom:0px;
+	-webkit-filter: none;
+    filter: none;
+
+}
+
+div[role="status"] {
+	box-sizing: border-box;
+	color: #FFFFFF;
+	padding: 10px 32px;
+	position: relative;
+	text-align: center;
+	width: 100%;
+}
+div[role="status"] a {
+	color: #ffffff;
+	sdisplay: block;
+	font-weight:bold;
+}
+
+div[role="status"] .closer {
+	cursor: pointer;
+	padding: 5px;
+	position: absolute;
+	right: 10px;
+	top: 0;
+	color: white !important;
+}
+
+/* Extra Small */
+@media (max-width: 767px) {
+	div.cookie_notice[role="status"] {
+        margin-top:0px;
+		position: relative;
+	}
+}
+
+
+	

@@ -3,7 +3,7 @@
         <li id="box_media_{!! $media->id!!}" class="thumbnail pf10 mb14">
 
             <div class="pull-right">
-                <a href="#" data-toggle="modal">{!! trans('admin.label.edit')!!}</a> -
+                <a href="{{  ma_get_admin_editmodal_url($media) }}" data-toggle="modal"    data-target="#myModal">{!! trans('admin.label.edit')!!}</a> -
                 <a href=" {!!   ma_get_doc_from_repository($media->file_name) !!}" class="red" target="_new">{!! trans('admin.label.view')!!}</a> -
                 <a href="#" class="red" onclick="deleteItem(this);return false" id="delete_media_{!! $media->id!!}">{!! trans('admin.label.delete')!!}</a>
             </div>

@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en-US">
-    <head>
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <p>
-            {{ trans('website.mail_message.subscribe_newsletter_subject') }}
-            <br>
-            <li>Email: <strong>{{ $email }}</strong></li>
-        </p>
-    </body>
-</html>
+@extends('emails.master')
+@section('content')
+    <p>
+    {{ trans('website.mail_message.subscribe_newsletter_subject') }}
+    <br>
+    {{ trans('website.email')}}: <strong>{{ $email }}</strong>
+    </p>
+@endsection

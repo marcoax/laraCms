@@ -1,0 +1,11 @@
+/* ====== ELEMENTS ======= */
+
+.socialIcons > li:hover .fa {
+  text-decoration: none;
+  color: #000000 !important;
+}
+
+.socialIcons > li:hover .fa-inverse {
+  text-decoration: none;
+  color: #ffffff !important;
+}

@@ -1,9 +1,7 @@
 /**
- * Created by Marco Asperti on 24/12/2015.
+ * Created by Marco Asperti for laraCms on 24/12/2015.
  * for laraCms
  */
-
-
 
 var App = function () {
 
@@ -31,19 +29,7 @@ var App = function () {
         jQuery('.popovers-destroy').popover('destroy');
     }
 
-    function handleSearch() {
-        jQuery('.search').click(function () {
-            if(jQuery('.search-btn').hasClass('fa-search')){
-                jQuery('.search-open').fadeIn(500);
-                jQuery('.search-btn').removeClass('fa-search');
-                jQuery('.search-btn').addClass('fa-times');
-            } else {
-                jQuery('.search-open').fadeOut(500);
-                jQuery('.search-btn').addClass('fa-search');
-                jQuery('.search-btn').removeClass('fa-times');
-            }
-        });
-    }
+
 
     function handleToggle() {
         jQuery('.list-toggle').on('click', function() {
@@ -142,7 +128,6 @@ var App = function () {
     return {
         init: function () {
             handleBootstrap();
-            handleSearch();
             handleToggle();
             handleHeader();
             hideTopBar();
@@ -191,6 +176,9 @@ var App = function () {
 
         },
         initFancybox: function () {
+
+
+
             jQuery(".fancybox-button").fancybox({
                 groupAttr: 'data-rel',
                 prevEffect: 'none',
@@ -216,16 +204,19 @@ var App = function () {
             });
         },
 
-        initCounter: function () {
-            jQuery('.counter').counterUp({
-                delay: 10,
-                time: 1000
+
+        initColorBox: function () {
+
+            $(".lightbox").colorbox({
+                rel: '.lightbox',
+                maxHeight:'90%',
+                maxWidth:'95%',
+                width:'550px',
+                height:'550px'
             });
         },
 
-        initParallaxBg: function () {
-            jQuery('.parallaxBg').parallax("50%", 0.2);
-        },
+
 
         initIsotope: function () {
             var $container = $('.isotope').isotope({
@@ -297,7 +288,6 @@ var App = function () {
 function scrollToAnchor(aid){
     window.location.hash = '#'+aid;
 }
-
 
 /******************************** MODAL ************************/
 

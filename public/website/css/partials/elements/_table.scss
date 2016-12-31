@@ -1,0 +1,20 @@
+/*******************************    TABLE CONTENT     *******************************/
+
+.table-content {
+  display: table;
+  width: 100%;
+  margin: 0;
+}
+
+.table-row {
+  display: table-row;
+}
+
+.table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.table-cell * {
+  margin: 0;
+}
