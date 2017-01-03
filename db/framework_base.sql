@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dic 31, 2016 alle 14:20
+-- Generation Time: Gen 03, 2017 alle 11:28
 -- Versione del server: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -46,25 +46,6 @@ CREATE TABLE IF NOT EXISTS `adminusers` (
 
 INSERT INTO `adminusers` (`id`, `first_name`, `last_name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
 (3, 'LaraCms', 'Admin', 'admin@laracms.com', '$2y$10$0WWXSvFC0/7iM3uleFf6P.Ap08AR9H5TYW4kJbKLSctDY2mDMkG..', 'laracmsadmin', 'c010weCPpLcyZnM9WD3R170oPHIfCwDydZq5hlmujK3bawutTLfD5xqLOnIa', '0000-00-00 00:00:00', '2016-12-31 11:46:50', 1);
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `adminuser_role`
---
-
-DROP TABLE IF EXISTS `adminuser_role`;
-CREATE TABLE IF NOT EXISTS `adminuser_role` (
-  `user_id` int(10) unsigned NOT NULL,
-  `role_id` int(10) unsigned NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dump dei dati per la tabella `adminuser_role`
---
-
-INSERT INTO `adminuser_role` (`user_id`, `role_id`) VALUES
-(3, 1);
 
 -- --------------------------------------------------------
 
@@ -891,16 +872,7 @@ CREATE TABLE IF NOT EXISTS `newsletters` (
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dump dei dati per la tabella `newsletters`
---
-
-INSERT INTO `newsletters` (`id`, `name`, `email`, `sort`, `pub`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, '', 'jashan@tiscali.it', 0, 1, 0, '2016-07-07 06:45:55', '2016-07-07 06:45:55'),
-(2, '', 'marcoasperti@gmail.com', 0, 1, 0, '2016-12-29 12:05:46', '2016-12-29 12:05:46'),
-(3, '', 'ginaschena@gmail.com', 0, 1, 0, '2016-12-29 14:19:28', '2016-12-29 14:19:28');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -972,14 +944,6 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dump dei dati per la tabella `password_resets`
---
-
-INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('guest@laraCms.com', '26f71308cc41a72ba2fb9e4843b86fc70131c0cdcd2ab476cb9fa52757e2d6c1', '2016-10-03 08:16:36'),
-('userslaracms@gmail.com', 'd5c71431c61612be0b097c35de5608c474baeb754f76717974c2389a03f8de9f', '2016-12-30 14:20:15');
 
 -- --------------------------------------------------------
 
@@ -1067,7 +1031,7 @@ CREATE TABLE IF NOT EXISTS `product_models` (
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1086,15 +1050,7 @@ CREATE TABLE IF NOT EXISTS `product_model_translations` (
   `update_by` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dump dei dati per la tabella `product_model_translations`
---
-
-INSERT INTO `product_model_translations` (`id`, `product_model_id`, `locale`, `title`, `description`, `created_by`, `update_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 'en', 'Titolo del modello', '', 0, 0, '2016-12-27 13:06:35', '2016-12-27 13:06:35'),
-(2, 1, 'it', 'titolo in italiano', '', 0, 0, '2016-12-27 14:06:48', '2016-12-27 13:06:48');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1311,13 +1267,6 @@ CREATE TABLE IF NOT EXISTS `role_adminuser` (
   `role_id` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dump dei dati per la tabella `role_adminuser`
---
-
-INSERT INTO `role_adminuser` (`user_id`, `role_id`) VALUES
-(3, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -1342,7 +1291,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 INSERT INTO `settings` (`id`, `key`, `value`, `description`, `domain`, `created_at`, `updated_at`) VALUES
 (1, 'GA_CODE', 'UA-', 'Codice  google  analitycs', 'GA', '2016-08-09 12:01:24', '2016-08-09 12:28:06'),
 (2, 'credits_url', 'http://www.laracms.com', 'url credits', 'webiste', '2016-08-09 12:29:05', '2016-12-29 14:35:06'),
-(3, 'GA_MAP_API_KEY', 'AIzaSyAp6eZk_5tgJaw4KSfWeP-ibwrHKB7xALk', 'Google maps apy key', 'GA', '2016-12-27 17:28:54', '2016-12-29 09:24:44');
+(3, 'GA_MAP_API_KEY', '', 'Google maps apy key', 'GA', '2016-12-27 17:28:54', '2016-12-29 09:24:44');
 
 -- --------------------------------------------------------
 
@@ -1487,14 +1436,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(4) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dump dei dati per la tabella `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
-(3, 'Demo user', 'userslaracms@gmail.com', '$2y$10$5fPEMKRgxe8Sj9RGqMcoU.XYL4W7UVIQwuXxv8IYKBozZyt08XyVK', '123456', 'ypbhZm97o6I2qcXtYW097mfNTIFsm0PdDwK1OJdTa6eLaovdBjg7TkgM2wry', '2016-01-23 17:52:48', '2016-12-31 11:48:20', 1);
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -1505,12 +1447,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `real_password`, `rememb
 --
 ALTER TABLE `adminusers`
   ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- Indexes for table `adminuser_role`
---
-ALTER TABLE `adminuser_role`
-  ADD PRIMARY KEY (`user_id`,`role_id`), ADD KEY `adminuser_role_role_id_foreign` (`role_id`);
 
 --
 -- Indexes for table `articles`
@@ -1793,7 +1729,7 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `newsletters`
 --
 ALTER TABLE `newsletters`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `news_translations`
 --
@@ -1813,12 +1749,12 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_models`
 --
 ALTER TABLE `product_models`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `product_model_translations`
 --
 ALTER TABLE `product_model_translations`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `product_translations`
 --
@@ -1863,17 +1799,10 @@ ALTER TABLE `tag_translations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Limiti per le tabelle scaricate
 --
-
---
--- Limiti per la tabella `adminuser_role`
---
-ALTER TABLE `adminuser_role`
-ADD CONSTRAINT `adminuser_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `adminuser_role_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `adminusers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `article_translations`
