@@ -8,7 +8,7 @@ simple laravel 5.3 cms with twitter bootstrap
  - run composer install
  - create db tables importing the laraCms.sql file located under the db folder
  - to login in the admin panel (http://yourpath/admin)
-   - email: admin@laracms.com
+   - email: laracmsdummy@gmail.com
    - password: laracmsadmin
   
 License
