@@ -1,15 +1,15 @@
 # laraCms
 simple laravel 5.3 cms with twitter bootstrap
 
-### Install
+### How to Install
  
  - copy files in your local directory
  - rename env.example to .env file and set your db connection data
- - run Php artisan migrate
- - from phpMyadmin  import  laraCms.sql file located  under  the  db folder
- - login in the  admin (http://localhost/laraCms/admin)
-    - email : adminlaracms@gmail.com
-   - password: laracms
+ - run composer instal
+ - create db tables importing the laraCms.sql file located under the db folder
+ - to login in the admin panel (http://localhost/laraCms/admin)
+   - email: admin@laracms.com
+   - password: laracmsadmin
   
 License
 =======
