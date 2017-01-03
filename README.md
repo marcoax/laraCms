@@ -1,4 +1,4 @@
-# laraCms
+# laraCms V 0.53
 simple laravel 5.3 cms with twitter bootstrap
 
 ### How to Install
