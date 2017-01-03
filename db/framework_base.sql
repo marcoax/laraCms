@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `adminusers` (
 --
 
 INSERT INTO `adminusers` (`id`, `first_name`, `last_name`, `email`, `password`, `real_password`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
-(3, 'LaraCms', 'Admin', 'admin@laracms.com', '$2y$10$0WWXSvFC0/7iM3uleFf6P.Ap08AR9H5TYW4kJbKLSctDY2mDMkG..', 'laracmsadmin', 'c010weCPpLcyZnM9WD3R170oPHIfCwDydZq5hlmujK3bawutTLfD5xqLOnIa', '0000-00-00 00:00:00', '2016-12-31 11:46:50', 1);
+(3, 'LaraCms', 'Admin', 'laracmsdummy@gmail.com', '$2y$10$0WWXSvFC0/7iM3uleFf6P.Ap08AR9H5TYW4kJbKLSctDY2mDMkG..', 'laracmsadmin', 'c010weCPpLcyZnM9WD3R170oPHIfCwDydZq5hlmujK3bawutTLfD5xqLOnIa', '0000-00-00 00:00:00', '2016-12-31 11:46:50', 1);
 
 -- --------------------------------------------------------
 
